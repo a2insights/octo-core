@@ -1,0 +1,44 @@
+{
+    "name": "atiladanvi/octo",
+    "description": "This is a part of octo system",
+    "keywords": [
+        "octo"
+    ],
+    "homepage": "https://github.com/atiladanvi/octo",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Atila Silva",
+            "email": "atila.danvi@outlook.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5",
+        "illuminate/support": "^5.8 || ^6.0 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Octo\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Octo\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Octo\\OctoServiceProvider"
+            ]
+        }
+    }
+}
