@@ -2,7 +2,7 @@
 
 namespace Octo\Tests;
 
-abstract  class TestCase extends  \Orchestra\Testbench\TestCase
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     protected function setUp(): void
     {
@@ -15,6 +15,6 @@ abstract  class TestCase extends  \Orchestra\Testbench\TestCase
             \Dotenv\Dotenv::createImmutable(__DIR__ . '../..' )->load();
         }
 
-        $app['config']->set();
+        $app['config']->set([]);
     }
 }
