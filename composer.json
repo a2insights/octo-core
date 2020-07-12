@@ -1,10 +1,10 @@
 {
-    "name": "atiladanvi/octo",
+    "name": "a2ensite/octo-core",
     "description": "This is a part of octo system",
     "keywords": [
         "octo"
     ],
-    "homepage": "https://github.com/atiladanvi/octo",
+    "homepage": "https://github.com/a2ensite/octo-core",
     "license": "MIT",
     "type": "library",
     "authors": [
