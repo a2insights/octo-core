@@ -4,8 +4,10 @@ namespace Octo;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Octo\Resources\Navigation\View\Components\NavMaterial;
-use Octo\Resources\Navigation\View\Components\SidebarMaterial;
+use Octo\Resources\Navigation\NavMaterial;
+use Octo\Resources\Navigation\SidebarMaterial;
+use Octo\Resources\Components\CardMaterial;
+use Octo\Resources\Components\CounterMaterial;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -18,8 +20,12 @@ class OctoServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/views' , 'octo');
 
         Blade::component('octo-nav-material', NavMaterial::class);
-        
+
         Blade::component('octo-sidebar-material', SidebarMaterial::class);
+
+        Blade::component('octo-card-material', CardMaterial::class);
+
+        Blade::component('octo-counter-material', CounterMaterial::class);
 
         Blade::directive('notify_render', function () {
             return "<?php echo app('notify')->render(); ?>";

@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Navigation\View\Components;
+namespace Octo\Resources\Navigation;
 
 use Illuminate\View\Component;
 

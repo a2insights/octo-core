@@ -9,6 +9,6 @@
                     </a>
                 </li>
             @endempty
-        @endforeach    
+        @endforeach
     </ul>
 </div>
