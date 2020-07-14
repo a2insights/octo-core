@@ -4,8 +4,8 @@ namespace Octo;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Octo\Resources\Navigation\NavMaterial;
-use Octo\Resources\Navigation\SidebarMaterial;
+use Octo\Resources\Components\NavMaterial;
+use Octo\Resources\Components\SidebarMaterial;
 use Octo\Resources\Components\CardMaterial;
 use Octo\Resources\Components\CounterMaterial;
 
