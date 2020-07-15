@@ -8,6 +8,7 @@ use Octo\Resources\Components\NavMaterial;
 use Octo\Resources\Components\SidebarMaterial;
 use Octo\Resources\Components\CardMaterial;
 use Octo\Resources\Components\CounterMaterial;
+use Octo\Resources\Components\TableComponent;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,8 @@ class OctoServiceProvider extends ServiceProvider
         ], 'octo/config');
 
         $this->loadViewsFrom(__DIR__.'/views' , 'octo');
+
+        Blade::component('octo-table', TableComponent::class);
 
         Blade::component('octo-nav-material', NavMaterial::class);
 
