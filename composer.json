@@ -16,8 +16,8 @@
     ],
     "require": {
         "php": "^7.2",
-        "hieu-le/active": "^7.0",
-        "illuminate/support": "^5.8 || ^6.0 || ^7.0",
+        "hieu-le/active": "^8.0",
+        "illuminate/support": "^5.8 || ^6.0 || ^7.0 || ^8.0",
         "yoeunes/notify": "^1.0"
     },
     "require-dev": {
