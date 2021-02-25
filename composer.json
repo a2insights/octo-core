@@ -16,12 +16,12 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "blade-ui-kit/blade-heroicons": "^0.3.1",
-        "blade-ui-kit/blade-icons": "^0.5.1",
-        "blade-ui-kit/blade-zondicons": "^0.2.0",
-        "hieu-le/active": "^8.0.0",
         "illuminate/support": "^8.0",
-        "yoeunes/notify": "^1.0"
+        "blade-ui-kit/blade-heroicons": "^0.3",
+        "blade-ui-kit/blade-icons": "^0.5",
+        "blade-ui-kit/blade-zondicons": "^0.2",
+        "hieu-le/active": "^8.0"
+
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",

@@ -10,7 +10,6 @@ use Octo\Resources\Components\CardMaterial;
 use Octo\Resources\Components\CounterMaterial;
 use Octo\Resources\Components\TableComponent;
 use Octo\Resources\Components\tailwind\NavTailwind;
-use BladeUI\Icons\Svg;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -33,18 +32,6 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo-counter-material', CounterMaterial::class);
 
         Blade::component('octo-tailwind-sidebar', NavTailwind::class);
-
-        Blade::directive('notify_render', function () {
-            return "<?php echo app('notify')->render(); ?>";
-        });
-
-        Blade::directive('notify_css', function () {
-            return '<?php echo notify_css(); ?>';
-        });
-
-        Blade::directive('notify_js', function () {
-            return '<?php echo notify_js(); ?>';
-        });
     }
 
     public function register()
