@@ -4,21 +4,18 @@ namespace Octo\Resources\Components\Traits;
 
 trait Navigation
 {
-    public $items;
-
-    public function __construct(array $items)
-    {
-        $this->items = json_decode(json_encode($items));
-    }
-
     public function isActive($item)
     {
-        return isset($item->route) && explode('.', $item->route)[0] === explode('.', request()->route()->getName())[0];
+        return isset($item['route']) ? if_route($item['route']) : false;
+    }
+
+    public function hasChildActive($item)
+    {
+        return isset($item['children']) ? if_route(collect($item['children'])->pluck('route')->toArray()) : false;
     }
 
     public function getUrl($item)
     {
-       return $item->url ?? route($item->route);
+        return $item['url'] ?? route($item['route']);
     }
-
 }
