@@ -1,11 +1,13 @@
 <?php
 
-namespace Octo\Resources\Components;
+namespace Octo\Resources\Components\material;
 
-use Illuminate\View\Component;
+use Octo\Resources\Components\Component;
 
 class CounterMaterial extends Component
 {
+    protected $view = 'octo::components.counter-material';
+
     public $title;
 
     public $stats;
@@ -31,12 +33,7 @@ class CounterMaterial extends Component
         $this->variant= $variant;
     }
 
-    public function render()
-    {
-        return view('octo::components.counter-material');
-    }
-
-    public function isStats()
+    public function isStats(): bool
     {
         return $this->stats !== '#';
     }

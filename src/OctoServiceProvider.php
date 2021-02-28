@@ -4,12 +4,11 @@ namespace Octo;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Octo\Resources\Components\NavMaterial;
-use Octo\Resources\Components\SidebarMaterial;
-use Octo\Resources\Components\CardMaterial;
-use Octo\Resources\Components\CounterMaterial;
-use Octo\Resources\Components\TableComponent;
-use Octo\Resources\Components\tailwind\NavTailwind;
+use Octo\Resources\Components\material\CardMaterial;
+use Octo\Resources\Components\material\CounterMaterial;
+use Octo\Resources\Components\material\NavMaterial;
+use Octo\Resources\Components\material\SidebarMaterial;
+use Octo\Resources\Components\tailwind\SidebarTailwind;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -21,17 +20,15 @@ class OctoServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/views' , 'octo');
 
-        Blade::component('octo-table', TableComponent::class);
+        Blade::component('octo-material-nav', NavMaterial::class);
 
-        Blade::component('octo-nav-material', NavMaterial::class);
+        Blade::component('octo-material-sidebar', SidebarMaterial::class);
 
-        Blade::component('octo-sidebar-material', SidebarMaterial::class);
+        Blade::component('octo-material-card', CardMaterial::class);
 
-        Blade::component('octo-card-material', CardMaterial::class);
+        Blade::component('octo-material-counter', CounterMaterial::class);
 
-        Blade::component('octo-counter-material', CounterMaterial::class);
-
-        Blade::component('octo-tailwind-sidebar', NavTailwind::class);
+        Blade::component('octo-tailwind-sidebar', SidebarTailwind::class);
     }
 
     public function register()

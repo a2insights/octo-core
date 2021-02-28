@@ -2,9 +2,9 @@
 
 namespace Octo\Resources\Components\tailwind;
 
-use Octo\Resources\Components\Sidebar;
+use Octo\Resources\Components\Menu;
 
-class NavTailwind extends Sidebar
+class SidebarTailwind extends Menu
 {
     public $view = 'octo::components.tailwind.sidebar';
 }
