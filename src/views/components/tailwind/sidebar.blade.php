@@ -1,8 +1,8 @@
 <div @click.away="open = false" class="flex flex-col w-full md:w-64 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
     <div class="flex-shrink-0 h-16 px-4 py-4 flex flex-row items-center justify-between">
         <div class="flex-shrink-0 flex items-center">
-            <a class="mr-8" href="{{ route('dashboard') }}">
-                <x-jet-application-mark class="block h-9 w-auto" />
+            <a class="mr-2" href="{{ route('dashboard') }}">
+               <x-octo-application-mark class="block h-9 w-auto" />
             </a>
             <a href="{{ route('dashboard') }}" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">{{  config('app.name', 'Octo') }}</a>
         </div>
