@@ -95,6 +95,4 @@ trait ComponentsProvider
             Blade::component($directiveName, $namespace) :
             Blade::component("octo::$namespace.$component", $directiveName);
     }
-
-
 }
