@@ -6,7 +6,7 @@ use Octo\Resources\Components\Component;
 
 class CounterMaterial extends Component
 {
-    protected $view = 'octo::components.counter-material';
+    protected $view = 'octo::components.material.counter';
 
     public $title;
 

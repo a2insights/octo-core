@@ -6,7 +6,7 @@ use Octo\Resources\Components\Component;
 
 class CardMaterial extends Component
 {
-    public $view = 'octo::components.card-material';
+    public $view = 'octo::components.material.card';
 
     public $title;
 
