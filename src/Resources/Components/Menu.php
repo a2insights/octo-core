@@ -9,14 +9,27 @@ class Menu extends Component
 {
     use Navigation, Icon;
 
+    /**
+     * Menu items
+     *
+     * @var array|object
+     */
     public $items;
 
-    protected $props = ['items'];
-
+    /**
+     * The props who should be cast.
+     *
+     * @var array
+     */
     protected $casts = [
         'items' => 'objects'
     ];
 
+    /**
+     * Menu constructor.
+     *
+     * @param $items
+     */
     public function __construct($items)
     {
         $this->items = $items;

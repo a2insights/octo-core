@@ -69,6 +69,7 @@ trait Props
             throw new LogicException("Cast $key invalid");
         }
 
+        // Here we calling the cast method, but it's only a workarround
         return $this->{"castTo" . Str::Title($castType)}($key);
     }
 }

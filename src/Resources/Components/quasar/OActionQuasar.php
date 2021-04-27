@@ -8,6 +8,13 @@ class OActionQuasar
 
     private $disabled = false;
 
+    protected $actionsIcons = [
+        'download' => 'cloud_download',
+        'destroy' => 'delete_forever',
+        'show' => 'remove_red_eye',
+        'edit' => 'edit'
+    ];
+
     protected $route;
 
     private $icon;
@@ -71,21 +78,11 @@ class OActionQuasar
 
     public function getIcon()
     {
-        if (str_contains($this->route->name, 'edit')){
-            $this->icon = 'edit';
-        }
-
-        if (str_contains($this->route->name, 'destroy')){
-            $this->icon = 'delete_forever';
-        }
-
-        if (str_contains($this->route->name, 'show')){
-            $this->icon = 'remove_red_eye';
-        }
-
-        if (str_contains($this->route->name, 'download')){
-            $this->icon = 'cloud_download';
-        }
+        collect($this->actionsIcons)->each(function ($action, $key) {
+            if (str_contains($this->route->name, $key)){
+                $this->icon = $this->actionsIcons[$key];
+            }
+        });
 
         return $this->icon;
     }

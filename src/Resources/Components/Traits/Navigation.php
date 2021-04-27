@@ -12,7 +12,7 @@ trait Navigation
      */
     public function isActive($item): bool
     {
-        return isset($item->route) ? if_route($item->route) : false;
+        return isset($item->route) && if_route($item->route);
     }
 
     /**
@@ -23,7 +23,7 @@ trait Navigation
      */
     public function hasChildActive($item): bool
     {
-        return isset($item->children) ? if_route(collect($item->children)->pluck('route')->toArray()) : false;
+        return isset($item->children) && if_route(collect($item->children)->pluck('route')->toArray());
     }
 
     /**
