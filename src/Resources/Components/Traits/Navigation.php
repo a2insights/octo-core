@@ -12,7 +12,15 @@ trait Navigation
      */
     public function isActive($item): bool
     {
-        return isset($item->route) && if_route($item->route);
+        if (is_string($item['route'])){
+            return isset($item['route']) && if_route($item['route']) ?? true;
+        }
+
+        if (is_array($item['route'])){
+            return isset($item['route']['name']) && if_route($item['route']['name']) ?? true;
+        }
+
+        return false;
     }
 
     /**
@@ -23,7 +31,7 @@ trait Navigation
      */
     public function hasChildActive($item): bool
     {
-        return isset($item->children) && if_route(collect($item->children)->pluck('route')->toArray());
+        return isset($item['children']) && if_route(collect($item['children'])->pluck('route')->toArray());
     }
 
     /**
@@ -32,8 +40,12 @@ trait Navigation
      * @param $item
      * @return string
      */
-    public function getUrl($item): string
+    public function getUrl($item)
     {
-        return $item->url ?? route($item->route);
+        if (is_array($item['route'])){
+            return route($item['route']['name'], $item['route']['parameters'] ?? []);
+        }
+
+        return  $item['url'] ?? route($item['route']);
     }
 }

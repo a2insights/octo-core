@@ -17,15 +17,6 @@ class Menu extends Component
     public $items;
 
     /**
-     * The props who should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'items' => 'objects'
-    ];
-
-    /**
      * Menu constructor.
      *
      * @param $items

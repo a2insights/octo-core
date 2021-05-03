@@ -15,11 +15,11 @@
                     <button @click="open = !open ; window.location.replace('{{ $getUrl($item) }}')" class="w-full {{ ($isActive($item) xor $hasChildActive($item)) ? 'text-purple-500' : '' }} flex justify-between items-center py-3 px-6 text-gray-600 cursor-pointer hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                         <span class="flex items-center">
                             <span class="h-4 w-4">
-                                {{ $svg($item->icon) }}
+                                {{ $svg($item['icon']) }}
                             </span>
-                            <span class="mx-4 font-medium">{{ ($item->label)  }}</span>
+                            <span class="mx-4 font-medium">{{ $item['label']  }}</span>
                         </span>
-                        @isset($item->children)
+                        @isset($item['children'])
                             <span>
                                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path x-show="!open" d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"></path>
@@ -28,10 +28,10 @@
                             </span>
                         @endisset
                     </button>
-                    @isset($item->children)
+                    @isset($item['children'])
                         <div x-show="open" class="bg-gray-100">
-                            @foreach($item->children as $child)
-                                <a class="{{ $isActive($child) ? 'text-purple-500' : '' }} py-2 px-16 block text-sm text-gray-600 hover:bg-blue-500 hover:text-white" href="{{ $getUrl($child) }}">{{ $child->label }}</a>
+                            @foreach($item['children'] as $child)
+                                <a class="{{ $isActive($child) ? 'text-purple-500' : '' }} py-2 px-16 block text-sm text-gray-600 hover:bg-blue-500 hover:text-white" href="{{ $getUrl($child) }}">{{ $child['label'] }}</a>
                             @endforeach
                         </div>
                     @endisset
