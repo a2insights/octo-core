@@ -34,8 +34,8 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo::components.global.facebook-icon','facebook-icon');
         Blade::component('octo::components.global.facebook-icon','linked-in-icon');
         Blade::component('octo::components.global.google-icon','google-icon');
-        Blade::component('octo::components.global.twiter-icon','twiter-icon');
-        Blade::component('octo::components.global.socialstream','socialstream-providers');
+        Blade::component('octo::components.global.twitter-icon','twitter-icon');
+        Blade::component('octo::components.global.socialstream-providers','socialstream-providers');
 
         // Livewire
         Livewire::component('octo::guest-navigation-menu', GuestNavigationMenu::class);
