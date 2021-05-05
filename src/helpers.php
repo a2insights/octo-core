@@ -29,10 +29,10 @@ if (!function_exists('octo_action')) {
      *
      * @param $name
      * @param $params
-     * @return \Octo\Resources\Components\quasar\OActionQuasar
+     * @return \Octo\Resources\Components\Quasar\OActionQuasar
      */
     function octo_action($name, $params)
     {
-        return (new \Octo\Resources\Components\quasar\OActionQuasar(octo_route($name, $params)));
+        return (new \Octo\Resources\Components\Quasar\OActionQuasar(octo_route($name, $params)));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Components\quasar;
+namespace Octo\Resources\Components\Quasar;
 
 interface OAppFormQuasar
 {
