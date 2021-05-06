@@ -13,15 +13,11 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-        @livewireStyles
-        @laravelViewsStyles
-
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
-        <livewire:notifier/>
 
         <div class="min-h-screen bg-white">
             @livewire('navigation-menu')
@@ -41,11 +37,8 @@
             </main>
         </div>
 
-        @stack('modals')
-
+        @livewire('livewire-ui-modal')
         @livewireScripts
         @laravelViewsScripts
-        @livewire('livewire-ui-modal')
-        @livewireUIScripts
     </body>
 </html>

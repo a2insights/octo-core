@@ -4,15 +4,23 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <title>{{ config('app.name', 'Octo') }}</title>
+
+        <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
+        <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        @livewireStyles
+
+        <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-    <x-jet-banner />
-    <div class="md:flex flex-col md:flex-row md:min-h-screen w-full bg-gray-100">
+        <x-jet-banner />
+
+        <!-- Layount -->
+        <div class="md:flex flex-col md:flex-row md:min-h-screen w-full bg-gray-100">
         <x-octo-sidebar :items="$sidebar['items']">
             <div class="flex-shrink-0 py-3 border-gray-100 border-b flex justify-center">
                 <a class="mr-2" href="{{ route('home') }}">
@@ -34,7 +42,9 @@
             </main>
         </div>
     </div>
-    @stack('modals')
-    @livewireScripts
+
+        @livewire('livewire-ui-modal')
+        @livewireScripts
+        @laravelViewsScripts
     </body>
 </html>
