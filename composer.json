@@ -4,6 +4,7 @@
     "keywords": [
         "octo"
     ],
+    "minimum-stability": "dev-main",
     "homepage": "https://github.com/a2ensite/octo-core",
     "license": "MIT",
     "type": "library",
