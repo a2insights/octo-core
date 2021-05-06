@@ -5,7 +5,7 @@ namespace Octo\Resources\Components;
 use Octo\Resources\Components\Traits\Icon;
 use Octo\Resources\Components\Traits\Navigation;
 
-class Menu extends Component
+abstract class Menu extends Component
 {
     use Navigation, Icon;
 

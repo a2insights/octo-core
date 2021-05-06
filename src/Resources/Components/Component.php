@@ -3,12 +3,9 @@
 namespace Octo\Resources\Components;
 
 use Illuminate\View\Component as BaseComponent;
-use Octo\Resources\Components\Traits\Props;
 
 class Component extends BaseComponent
 {
-    use Props;
-
     /**
      * The view should be render.
      *
@@ -23,8 +20,6 @@ class Component extends BaseComponent
      */
     public function render()
     {
-        $this->castProps();
-
         return view($this->view);
     }
 }

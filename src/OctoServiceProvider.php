@@ -3,6 +3,7 @@
 namespace Octo;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Octo\Http\Livewire\GuestNavigationMenu;
@@ -13,8 +14,8 @@ class OctoServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/octo.php' => config_path('octo.php'),
-        ], 'octo/config');
+            __DIR__.'/../config/octo.php' => config_path('octo.php'),
+        ], 'octo-config');
 
         $this->loadViewsFrom(__DIR__.'/views' , 'octo');
 
@@ -41,12 +42,20 @@ class OctoServiceProvider extends ServiceProvider
 
         // Livewire
         Livewire::component('octo::guest-navigation-menu', GuestNavigationMenu::class);
+
+        // Share views data
+        View::share('sidebar',  ['items' => config('octo.navigation.sidebar')]);
+
+        // Configure commmands
+        $this->commands([
+            Console\InstallCommand::class,
+        ]);
     }
 
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/config/octo-core.php', 'octo-core'
+            __DIR__.'/../config/octo.php', 'octo'
         );
     }
 }

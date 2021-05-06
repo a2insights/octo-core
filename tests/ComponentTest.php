@@ -25,15 +25,6 @@ class ComponentTest extends TestCase
 
         $this->assertEquals(23, $properties['age']);
     }
-
-    public function testPropertiesCastsToObjects()
-    {
-        $component = new ComponentTestable('Laís', 27, $this->dataArray);
-
-        $properties = $component->data();
-
-        $this->assertEquals('Av. Pereira', $properties['address'][1]->rua);
-    }
 }
 
 class ComponentTestable extends Component
@@ -42,11 +33,6 @@ class ComponentTestable extends Component
     public $age;
     public $address;
 
-    protected $props = [
-        'name', 'age', 'address'
-    ];
-    protected $casts = ['address' => 'objects'];
-
     public $view = 'test';
 
     public function __construct($name, $age, $address)
@@ -54,6 +40,5 @@ class ComponentTestable extends Component
         $this->name = $name;
         $this->age = $age;
         $this->address = $address;
-        $this->shouldRender();
     }
 }
