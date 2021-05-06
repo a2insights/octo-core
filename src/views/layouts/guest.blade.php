@@ -13,6 +13,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+    @livewireStyles
+
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
@@ -82,8 +84,9 @@
             </div>
         </footer>
     </div>
+
     @livewire('livewire-ui-modal')
+    @livewireUIScripts
     @livewireScripts
-    @laravelViewsScripts
 </body>
 </html>
