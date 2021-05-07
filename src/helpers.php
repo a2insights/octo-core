@@ -1,5 +1,18 @@
 <?php
 
+if (!function_exists('___')) {
+    /**
+     * Compose translation
+     *
+     * @param array $values
+     * @return string
+     */
+    function ___(...$values)
+    {
+       return collect($values)->map(fn($v) => __($v))->implode(' ');
+    }
+}
+
 if (!function_exists('octo_route')) {
     /**
      * Return the octo_route
@@ -25,7 +38,7 @@ if (!function_exists('octo_route')) {
 
 if (!function_exists('octo_action')) {
     /**
-     * Fabrica o objeto OAction
+     * Factory octo action
      *
      * @param $name
      * @param $params
