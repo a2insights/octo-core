@@ -22,7 +22,7 @@
         <x-jet-banner />
 
         <!-- Layount -->
-        <div class="md:flex flex-col md:flex-row md:min-h-screen w-full bg-gray-100">
+        <div class="md:flex max-w-7xl mx-auto flex-col md:flex-row md:min-h-screen w-full bg-gray-100">
             <x-octo-sidebar :items="$sidebar['items']">
                 <div class="flex-shrink-0 py-3 border-gray-100 border-b flex justify-center">
                     <a class="mr-2" href="{{ route('home') }}">
