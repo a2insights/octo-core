@@ -7,8 +7,7 @@ if (!function_exists('___')) {
      * @param array $values
      * @return string
      */
-    function ___(...$values)
-    {
+    function ___(...$values) {
        return collect($values)->map(fn($v) => __($v))->implode(' ');
     }
 }

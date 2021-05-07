@@ -27,7 +27,7 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-               @guest
+                @guest
                     <div class="ml-2">
                         <a href="{{ route('login') }}" class="text-blue-500 font-semibold tracking-wide">
                             Sign in
@@ -38,8 +38,9 @@
                             Sign up
                         </a>
                     </div>
-               @endguest
-                <!-- Settings Dropdown -->
+                @endguest
+
+            <!-- Settings Dropdown -->
                 @auth
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="48">
@@ -50,14 +51,14 @@
                                     </button>
                                 @else
                                     <span class="inline-flex rounded-md">
-                                        <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                                            {{ Auth::user()->name }}
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                        {{ Auth::user()->name }}
 
-                                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-                                    </span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
                                 @endif
                             </x-slot>
 
@@ -85,7 +86,7 @@
 
                                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                                          onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                            this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </x-jet-dropdown-link>
                                 </form>
@@ -106,21 +107,29 @@
             </div>
         </div>
     </div>
-    @auth
-        <!-- Responsive Navigation Menu -->
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-            <div class="pt-2 pb-3 space-y-1">
-                <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                    {{ __('Home') }}
+    <!-- Responsive Navigation Menu -->
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                {{ __('Home') }}
+            </x-jet-responsive-nav-link>
+            @guest
+                <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                    {{ __('Login') }}
                 </x-jet-responsive-nav-link>
-                @auth
-                    <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-responsive-nav-link>
-                @endauth
-            </div>
+                <x-jet-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                    {{ __('Register') }}
+                </x-jet-responsive-nav-link>
+            @endguest
+            @auth
+                <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-jet-responsive-nav-link>
+            @endauth
+        </div>
 
-            <!-- Responsive Settings Options -->
+        <!-- Responsive Settings Options -->
+        @auth
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="flex items-center px-4">
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -190,6 +199,6 @@
                     @endif
                 </div>
             </div>
-        </div>
-    @endauth
+        @endauth
+    </div>
 </nav>

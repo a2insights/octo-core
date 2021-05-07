@@ -22,6 +22,6 @@ class GuestNavigationMenu extends Component
      */
     public function render()
     {
-        return view('octo::components.livewire.guest-navigation-menu');
+        return view('guest-navigation-menu');
     }
 }

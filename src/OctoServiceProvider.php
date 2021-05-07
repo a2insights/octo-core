@@ -24,9 +24,6 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo-sidebar', Sidebar::class);
         Blade::component('octo::components.hero','octo-hero');
         Blade::component('octo::components.tile','octo-tile');
-        Blade::component('octo::layouts.guest','octo-guest-layout');
-        Blade::component('octo::layouts.app','octo-app-layout');
-        Blade::component('octo::layouts.app-sidebar','octo-app-sidebar-layout');
 
         // Global
         Blade::component('octo::components.global.action-link','action-link');
@@ -41,7 +38,7 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo::components.global.socialstream-providers','socialstream-providers');
 
         // Livewire
-        Livewire::component('octo::guest-navigation-menu', GuestNavigationMenu::class);
+        Livewire::component('guest-navigation-menu', GuestNavigationMenu::class);
 
         // Share views data
         View::share('sidebar',  ['items' => config('octo.navigation.sidebar')]);
