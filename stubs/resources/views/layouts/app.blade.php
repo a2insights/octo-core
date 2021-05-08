@@ -21,7 +21,7 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-white">
+        <div class="min-h-screen flex-col h-screen bg-gray-100 pb-20">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -39,6 +39,7 @@
             </main>
         </div>
 
+        @stack('modals')
         @livewire('livewire-ui-modal')
         @livewireUIScripts
         @livewireScripts
