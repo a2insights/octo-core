@@ -28,7 +28,6 @@
         "illuminate/support": "^8.0",
         "joelbutcher/socialstream": "^3.0",
         "laravel/jetstream": "^2.2",
-        "livewire-ui/modal": "dev-main",
         "livewire/livewire": "^2.4",
         "spatie/laravel-newsletter": "dev-master"
     },

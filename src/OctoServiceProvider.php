@@ -42,7 +42,7 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo::components.global.twitter-icon','twitter-icon');
         Blade::component('octo::components.global.socialstream-providers','socialstream-providers');
 
-
+        // Livewire
         Livewire::component('octo-subscribe', Subscribe::class);
 
         // Share views data
