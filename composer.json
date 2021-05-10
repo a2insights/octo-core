@@ -26,10 +26,8 @@
         "blade-ui-kit/blade-zondicons": "^0.2",
         "hieu-le/active": "^8.0",
         "illuminate/support": "^8.0",
-        "joelbutcher/socialstream": "^3.0",
         "laravel/jetstream": "^2.2",
-        "livewire/livewire": "^2.4",
-        "spatie/laravel-newsletter": "dev-master"
+        "livewire/livewire": "^2.4"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
