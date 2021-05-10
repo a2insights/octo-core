@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use Octo\Http\Livewire\GuestNavigationMenu;
+use Octo\Http\Livewire\NavigationMenu;
+use Octo\Http\Livewire\Subscribe;
 use Octo\Resources\Components\Sidebar;
 
 class OctoServiceProvider extends ServiceProvider
@@ -17,13 +18,17 @@ class OctoServiceProvider extends ServiceProvider
             __DIR__.'/../config/octo.php' => config_path('octo.php'),
         ], 'octo-config');
 
-        $this->loadViewsFrom(__DIR__.'/views' , 'octo');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'octo');
 
         // Octo components
         Blade::component('octo::sidebar', Sidebar::class);
         Blade::component('octo-sidebar', Sidebar::class);
         Blade::component('octo::components.hero','octo-hero');
         Blade::component('octo::components.tile','octo-tile');
+
+        // Need publish
+        Blade::component('footer','footer');
+        Livewire::component('navigation-menu', NavigationMenu::class);
 
         // Global
         Blade::component('octo::components.global.action-link','action-link');
@@ -37,8 +42,8 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo::components.global.twitter-icon','twitter-icon');
         Blade::component('octo::components.global.socialstream-providers','socialstream-providers');
 
-        // Livewire
-        Livewire::component('guest-navigation-menu', GuestNavigationMenu::class);
+
+        Livewire::component('octo-subscribe', Subscribe::class);
 
         // Share views data
         View::share('sidebar',  ['items' => config('octo.navigation.sidebar')]);

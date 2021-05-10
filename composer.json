@@ -2,7 +2,10 @@
     "name": "a2insights/octo-core",
     "description": "This is a part of octo system",
     "keywords": [
-        "octo"
+        "laravel",
+        "php",
+        "octo",
+        "sass"
     ],
     "minimum-stability": "dev",
     "homepage": "https://github.com/a2ensite/octo-core",
@@ -25,7 +28,9 @@
         "illuminate/support": "^8.0",
         "joelbutcher/socialstream": "^3.0",
         "laravel/jetstream": "^2.2",
-        "livewire/livewire": "^2.4"
+        "livewire-ui/modal": "dev-main",
+        "livewire/livewire": "^2.4",
+        "spatie/laravel-newsletter": "dev-master"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
