@@ -2,9 +2,10 @@
      @if($closable)
          x-data="{ showBanner: @entangle('close') }"
          x-show="!showBanner"
+         x-cloak
          style="display: none;"
      @endif
-     class="flex flex-col md:h-32 bg-white overflow-hidden md:flex-row"
+     class="{{ 'bg-'.$bg }} flex flex-col md:h-32 overflow-hidden md:flex-row"
 >
     @if($closable)
         <div class="absolute flex justify-end inset-x-0 top-0">

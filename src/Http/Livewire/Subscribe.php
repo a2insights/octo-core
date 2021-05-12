@@ -21,6 +21,8 @@ class Subscribe extends ModalComponent
 
     public bool $closable = true;
 
+    public $bg = 'white';
+
     private string $cookieName = 'subscribe_show';
 
     public function mount()
@@ -54,7 +56,8 @@ class Subscribe extends ModalComponent
         return view('octo::livewire.subscribe', [
             'headline' => config('octo.plugins.subscribe.headline'),
             'tagline' => config('octo.plugins.subscribe.tagline'),
-            'closable' =>  $this->closable
+            'closable' =>  $this->closable,
+            'bg' =>  $this->bg,
         ]);
     }
 }
