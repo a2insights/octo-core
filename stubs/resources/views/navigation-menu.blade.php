@@ -19,14 +19,6 @@
                         <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-jet-nav-link>
-
-                        <x-jet-nav-link href="{{ route('races') }}" :active="request()->routeIs('races')">
-                            {{ __('Races') }}
-                        </x-jet-nav-link>
-
-                        <x-jet-nav-link href="{{ route('runners') }}" :active="request()->routeIs('runners')">
-                            {{ __('Runners') }}
-                        </x-jet-nav-link>
                     @endauth
                 </div>
             </div>
@@ -45,7 +37,7 @@
                     </div>
                 @endguest
 
-            <!-- Settings Dropdown -->
+                <!-- Settings Dropdown -->
                 @auth
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="48">
@@ -88,7 +80,6 @@
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-
                                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                                          onclick="event.preventDefault();
                                             this.closest('form').submit();">
@@ -162,10 +153,9 @@
                         </x-jet-responsive-nav-link>
                     @endif
 
-                <!-- Authentication -->
+                    <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
                         <x-jet-responsive-nav-link href="{{ route('logout') }}"
                                                    onclick="event.preventDefault();
                                     this.closest('form').submit();">

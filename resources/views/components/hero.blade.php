@@ -1,7 +1,7 @@
 @props(['footer' => ''])
 
 <section>
-    <div class="bg-gradient-to-br pb-10 from-indigo-900 to-green-900 overflow-auto">
+    <div class="bg-gradient-to-br pb-5 from-indigo-900 to-green-900 overflow-auto">
         <div class="container max-w-5xl mx-auto px-4">
             <h1 class="mt-10 text-white text-5xl font-bold">
                 {{ $headline }}
