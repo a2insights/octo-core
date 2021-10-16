@@ -26,7 +26,6 @@
         "blade-ui-kit/blade-zondicons": "^0.2",
         "hieu-le/active": "^8.0",
         "illuminate/support": "^8.0",
-        "laravel/jetstream": "^2.2",
         "laravel/ui": "^3.0",
         "livewire-ui/modal": "^1.0.1",
         "livewire/livewire": "^2.4",
