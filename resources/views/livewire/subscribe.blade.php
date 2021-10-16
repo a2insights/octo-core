@@ -11,12 +11,13 @@
         <div class="absolute flex justify-end inset-x-0 top-0">
             <button
                 wire:click="hiddeBanner()"
-                class="py-2 m-2 px-3 text-gray-600 rounded-full cursor-pointer focus:outline-none">
-            <span class="flex items-center">
-                <span class="h-4 w-4">
-                    {{ svg('zondicon-close') }}
+                class="py-2 m-2 px-3 text-gray-600 rounded-full cursor-pointer focus:outline-none"
+            >
+                <span class="flex items-center">
+                    <span class="h-4 w-4">
+                        {{ svg('zondicon-close') }}
+                    </span>
                 </span>
-            </span>
             </button>
         </div>
     @endif

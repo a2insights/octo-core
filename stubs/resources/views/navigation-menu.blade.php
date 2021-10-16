@@ -24,7 +24,7 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                @guest
+                    @guest
                     <div class="ml-2">
                         <a href="{{ route('login') }}" class="text-blue-500 font-semibold tracking-wide">
                             Sign in

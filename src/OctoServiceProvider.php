@@ -22,7 +22,6 @@ class OctoServiceProvider extends ServiceProvider
 
         // Octo components
         Blade::component('octo::sidebar', Sidebar::class);
-        Blade::component('octo-sidebar', Sidebar::class);
         Blade::component('octo::components.hero','octo-hero');
         Blade::component('octo::components.tile','octo-tile');
 
