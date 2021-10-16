@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use Octo\Http\Livewire\NavigationMenu;
+use Octo\Http\Livewire\DropdownNotifications;
+use Octo\Http\Livewire\ListNotifications;
 use Octo\Http\Livewire\Subscribe;
 use Octo\Resources\Components\Sidebar;
 
@@ -27,7 +28,6 @@ class OctoServiceProvider extends ServiceProvider
 
         // Need publish
         Blade::component('footer','footer');
-        Livewire::component('navigation-menu', NavigationMenu::class);
 
         // Global
         Blade::component('octo::components.global.action-link','action-link');
@@ -43,6 +43,8 @@ class OctoServiceProvider extends ServiceProvider
 
         // Livewire
         Livewire::component('octo-subscribe', Subscribe::class);
+        Livewire::component('octo-dropdown-notifications', DropdownNotifications::class);
+        Livewire::component('octo-list-notifications', ListNotifications::class);
 
         // Share views data
         View::share('sidebar',  ['items' => config('octo.navigation.sidebar')]);

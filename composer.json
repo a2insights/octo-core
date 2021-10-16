@@ -27,7 +27,8 @@
         "hieu-le/active": "^8.0",
         "illuminate/support": "^8.0",
         "laravel/jetstream": "^2.2",
-        "livewire-ui/modal": "dev-main",
+        "laravel/ui": "^3.0",
+        "livewire-ui/modal": "^1.0.1",
         "livewire/livewire": "^2.4",
         "spatie/laravel-newsletter": "dev-master"
     },
