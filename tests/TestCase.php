@@ -15,6 +15,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             \Dotenv\Dotenv::createImmutable(__DIR__ . '../..' )->load();
         }
 
-        $app['config']->set([]);
+        $config = require __DIR__ . './../config/octo.php';
+
+        $app['config']->set('octo', $config);
     }
 }

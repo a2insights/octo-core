@@ -45,5 +45,10 @@ return [
             'headline' => 'Something new is coming!',
             'tagline' => 'This application is on for testers. But you can test too. If you want to receive updates join our newsletter.'
         ]
-    ]
+    ],
+
+    'features' => [
+        \Octo\Features::notifications(['pusher' => true]),
+        \Octo\Features::billingDasboard()
+    ],
 ];

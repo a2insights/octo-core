@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar;
+namespace Octo\Resources\Components\Quasar\Table;
 
-interface OAppTableQuasar
+interface QTableComponentContract
 {
     public function repository();
     public function headers();

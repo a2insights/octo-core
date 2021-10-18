@@ -18,7 +18,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install the octo components and resources';
+    protected $description = 'Install the octo blade and resources';
 
     /**
      * Execute the console command.

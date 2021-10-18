@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Components\Traits;
+namespace Octo\Resources\Components\Mixins;
 
 trait Icon
 {

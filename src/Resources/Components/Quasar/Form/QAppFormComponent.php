@@ -1,8 +1,10 @@
 <?php
 
-namespace Octo\Resources;
+namespace Octo\Resources\Components\Quasar\Form;
 
-class OAppFormResource implements OComponentResource
+use Octo\Resources\Components\Quasar\QComponent;
+
+class QAppFormComponent implements QComponent
 {
     protected $name;
     protected $form;
@@ -10,16 +12,14 @@ class OAppFormResource implements OComponentResource
 
     public function __construct($form)
     {
-        $this->form = new $form() ;
+        $this->form = new $form();
     }
 
     public function getProps()
     {
         return [
             'name' => '',
-            'fields' => [
-
-            ],
+            'fields' => []
         ];
     }
 }

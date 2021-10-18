@@ -1,10 +1,11 @@
 <?php
 
-namespace Octo\Resources;
+namespace Octo\Resources\Components\Quasar\Table;
 
 use Illuminate\Support\Str;
+use Octo\Resources\Components\Quasar\QComponent;
 
-class OAppTableResource implements OComponentResource
+class QTableComponent extends QComponent
 {
     protected $name;
     protected $filters;
@@ -48,7 +49,7 @@ class OAppTableResource implements OComponentResource
                            'name' => array_keys($newItem)[$key],
                            'field' => array_keys($newItem)[$key],
                            'label' =>  $this->columns[$key],
-                           'align' => 'left',
+                           'align' => 'left'
                        ];
                    }
                 }
@@ -59,7 +60,7 @@ class OAppTableResource implements OComponentResource
                 'name' => 'actions',
                 'field' => 'actions',
                 'label' =>  '',
-                'align' => 'right',
+                'align' => 'right'
             ] : null)->filter(function ($column) { return $column != null; }),
             'rowsPerPageOptions' => $this->rowsPerPageOptions,
             'rowsPerPageLabel' => $this->rowsPerPageLabel,

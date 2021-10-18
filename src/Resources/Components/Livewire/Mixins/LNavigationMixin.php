@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Resources\Components\Traits;
+namespace Octo\Resources\Components\Livewire\Mixins;
 
-trait Navigation
+trait LNavigationMixin
 {
     /**
      * Determine if item route is active
@@ -46,6 +46,6 @@ trait Navigation
             return route($item['route']['name'], $item['route']['parameters'] ?? []);
         }
 
-        return  $item['url'] ?? route($item['route']);
+        return $item['url'] ?? route($item['route']);
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar;
+namespace Octo\Resources\Components\Quasar\Objects;
 
-class OActionQuasar
+use Octo\Resources\Objects\RouteObject;
+
+class QActionObject
 {
     private $name;
 
@@ -28,7 +30,7 @@ class OActionQuasar
     protected $show = true;
 
     public function __construct(
-        $route,
+        RouteObject $route,
         $icon = '',
         $variant = 'primary'
     )
@@ -111,7 +113,7 @@ class OActionQuasar
     {
         return [
             'name' => $this->getName(),
-            'action' => $this->name,
+            'action' => $this->getName(),
             'tooltip' => $this->getTooltip(),
             'route' => $this->route(),
             'variant' => $this->getVariant(),

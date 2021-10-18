@@ -1,10 +1,10 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar;
+namespace Octo\Resources\Components\Quasar\Form;
 
-interface OAppFormQuasar
+interface QAppFormQuasarCompoenent
 {
-    public function repository();
+    public function model();
     public function onSubmit();
     public function fields($model);
     public function actions($model);

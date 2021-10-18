@@ -16,22 +16,15 @@ if (!function_exists('octo_route')) {
     /**
      * Return the octo_route
      *
-     * @param $name
-     * @param $params
-     * @return stdClass
+     * @param string $name
+     * @param array $params
+     * @return \Octo\Resources\Objects\RouteObject
      */
-    function octo_route($name, $params = []) {
-        $route = new \stdClass;
-        $route->name = $name;
-        $route->params = $params;
-        if (!is_array($params)) {
-            $route->params = [];
-            $route->params['id'] = $params;
-        }
-        $route->uri = route($name, $params);
-        $route->urn = explode('/api', $route->uri)[1];
-
-        return $route;
+    function octo_route(string $name, array $params = []) {
+        return new \Octo\Resources\Objects\RouteObject([
+            'name' => $name,
+            'params' => $params
+        ]);
     }
 }
 
@@ -41,10 +34,10 @@ if (!function_exists('octo_action')) {
      *
      * @param $name
      * @param $params
-     * @return \Octo\Resources\Components\Quasar\OActionQuasar
+     * @return \Octo\Resources\Components\Quasar\Objects\QActionObject
      */
     function octo_action($name, $params)
     {
-        return (new \Octo\Resources\Components\Quasar\OActionQuasar(octo_route($name, $params)));
+        return (new \Octo\Resources\Components\Quasar\Objects\QActionObject(octo_route($name, $params)));
     }
 }

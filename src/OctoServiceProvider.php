@@ -3,13 +3,14 @@
 namespace Octo;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use Octo\Http\Livewire\DropdownNotifications;
-use Octo\Http\Livewire\ListNotifications;
-use Octo\Http\Livewire\Subscribe;
-use Octo\Resources\Components\Sidebar;
+use Octo\Resources\Components\Blade\Sidebar;
+use Octo\Resources\Components\Livewire\Notification\LDropdownNotificationsComponent;
+use Octo\Resources\Components\Livewire\Notification\LListNotifications;
+use Octo\Resources\Components\Livewire\LSubscribe;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -21,30 +22,30 @@ class OctoServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'octo');
 
-        // Octo components
-        Blade::component('octo::sidebar', Sidebar::class);
-        Blade::component('octo::components.hero','octo-hero');
-        Blade::component('octo::components.tile','octo-tile');
+        // Octo blade
+        Blade::component('octo::blade.sidebar', Sidebar::class, 'octo');
+        Blade::component('octo::blade.hero','octo-hero');
+        Blade::component('octo::blade.tile','octo-tile');
 
         // Need publish
         Blade::component('footer','footer');
 
         // Global
-        Blade::component('octo::components.global.action-link','action-link');
-        Blade::component('octo::components.global.bitbucket-icon','bitbucket-icon');
-        Blade::component('octo::components.global.connected-account','connected-account');
-        Blade::component('octo::components.global.github-icon','github-icon');
-        Blade::component('octo::components.global.gitlab-icon','gitlab-icon');
-        Blade::component('octo::components.global.facebook-icon','facebook-icon');
-        Blade::component('octo::components.global.facebook-icon','linked-in-icon');
-        Blade::component('octo::components.global.google-icon','google-icon');
-        Blade::component('octo::components.global.twitter-icon','twitter-icon');
-        Blade::component('octo::components.global.socialstream-providers','socialstream-providers');
+        Blade::component('octo::blade.global.action-link','action-link');
+        Blade::component('octo::blade.global.bitbucket-icon','bitbucket-icon');
+        Blade::component('octo::blade.global.connected-account','connected-account');
+        Blade::component('octo::blade.global.github-icon','github-icon');
+        Blade::component('octo::blade.global.gitlab-icon','gitlab-icon');
+        Blade::component('octo::blade.global.facebook-icon','facebook-icon');
+        Blade::component('octo::blade.global.facebook-icon','linked-in-icon');
+        Blade::component('octo::blade.global.google-icon','google-icon');
+        Blade::component('octo::blade.global.twitter-icon','twitter-icon');
+        Blade::component('octo::blade.global.socialstream-providers','socialstream-providers');
 
-        // Livewire
-        Livewire::component('octo-subscribe', Subscribe::class);
-        Livewire::component('octo-dropdown-notifications', DropdownNotifications::class);
-        Livewire::component('octo-list-notifications', ListNotifications::class);
+        // Blade
+        Livewire::component('octo-subscribe', LSubscribe::class);
+        Livewire::component('octo-dropdown-notifications', LDropdownNotificationsComponent::class);
+        Livewire::component('octo-list-notifications', LListNotifications::class);
 
         // Share views data
         View::share('sidebar',  ['items' => config('octo.navigation.sidebar')]);
@@ -53,6 +54,12 @@ class OctoServiceProvider extends ServiceProvider
         $this->commands([
             Console\InstallCommand::class,
         ]);
+
+        Route::group([
+            'namespace' => 'Octo\Http\Controllers',
+        ], function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
+        });
     }
 
     public function register()

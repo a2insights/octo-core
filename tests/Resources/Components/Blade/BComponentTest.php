@@ -1,10 +1,11 @@
 <?php
 
-namespace Octo\Tests;
+namespace Octo\Tests\Resources\Components\Blade;
 
-use Octo\Resources\Components\Component;
+use Octo\Resources\Components\Blade\BComponent;
+use Octo\Tests\TestCase;
 
-class ComponentTest extends TestCase
+class BComponentTest extends TestCase
 {
     private $dataArray = ([
         [
@@ -19,7 +20,7 @@ class ComponentTest extends TestCase
 
     public function testPropertiesExposure()
     {
-        $component = new ComponentTestable('Amanda', 23, $this->dataArray);
+        $component = new BComponentTestable('Amanda', 23, $this->dataArray);
 
         $properties = $component->data();
 
@@ -27,7 +28,7 @@ class ComponentTest extends TestCase
     }
 }
 
-class ComponentTestable extends Component
+class BComponentTestable extends BComponent
 {
     public $name;
     public $age;
