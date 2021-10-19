@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar;
+namespace Octo\Resources\Quasar;
 
-abstract class QComponent implements QComponentContract
+abstract class Component implements ComponentContract
 {
     /**
      * Get props of resource.

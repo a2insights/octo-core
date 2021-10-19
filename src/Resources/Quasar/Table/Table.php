@@ -1,11 +1,11 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar\Table;
+namespace Octo\Resources\Quasar\Table;
 
 use Illuminate\Support\Str;
-use Octo\Resources\Components\Quasar\QComponent;
+use Octo\Resources\Quasar\Component;
 
-class QTableComponent extends QComponent
+class Table extends Component
 {
     protected $name;
     protected $filters;

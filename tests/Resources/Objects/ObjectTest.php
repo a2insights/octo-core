@@ -3,7 +3,7 @@
 namespace Octo\Tests\Resources\Objects;
 
 use Illuminate\Support\Facades\Route;
-use Octo\Resources\Objects\ObjectAbstract;
+use Octo\ObjectAbstract;
 use Octo\Tests\TestCase;
 
 class ObjectTest extends TestCase

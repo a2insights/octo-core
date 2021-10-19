@@ -1,10 +1,10 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar\Objects;
+namespace Octo\Resources\Quasar;
 
-use Octo\Resources\Objects\RouteObject;
+use Octo\Route;
 
-class QActionObject
+class Action
 {
     private $name;
 
@@ -30,7 +30,7 @@ class QActionObject
     protected $show = true;
 
     public function __construct(
-        RouteObject $route,
+        Route $route,
         $icon = '',
         $variant = 'primary'
     )
@@ -49,7 +49,7 @@ class QActionObject
         return $this;
     }
 
-    public function setDisabled($disabled)
+    public function setDisabled($disabled = true)
     {
         $this->disabled = $disabled;
 

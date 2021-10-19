@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar;
+namespace Octo\Resources\Quasar;
 
-interface QComponentContract
+interface ComponentContract
 {
     /**
      * Get props of resource.

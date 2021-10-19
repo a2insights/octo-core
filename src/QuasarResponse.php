@@ -1,10 +1,10 @@
 <?php
 
-namespace Octo\Response;
+namespace Octo;
 
 use Illuminate\Contracts\Support\Responsable;
 
-class OAppResponse implements Responsable
+class QuasarResponse implements Responsable
 {
     protected $page;
 

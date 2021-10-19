@@ -18,10 +18,10 @@ if (!function_exists('octo_route')) {
      *
      * @param string $name
      * @param array $params
-     * @return \Octo\Resources\Objects\RouteObject
+     * @return \Octo\Route
      */
     function octo_route(string $name, array $params = []) {
-        return new \Octo\Resources\Objects\RouteObject([
+        return new \Octo\Route([
             'name' => $name,
             'params' => $params
         ]);
@@ -34,10 +34,10 @@ if (!function_exists('octo_action')) {
      *
      * @param $name
      * @param $params
-     * @return \Octo\Resources\Components\Quasar\Objects\QActionObject
+     * @return \Octo\Resources\Quasar\Action
      */
     function octo_action($name, $params)
     {
-        return (new \Octo\Resources\Components\Quasar\Objects\QActionObject(octo_route($name, $params)));
+        return (new \Octo\Resources\Quasar\Action(octo_route($name, $params)));
     }
 }

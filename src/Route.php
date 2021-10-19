@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Resources\Objects;
+namespace Octo;
 
-class RouteObject extends ObjectAbstract
+class Route extends ObjectAbstract
 {
     protected $attributes = [
         'name', 'params' => []

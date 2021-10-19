@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Objects;
+namespace Octo;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;

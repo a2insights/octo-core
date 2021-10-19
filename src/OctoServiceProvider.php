@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use Octo\Resources\Components\Blade\Sidebar;
-use Octo\Resources\Components\Livewire\Notification\LDropdownNotificationsComponent;
-use Octo\Resources\Components\Livewire\Notification\LListNotifications;
-use Octo\Resources\Components\Livewire\LSubscribe;
+use Octo\Resources\Blade\Sidebar;
+use Octo\Resources\Livewire\Notification\DropdownNotifications;
+use Octo\Resources\Livewire\Notification\ListNotifications;
+use Octo\Resources\Livewire\Subscribe;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -43,9 +43,9 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo::blade.global.socialstream-providers','socialstream-providers');
 
         // Blade
-        Livewire::component('octo-subscribe', LSubscribe::class);
-        Livewire::component('octo-dropdown-notifications', LDropdownNotificationsComponent::class);
-        Livewire::component('octo-list-notifications', LListNotifications::class);
+        Livewire::component('octo-subscribe', Subscribe::class);
+        Livewire::component('octo-dropdown-notifications', DropdownNotifications::class);
+        Livewire::component('octo-list-notifications', ListNotifications::class);
 
         // Share views data
         View::share('sidebar',  ['items' => config('octo.navigation.sidebar')]);

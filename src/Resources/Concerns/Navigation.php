@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Resources\Components\Livewire\Mixins;
+namespace Octo\Resources\Concerns;
 
-trait LNavigationMixin
+trait Navigation
 {
     /**
      * Determine if item route is active

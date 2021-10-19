@@ -1,10 +1,10 @@
 <?php
 
-namespace Octo\Resources\Components\Livewire\Mixins;
+namespace Octo\Resources\Livewire\Concerns;
 
 use Illuminate\Support\Facades\Auth;
 
-trait LNotificationMixin
+trait Notification
 {
     /**
      * Get notification by id of auth user

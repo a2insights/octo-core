@@ -2,9 +2,9 @@
 
 namespace Octo\Resources\Components\Quasar\Form;
 
-use Octo\Resources\Components\Quasar\QComponent;
+use Octo\Resources\Components\Quasar\Component;
 
-class QAppFormComponent implements QComponent
+class Form extends Component
 {
     protected $name;
     protected $form;

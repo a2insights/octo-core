@@ -2,7 +2,7 @@
 
 namespace Octo\Resources\Components\Quasar\Form;
 
-interface QAppFormQuasarCompoenent
+interface FormContract
 {
     public function model();
     public function onSubmit();

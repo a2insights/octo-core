@@ -3,7 +3,6 @@
 namespace Octo\Tests\Resources\Objects;
 
 use Illuminate\Support\Facades\Route;
-use Octo\Resources\Objects\RouteObject;
 use Octo\Tests\TestCase;
 
 class RouteObjectTest extends TestCase
@@ -12,7 +11,7 @@ class RouteObjectTest extends TestCase
     {
         $route = Route::get('test/api/{id}')->name('teste_route_object');
 
-        $object = new RouteObject([
+        $object = new \Octo\Route([
             'name' => 'teste_route_object',
             'params' => [
                 'id' => 1,

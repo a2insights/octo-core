@@ -1,13 +1,13 @@
 <?php
 
-namespace Octo\Resources\Components\Livewire;
+namespace Octo\Resources\Livewire;
 
 use Illuminate\Support\Facades\Cookie;
 use Laravel\Jetstream\InteractsWithBanner;
 use LivewireUI\Modal\ModalComponent;
 use Spatie\Newsletter\NewsletterFacade;
 
-class LSubscribe extends ModalComponent
+class Subscribe extends ModalComponent
 {
     use InteractsWithBanner;
 

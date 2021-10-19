@@ -1,10 +1,10 @@
 <?php
 
-namespace Octo\Resources\Components\Blade;
+namespace Octo\Resources\Blade;
 
 use Illuminate\View\Component as BaseComponent;
 
-class BComponent extends BaseComponent
+class Component extends BaseComponent
 {
     /**
      * The view should be render.

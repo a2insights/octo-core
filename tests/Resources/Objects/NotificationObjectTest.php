@@ -3,8 +3,7 @@
 namespace Octo\Tests\Resources\Objects;
 
 use Illuminate\Support\Facades\Route;
-use Octo\Resources\Objects\NotificationObject;
-use Octo\Resources\Objects\RouteObject;
+use Octo\Notification;
 use Octo\Tests\TestCase;
 
 class NotificationObjectTest extends TestCase
@@ -13,10 +12,10 @@ class NotificationObjectTest extends TestCase
     {
         $route = Route::get('test/api')->name('teste_route_object_notification');
 
-        $object = new NotificationObject([
+        $object = new Notification([
             'title' => 'user created',
             'description' => 'created',
-            'route' => (new RouteObject(['name' => 'teste_route_object_notification']))
+            'route' => (new \Octo\Route(['name' => 'teste_route_object_notification']))
         ]);
 
         $this->assertTrue($object->title === 'user created');

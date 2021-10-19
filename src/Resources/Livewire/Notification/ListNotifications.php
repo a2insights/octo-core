@@ -1,13 +1,13 @@
 <?php
 
-namespace Octo\Resources\Components\Livewire\Notification;
+namespace Octo\Resources\Livewire\Notification;
 
 use Livewire\Component;
-use Octo\Resources\Components\Livewire\Mixins\LNotificationMixin;
+use Octo\Resources\Livewire\Concerns\Notification;
 
-class LListNotifications extends Component
+class ListNotifications extends Component
 {
-    use LNotificationMixin;
+    use Notification;
 
     /**
      * Filter value of notifications list

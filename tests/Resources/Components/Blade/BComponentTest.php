@@ -2,7 +2,7 @@
 
 namespace Octo\Tests\Resources\Components\Blade;
 
-use Octo\Resources\Components\Blade\BComponent;
+use Octo\Resources\Components\Blade\Component;
 use Octo\Tests\TestCase;
 
 class BComponentTest extends TestCase
@@ -20,7 +20,7 @@ class BComponentTest extends TestCase
 
     public function testPropertiesExposure()
     {
-        $component = new BComponentTestable('Amanda', 23, $this->dataArray);
+        $component = new ComponentTestable('Amanda', 23, $this->dataArray);
 
         $properties = $component->data();
 
@@ -28,7 +28,7 @@ class BComponentTest extends TestCase
     }
 }
 
-class BComponentTestable extends BComponent
+class ComponentTestable extends Component
 {
     public $name;
     public $age;
