@@ -2,17 +2,25 @@
 
 namespace Octo\Resources\Objects;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Octo\Contracts\Resources\Arrayable;
 
 abstract class ObjectAbstract implements Arrayable
 {
     /**
-     * The model's attributes.
+     * The object attributes.
      *
      * @var array
      */
     protected $attributes = [];
+
+    /**
+     * The object attribute's original state.
+     *
+     * @var array
+     */
+    protected $original = [];
 
     /**
      * The accessors to append to the model's array form.
@@ -22,6 +30,13 @@ abstract class ObjectAbstract implements Arrayable
     protected $appends = [];
 
     /**
+     * Strict properties
+     *
+     * @var bool
+     */
+    protected $strict = true;
+
+    /**
      * Create a new Object instance.
      *
      * @param  array  $attributes
@@ -29,7 +44,38 @@ abstract class ObjectAbstract implements Arrayable
      */
     public function __construct(array $attributes = [])
     {
+        $this->normalizeAttributes();
         $this->fill($attributes);
+    }
+
+    private function normalizeAttributes()
+    {
+        $normalized = [];
+
+        foreach ($this->attributes as $key => $value) {
+            if (!is_int($key)) {
+                $normalized[$key] = $value;
+            }
+
+            if(is_string($value)){
+                $normalized[$value] = null;
+            }
+        }
+
+       $this->attributes = $normalized;
+    }
+
+    private function strictAttributes()
+    {
+        $attributes = [];
+
+        foreach ($this->attributes as $key => $value) {
+            if(Arr::exists($this->original, $key)){
+                $attributes[$key] = $value;
+            }
+        }
+
+        $this->attributes = $attributes;
     }
 
     /**
@@ -40,20 +86,18 @@ abstract class ObjectAbstract implements Arrayable
      */
     public function fill(array $attributes)
     {
-        $toFill = array_merge($this->attributes, $attributes);
 
-        $this->attributes = [];
+        $this->original = $this->attributes;
 
-        $this->attributes = collect($toFill)
-            ->map(function ($value, $key) {
-                if (!is_int($key)){
-                    $this->setAttribute($key, $value);
-                    return $value;
-                }
-                return null;
-            })
-            ->whereNotNull()
-            ->toArray();
+        $this->attributes = array_merge($this->attributes, $attributes);
+
+        if ($this->strict) {
+            $this->strictAttributes();
+        }
+
+        foreach ($this->attributes as $key => $value) {
+            $this->setAttribute($key, $value);
+        }
 
         $this->setAppends();
 
@@ -90,6 +134,7 @@ abstract class ObjectAbstract implements Arrayable
         foreach ($this->appends as $append) {
             $getter = Str::camel("get_$append"."_attribute");
             $this->setAttribute($append, $this->$getter());
+            $this->attributes[$append] = $this->$getter();
         }
     }
 

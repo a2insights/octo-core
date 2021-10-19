@@ -18,14 +18,14 @@ class QTableComponent extends QComponent
     private $route;
     private $table;
     private $actions;
-    private $repository;
+    private $model;
 
     public function __construct($table)
     {
         $this->table = new $table() ;
         $this->route = $this->table->route();
         $this->name = $this->table->name ?? Str::random(10);
-        $this->repository = $this->table->repository();
+        $this->model = $this->table->model();
         $this->columns = $this->table->headers();
     }
 
@@ -33,7 +33,7 @@ class QTableComponent extends QComponent
     {
         $page = request('page') ?? 1;
         $rowsPerPage = request('rowsPerPage') ?? 10;
-        $paginator = $this->repository->paginate($rowsPerPage, ['*'], 'page', $page);
+        $paginator = $this->model->paginate($rowsPerPage, ['*'], 'page', $page);
 
         return [
             'name' => $this->name,
