@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar\Form;
+namespace Octo\Resources\Quasar\Form;
 
 interface FormContract
 {

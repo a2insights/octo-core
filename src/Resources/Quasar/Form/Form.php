@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Resources\Components\Quasar\Form;
+namespace Octo\Resources\Quasar\Form;
 
-use Octo\Resources\Components\Quasar\Component;
+use Octo\Resources\Quasar\Component;
 
 class Form extends Component
 {

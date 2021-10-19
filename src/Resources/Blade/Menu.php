@@ -5,19 +5,19 @@ namespace Octo\Resources\Blade;
 use Octo\Resources\Concerns\Icon;
 use Octo\Resources\Concerns\Navigation;
 
-abstract class MenuCompoent extends Component
+abstract class Menu extends Component
 {
     use Navigation, Icon;
 
     /**
-     * MenuCompoent items
+     * Menu items
      *
      * @var array|object
      */
     public $items;
 
     /**
-     * MenuCompoent constructor.
+     * Menu constructor.
      *
      * @param $items
      */

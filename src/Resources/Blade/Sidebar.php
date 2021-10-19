@@ -2,7 +2,7 @@
 
 namespace Octo\Resources\Blade;
 
-class Sidebar extends MenuCompoent
+class Sidebar extends Menu
 {
     public $view = 'octo::blade.sidebar';
 }
