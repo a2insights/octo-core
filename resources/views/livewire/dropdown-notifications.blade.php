@@ -38,7 +38,7 @@
                 @endforelse
             </div>
             @if($notifications->count() > 0)
-                <a href="{{ route('notifications') }}" class="block bg-gray-800 text-white text-center font-bold py-2">See all notifications</a>
+                <a href="{{ route('notifications.index') }}" class="block bg-gray-800 text-white text-center font-bold py-2">See all notifications</a>
             @endif
         </div>
     </div>
