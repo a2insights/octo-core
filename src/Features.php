@@ -39,6 +39,16 @@ class Features
     }
 
     /**
+     * Determine if the application using any notifications features.
+     *
+     * @return bool
+     */
+    public static function hasWelcomeUserFeatures()
+    {
+        return static::enabled(static::welcomeUserNotifications());
+    }
+
+    /**
      * Enable the notifications feature.
      *
      * @param  array  $options
@@ -51,6 +61,21 @@ class Features
         }
 
         return 'notifications';
+    }
+
+    /**
+     * Enable the welcome user notifications feature.
+     *
+     * @param  array  $options
+     * @return string
+     */
+    public static function welcomeUserNotifications(array $options = [])
+    {
+        if (! empty($options)) {
+            config(['octo-options.welcome-user-notifications' => $options]);
+        }
+
+        return 'welcome-user-notifications';
     }
 
     /**
@@ -71,6 +96,16 @@ class Features
     public static function sendsPusherNotifications()
     {
         return static::optionEnabled(static::notifications(), 'pusher');
+    }
+
+    /**
+     * Determine if the welcome user queue feature is active.
+     *
+     * @return bool
+     */
+    public static function queuedWelcomeUserNotifications()
+    {
+        return static::optionEnabled(static::welcomeUserNotifications(), 'queued');
     }
 
     /**

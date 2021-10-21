@@ -23,4 +23,14 @@ class Octo
     {
         return Features::hasBillingDashboardFeatures();
     }
+
+    /**
+     * Determine if the billing portal is enabled.
+     *
+     * @return bool
+     */
+    public static function hasWelcomeUserFeatures()
+    {
+        return Features::hasWelcomeUserFeatures();
+    }
 }

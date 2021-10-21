@@ -2,11 +2,17 @@
 
 namespace Octo;
 
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use Octo\Listeners\WelcomeUserNotification;
+use Octo\Listeners\WelcomeUserQueuedNotification;
+use Octo\Notifications\VerifyEmailQueued;
 use Octo\Resources\Blade\Sidebar;
 use Octo\Resources\Livewire\Notification\DropdownNotifications;
 use Octo\Resources\Livewire\Notification\ListNotifications;
@@ -64,6 +70,22 @@ class OctoServiceProvider extends ServiceProvider
 
     public function register()
     {
+        if (Features::hasWelcomeUserFeatures()) {
+            if (Features::queuedWelcomeUserNotifications()) {
+                Event::listen(
+                    Registered::class,
+                    [WelcomeUserQueuedNotification::class, 'handle']
+                );
+            }
+
+            if (!Features::queuedWelcomeUserNotifications()) {
+                Event::listen(
+                    Registered::class,
+                    [WelcomeUserNotification::class, 'handle']
+                );
+            };
+        }
+
         $this->mergeConfigFrom(
             __DIR__.'/../config/octo.php', 'octo'
         );
