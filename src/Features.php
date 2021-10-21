@@ -39,7 +39,7 @@ class Features
     }
 
     /**
-     * Determine if the application using any notifications features.
+     * Determine if the application using any welcome user features.
      *
      * @return bool
      */
