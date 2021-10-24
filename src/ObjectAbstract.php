@@ -84,7 +84,7 @@ abstract class ObjectAbstract implements Arrayable
      * @param  array  $attributes
      * @return $this
      */
-    public function fill(array $attributes)
+    protected function fill(array $attributes)
     {
 
         $this->original = $this->attributes;

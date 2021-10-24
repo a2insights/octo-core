@@ -11,5 +11,5 @@ class WelcomeUserQueuedNotification extends WelcomeUserNotification implements S
     use Queueable;
     use InteractsWithQueue;
 
-    public $tries = 5;
+    public $tries = 7;
 }

@@ -13,6 +13,7 @@ use Livewire\Livewire;
 use Octo\Listeners\WelcomeUserNotification;
 use Octo\Listeners\WelcomeUserQueuedNotification;
 use Octo\Notifications\VerifyEmailQueued;
+use Octo\Resources\Blade\PhoneInput;
 use Octo\Resources\Blade\Sidebar;
 use Octo\Resources\Livewire\Notification\DropdownNotifications;
 use Octo\Resources\Livewire\Notification\ListNotifications;
@@ -29,7 +30,8 @@ class OctoServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'octo');
 
         // Octo blade
-        Blade::component('octo::blade.sidebar', Sidebar::class, 'octo');
+        Blade::component(Sidebar::class, 'octo-sidebar', 'octo');
+        Blade::component(PhoneInput::class, 'octo-phone-input', 'octo');
         Blade::component('octo::blade.hero','octo-hero');
         Blade::component('octo::blade.tile','octo-tile');
 

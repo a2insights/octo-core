@@ -11,4 +11,6 @@ class VerifyEmailQueued extends VerifyEmail implements ShouldQueue
 {
     use Queueable;
     use InteractsWithQueue;
+
+    public $tries = 7;
 }

@@ -19,9 +19,9 @@ abstract class Menu extends Component
     /**
      * Menu constructor.
      *
-     * @param $items
+     * @param array $items
      */
-    public function __construct($items)
+    public function __construct(array $items = [])
     {
         $this->items = $items;
     }
