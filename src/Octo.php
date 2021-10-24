@@ -33,4 +33,14 @@ class Octo
     {
         return Features::hasWelcomeUserFeatures();
     }
+
+    /**
+     * Determine if the phone user feature is enabled.
+     *
+     * @return bool
+     */
+    public static function hasPhoneUserFeatures()
+    {
+        return Features::hasPhoneUserFeatures();
+    }
 }

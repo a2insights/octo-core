@@ -49,6 +49,7 @@ return [
 
     'features' => [
         \Octo\Features::notifications(['pusher' => true]),
-        \Octo\Features::billingDasboard()
+        \Octo\Features::billingDasboard(),
+        \Octo\Features::phoneUser()
     ],
 ];

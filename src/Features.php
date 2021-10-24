@@ -49,6 +49,31 @@ class Features
     }
 
     /**
+     * Determine if the application using any phone user features.
+     *
+     * @return bool
+     */
+    public static function hasPhoneUserFeatures()
+    {
+        return static::enabled(static::phoneUser());
+    }
+
+    /**
+     * Enable the phone user feature.
+     *
+     * @param  array  $options
+     * @return string
+     */
+    public static function phoneUser(array $options = [])
+    {
+        if (! empty($options)) {
+            config(['octo-options.phone-user' => $options]);
+        }
+
+        return 'phone-user';
+    }
+
+    /**
      * Enable the notifications feature.
      *
      * @param  array  $options
@@ -72,10 +97,10 @@ class Features
     public static function welcomeUserNotifications(array $options = [])
     {
         if (! empty($options)) {
-            config(['octo-options.welcome-user-notifications' => $options]);
+            config(['octo-options.phone-user' => $options]);
         }
 
-        return 'welcome-user-notifications';
+        return 'phone-user';
     }
 
     /**
