@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
 
-<div class="max-w-xs">
+<div>
     <x-jet-label for="phone" value="{{ __('Phone Number') }}" />
     <div
         x-data="select({ data: {{ $countries }}, value: {{ $country }} ,emptyOptionsMessage: 'No countries match your search.', name: 'country', placeholder: 'Select a country' })"
@@ -15,14 +15,14 @@
                 @click.prevent="toggleListboxVisibility()"
                 :aria-expanded="open"
                 aria-haspopup="listbox"
-                class="relative z-0 py-2 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                class="relative z-0 py-3 pr-8 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
             >
                 <div class="flex">
                     <span
                         x-show="! open"
                         x-text="value ? value.flag + '&nbsp;&nbsp;+ ' + value.calling_code : placeholder"
                         :class="{ 'text-gray-500': ! value }"
-                        class="block truncate mx-3 pr-4">
+                        class="block truncate ml-3">
                     </span>
                     <span x-show="! open" class="absolute inset-y-0 mr-1 right-0 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
