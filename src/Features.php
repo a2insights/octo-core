@@ -97,10 +97,10 @@ class Features
     public static function welcomeUserNotifications(array $options = [])
     {
         if (! empty($options)) {
-            config(['octo-options.phone-user' => $options]);
+            config(['octo-options.welcome-user-notifications' => $options]);
         }
 
-        return 'phone-user';
+        return 'welcome-user-notifications';
     }
 
     /**
