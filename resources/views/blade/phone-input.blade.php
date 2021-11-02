@@ -3,7 +3,7 @@
 <div>
     <x-jet-label for="phone" value="{{ __('Phone Number') }}" />
     <div
-        x-data="select({ data: {{ $countries }}, value: {{ $country }} ,emptyOptionsMessage: 'No countries match your search.', name: 'country', placeholder: 'Select a country' })"
+        x-data="select({ data: {{ $countries }}, value: {{ $country }} , emptyOptionsMessage: '{{ __('No countries match your search.')}}', name: 'country', placeholder: '{{ __('Select a country') }}' })"
         x-init="init()"
         @click.away="closeListbox()"
         @keydown.escape="closeListbox()"
@@ -15,16 +15,16 @@
                 @click.prevent="toggleListboxVisibility()"
                 :aria-expanded="open"
                 aria-haspopup="listbox"
-                class="relative z-0 py-3 pr-8 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                class="relative z-0 py-2 pr-4 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
             >
-                <div class="flex">
+                <div class="flex mr-2">
                     <span
                         x-show="! open"
-                        x-text="value ? value.flag + '&nbsp;&nbsp;+ ' + value.calling_code : placeholder"
+                        x-text="value ? value.flag + '&nbsp;&nbsp;+' + value.calling_code : placeholder"
                         :class="{ 'text-gray-500': ! value }"
-                        class="block truncate ml-3">
+                        class="block truncate ml-3">asdfas
                     </span>
-                    <span x-show="! open" class="absolute inset-y-0 mr-1 right-0 flex items-center pointer-events-none">
+                    <span style="top: 9px;" x-show="! open" class="absolute inset-y-0 mr-1 right-0 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
                             <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
@@ -48,7 +48,7 @@
                 @keydown.arrow-down.prevent="focusNextOption()"
                 x-model="search"
                 type="search"
-                class="w-full z-10 h-full form-control focus:outline-none"
+                class="w-full z-10 h-full form-control focus:outline-none rounded-md"
             />
             <ul
                 x-ref="listbox"
@@ -58,7 +58,7 @@
                 role="listbox"
                 :aria-activedescendant="focusedOptionOptionId ? name + 'Option' + focusedOptionOptionId : null"
                 tabindex="-1"
-                style="height: 10rem"
+                :style="{ 'height': ulSize}"
                 class="py-1 overflow-auto text-base leading-6 rounded-md shadow-xs h-20 md:h-full focus:outline-none sm:text-sm sm:leading-5"
             >
                 <template x-for="(option, index) in options" :key="index">
@@ -87,7 +87,7 @@
                             <span
                                 x-show="option === value"
                                 :class="{ 'text-white': option.id === focusedOptionOptionId, 'text-indigo-600': option.id !== focusedOptionOptionId }"
-                                class="absolute inset-y-0 right-0 ml-2 flex items-center pr-3 text-indigo-600"
+                                class="absolute inset-y-0 right-0 ml-3 flex items-center pr-2 text-indigo-600"
                             >
                                 <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -107,12 +107,12 @@
             type="hidden"
             id="calling_code"
             name="calling_code"
-            x-model="value ? value.calling_code :  value"
+            x-model="value ? value.calling_code : value"
         />
         <x-jet-input
             name="phone"
             id="phone"
-            class="mt-1 ml-2  w-full"
+            class="mt-1 ml-2 w-full"
             type="text"
             :value="old('phone')"
         />
@@ -122,20 +122,22 @@
         function select(config) {
             return {
                 data: config.data,
-                emptyOptionsMessage: 'No results match your search.',
+                emptyOptionsMessage: '{{ __('No results match your search.') }}',
                 focusedOptionOptionId: null,
                 focusedOptionIndex: null,
                 name: 'country',
                 open: false,
                 options: {},
-                placeholder: 'Select',
+                placeholder: '{{ __('Select') }}',
                 search: '',
                 value: config.value,
+                ulSize: '10rem',
 
                 closeListbox: function () {
                     this.open = false
                     this.focusedOptionOptionId = null
                     this.search = ''
+                    this.ulSize = '10rem'
                 },
 
                 focusNextOption: function () {
@@ -146,7 +148,7 @@
                     this.focusedOptionIndex++
 
                     this.$refs.listbox.children[this.focusedOptionIndex++].scrollIntoView({
-                        block: "center",
+                        block: 'center',
                     })
                 },
 
@@ -158,7 +160,7 @@
                     this.focusedOptionIndex--
 
                     this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
-                        block: "center",
+                        block: 'center',
                     })
                 },
 
@@ -185,16 +187,30 @@
                         }
                     @endif
 
-                        this.$watch('search', ((value) => {
+                    this.$watch('search', ((value) => {
                         if (!this.open || !value) return this.options = this.data
 
                         this.options = this.data
-                            .filter((country) => country.name.toLowerCase().includes(value.toLowerCase()))
+                            .filter((country) => country.name
+                                .normalize('NFD')
+                                .replace(/[\u0300-\u036f]/g, '')
+                                .toLowerCase()
+                                .includes(
+                                    value .normalize('NFD')
+                                    .replace(/[\u0300-\u036f]/g, '')
+                                    .toLowerCase())
+                            )
+
+                        if (this.options.length < 5) {
+                            this.ulSize = 'auto'
+                        } else {
+                            this.ulSize = '10rem'
+                        }
                     }))
                 },
 
                 formatPhone() {
-                    Inputmask(this.value.phone_format).mask(document.getElementById("phone"));
+                    Inputmask(this.value.phone_format).mask(document.getElementById('phone'));
                 },
 
                 selectOption: function () {
@@ -219,7 +235,7 @@
                     this.$nextTick(() => {
                         this.$refs.search.focus()
                         this.$refs.listbox.children[this.focusedOptionIndex+2].scrollIntoView({
-                            block: "center"
+                            block: 'center'
                         })
                     })
                 },

@@ -1,6 +1,6 @@
 @props(['navigation' => ''])
 
-<footer class="bg-gray-800 bottom-0 shadow-2xl pt-5">
+<footer class="bg-gray-800 bottom-0 shadow-2xl mt-5 pt-5">
     <div class="w-full pt-10 flx items-center justify-center bg-grey-light">
         <div class="md:w-2/3 w-full px-4 text-white flex flex-col">
             {{ $slot }}

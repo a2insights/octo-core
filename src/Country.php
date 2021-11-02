@@ -23,7 +23,7 @@ class Country extends ObjectAbstract
     ];
 
     /**
-     * Locale
+     * Locale language
      *
      * @var
      */
@@ -43,16 +43,6 @@ class Country extends ObjectAbstract
     }
 
     /**
-     * Get all countries to array
-     *
-     * @return array
-     */
-    public function allToArray()
-    {
-        return $this->mapAll(true)->toArray();
-    }
-
-    /**
      * Return all countries
      *
      * @return \Illuminate\Support\Collection
@@ -65,10 +55,9 @@ class Country extends ObjectAbstract
     /**
      * Map countries to candy data
      *
-     * @param false $toArray
      * @return \Illuminate\Support\Collection
      */
-    private function mapAll(bool $toArray = false)
+    private function mapAll()
     {
         if (!$this->localeTr) {
             $this->localeTr = config('app.locale');
@@ -79,11 +68,12 @@ class Country extends ObjectAbstract
         $countries = new Countries();
 
         return collect(array_keys($translatedNamed))
-            ->map(function ($code) use ($countries, $translatedNamed, $toArray) {
+            ->map(function ($code) use ($countries, $translatedNamed) {
                 $country = $countries->where('cca2', $code)->first();
-                return $this->create($country, $translatedNamed, $toArray);
+                return $this->create($country, $translatedNamed);
             })
-            ->whereNotNull('calling_code')->values();
+            ->whereNotNull('calling_code')
+            ->values();
     }
 
     /**
@@ -91,10 +81,9 @@ class Country extends ObjectAbstract
      *
      * @param Collection $country
      * @param array $translatedNamed
-     * @param false $toArray
      * @return array|Country|null
      */
-    private function create(Collection $country, array $translatedNamed, bool $toArray = false)
+    private function create(Collection $country, array $translatedNamed)
     {
         $maskbase = '99999999999999999999999';
 
@@ -116,7 +105,6 @@ class Country extends ObjectAbstract
         if (isset($translatedNamed[$country['cca2']]) && isset($nationalDestinationCodePattern) && isset($nationalNumberPattern)) {
             try {
                 $language = Lingua::createFromName($oficialLanguage);
-
                 $object = new Country([
                     'id' => $country['cca2'],
                     'iso_code' => $country['iso_a2'],
@@ -128,15 +116,15 @@ class Country extends ObjectAbstract
                     'flag' => (new CountryFlag())->get($country['cca2']),
                     'name' => $translatedNamed[$country['cca2']]
                 ]);
-            }catch (\Exception $exception){
+            } catch (\Exception $exception){
                 return null;
             }
         }
 
-        if (!$object) {
+        if (! $object) {
             return null;
         }
 
-        return $toArray ? $object->toArray() : $object;
+        return $object;
     }
 }

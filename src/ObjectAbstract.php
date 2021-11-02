@@ -48,36 +48,6 @@ abstract class ObjectAbstract implements Arrayable
         $this->fill($attributes);
     }
 
-    private function normalizeAttributes()
-    {
-        $normalized = [];
-
-        foreach ($this->attributes as $key => $value) {
-            if (!is_int($key)) {
-                $normalized[$key] = $value;
-            }
-
-            if(is_string($value)){
-                $normalized[$value] = null;
-            }
-        }
-
-       $this->attributes = $normalized;
-    }
-
-    private function strictAttributes()
-    {
-        $attributes = [];
-
-        foreach ($this->attributes as $key => $value) {
-            if(Arr::exists($this->original, $key)){
-                $attributes[$key] = $value;
-            }
-        }
-
-        $this->attributes = $attributes;
-    }
-
     /**
      * Fill the object with an array of attributes.
      *
@@ -86,7 +56,6 @@ abstract class ObjectAbstract implements Arrayable
      */
     protected function fill(array $attributes)
     {
-
         $this->original = $this->attributes;
 
         $this->attributes = array_merge($this->attributes, $attributes);
@@ -125,7 +94,7 @@ abstract class ObjectAbstract implements Arrayable
     }
 
     /**
-     * set appends in object.
+     * setAppends in object.
      *
      * @return void
      */
@@ -147,5 +116,45 @@ abstract class ObjectAbstract implements Arrayable
     public function toArray($data = null): array
     {
         return json_decode(json_encode($this->getAttributes()),TRUE);
+    }
+
+    /**
+     * Normalize attributes from array
+     *
+     * @param void
+     */
+    private function normalizeAttributes()
+    {
+        $normalized = [];
+
+        foreach ($this->attributes as $key => $value) {
+            if (!is_int($key)) {
+                $normalized[$key] = $value;
+            }
+
+            if(is_string($value)){
+                $normalized[$value] = null;
+            }
+        }
+
+        $this->attributes = $normalized;
+    }
+
+    /**
+     * Set only stricts attributes
+     *
+     * @param void
+     */
+    private function strictAttributes()
+    {
+        $attributes = [];
+
+        foreach ($this->attributes as $key => $value) {
+            if(Arr::exists($this->original, $key)){
+                $attributes[$key] = $value;
+            }
+        }
+
+        $this->attributes = $attributes;
     }
 }
