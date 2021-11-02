@@ -15,7 +15,7 @@
                 @click.prevent="toggleListboxVisibility()"
                 :aria-expanded="open"
                 aria-haspopup="listbox"
-                style="max-height: 42px;"
+                style="min-height: 42px;"
                 class="items-center flex relative z-0 py-2 pr-4 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
             >
                 <div class="flex mr-2">
