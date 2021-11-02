@@ -15,7 +15,8 @@
                 @click.prevent="toggleListboxVisibility()"
                 :aria-expanded="open"
                 aria-haspopup="listbox"
-                class="relative z-0 py-2 pr-4 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                style="max-height: 42px;"
+                class="items-center flex relative z-0 py-2 pr-4 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
             >
                 <div class="flex mr-2">
                     <span
@@ -24,7 +25,7 @@
                         :class="{ 'text-gray-500': ! value }"
                         class="block truncate ml-3">asdfas
                     </span>
-                    <span style="top: 9px;" x-show="! open" class="absolute inset-y-0 mr-1 right-0 flex items-center pointer-events-none">
+                    <span x-show="! open" class="absolute inset-y-0 mr-1 right-0 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
                             <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
