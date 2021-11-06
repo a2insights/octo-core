@@ -39,7 +39,7 @@
         </x-footer>
     </div>
 
-    {{--Jetstream--}}
+    {{--Fortify--}}
     @stack('modals')
 
     @livewire('livewire-ui-modal')

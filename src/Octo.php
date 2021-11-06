@@ -43,4 +43,14 @@ class Octo
     {
         return Features::hasPhoneUserFeatures();
     }
+
+    /**
+     * Determine if the sms feature is enabled.
+     *
+     * @return bool
+     */
+    public static function hasSmsFeatures()
+    {
+        return Features::hasSmsFeatures();
+    }
 }

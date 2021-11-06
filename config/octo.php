@@ -48,8 +48,10 @@ return [
     ],
 
     'features' => [
-        \Octo\Features::notifications(['pusher' => true]),
-        \Octo\Features::billingDasboard(),
-        \Octo\Features::phoneUser()
+        // \Octo\Features::notifications(['pusher' => true]),
+        // \Octo\Features::billingDasboard(),
+        // \Octo\Features::welcomeUserNotifications(['queued' => true, 'sms' => true]),
+        // \Octo\Features::phoneUser(),
+        // \Octo\Features::sms(['provider' => 'nexmo'])
     ],
 ];

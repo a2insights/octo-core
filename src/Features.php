@@ -25,7 +25,7 @@ class Features
     public static function optionEnabled(string $feature, string $option)
     {
         return static::enabled($feature) &&
-               config("octo-options.{$feature}.{$option}") === true;
+            config("octo-options.{$feature}.{$option}") === true;
     }
 
     /**
@@ -89,6 +89,41 @@ class Features
     }
 
     /**
+     * Enable the application sms channel notification
+     *
+     * @param  array  $options
+     * @return string
+     */
+    public static function sms(array $options = [])
+    {
+        if (! empty($options)) {
+            config(['octo-options.sms' => $options]);
+        }
+
+        return 'sms';
+    }
+
+    /**
+     * Determine the sms provider.
+     *
+     * @return bool
+     */
+    public static function smsProvider()
+    {
+        return static::optionEnabled(static::sms(), 'provider');
+    }
+
+    /**
+     * Determine if the sms is enabled.
+     *
+     * @return bool
+     */
+    public static function hasSmsFeatures()
+    {
+        return static::enabled(static::sms());
+    }
+
+    /**
      * Enable the welcome user notifications feature.
      *
      * @param  array  $options
@@ -121,6 +156,16 @@ class Features
     public static function sendsPusherNotifications()
     {
         return static::optionEnabled(static::notifications(), 'pusher');
+    }
+
+    /**
+     * Send nexmo notifications.
+     *
+     * @return bool
+     */
+    public static function sendsWelcomeUserSmsNotifications()
+    {
+        return static::optionEnabled(static::welcomeUserNotifications(), 'sms');
     }
 
     /**

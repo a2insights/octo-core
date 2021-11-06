@@ -25,6 +25,10 @@ class OctoServiceProvider extends ServiceProvider
             __DIR__.'/../config/octo.php' => config_path('octo.php'),
         ], 'octo-config');
 
+        $this->publishes([
+            __DIR__.'/../database/migrations/2014_10_12_000000_create_users_table.php' => database_path('migrations/2014_10_12_000000_create_users_table.php'),
+        ], 'octo-migrations');
+
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'octo');
 
         // Octo blade
@@ -59,6 +63,8 @@ class OctoServiceProvider extends ServiceProvider
         // Configure commmands
         $this->commands([
             Console\InstallCommand::class,
+            Console\InstallSmsDriverCommand::class,
+            Console\UninstallSmsDriverCommand::class,
         ]);
 
         Route::group([
@@ -70,6 +76,9 @@ class OctoServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
+        $this->mergeConfigFrom(__DIR__.'/../config/services.php', 'services');
+
         if (Features::hasWelcomeUserFeatures()) {
             if (Features::queuedWelcomeUserNotifications()) {
                 Event::listen(
@@ -85,9 +94,5 @@ class OctoServiceProvider extends ServiceProvider
                 );
             };
         }
-
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/octo.php', 'octo'
-        );
     }
 }

@@ -15,3 +15,18 @@ if (!function_exists('octo_route')) {
         ]);
     }
 }
+
+if (!function_exists('replaceInFile')) {
+    /**
+     * Replace a given string within a given file.
+     *
+     * @param  string  $search
+     * @param  string  $replace
+     * @param  string  $path
+     * @return void
+     */
+    function replaceInFile($search, $replace, $path)
+    {
+        file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
+    }
+}

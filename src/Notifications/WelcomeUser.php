@@ -5,10 +5,14 @@ namespace Octo\Notifications;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+
+use Octo\Concerns\ToSmsProvider;
 use Octo\Route;
 
 class WelcomeUser extends Notification
 {
+    use ToSmsProvider;
+
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -16,7 +20,12 @@ class WelcomeUser extends Notification
 
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return $this->to(['mail', 'database']);
+    }
+
+    public function toSms($notifiable)
+    {
+        return "Hello {$this->user->name} Welcome to the Octo. \n Login into your account ". route('login');
     }
 
     public function toMail($notifiable)

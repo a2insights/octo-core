@@ -39,7 +39,7 @@
             </main>
         </div>
 
-        {{--Jetstream--}}
+        {{--Fortify--}}
         @stack('modals')
 
         @livewire('livewire-ui-modal')
