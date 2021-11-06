@@ -159,13 +159,23 @@ class Features
     }
 
     /**
-     * Send nexmo notifications.
+     * Determine if the pusher notification queued is active.
+     *
+     * @return bool
+     */
+    public static function sendsPusherQueuedNotifications()
+    {
+        return static::optionEnabled(static::notifications(), 'pusher-queued');
+    }
+
+    /**
+     * Send sms notifications.
      *
      * @return bool
      */
     public static function sendsWelcomeUserSmsNotifications()
     {
-        return static::optionEnabled(static::welcomeUserNotifications(), 'sms');
+        return static::optionEnabled(static::welcomeUserNotifications(), 'sms') && self::hasSmsFeatures();
     }
 
     /**

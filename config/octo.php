@@ -48,9 +48,9 @@ return [
     ],
 
     'features' => [
-        // \Octo\Features::notifications(['pusher' => true]),
+        // \Octo\Features::notifications(['pusher' => false, 'pusher-queued' => false]),
         // \Octo\Features::billingDasboard(),
-        // \Octo\Features::welcomeUserNotifications(['queued' => true, 'sms' => true]),
+        // \Octo\Features::welcomeUserNotifications(['queued' => false, 'sms' => false]),
         // \Octo\Features::phoneUser(),
         // \Octo\Features::sms(['provider' => 'nexmo'])
     ],

@@ -5,8 +5,8 @@ namespace Octo\Notifications;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
 use Octo\Concerns\ToSmsProvider;
+use Octo\Features;
 use Octo\Route;
 
 class WelcomeUser extends Notification
@@ -20,7 +20,7 @@ class WelcomeUser extends Notification
 
     public function via($notifiable)
     {
-        return $this->to(['mail', 'database']);
+        return $this->to(['mail', 'database', Features::sendsWelcomeUserSmsNotifications() ? 'sms' : null]);
     }
 
     public function toSms($notifiable)

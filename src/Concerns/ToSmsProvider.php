@@ -2,9 +2,11 @@
 
 namespace Octo\Concerns;
 
+use Illuminate\Support\Arr;
 use Illuminate\Notifications\Messages\NexmoMessage;
 use NotificationChannels\Twilio\TwilioChannel;
 use NotificationChannels\Twilio\TwilioSmsMessage;
+use Octo\Octo;
 
 trait ToSmsProvider
 {
@@ -19,9 +21,13 @@ trait ToSmsProvider
 
     public function to($channels)
     {
-        return array_merge($channels, [
-           $this->resolveSmsProvider()
-        ]);
+        if (in_array('sms', $channels) && Octo::hasSmsFeatures()) {
+            return array_merge(array_diff($channels, ['sms']), [
+                $this->resolveSmsProvider()
+            ]);
+        }
+
+        return array_diff($channels, ['sms']);
     }
 
     private function resolveSmsProvider()

@@ -26,9 +26,9 @@
                     <a
                         href="#"
                         wire:click="redirectTo('{{ $notification->id }}')"
-                        class="{{ $notification->read_at ? 'bg-white' : 'bg-indigo-100' }} flex items-center px-2 py-2 border-b hover:bg-gray-100"
+                        class="{{ $notification->read_at ? 'bg-white' : 'bg-indigo-100' }} flex items-center px-2 py-2 border-b hover:bg-gray-700 hover:text-white"
                     >
-                        <p class="text-gray-600 text-sm mx-2">
+                        <p style="min-width: 18rem;" class=" text-sm mx-2">
                             <span class="font-bold" href="#">{{ $notification->data['title'] }}</span> <small class="float-right">{{ $notification->created_at->diffForHumans() }}</small>
                             <br><span>{{ \Illuminate\Support\Str::limit($notification->data['description'], 48) }}</span>
                         </p>
@@ -38,7 +38,7 @@
                 @endforelse
             </div>
             @if($notifications->count() > 0)
-                <a href="{{ route('notifications.index') }}" class="block bg-gray-800 text-white text-center font-bold py-2">See all notifications</a>
+                <a href="{{ route('notifications.index') }}" class="block bg-gray-800 text-white text-center font-bold py-2">{{ __('See all notifications') }}</a>
             @endif
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace Octo;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -66,6 +67,10 @@ class OctoServiceProvider extends ServiceProvider
             Console\InstallSmsDriverCommand::class,
             Console\UninstallSmsDriverCommand::class,
         ]);
+
+        Broadcast::channel('user-notification.{userId}', function ($user, $userId){
+            return $user->id === (int) $userId;
+        });
 
         Route::group([
             'namespace' => 'Octo\Http\Controllers',

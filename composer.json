@@ -28,7 +28,7 @@
         "illuminate/support": "^8.0",
         "laravel/ui": "^3.0",
         "wire-elements/modal": "^1.0.1",
-        "livewire/livewire": "^2.4",
+        "livewire/livewire": "^2.7",
         "pragmarx/countries": "dev-master",
         "spatie/laravel-newsletter": "dev-master",
         "stidges/laravel-country-flags": "dev-master",
