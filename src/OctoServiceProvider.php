@@ -58,9 +58,6 @@ class OctoServiceProvider extends ServiceProvider
         Livewire::component('octo-dropdown-notifications', DropdownNotifications::class);
         Livewire::component('octo-list-notifications', ListNotifications::class);
 
-        // Share views data
-        View::share('sidebar',  ['items' => config('octo.navigation.sidebar')]);
-
         // Configure commmands
         $this->commands([
             Console\InstallCommand::class,

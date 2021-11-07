@@ -45,6 +45,18 @@ trait Notification
         return Auth::user();
     }
 
+
+    /**
+     * Create notification
+     *
+     * @return void
+     */
+    private function dispatchNotification($id)
+    {
+        (new \Octo\Notification($this->getNotification($id)->data))->pusher($this->getUser());
+    }
+
+
     /**
      * Mark the notification as a unread
      *
@@ -52,6 +64,7 @@ trait Notification
      */
     public function markAsUnread($id)
     {
+        $this->dispatchNotification($id);
         $this->getNotification($id)->markAsRead();
     }
 
@@ -62,6 +75,7 @@ trait Notification
      */
     public function markAsRead($id)
     {
+        $this->dispatchNotification($id);
         $this->getNotification($id)->markAsRead();
     }
 
@@ -74,6 +88,8 @@ trait Notification
     public function redirectTo($id)
     {
         $notification = $this->getNotification($id);
+
+        $this->dispatchNotification($id);
 
         if (!$notification->read_at) {
             $notification->markAsRead();

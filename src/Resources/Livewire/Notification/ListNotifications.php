@@ -45,6 +45,7 @@ class ListNotifications extends Component
      */
     public function markAsUnread($id)
     {
+        $this->dispatchNotification($id);
         $this->getNotification($id)->markAsUnRead();
         $this->emit('refreshNotifications');
     }
@@ -56,7 +57,20 @@ class ListNotifications extends Component
      */
     public function markAsRead($id)
     {
+        $this->dispatchNotification($id);
         $this->getNotification($id)->markAsRead();
         $this->emit('refreshNotifications');
+    }
+
+    /**
+     * Listeners
+     *
+     * @return string[]
+     */
+    public function getListeners()
+    {
+        return [
+            "echo-private:user-notification.{$this->getUser()->id},.Octo\\Events\\NewPusherNotification" => '$refresh'
+        ];
     }
 }
