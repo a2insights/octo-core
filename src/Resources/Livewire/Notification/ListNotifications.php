@@ -45,9 +45,7 @@ class ListNotifications extends Component
      */
     public function markAsUnread($id)
     {
-        $this->dispatchNotification($id);
         $this->getNotification($id)->markAsUnRead();
-        $this->emit('refreshNotifications');
     }
 
     /**
@@ -57,9 +55,7 @@ class ListNotifications extends Component
      */
     public function markAsRead($id)
     {
-        $this->dispatchNotification($id);
         $this->getNotification($id)->markAsRead();
-        $this->emit('refreshNotifications');
     }
 
     /**

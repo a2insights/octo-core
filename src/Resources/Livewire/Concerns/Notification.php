@@ -64,7 +64,6 @@ trait Notification
      */
     public function markAsUnread($id)
     {
-        $this->dispatchNotification($id);
         $this->getNotification($id)->markAsRead();
     }
 
@@ -75,7 +74,6 @@ trait Notification
      */
     public function markAsRead($id)
     {
-        $this->dispatchNotification($id);
         $this->getNotification($id)->markAsRead();
     }
 
@@ -89,18 +87,12 @@ trait Notification
     {
         $notification = $this->getNotification($id);
 
-        $this->dispatchNotification($id);
-
         if (!$notification->read_at) {
             $notification->markAsRead();
         }
 
         if ($notification->data['route']) {
             return redirect(route($notification->data['route']['name'], $notification->data['route']['params']));
-        }
-
-        if (!$notification->data['route'] && !$notification->read_at) {
-            $this->emit('refreshNotifications');
         }
     }
 }
