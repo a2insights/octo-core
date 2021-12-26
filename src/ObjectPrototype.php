@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Octo\Contracts\Resources\Arrayable;
 
-abstract class ObjectAbstract implements Arrayable
+abstract class ObjectPrototype implements Arrayable
 {
     /**
      * The object attributes.

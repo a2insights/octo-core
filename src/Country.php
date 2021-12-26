@@ -9,7 +9,7 @@ use Stidges\CountryFlags\CountryFlag;
 use Symfony\Component\Intl\Intl;
 use WhiteCube\Lingua\Service as Lingua;
 
-class Country extends ObjectAbstract
+class Country extends ObjectPrototype
 {
     /**
      * Object attributes

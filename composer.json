@@ -30,7 +30,7 @@
         "wire-elements/modal": "^1.0.1",
         "livewire/livewire": "^2.7",
         "pragmarx/countries": "dev-master",
-        "spatie/laravel-newsletter": "dev-master",
+        "spatie/laravel-newsletter": "dev-main",
         "stidges/laravel-country-flags": "dev-master",
         "symfony/intl": "^3.4",
         "torann/geoip": "^3.0",

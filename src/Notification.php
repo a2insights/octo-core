@@ -5,7 +5,7 @@ namespace Octo;
 use Octo\Events\NewPusherNotificationNow;
 use Octo\Events\NewPusherNotificationQueued;
 
-class Notification extends ObjectAbstract
+class Notification extends ObjectPrototype
 {
     protected $attributes = ['title', 'description', 'route'];
 

@@ -3,7 +3,7 @@
 namespace Octo\Tests\Resources\Objects;
 
 use Illuminate\Support\Facades\Route;
-use Octo\ObjectAbstract;
+use Octo\ObjectPrototype;
 use Octo\Tests\TestCase;
 
 class ObjectTest extends TestCase
@@ -44,7 +44,7 @@ class ObjectTest extends TestCase
     }
 }
 
-class ObjectTestable extends ObjectAbstract {
+class ObjectTestable extends ObjectPrototype {
 
     protected $strict = false;
 
@@ -70,14 +70,14 @@ class ObjectTestable extends ObjectAbstract {
     }
 }
 
-class ObjectChild extends ObjectAbstract {
+class ObjectChild extends ObjectPrototype {
 
     protected $attributes = [
         'name', 'id', 'object_child'
     ];
 }
 
-class ObjectChildChild extends ObjectAbstract {
+class ObjectChildChild extends ObjectPrototype {
 
     protected $attributes = [
         'name', 'id'

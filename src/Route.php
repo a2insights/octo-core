@@ -2,7 +2,7 @@
 
 namespace Octo;
 
-class Route extends ObjectAbstract
+class Route extends ObjectPrototype
 {
     protected $attributes = [
         'name', 'params' => []
