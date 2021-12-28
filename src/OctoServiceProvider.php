@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Octo\Listeners\WelcomeUserNotification;
@@ -17,11 +16,23 @@ use Octo\Resources\Blade\Sidebar;
 use Octo\Resources\Livewire\Notifications\DropdownNotifications;
 use Octo\Resources\Livewire\Notifications\ListNotifications;
 use Octo\Resources\Livewire\Subscribe;
+use Laravel\Cashier\Cashier as StripeCashier;
+use Laravel\Paddle\Cashier as PaddleCashier;
+use Octo\Billing\Http\Livewire\ListPaymentMethods;
+use Octo\Billing\Http\Livewire\PlansSlide;
 
 class OctoServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        if (class_exists(StripeCashier::class)) {
+            StripeCashier::useSubscriptionModel(\Octo\Billing\Models\Stripe\Subscription::class);
+        }
+
+        if (class_exists(PaddleCashier::class)) {
+            PaddleCashier::useSubscriptionModel(\Octo\Billing\Models\Paddle\Subscription::class);
+        }
+
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'octo');
 
         $this->publishes([
@@ -40,12 +51,14 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo::blade.hero', 'octo-hero');
         Blade::component('octo::blade.tile', 'octo-tile');
 
+        // Billing
+        Livewire::component('plans-slide', PlansSlide::class);
+        Livewire::component('list-payment-methods', ListPaymentMethods::class);
+
         // Need publish
         Blade::component('footer', 'footer');
 
-        Blade::component('octo::blade.row-notification', 'octo-row-notification');
-
-        // Blade
+        // Livewire
         Livewire::component('octo-subscribe', Subscribe::class);
         Livewire::component('octo-dropdown-notifications', DropdownNotifications::class);
         Livewire::component('octo-list-notifications', ListNotifications::class);
@@ -61,9 +74,7 @@ class OctoServiceProvider extends ServiceProvider
             return $user->id === (int) $userId;
         });
 
-        Route::group([
-            'namespace' => 'Octo\Http\Controllers',
-        ], function () {
+        Route::group([], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
         });
     }

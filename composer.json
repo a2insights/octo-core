@@ -35,7 +35,8 @@
         "symfony/intl": "^3.4",
         "torann/geoip": "^3.0",
         "whitecube/lingua": "dev-master",
-        "wire-elements/modal": "^1.0.1"
+        "wire-elements/modal": "^1.0.1",
+        "laravel/jetstream": "^2.4"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
