@@ -27,14 +27,15 @@
         "hieu-le/active": "^8.0",
         "illuminate/support": "^8.0",
         "laravel/ui": "^3.0",
-        "wire-elements/modal": "^1.0.1",
         "livewire/livewire": "^2.7",
         "pragmarx/countries": "dev-master",
+        "rappasoft/laravel-livewire-tables": "dev-master",
         "spatie/laravel-newsletter": "dev-main",
         "stidges/laravel-country-flags": "dev-master",
         "symfony/intl": "^3.4",
         "torann/geoip": "^3.0",
-        "whitecube/lingua": "dev-master"
+        "whitecube/lingua": "dev-master",
+        "wire-elements/modal": "^1.0.1"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
