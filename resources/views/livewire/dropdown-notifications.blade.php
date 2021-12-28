@@ -1,6 +1,7 @@
 <div class="xl:flex mt-2 items-center space-x-5 items-center">
     <div
         x-data="{ dropdownOpen: false }"
+        @click.away="dropdownOpen = false"
         class="relative my-32"
     >
         <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
@@ -14,7 +15,6 @@
                 </span>
         </button>
 
-        <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
         <div
             x-show="dropdownOpen"
@@ -29,16 +29,16 @@
                         class="{{ $notification->read_at ? 'bg-white' : 'bg-indigo-100' }} flex items-center px-2 py-2 border-b hover:bg-gray-700 hover:text-white"
                     >
                         <p style="min-width: 18rem;" class=" text-sm mx-2">
-                            <span class="font-bold" href="#">{{ $notification->data['title'] }}</span> <small class="float-right">{{ $notification->created_at->diffForHumans() }}</small>
+                            <span class="font-bold" href="#">{{ $notification->data['title'] }}</span> <small style="float: right" class="float-right">{{ $notification->created_at->diffForHumans() }}</small>
                             <br><span>{{ \Illuminate\Support\Str::limit($notification->data['description'], 48) }}</span>
                         </p>
                     </a>
                 @empty
-                    <h3 class="mx-auto py-4 text-2xl text-center">All caught!</h3>
+                    <h3 class="mx-auto py-4 text-2xl text-center">{{ __('octo::messages.notifications.all-caught') }}</h3>
                 @endforelse
             </div>
             @if($notifications->count() > 0)
-                <a href="{{ route('notifications.index') }}" class="block bg-gray-800 text-white text-center font-bold py-2">{{ __('See all notifications') }}</a>
+                <a href="{{ route('notifications.index') }}" class="block bg-gray-800 text-white text-center font-bold py-2">{{ __('octo::messages.notifications.all-notifications') }}</a>
             @endif
         </div>
     </div>

@@ -8,9 +8,9 @@ if (!function_exists('octo_route')) {
      * @param array $params
      * @return \Octo\Route
      */
-    function octo_route(string $name , array $params = [])
+    function octo_route(string $name, array $params = [])
     {
-        return new \Octo\Route ([
+        return new \Octo\Route([
             'name' => $name,
             'params' => $params
         ]);

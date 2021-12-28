@@ -4,7 +4,7 @@ namespace Octo\Resources\Livewire\Concerns;
 
 use Illuminate\Support\Facades\Auth;
 
-trait Notification
+trait Notifications
 {
     /**
      * Get notification by id of auth user
@@ -45,18 +45,6 @@ trait Notification
         return Auth::user();
     }
 
-
-    /**
-     * Create notification
-     *
-     * @return void
-     */
-    private function dispatchNotification($id)
-    {
-        (new \Octo\Notification($this->getNotification($id)->data))->pusher($this->getUser());
-    }
-
-
     /**
      * Mark the notification as a unread
      *
@@ -64,7 +52,7 @@ trait Notification
      */
     public function markAsUnread($id)
     {
-        $this->getNotification($id)->markAsRead();
+        $this->getNotification($id)->markAsUnRead();
     }
 
     /**

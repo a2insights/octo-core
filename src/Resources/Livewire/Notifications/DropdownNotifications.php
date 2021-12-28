@@ -1,13 +1,13 @@
 <?php
 
-namespace Octo\Resources\Livewire\Notification;
+namespace Octo\Resources\Livewire\Notifications;
 
 use Livewire\Component;
-use Octo\Resources\Livewire\Concerns\Notification;
+use Octo\Resources\Livewire\Concerns\Notifications;
 
 class DropdownNotifications extends Component
 {
-    use Notification;
+    use Notifications;
 
     /**
      * Render the view

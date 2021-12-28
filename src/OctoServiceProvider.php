@@ -14,14 +14,16 @@ use Octo\Listeners\WelcomeUserNotification;
 use Octo\Listeners\WelcomeUserQueuedNotification;
 use Octo\Resources\Blade\PhoneInput;
 use Octo\Resources\Blade\Sidebar;
-use Octo\Resources\Livewire\Notification\DropdownNotifications;
-use Octo\Resources\Livewire\Notification\ListNotifications;
+use Octo\Resources\Livewire\Notifications\DropdownNotifications;
+use Octo\Resources\Livewire\Notifications\ListNotifications;
 use Octo\Resources\Livewire\Subscribe;
 
 class OctoServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'octo');
+
         $this->publishes([
             __DIR__.'/../config/octo.php' => config_path('octo.php'),
         ], 'octo-config');
@@ -35,23 +37,13 @@ class OctoServiceProvider extends ServiceProvider
         // Octo blade
         Blade::component(Sidebar::class, 'octo-sidebar');
         Blade::component(PhoneInput::class, 'octo-phone-input');
-        Blade::component('octo::blade.hero','octo-hero');
-        Blade::component('octo::blade.tile','octo-tile');
+        Blade::component('octo::blade.hero', 'octo-hero');
+        Blade::component('octo::blade.tile', 'octo-tile');
 
         // Need publish
-        Blade::component('footer','footer');
+        Blade::component('footer', 'footer');
 
-        // Global
-        Blade::component('octo::blade.global.action-link','action-link');
-        Blade::component('octo::blade.global.bitbucket-icon','bitbucket-icon');
-        Blade::component('octo::blade.global.connected-account','connected-account');
-        Blade::component('octo::blade.global.github-icon','github-icon');
-        Blade::component('octo::blade.global.gitlab-icon','gitlab-icon');
-        Blade::component('octo::blade.global.facebook-icon','facebook-icon');
-        Blade::component('octo::blade.global.facebook-icon','linked-in-icon');
-        Blade::component('octo::blade.global.google-icon','google-icon');
-        Blade::component('octo::blade.global.twitter-icon','twitter-icon');
-        Blade::component('octo::blade.global.socialstream-providers','socialstream-providers');
+        Blade::component('octo::blade.row-notification', 'octo-row-notification');
 
         // Blade
         Livewire::component('octo-subscribe', Subscribe::class);
@@ -78,7 +70,7 @@ class OctoServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR __.'/../config/octo.php', 'octo');
+        $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
         $this->mergeConfigFrom(__DIR__.'/../config/services.php', 'services');
 
         if (Features::hasWelcomeUserFeatures()) {
