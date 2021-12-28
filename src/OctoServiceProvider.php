@@ -43,6 +43,10 @@ class OctoServiceProvider extends ServiceProvider
             __DIR__.'/../database/migrations/2014_10_12_000000_create_users_table.php' => database_path('migrations/2014_10_12_000000_create_users_table.php'),
         ], 'octo-migrations');
 
+        $this->publishes([
+            __DIR__.'/../database/migrations/2020_01_01_000001_create_subscription_usages_table.php' => database_path('migrations/2014_10_12_000000_create_users_table.php'),
+        ], 'octo-migrations');
+
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'octo');
 
         // Octo blade
