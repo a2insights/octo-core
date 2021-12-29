@@ -2,7 +2,6 @@
 
 namespace Octo\Notifications;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notification;
 use Octo\Concerns\ToSmsProvider;
 use Octo\Route;
@@ -10,11 +9,6 @@ use Octo\Route;
 class HeloDolly extends Notification
 {
     use ToSmsProvider;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
 
     public function via($notifiable)
     {
@@ -32,7 +26,7 @@ class HeloDolly extends Notification
             'title' => "Hello Dolly",
             'description' => $this->lyrics(),
             'route' => (new Route(['name' => 'dashboard']))
-        ]))->pusher($this->user)->toArray();
+        ]))->toArray();
     }
 
     function lyrics() {

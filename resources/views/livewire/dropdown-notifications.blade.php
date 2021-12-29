@@ -5,14 +5,14 @@
         class="relative my-32"
     >
         <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
-                <span class="relative inline-block">
-                    {{ svg('heroicon-o-bell', 'w-6 h-6 text-gray-700') }}
-                    @if($noReads)
-                        <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                            {{ $noReads }}
-                        </span>
-                    @endif
-                </span>
+            <span class="relative inline-block">
+                {{ svg('heroicon-o-bell', 'w-6 h-6 text-gray-700') }}
+                @if($noReads)
+                    <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                        {{ $noReads }}
+                    </span>
+                @endif
+            </span>
         </button>
 
         <div
