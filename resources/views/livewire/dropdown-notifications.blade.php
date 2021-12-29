@@ -36,9 +36,7 @@
                     <h3 class="mx-auto py-4 text-2xl text-center">{{ __('octo::messages.notifications.all-caught') }}</h3>
                 @endforelse
             </div>
-            @if($notifications->count() > 0)
-                <a href="{{ route('notifications.index') }}" class="block bg-gray-800 text-white text-center font-bold py-2">{{ __('octo::messages.notifications.all-notifications') }}</a>
-            @endif
+            <a href="{{ route('notifications') }}" class="block bg-gray-800 text-white text-center font-bold py-2">{{ __('octo::messages.notifications.all-notifications') }}</a>
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth', 'verified']], function () {
         // Notifications
         if (Octo::hasNotificationsFeatures()) {
-            Route::get('/user/notifications', [NotificationsController::class, 'index'])->name('notifications.index');
+            Route::get('/user/notifications', [NotificationsController::class, 'index'])->name('notifications');
         }
 
         // Billing
