@@ -31,11 +31,12 @@
     <div class="sm:flex items-center justify-center pb-6 md:py-0 md:w-1/2 md:border-b-8 border-gray-800">
         <form wire:submit.prevent>
             <div class="flex mx-3 flex-col overflow-hidden sm:flex-row">
-                <x-jet-input style="border-radius: unset"  name="email" placeholder="{{ __('Enter your email') }}" type="email" class="bg-gray-200 text-gray-800 border-gray-300 outline-none placeholder-gray-500 focus:bg-gray-100" wire:model.defer="email" />
+                <input wire:model="email" placeholder="email@example.com" type="text" style="color:black">
                 <x-jet-button style="border-radius: unset" wire:click="subscribe" wire:loading.attr="disabled" class="py-3 px-4 bg-gray-700 text-gray-100 font-semibold uppercase hover:bg-gray-600">
                     {{ __('subscribe') }}
                 </x-jet-button>
             </div>
+
             <x-jet-input-error for="email" class="mt-2" />
         </form>
     </div>

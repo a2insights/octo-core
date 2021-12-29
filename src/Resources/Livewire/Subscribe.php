@@ -62,6 +62,11 @@ class Subscribe extends ModalComponent
      */
     public function mount()
     {
+        if(request()->user() && NewsletterFacade::isSubscribed(request()->user()->email)) {
+            $this->close = true;
+            return;
+        }
+
         $this->close = (bool) request()->cookie($this->cookieName);
     }
 
@@ -86,13 +91,13 @@ class Subscribe extends ModalComponent
     {
         $this->validate();
 
-        $ok = NewsletterFacade::subscribeOrUpdate($this->email);
+        $subscribed = NewsletterFacade::subscribeOrUpdate($this->email);
 
-        if ($ok) {
-            $this->banner(__('Now you are subscribed in our chanel. Thanks !'));
-            $this->close = true;
+        if ($subscribed) {
+            $this->banner(__('octo::messages.subscribe.success'));
+            $this->hiddeBanner();
         } else {
-            $this->dangerBanner(__("Couldn't not subscribe now. Try a few minutes later"));
+            $this->dangerBanner(__("octo::messages.subscribe.success.error"));
         }
     }
 
@@ -104,8 +109,8 @@ class Subscribe extends ModalComponent
     public function render()
     {
         return view('octo::livewire.subscribe', [
-            'headline' => config('octo.plugins.subscribe.headline'),
-            'tagline' => config('octo.plugins.subscribe.tagline'),
+            'headline' => __('octo::messages.subscribe.headline'),
+            'tagline' => __('octo::messages.subscribe.tagline'),
             'closable' => $this->closable,
             'bg' => $this->bg
         ]);
