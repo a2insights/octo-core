@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'teste' => 'teste',
     'notifications' => [
         'all-caught' => 'Tudo Feito!',
         'all-notifications' => 'Todas as notificações',
@@ -11,6 +10,9 @@ return [
         'actions' => 'Ações',
         'mark_as_read' => 'Marcar como lida',
         'mark_as_unread' => 'Marcar como não lida',
+        'reads' => 'Lidas',
+        'unreads' => 'Não lidas',
+        'status' => 'Status',
     ],
     'subscribe' => [
         'error' => 'Ocorreu um erro ao tentar se inscrever.',
@@ -19,4 +21,9 @@ return [
         'tagline' => 'Inscreva-se para receber notificações sobre novidades e promoções.',
         'headline' => 'Inscreva-se',
     ],
+    'dashboard' => [
+        'system' => [
+            'banner' => 'Você está no painel de controle do sistema.',
+        ]
+    ]
 ];
