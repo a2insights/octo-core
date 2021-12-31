@@ -6,7 +6,7 @@ use Laravel\Jetstream\InteractsWithBanner;
 use LivewireUI\Modal\ModalComponent;
 use Octo\Site;
 
-class EditSite extends ModalComponent
+class SiteInfo extends ModalComponent
 {
     use InteractsWithBanner;
 
@@ -51,6 +51,6 @@ class EditSite extends ModalComponent
 
     public function render()
     {
-        return view('octo::livewire.system.site.edit-site');
+        return view('octo::livewire.system.site.site-info');
     }
 }

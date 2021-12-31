@@ -17,7 +17,7 @@ use Octo\Billing\Http\Livewire\ListPaymentMethods;
 use Octo\Billing\Http\Livewire\PlansSlide;
 use Octo\Resources\Livewire\System\ListUsers;
 use Octo\Resources\Livewire\SwitchDashboard;
-use Octo\Resources\Livewire\System\EditSite;
+use Octo\Resources\Livewire\System\SiteInfo;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -56,7 +56,7 @@ class OctoServiceProvider extends ServiceProvider
 
         // System
         Livewire::component('octo-system-list-users', ListUsers::class);
-        Livewire::component('octo-system-edit-site', EditSite::class);
+        Livewire::component('octo-system-site-info', SiteInfo::class);
 
         // Configure commmands
         $this->commands([

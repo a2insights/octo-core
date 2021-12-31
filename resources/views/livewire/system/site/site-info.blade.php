@@ -18,7 +18,7 @@
         <!-- Active -->
         <div class="col-span-2 sm:col-span-3">
             <x-jet-label for="site" value="{{ __('Active') }}" />
-            <x-jet-checkbox style="height: 40px;width: 40px;cursor:pointer" id="active" type="text" class="mt-1 block" wire:model.defer="active" autocomplete="active" />
+            <x-jet-checkbox style="height: 40px; width: 40px; cursor: pointer" id="active" type="text" class="mt-1 block" wire:model.defer="active" autocomplete="active" />
             <x-jet-input-error for="active" class="mt-2" />
         </div>
 
