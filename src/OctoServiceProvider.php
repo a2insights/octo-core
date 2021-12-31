@@ -15,6 +15,7 @@ use Octo\Resources\Livewire\Subscribe;
 use Laravel\Cashier\Cashier as StripeCashier;
 use Octo\Billing\Http\Livewire\ListPaymentMethods;
 use Octo\Billing\Http\Livewire\PlansSlide;
+use Octo\Resources\Livewire\System\ListUsers;
 use Octo\Resources\Livewire\SwitchDashboard;
 
 class OctoServiceProvider extends ServiceProvider
@@ -52,16 +53,15 @@ class OctoServiceProvider extends ServiceProvider
         Livewire::component('octo-dropdown-notifications', DropdownNotifications::class);
         Livewire::component('octo-list-notifications', ListNotifications::class);
 
+        // System
+        Livewire::component('octo-system-list-users', ListUsers::class);
+
         // Configure commmands
         $this->commands([
             Console\InstallCommand::class,
             Console\InstallSmsDriverCommand::class,
             Console\UninstallSmsDriverCommand::class,
         ]);
-
-        Broadcast::channel('user-notification.{userId}', function ($user, $userId){
-            return $user->id === (int) $userId;
-        });
 
         Route::group([], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');

@@ -21,17 +21,4 @@ class DropdownNotifications extends Component
             'noReads' => $this->getUser()->unreadNotifications->count()
         ]);
     }
-
-    /**
-     * Listeners
-     *
-     * @return string[]
-     */
-    public function getListeners()
-    {
-        return [
-            'refreshNotifications' => '$refresh',
-            "echo-private:user-notification.{$this->getUser()->id},.Octo\\Events\\NewPusherNotification" => '$refresh'
-        ];
-    }
 }

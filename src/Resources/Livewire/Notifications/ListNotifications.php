@@ -14,24 +14,12 @@ class ListNotifications extends DataTableComponent
 {
     use Notifications;
 
-    /**
-     * Listeners
-     *
-     * @return string[]
-     */
-    public function getListeners()
-    {
-        return [
-            "echo-private:user-notification.{$this->getUser()->id},.Octo\\Events\\NewPusherNotification" => '$refresh'
-        ];
-    }
-
     public function filters(): array
     {
         return [
             'unreads' => Filter::make(__('octo::messages.notifications.status'))
                 ->select([
-                    '' => __('All'),
+                    '' => __('octo::messages.notifications.all'),
                     1 =>  __('octo::messages.notifications.reads'),
                     0 => __('octo::messages.notifications.unreads'),
                 ])
@@ -64,12 +52,7 @@ class ListNotifications extends DataTableComponent
             ->where('notifiable_type', $this->getUser()::class)
             ->where('notifiable_id', $this->getUser()->id)
             ->when($this->getFilter('search'), fn ($query, $term) => $query->search($term))
-            ->when($this->hasFilter('unreads'), function ($query) {
-                if ($this->getFilter('unreads') === 1) {
-                    $query = $query->whereNotNull('read_at');
-                } else {
-                    $query = $query->whereNull('read_at');
-                }
-            })->orderBy('created_at', 'desc');
+            ->when($this->getFilter('unreads'), fn ($query, $verified) => $verified === 'verified' ? $query->whereNotNull('read_at') : $query->whereNull('read_at'))
+            ->orderBy('created_at', 'desc');
     }
 }

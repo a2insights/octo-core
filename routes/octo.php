@@ -36,5 +36,10 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('payment-method', PaymentMethodController::class)->only('index', 'create', 'store');
             Route::resource('subscription', \Octo\Billing\Http\Controllers\SubscriptionController::class)->only('index');
         });
+
+        // System
+        Route::group(['middleware' => ['system.dashboard']], function () {
+            Route::get('/system/users', [\Octo\Http\Controllers\System\UsersController::class, 'index'])->name('system.users');
+        });
     });
 });
