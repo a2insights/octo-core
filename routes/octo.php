@@ -40,6 +40,7 @@ Route::group(['middleware' => ['web']], function () {
         // System
         Route::group(['middleware' => ['system.dashboard']], function () {
             Route::get('/system/users', [\Octo\Http\Controllers\System\UsersController::class, 'index'])->name('system.users');
+            Route::get('/system/site', [\Octo\Http\Controllers\System\SiteController::class, 'index'])->name('system.site');
         });
     });
 });
