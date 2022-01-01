@@ -38,6 +38,7 @@ class ObjectTest extends TestCase
 
         $this->assertTrue($objectChild->name === $object->object->name);
         $this->assertTrue($object->name === $route->getName());
+        $this->assertTrue($object->id === 123);
         $this->assertTrue($object->toArray() == $expected);
         $this->assertTrue($object->url === 'http://localhost/test/api/1?query=1');
         $this->assertTrue($object->object === $objectChild);
@@ -53,6 +54,11 @@ class ObjectTestable extends ObjectPrototype {
     ];
 
     protected $appends = ['url'];
+
+    public function setIdAttribute($value)
+    {
+        return 123;
+    }
 
     public function getUrlAttribute()
     {

@@ -5,6 +5,8 @@ namespace Octo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Octo\Contracts\Resources\Arrayable;
+use ReflectionMethod;
+use ReflectionNamedType;
 
 abstract class ObjectPrototype implements Arrayable
 {
@@ -35,6 +37,13 @@ abstract class ObjectPrototype implements Arrayable
      * @var bool
      */
     protected $strict = true;
+
+    /**
+     * The cache of the "Attribute" return type marked mutated, settable attributes for each class.
+     *
+     * @var array
+     */
+    protected static $setAttributeMutatorCache = [];
 
     /**
      * Create a new Object instance.
@@ -74,13 +83,40 @@ abstract class ObjectPrototype implements Arrayable
     }
 
     /**
+     * Get the value of an attribute.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function getMutatedAttributeValue($key, $value)
+    {
+        return $this->{'set'.Str::studly($key).'Attribute'}($value);
+    }
+
+    /**
+     * Determine if a set mutator exists for an attribute.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function hasSetMutator($key)
+    {
+        return method_exists($this, 'set'.Str::studly($key).'Attribute');
+    }
+
+    /**
      * setAttribute in object.
      *
      * @return void
      */
     protected function setAttribute($key, $value)
     {
-        $this->{$key} = $value;
+        if ($this->hasSetMutator($key)) {
+            $this->{$key} = $this->getMutatedAttributeValue($key, $value);
+        } else {
+            $this->{$key} = $value;
+        }
     }
 
     /**
