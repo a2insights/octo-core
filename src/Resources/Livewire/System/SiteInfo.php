@@ -3,10 +3,10 @@
 namespace Octo\Resources\Livewire\System;
 
 use Laravel\Jetstream\InteractsWithBanner;
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 use Octo\Site;
 
-class SiteInfo extends ModalComponent
+class SiteInfo extends Component
 {
     use InteractsWithBanner;
 
@@ -41,12 +41,9 @@ class SiteInfo extends ModalComponent
 
         if ($updated) {
             $this->banner('Site updated successfully.');
-            $this->emit('refreshRaceRunnersList');
         } else {
             $this->dangerBanner('There was an error updating the site.');
         }
-
-        $this->closeModal();
     }
 
     public function render()

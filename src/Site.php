@@ -4,26 +4,26 @@ namespace Octo;
 
 use Octo\Settings\GeneralSettings;
 
-class Site
+class Site extends ObjectPrototype
 {
     public static function getName(): string
     {
-        return self::setting()->site_name;
+        return self::settings()->site_name;
     }
 
     public static function getActive(): bool
     {
-        return self::setting()->site_active;
+        return self::settings()->site_active;
     }
 
     public static function getDescription(): string
     {
-        return self::setting()->site_description;
+        return self::settings()->site_description;
     }
 
     public static function update($data)
     {
-        $settings = self::setting();
+        $settings = self::settings();
 
         $settings->site_name = $data['name'];
         $settings->site_active = $data['active'];
@@ -32,7 +32,94 @@ class Site
         return $settings->save();
     }
 
-    private static function setting(): GeneralSettings
+    public static function sections()
+    {
+        return self::settings()->site_sections;
+    }
+
+    public static function saveSection($section)
+    {
+
+        if (! @$section['id']) {
+           return self::addSection($section);
+        }
+
+        return self::updateSection($section);
+    }
+
+    public static function updateSection($data)
+    {
+        $settings = self::settings();
+
+        foreach($settings->site_sections as $key => $section) {
+            if ($section['id'] === $data['id']) {
+                $settings->site_sections[$key]['name'] = $data['name'];
+                $settings->site_sections[$key]['content'] = $data['content'];
+                $settings->site_sections[$key]['image'] = $data['image'];
+                break;
+            }
+        }
+
+       return $settings->save();
+    }
+
+    public static function deleteSection($id)
+    {
+        $settings = self::settings();
+
+        foreach($settings->site_sections as $key => $section) {
+            if ($section['id'] === $id) {
+                unset($settings->site_sections[$key]);
+                break;
+            }
+        }
+
+       return $settings->save();
+    }
+
+    public static function addSection($data)
+    {
+        $settings = self::settings();
+
+        $data = (new Section([
+            'name'    => $data['name'],
+            'content' => $data['content'],
+            'image' => $data['image'],
+        ]))->toArray();
+
+        $sections = $settings->site_sections;
+
+        array_push($sections, $data);
+
+        $settings->site_sections = $sections;
+
+        return $settings->save();
+    }
+
+    public static function updateSectionsOrder($sections)
+    {
+        $settings = self::settings();
+
+        $newSections = [];
+
+        foreach($sections as $index => $section) {
+
+            $sectionSaved = collect($settings->site_sections)->where('id', $section['value'])->first();
+
+            $newSections[$index] = [
+                'id'      => $sectionSaved['id'],
+                'name'    => $sectionSaved['name'],
+                'content' => $sectionSaved['content'],
+                'image' => $sectionSaved['image'] ?? null,
+            ];
+        }
+
+        $settings->site_sections = $newSections;
+
+       return $settings->save();
+    }
+
+    private static function settings(): GeneralSettings
     {
         return app(GeneralSettings::class);
     }

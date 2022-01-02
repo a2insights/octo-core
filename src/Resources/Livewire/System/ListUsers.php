@@ -63,8 +63,8 @@ class ListUsers extends DataTableComponent
             Column::make(__('octo::messages.system.users.name'), 'name'),
             Column::make(__('octo::messages.system.users.email'), 'email'),
             Column::make(__('octo::messages.system.users.phone'), 'phone_number'),
-            Column::make(__('octo::messages.system.users.created_at'), 'created_at')->sortable()->format(fn ($v) => $v->diffForHumans()),
-            Column::make(__('octo::messages.system.users.verified_at'), 'email_verified_at')->sortable()->format(fn ($v) => $v->diffForHumans()),
+            Column::make(__('octo::messages.system.users.created_at'), 'created_at')->sortable()->format(fn ($v) => $v?->diffForHumans()),
+            Column::make(__('octo::messages.system.users.verified_at'), 'email_verified_at')->sortable()->format(fn ($v) => $v?->diffForHumans()),
         ];
     }
 

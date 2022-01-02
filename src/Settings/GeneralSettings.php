@@ -12,6 +12,8 @@ class GeneralSettings extends Settings
 
     public string $site_description;
 
+    public array $site_sections;
+
     public static function group(): string
     {
         return 'general';
