@@ -122,11 +122,17 @@ abstract class ObjectPrototype implements Arrayable
     /**
      * getAttribute in object.
      *
-     * @return array $this->attributes
+     * @return array $attributes
      */
     protected function getAttributes()
     {
-       return $this->attributes;
+        $attributes = [];
+
+        foreach ($this->attributes as $key => $value) {
+            $attributes[$key] = $this->{$key};
+        }
+
+       return $attributes;
     }
 
     /**
