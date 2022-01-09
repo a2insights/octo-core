@@ -42,6 +42,22 @@ return [
             'all' => 'Todos',
             'verified_at' => 'Verificado há',
             'phone' => 'Telefone',
+            'has_plan_active' => 'Tem plano ativo',
+            'plan_active' => 'Plano ativo',
+        ],
+        'site' => [
+            'sections' => [
+                'add_section' => 'Adicionar seção',
+                'title' => 'Site seções',
+                'description' => 'Adicionar, editar e excluir seções do site.',
+                'create_section' => 'Criar seção',
+                'basic_info' => 'Informações básicas',
+                'create_new_section' => 'Criar nova seção',
+            ],
+            'info' => [
+                'title' => 'Informações do site',
+                'description' => 'Editar informações do site.',
+            ]
         ]
     ],
 ];

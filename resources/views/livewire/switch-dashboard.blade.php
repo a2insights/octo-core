@@ -92,7 +92,7 @@
     </button>
 
     <div x-show="dropdownOpen" x-cloak style="right: 40px;" class="absolute mt-2 rounded-md overflow-hidden shadow-xl z-20">
-        <button style="width: 147px" wire:click="switchDashboard('system')" class="{{ $dashboard == 'system' ? 'bg-gray-800 text-white' : 'text-gray-800' }} block px-6 py-2 text-md border-b hover:bg-gray-500">System</button>
-        <button style="width: 147px" wire:click="switchDashboard('platform')" class="{{ $dashboard == 'platform' ? 'bg-gray-800 text-white' : 'text-gray-800' }} block px-6 py-2 text-md border-b hover:bg-gray-500">Platform</button>
+        <button style="width: 147px" wire:click="switchDashboard('system')" class="{{ $dashboard == 'system' ? 'bg-gray-800 text-white' : 'text-gray-800' }} block px-6 py-2 text-md border-b hover:bg-gray-500">{{ __('System') }}</button>
+        <button style="width: 147px" wire:click="switchDashboard('platform')" class="{{ $dashboard == 'platform' ? 'bg-gray-800 text-white' : 'text-gray-800' }} block px-6 py-2 text-md border-b hover:bg-gray-500">{{ __('Platform') }}</button>
     </div>
 </div>

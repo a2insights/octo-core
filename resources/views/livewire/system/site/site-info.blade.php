@@ -1,10 +1,10 @@
 <x-jet-form-section submit="submit">
     <x-slot name="title">
-        {{ __('Site Informations') }}
+        {{ __('octo::messages.system.site.info.title') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update the site informations') }}
+        {{ __('octo::messages.system.site.info.description') }}
     </x-slot>
 
     <x-slot name="form">

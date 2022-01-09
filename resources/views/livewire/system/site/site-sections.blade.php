@@ -1,12 +1,12 @@
 <div class="md:grid">
     <div class="flex justify-between">
         <x-jet-section-title>
-            <x-slot name="title">{{ __('Site Sections') }}</x-slot>
-            <x-slot name="description">{{ __('Add and edit site sections') }}</x-slot>
+            <x-slot name="title">{{ __('octo::messages.system.site.sections.title') }}</x-slot>
+            <x-slot name="description">{{ __('octo::messages.system.site.sections.description') }}</x-slot>
         </x-jet-section-title>
 
         <button onclick='Livewire.emit("openModal", "octo-system-site-section")' style="height: 36px" onclick="" type="button" class="inline-flex h-7 items-center px-3 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-            {{ __('Add section') }}
+            {{ __('octo::messages.system.site.sections.add_section') }}
         </button>
     </div>
 

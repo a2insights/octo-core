@@ -1,7 +1,7 @@
 <form wire:submit.prevent="submit">
     <div class="bg-white p-4 sm:px-6 sm:py-4 border-b border-gray-150">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
-            {{ __('Create section') }}
+            {{ __('octo::messages.system.site.sections.create_sections') }}
         </h3>
     </div>
 
@@ -9,8 +9,8 @@
         <div class="space-y-6">
             <div class="md:grid md:grid-cols-3 md:gap-6">
                 <x-jet-section-title>
-                    <x-slot name="title">{{ __('Basic Information\'s') }}</x-slot>
-                    <x-slot name="description">{{ __('Create a new section for the platform') }}</x-slot>
+                    <x-slot name="title">{{ __('octo::messages.system.site.sections.basic_info') }}</x-slot>
+                    <x-slot name="description">{{ __('octo::messages.system.site.sections.create_new_section') }}</x-slot>
                 </x-jet-section-title>
 
                 <div class="mt-5 md:mt-0 md:col-span-2">
