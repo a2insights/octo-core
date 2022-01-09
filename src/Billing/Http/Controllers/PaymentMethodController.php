@@ -33,7 +33,7 @@ class PaymentMethodController extends Controller
      */
     public function index()
     {
-        return view('billing-portal.payment-method.index');
+        return view('octo::livewire.billing-portal.payment-method.index');
     }
 
     /**
@@ -44,7 +44,7 @@ class PaymentMethodController extends Controller
      */
     public function create(Request $request)
     {
-        return view('billing-portal.payment-method.create', [
+        return view('octo::livewire.billing-portal.payment-method.create', [
             'intent' => BillingPortal::getBillable($request)->createSetupIntent(),
             'stripe_key' => config('cashier.key'),
         ]);

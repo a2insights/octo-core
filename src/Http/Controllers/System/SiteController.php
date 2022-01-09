@@ -8,6 +8,6 @@ class SiteController extends Controller
 {
     public function index()
     {
-        return view('system.site.index');
+        return view('octo::livewire.system.site.index');
     }
 }

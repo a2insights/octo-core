@@ -30,7 +30,7 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        return view('billing-portal.subscription.index');
+        return view('octo::livewire.billing-portal.subscription.index');
     }
 
     /**

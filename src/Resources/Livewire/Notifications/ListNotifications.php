@@ -33,7 +33,7 @@ class ListNotifications extends DataTableComponent
 
     public function rowView(): string
     {
-        return 'notifications.row-notification';
+        return 'octo::livewire.notifications.row-notification';
     }
 
     public function columns(): array

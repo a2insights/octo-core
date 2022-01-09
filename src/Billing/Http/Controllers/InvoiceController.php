@@ -26,7 +26,7 @@ class InvoiceController extends Controller
             ];
         });
 
-        return view('billing-portal.invoice.index', [
+        return view('octo::livewire.billing-portal.invoice.index', [
             'invoices' => $invoices,
         ]);
     }

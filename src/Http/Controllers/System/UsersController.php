@@ -8,6 +8,6 @@ class UsersController extends Controller
 {
     public function index()
     {
-        return view('system.users.index');
+        return view('octo::livewire.system.users.index');
     }
 }
