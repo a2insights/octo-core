@@ -43,6 +43,7 @@ return [
             'verified_at' => 'Verificado há',
             'phone' => 'Telefone',
             'has_plan_active' => 'Tem plano ativo',
+            'no_has_plan_active' => 'Não tem plano ativo',
             'plan_active' => 'Plano ativo',
         ],
         'site' => [

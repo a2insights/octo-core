@@ -19,9 +19,9 @@
                     wire:sortable.item="{{ @$section['id'] }}"
                 >
                     <div class="flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 hover:shadow-2xl border-gray-900">
-                       @if(@$section['image'])
+                       @if(@$section['image_path'])
                             <div>
-                                <img src="{{ asset('storage/app/'.$section['image']) }}" alt="{{ @$section['title'] }}" class="w-16 h-16 rounded-full">
+                                <img src="{{ @$section['image_url'] }}" alt="{{ @$section['title'] }}" class="w-16 h-16 rounded-full">
                             </div>
                        @endif
 

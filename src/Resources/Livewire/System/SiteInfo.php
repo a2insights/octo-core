@@ -41,6 +41,7 @@ class SiteInfo extends Component
 
         if ($updated) {
             $this->banner('Site updated successfully.');
+            $this->emit('saved');
         } else {
             $this->dangerBanner('There was an error updating the site.');
         }

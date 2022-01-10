@@ -2,6 +2,7 @@
 
 namespace Octo\Resources\Livewire\System;
 
+use Illuminate\Support\Facades\Storage;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -17,6 +18,8 @@ class SiteSection extends ModalComponent
     public $section_id;
     public $content;
     public $image;
+    public $image_url;
+    public $image_path;
 
     protected $rules = [
         'name'    => 'required|string',
@@ -30,7 +33,8 @@ class SiteSection extends ModalComponent
             $this->section_id = $section['id'];
             $this->name = $section['name'];
             $this->content = $section['content'];
-            $this->image = $section['image'] ?? null;
+            $this->image_path = $section['image_path'] ?? null;
+            $this->image_url = $section['image_url'] ?? null;;
         }
     }
 
@@ -40,11 +44,18 @@ class SiteSection extends ModalComponent
 
         $this->validate();
 
+        $image_path = $this->image instanceof TemporaryUploadedFile ? $this->image->store('site/sections' ,[
+            'disk' => 'public',
+        ]) : null;
+
+        $image_url = $image_path ? Storage::disk('public')->url($image_path) : null;
+
         $updated = Site::saveSection([
-            'id' => $this->section_id,
-            'name'    => $this->name,
-            'content' => $this->content,
-            'image'   => $this->image instanceof TemporaryUploadedFile ? $this->image->store('site/sections') : null,
+            'id'         => $this->section_id,
+            'name'       => $this->name,
+            'content'    => $this->content,
+            'image_path' => $image_path ? $image_path : $this->image_path,
+            'image_url'  => $image_url ? $image_url : $this->image_url,
         ]);
 
         if ($updated) {
@@ -60,7 +71,16 @@ class SiteSection extends ModalComponent
 
     public function deleteImage()
     {
-        $this->image = null;
+        $this->image_path = null;
+        $this->image_url = null;
+
+        Site::saveSection([
+            'id'         => $this->section_id,
+            'name'       => $this->name,
+            'content'    => $this->content,
+            'image_path' => null,
+            'image_url'  => null,
+        ]);
     }
 
     public function render()

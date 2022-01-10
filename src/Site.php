@@ -55,12 +55,13 @@ class Site extends ObjectPrototype
             if ($section['id'] === $data['id']) {
                 $settings->site_sections[$key]['name'] = $data['name'];
                 $settings->site_sections[$key]['content'] = $data['content'];
-                $settings->site_sections[$key]['image'] = $data['image'];
+                $settings->site_sections[$key]['image_path'] = $data['image_path'];
+                $settings->site_sections[$key]['image_url'] = $data['image_url'];
                 break;
             }
         }
 
-       return $settings->save();
+        return $settings->save();
     }
 
     public static function deleteSection($id)
@@ -82,9 +83,10 @@ class Site extends ObjectPrototype
         $settings = self::settings();
 
         $data = (new Section([
-            'name'    => $data['name'],
-            'content' => $data['content'],
-            'image' => $data['image'],
+            'name'       => $data['name'],
+            'content'    => $data['content'],
+            'image_url'  => $data['image_url'],
+            'image_path' => $data['image_path'],
         ]))->toArray();
 
         $sections = $settings->site_sections;
@@ -107,10 +109,11 @@ class Site extends ObjectPrototype
             $sectionSaved = collect($settings->site_sections)->where('id', $section['value'])->first();
 
             $newSections[$index] = [
-                'id'      => $sectionSaved['id'],
-                'name'    => $sectionSaved['name'],
-                'content' => $sectionSaved['content'],
-                'image' => $sectionSaved['image'] ?? null,
+                'id'         => $sectionSaved['id'],
+                'name'       => $sectionSaved['name'],
+                'content'    => $sectionSaved['content'],
+                'image_path' => $sectionSaved['image_path'] ?? null,
+                'image_url'  => $sectionSaved['image_url'] ?? null,
             ];
         }
 

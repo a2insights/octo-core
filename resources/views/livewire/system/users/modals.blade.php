@@ -26,7 +26,7 @@
                 <div class="bg-white p-3 rounded-xl shadow-xl flex items-center justify-between mt-4">
                     <div class="flex space-x-6 items-center">
                         <div>
-                            <p class="font-semibold text-base">{{ __('octo::messages.system.users.has_plan_active') }}</p>
+                            <p class="font-semibold text-base">{{ __('octo::messages.system.users.no_has_plan_active') }}</p>
                         </div>
                     </div>
                 </div>
