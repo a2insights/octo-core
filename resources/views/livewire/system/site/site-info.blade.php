@@ -18,14 +18,16 @@
         <!-- Active -->
         <div class="col-span-2 sm:col-span-3">
             <x-jet-label for="site" value="{{ __('Active') }}" />
-            <x-jet-checkbox style="height: 40px; width: 40px; cursor: pointer" id="active" type="text" class="mt-1 block" wire:model.defer="active" autocomplete="active" />
+            <x-jet-checkbox style="height: 40px; width: 40px; cursor: pointer" id="active" type="text"
+                class="mt-1 block" wire:model.defer="active" autocomplete="active" />
             <x-jet-input-error for="active" class="mt-2" />
         </div>
 
         <!-- Description -->
         <div class="col-span-6 sm:col-span-12">
             <x-jet-label for="description" value="{{ __('Description') }}" />
-            <x-jet-input id="description" type="text" class="mt-1 block w-full" wire:model.defer="description" autocomplete="description" />
+            <x-jet-input id="description" type="text" class="mt-1 block w-full" wire:model.defer="description"
+                autocomplete="description" />
             <x-jet-input-error for="description" class="mt-2" />
         </div>
 

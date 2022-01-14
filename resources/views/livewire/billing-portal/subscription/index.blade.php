@@ -9,4 +9,3 @@
 @section('content')
     @livewire('plans-slide')
 @endsection
-

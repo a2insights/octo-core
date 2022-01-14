@@ -2,7 +2,7 @@
 
 @section('header')
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Billing Portal')}}: {{ __('Invoices') }}
+        {{ __('Billing Portal') }}: {{ __('Invoices') }}
     </h2>
 @endsection
 
@@ -14,37 +14,36 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                <th
+                                    class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                     {{ __('Plan') }}
                                 </th>
-                                <th class="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                <th
+                                    class="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                     {{ __('Status') }}
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50" />
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($invoices as $invoice)
+                            @foreach ($invoices as $invoice)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap">
                                         {{ $invoice->description }}
                                         <div class="text-sm text-gray-500">
-                                            Issued: {{ \Illuminate\Support\Carbon::createFromTimestamp($invoice->created) }}
+                                            Issued:
+                                            {{ \Illuminate\Support\Carbon::createFromTimestamp($invoice->created) }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-center">
-                                    <span
-                                        class="{{ $invoice->paid ? 'bg-indigo-200 text-indigo-800' : 'bg-red-500 text-white' }} px-2 inline-flex text-xs leading-5 font-bold rounded-full capitalize"
-                                    >
-                                        {{ $invoice->status }}
-                                    </span>
+                                        <span
+                                            class="{{ $invoice->paid ? 'bg-indigo-200 text-indigo-800' : 'bg-red-500 text-white' }} px-2 inline-flex text-xs leading-5 font-bold rounded-full capitalize">
+                                            {{ $invoice->status }}
+                                        </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                                        <a
-                                            href="{{ $invoice->url }}"
-                                            class="text-indigo-400 hover:text-indigo-500 font-semibold"
-                                            target="_blank"
-                                        >
+                                        <a href="{{ $invoice->url }}"
+                                            class="text-indigo-400 hover:text-indigo-500 font-semibold" target="_blank">
                                             {{ __('Download') }}
                                         </a>
                                     </td>
@@ -57,6 +56,3 @@
         </div>
     </div>
 @endsection
-
-
-

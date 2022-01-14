@@ -5,7 +5,7 @@
     (() => {
         Stripe('{{ $stripeKey }}').redirectToCheckout({
             sessionId: '{{ $checkout->id }}'
-        }).then(function (result) {
+        }).then(function(result) {
             if (result.error) {
                 window.href = '{{ $checkout->cancel_url }}';
             }

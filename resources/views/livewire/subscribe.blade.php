@@ -1,18 +1,15 @@
-<div
-     @if($closable)
-         x-data="{ showBanner: @entangle('close') }"
-         x-show="!showBanner"
-         x-cloak
-         style="display: none;"
-     @endif
-     class="{{ 'bg-'.$bg }} flex flex-col md:h-32 overflow-hidden md:flex-row"
->
-    @if($closable)
+<div @if ($closable)
+    x-data="{ showBanner: @entangle('close') }"
+    x-show="!showBanner"
+    x-cloak
+    style="display: none;"
+    @endif
+    class="{{ 'bg-' . $bg }} flex flex-col md:h-32 overflow-hidden md:flex-row"
+    >
+    @if ($closable)
         <div class="absolute flex justify-end inset-x-0 top-0">
-            <button
-                wire:click="hiddeBanner()"
-                class="py-2 m-2 px-3 text-gray-600 rounded-full cursor-pointer focus:outline-none"
-            >
+            <button wire:click="hiddeBanner()"
+                class="py-2 m-2 px-3 text-gray-600 rounded-full cursor-pointer focus:outline-none">
                 <span class="flex items-center">
                     <span class="h-4 w-4">
                         {{ svg('zondicon-close') }}
@@ -32,7 +29,8 @@
         <form wire:submit.prevent>
             <div class="flex mx-3 flex-col overflow-hidden sm:flex-row">
                 <input wire:model="email" placeholder="email@example.com" type="text" style="color:black">
-                <x-jet-button style="border-radius: unset" wire:click="subscribe" wire:loading.attr="disabled" class="py-3 px-4 bg-gray-700 text-gray-100 font-semibold uppercase hover:bg-gray-600">
+                <x-jet-button style="border-radius: unset" wire:click="subscribe" wire:loading.attr="disabled"
+                    class="py-3 px-4 bg-gray-700 text-gray-100 font-semibold uppercase hover:bg-gray-600">
                     {{ __('subscribe') }}
                 </x-jet-button>
             </div>

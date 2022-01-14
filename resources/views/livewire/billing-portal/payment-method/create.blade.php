@@ -1,12 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <a
-                href="{{ route('billing-portal.payment-method.index') }}"
-                method="post"
-                as="button"
-                class="focus:outline-none mr-1"
-            >
+            <a href="{{ route('billing-portal.payment-method.index') }}" method="post" as="button"
+                class="focus:outline-none mr-1">
                 &larr;
             </a>
             {{ __('Billing') }}: {{ __('Add Payment Method') }}
@@ -17,63 +13,41 @@
             <div class="flex flex-col break-words bg-white border rounded-lg shadow-md mb-4">
                 <div class="w-full p-6">
                     <div class="flex flex-wrap mb-6">
-                        <x-jet-label
-                            for="name"
-                            value="Card Holder Name">
+                        <x-jet-label for="name" value="Card Holder Name">
                         </x-jet-label>
 
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
+                        <input id="name" name="name" type="text"
                             class="border focus:border-gray-500 focus:outline-none px-3 py-2 rounded-lg shadow-sm w-full text-xs"
-                            required
-                            autocomplete="name"
-                        >
+                            required autocomplete="name">
                     </div>
 
                     <div class="flex flex-wrap mb-6 space-y-6 md:space-y-0">
                         <div class="w-full md:w-1/2 md:pr-1">
-                            <x-jet-label
-                                for="card-number"
-                                value="Card Number">
+                            <x-jet-label for="card-number" value="Card Number">
                             </x-jet-label>
-                            <div
-                                id="card-number"
-                                autocomplete="card-number">
+                            <div id="card-number" autocomplete="card-number">
                             </div>
                         </div>
 
                         <div class="w-full md:w-1/4 md:px-1">
-                            <x-jet-label
-                                for="card-expiry"
-                                value="Card Expiry">
+                            <x-jet-label for="card-expiry" value="Card Expiry">
                             </x-jet-label>
-                            <div
-                                id="card-expiry"
-                                autocomplete="card-expiry">
+                            <div id="card-expiry" autocomplete="card-expiry">
                             </div>
                         </div>
 
                         <div class="w-full md:w-1/4 md:pl-1">
-                            <x-jet-label
-                                for="card-cvc"
-                                value="CVC">
+                            <x-jet-label for="card-cvc" value="CVC">
                             </x-jet-label>
-                            <div
-                                id="card-cvc"
-                                autocomplete="card-cvc">
+                            <div id="card-cvc" autocomplete="card-cvc">
                             </div>
                         </div>
                     </div>
 
-                    <x-jet-button
-                        id="add-payment-method-button"
-                        data-secret="{{ $intent->client_secret }}"
-                        :disabled="false"
-                        onclick="addPaymentMethod()"
-                    >
-                        <div id="add-payment-method-button-loading" class="flex hidden mr-2 justify-center items-center">
+                    <x-jet-button id="add-payment-method-button" data-secret="{{ $intent->client_secret }}"
+                        :disabled="false" onclick="addPaymentMethod()">
+                        <div id="add-payment-method-button-loading"
+                            class="flex hidden mr-2 justify-center items-center">
                             <div class="animate-spin rounded-full h-3 w-3 border-b-2 border-white-900"></div>
                         </div>
                         {{ __('Add Payment Method') }}
@@ -132,10 +106,16 @@
         async function addPaymentMethod() {
             btn.setAttribute('disabled', 'true')
             await stripe.createPaymentMethod(
-                'card', number, { billing_details: { name: document.getElementById('name').value || ' ' } }
+                'card', number, {
+                    billing_details: {
+                        name: document.getElementById('name').value || ' '
+                    }
+                }
             ).then(r => {
                 btnLoading.classList.remove('hidden')
-                window.axios.post('{{ route('billing-portal.payment-method.store') }}', { token: r.paymentMethod.id }).then(() => {
+                window.axios.post('{{ route('billing-portal.payment-method.store') }}', {
+                    token: r.paymentMethod.id
+                }).then(() => {
                     window.location.replace('{{ route('billing-portal.payment-method.index') }}');
                 })
             }).catch(() => {
