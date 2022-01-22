@@ -27,6 +27,11 @@ class SiteSection extends ModalComponent
         'content' => 'nullable|string',
     ];
 
+    public static function modalMaxWidth(): string
+    {
+        return '4xl';
+    }
+
     public function mount($section = null)
     {
         if ($section) {

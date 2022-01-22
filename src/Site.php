@@ -39,7 +39,6 @@ class Site extends ObjectPrototype
 
     public static function saveSection($section)
     {
-
         if (! @$section['id']) {
            return self::addSection($section);
         }

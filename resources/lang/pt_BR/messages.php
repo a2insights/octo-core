@@ -3,7 +3,7 @@
 return [
     'notifications' => [
         'all-caught' => 'Tudo Feito!',
-        'all-notifications' => 'Todas as notificações',
+        'all-notifications' => 'Todas as Notificações',
         'title' => 'Notificação',
         'description' => 'Descrição',
         'created_at' => 'Criado há',
@@ -30,7 +30,7 @@ return [
     'system' => [
         'users' => [
             'description' => 'Usuários',
-            'description_sub' => 'Gerenciar usuários',
+            'description_sub' => 'Gerenciar Usuários',
             'name' => 'Nome',
             'id' => 'ID',
             'email' => 'E-mail',
@@ -44,20 +44,21 @@ return [
             'phone' => 'Telefone',
             'has_plan_active' => 'Tem plano ativo',
             'no_has_plan_active' => 'Não tem plano ativo',
-            'plan_active' => 'Plano ativo',
+            'plan_active' => 'Plano Ativo',
         ],
         'site' => [
             'sections' => [
-                'add_section' => 'Adicionar seção',
                 'title' => 'Site seções',
                 'description' => 'Adicionar, editar e excluir seções do site.',
-                'create_section' => 'Criar seção',
-                'basic_info' => 'Informações básicas',
-                'create_new_section' => 'Criar nova seção',
+                'add_section' => 'Adicionar Seção',
+                'create_section' => 'Criar Seção',
+                'edit_section' => 'Editar Seção',
+                'create_title' => 'Informações Básicas',
+                'create_description' => 'Adicione um título e uma descrição para a seção.',
             ],
             'info' => [
-                'title' => 'Informações do site',
-                'description' => 'Editar informações do site.',
+                'title' => 'Informações do Site',
+                'description' => 'Editar Informações do Site.',
             ]
         ]
     ],

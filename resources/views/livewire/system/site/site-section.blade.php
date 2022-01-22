@@ -1,7 +1,11 @@
 <form wire:submit.prevent="submit">
     <div class="bg-white p-4 sm:px-6 sm:py-4 border-b border-gray-150">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
-            {{ __('octo::messages.system.site.sections.create_sections') }}
+            @if (!$section_id)
+                {{ __('octo::messages.system.site.sections.create_section') }}
+            @else
+                {{ __('octo::messages.system.site.sections.edit_section') }}
+            @endif
         </h3>
     </div>
 
@@ -9,8 +13,8 @@
         <div class="space-y-6">
             <div class="md:grid md:grid-cols-3 md:gap-6">
                 <x-jet-section-title>
-                    <x-slot name="title">{{ __('octo::messages.system.site.sections.basic_info') }}</x-slot>
-                    <x-slot name="description">{{ __('octo::messages.system.site.sections.create_new_section') }}
+                    <x-slot name="title">{{ __('octo::messages.system.site.sections.create_title') }}</x-slot>
+                    <x-slot name="description">{{ __('octo::messages.system.site.sections.create_description') }}
                     </x-slot>
                 </x-jet-section-title>
 
