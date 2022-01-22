@@ -12,7 +12,7 @@ class CountryObjectTest extends TestCase
         $country = new Country();
 
         $expected = json_decode(file_get_contents(__DIR__.'/data/countries.json'), true);
-        $given = $country->allToArray();
+        $given = $country->all()->map(fn($n) => $n->toArray())->toArray();
 
         $this->assertTrue($expected == $given);
     }

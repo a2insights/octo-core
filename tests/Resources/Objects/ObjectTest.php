@@ -26,7 +26,7 @@ class ObjectTest extends TestCase
 
         $expected = [
             'name' => 'teste_route_object',
-            'id' => null,
+            'id' => $object->id,
             'dinamic_attribute' => 'tools',
             'url' => 'http://localhost/test/api/1?query=1',
             'params' => [

@@ -2,6 +2,7 @@
 
 namespace Octo\Tests\Resources\Components\Blade;
 
+use Octo\Resources\Blade\Component as BladeComponent;
 use Octo\Resources\Components\Blade\Component;
 use Octo\Tests\TestCase;
 
@@ -28,7 +29,7 @@ class BComponentTest extends TestCase
     }
 }
 
-class ComponentTestable extends Component
+class ComponentTestable extends BladeComponent
 {
     public $name;
     public $age;
