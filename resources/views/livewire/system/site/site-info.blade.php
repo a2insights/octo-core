@@ -1,4 +1,4 @@
-<x-jet-form-section submit="submit">
+<x-jet-form-section class="mb-2" submit="submit">
     <x-slot name="title">
         {{ __('octo::messages.system.site.info.title') }}
     </x-slot>
