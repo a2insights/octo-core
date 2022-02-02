@@ -79,13 +79,14 @@ class SwitchDashboard extends Component
         if ($dashboard === 'system') {
             session(['flash.banner' => __('octo::messages.dashboard.system.banner')]);
             session(['flash.bannerStyle' => 'success']);
+
+            return redirect()->route('system.dashboard');
         }
 
         if($dashboard === 'platform') {
             session()->forget(['flash.banner', 'flash.bannerStyle']);
+            return redirect()->route('filament.pages.dashboard');
         }
-
-        return redirect('dashboard');
     }
 
     /**

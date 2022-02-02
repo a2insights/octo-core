@@ -31,7 +31,6 @@
             <x-jet-input-error for="description" class="mt-2" />
         </div>
 
-
     </x-slot>
 
     <x-slot name="actions">

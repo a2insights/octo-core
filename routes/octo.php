@@ -39,8 +39,11 @@ Route::group(['middleware' => ['web']], function () {
 
         // System
         Route::group(['middleware' => ['system.dashboard']], function () {
-            Route::get('/system/users', [\Octo\Http\Controllers\System\UsersController::class, 'index'])->name('system.users');
+            Route::get('/system/users', [\Octo\Http\Controllers\System\UsersController::class, 'index'])->name('system.users.index');
             Route::get('/system/site', [\Octo\Http\Controllers\System\SiteController::class, 'index'])->name('system.site');
+            Route::prefix('/system/dashboard')->group(function () {
+                Route::get('/', [\Octo\Http\Controllers\System\DashboardController::class, 'index'])->name('system.dashboard');
+            });
         });
     });
 });
