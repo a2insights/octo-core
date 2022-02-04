@@ -8,6 +8,9 @@ use Octo\Billing\Http\Controllers\SubscriptionController;
 use Octo\Http\Controllers\NotificationsController;
 
 Route::group(['middleware' => ['web']], function () {
+    // We redirect filament login to jetstream login
+    Route::redirect(config('filament.path') . '/login', '/login');
+
     Route::group(['middleware' => ['auth', 'verified']], function () {
         // Notifications
         Route::get('/user/notifications', [NotificationsController::class, 'index'])->name('notifications');
