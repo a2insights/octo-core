@@ -20,11 +20,21 @@ class SiteSection extends ModalComponent
     public $image;
     public $image_url;
     public $image_path;
+    public $image_position;
+    public $title_color;
+    public $description_color;
+    public $theme;
+    public $theme_color;
 
     protected $rules = [
-        'name'    => 'required|string',
-        'image'   => 'nullable',
+        'name' => 'required|string',
+        'image' => 'nullable',
+        'image_position' => 'nullable',
         'content' => 'nullable|string',
+        'title_color' => 'nullable',
+        'description_color' => 'nullable',
+        'theme' => 'nullable',
+        'theme_color' => 'nullable',
     ];
 
     public static function modalMaxWidth(): string
@@ -39,7 +49,12 @@ class SiteSection extends ModalComponent
             $this->name = $section['name'];
             $this->content = $section['content'];
             $this->image_path = $section['image_path'] ?? null;
-            $this->image_url = $section['image_url'] ?? null;;
+            $this->image_url = $section['image_url'] ?? null;
+            $this->image_position = $section['image_position'] ?? null;
+            $this->theme = $section['theme'] ?? null;
+            $this->theme_color = $section['theme_color'] ?? '#2196f3';
+            $this->title_color = $section['title_color'] ?? '#fff';
+            $this->description_color = $section['description_color'] ?? '#fff';
         }
     }
 
@@ -56,11 +71,16 @@ class SiteSection extends ModalComponent
         $image_url = $image_path ? Storage::disk('public')->url($image_path) : null;
 
         $updated = Site::saveSection([
-            'id'         => $this->section_id,
-            'name'       => $this->name,
-            'content'    => $this->content,
+            'id' => $this->section_id,
+            'name' => $this->name,
+            'content' => $this->content,
+            'image_position' => $this->image_position ?? null,
             'image_path' => $image_path ? $image_path : $this->image_path,
             'image_url'  => $image_url ? $image_url : $this->image_url,
+            'title_color' => $this->title_color ?? null,
+            'description_color' => $this->description_color ?? null,
+            'theme_color' => $this->theme_color ?? null,
+            'theme' => $this->theme ?? null,
         ]);
 
         if ($updated) {
@@ -80,11 +100,16 @@ class SiteSection extends ModalComponent
         $this->image_url = null;
 
         Site::saveSection([
-            'id'         => $this->section_id,
-            'name'       => $this->name,
-            'content'    => $this->content,
+            'id' => $this->section_id,
+            'name' => $this->name,
+            'content' => $this->content,
+            'image_position' => $this->image_position ?? null,
             'image_path' => null,
-            'image_url'  => null,
+            'image_url' => null,
+            'title_color' => $this->title_color ?? null,
+            'description_color' => $this->description_color ?? null,
+            'theme_color' => $this->theme_color ?? null,
+            'theme' => $this->theme ?? null,
         ]);
     }
 

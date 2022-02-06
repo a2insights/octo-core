@@ -55,6 +55,18 @@ return [
                 'edit_section' => 'Editar Seção',
                 'create_title' => 'Informações Básicas',
                 'create_description' => 'Adicione um título e uma descrição para a seção.',
+                'form' => [
+                    'theme' => 'Tema',
+                    'theme-color' => 'Cor',
+                    'image-position' => 'Posição da imagem',
+                    'title-color' => 'Cor do título',
+                    'description-color' => 'Cor da descrição',
+                    'theme-description' => 'Selecione um tema para a seção.',
+                    'image-position' => 'Posição da imagem',
+                    'image-position-center' => 'Centro',
+                    'image-position-left' => 'Esquerda',
+                    'image-position-right' => 'Direita',
+                ]
             ],
             'info' => [
                 'title' => 'Informações do Site',

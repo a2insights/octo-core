@@ -54,8 +54,13 @@ class Site extends ObjectPrototype
             if ($section['id'] === $data['id']) {
                 $settings->site_sections[$key]['name'] = $data['name'];
                 $settings->site_sections[$key]['content'] = $data['content'];
+                $settings->site_sections[$key]['image_position'] = $data['image_position'];
                 $settings->site_sections[$key]['image_path'] = $data['image_path'];
                 $settings->site_sections[$key]['image_url'] = $data['image_url'];
+                $settings->site_sections[$key]['title_color'] = $data['title_color'];
+                $settings->site_sections[$key]['description_color'] = $data['description_color'];
+                $settings->site_sections[$key]['theme'] = $data['theme'];
+                $settings->site_sections[$key]['theme_color'] = $data['theme_color'];
                 break;
             }
         }
@@ -82,10 +87,15 @@ class Site extends ObjectPrototype
         $settings = self::settings();
 
         $data = (new Section([
-            'name'       => $data['name'],
-            'content'    => $data['content'],
-            'image_url'  => $data['image_url'],
+            'name' =>  $data['name'],
+            'content' => $data['content'],
+            'image_position' => $data['image_position'],
+            'image_url' => $data['image_url'],
             'image_path' => $data['image_path'],
+            'title_color' => $data['title_color'],
+            'description_color' => $data['description_color'],
+            'theme' => $data['theme'],
+            'theme_color' => $data['theme_color'],
         ]))->toArray();
 
         $sections = $settings->site_sections;
@@ -108,11 +118,16 @@ class Site extends ObjectPrototype
             $sectionSaved = collect($settings->site_sections)->where('id', $section['value'])->first();
 
             $newSections[$index] = [
-                'id'         => $sectionSaved['id'],
-                'name'       => $sectionSaved['name'],
-                'content'    => $sectionSaved['content'],
+                'id' => $sectionSaved['id'],
+                'name' => $sectionSaved['name'],
+                'content' => $sectionSaved['content'],
+                'image_position' => $sectionSaved['image_position'],
                 'image_path' => $sectionSaved['image_path'] ?? null,
-                'image_url'  => $sectionSaved['image_url'] ?? null,
+                'image_url'=> $sectionSaved['image_url'] ?? null,
+                'title_color' => $sectionSaved['title_color'],
+                'description_color' => $sectionSaved['description_color'],
+                'theme' => $sectionSaved['theme'],
+                'theme_color' => $sectionSaved['theme_color'],
             ];
         }
 
