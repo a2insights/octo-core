@@ -34,7 +34,7 @@
 
                         <div wire:sortable.handle class="flex-1 pl-1 mr-16">
                             <div class="font-medium">
-                                {{ @$section['name'] }}
+                                {{ @$section['title'] }}
                             </div>
                         </div>
 

@@ -58,14 +58,14 @@ return [
                 'form' => [
                     'theme' => 'Tema',
                     'theme-color' => 'Cor',
-                    'image-position' => 'Posição da imagem',
+                    'image_align' => 'Posição da imagem',
                     'title-color' => 'Cor do título',
                     'description-color' => 'Cor da descrição',
                     'theme-description' => 'Selecione um tema para a seção.',
-                    'image-position' => 'Posição da imagem',
-                    'image-position-center' => 'Centro',
-                    'image-position-left' => 'Esquerda',
-                    'image-position-right' => 'Direita',
+                    'image_align' => 'Posição da imagem',
+                    'image_align-center' => 'Centro',
+                    'image_align-left' => 'Esquerda',
+                    'image_align-right' => 'Direita',
                 ]
             ],
             'info' => [

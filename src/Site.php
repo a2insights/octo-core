@@ -21,6 +21,12 @@ class Site extends ObjectPrototype
         return self::settings()->site_description;
     }
 
+    public static function getSections(): array
+    {
+        return self::settings()->site_sections;
+    }
+
+
     public static function update($data)
     {
         $settings = self::settings();
@@ -52,9 +58,9 @@ class Site extends ObjectPrototype
 
         foreach($settings->site_sections as $key => $section) {
             if ($section['id'] === $data['id']) {
-                $settings->site_sections[$key]['name'] = $data['name'];
-                $settings->site_sections[$key]['content'] = $data['content'];
-                $settings->site_sections[$key]['image_position'] = $data['image_position'];
+                $settings->site_sections[$key]['title'] = $data['title'];
+                $settings->site_sections[$key]['description'] = $data['description'];
+                $settings->site_sections[$key]['image_align'] = $data['image_align'];
                 $settings->site_sections[$key]['image_path'] = $data['image_path'];
                 $settings->site_sections[$key]['image_url'] = $data['image_url'];
                 $settings->site_sections[$key]['title_color'] = $data['title_color'];
@@ -87,15 +93,15 @@ class Site extends ObjectPrototype
         $settings = self::settings();
 
         $data = (new Section([
-            'name' =>  $data['name'],
-            'content' => $data['content'],
+            'title' =>  $data['title'],
+            'description' => $data['description'],
             'image_position' => $data['image_position'],
             'image_url' => $data['image_url'],
             'image_path' => $data['image_path'],
             'title_color' => $data['title_color'],
             'description_color' => $data['description_color'],
-            'theme' => $data['theme'],
-            'theme_color' => $data['theme_color'],
+            'theme' => $data['theme'] ?? null,
+            'theme_color' => $data['theme_color'] ?? null,
         ]))->toArray();
 
         $sections = $settings->site_sections;
@@ -119,15 +125,15 @@ class Site extends ObjectPrototype
 
             $newSections[$index] = [
                 'id' => $sectionSaved['id'],
-                'name' => $sectionSaved['name'],
-                'content' => $sectionSaved['content'],
-                'image_position' => $sectionSaved['image_position'],
+                'title' => $sectionSaved['title'],
+                'description' => $sectionSaved['description'] ?? null,
+                'image_position' => $sectionSaved['image_position'] ?? null,
                 'image_path' => $sectionSaved['image_path'] ?? null,
                 'image_url'=> $sectionSaved['image_url'] ?? null,
-                'title_color' => $sectionSaved['title_color'],
-                'description_color' => $sectionSaved['description_color'],
-                'theme' => $sectionSaved['theme'],
-                'theme_color' => $sectionSaved['theme_color'],
+                'title_color' => $sectionSaved['title_color'] ?? null,
+                'description_color' => $sectionSaved['description_color'] ?? null,
+                'theme' => $sectionSaved['theme'] ?? null,
+                'theme_color' => $sectionSaved['theme_color'] ?? null,
             ];
         }
 

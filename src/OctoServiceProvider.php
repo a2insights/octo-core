@@ -39,7 +39,6 @@ class OctoServiceProvider extends ServiceProvider
         // Octo blade
         Blade::component(Sidebar::class, 'octo-sidebar');
         Blade::component(PhoneInput::class, 'octo-phone-input');
-        Blade::component('octo::blade.hero', 'octo-hero');
         Blade::component('octo::blade.tile', 'octo-tile');
         Blade::component('octo::blade.card-count', 'octo-card-count');
 

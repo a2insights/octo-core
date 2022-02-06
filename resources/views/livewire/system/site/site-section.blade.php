@@ -22,10 +22,10 @@
                     <div class="px-4 py-5 bg-white sm:p-6 shadow">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-12">
-                                <x-jet-label for="name" value="{{ __('Name') }}" />
-                                <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="name"
-                                    autocomplete="name" />
-                                <x-jet-input-error for="name" class="mt-2" />
+                                <x-jet-label for="title" value="{{ __('Title') }}" />
+                                <x-jet-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title"
+                                    autocomplete="title" />
+                                <x-jet-input-error for="title" class="mt-2" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-12">
@@ -75,52 +75,53 @@
 
                             <div class="col-span-6 sm:col-span-12">
                                 <x-jet-label for="name"
-                                    value="{{ __('octo::messages.system.site.sections.form.image-position') }}" />
+                                    value="{{ __('octo::messages.system.site.sections.form.image_align') }}" />
                                 <div class="flex mt-2 ">
-                                    <x-radio
-                                        :label=" __('octo::messages.system.site.sections.form.image-position-left')" lg
-                                        value="left" wire:model.defer="image_position" />
-                                    <x-radio
-                                        :label=" __('octo::messages.system.site.sections.form.image-position-center')"
-                                        lg class="ml-2" value="center" wire:model.defer="image_position" />
-                                    <x-radio
-                                        :label=" __('octo::messages.system.site.sections.form.image-position-right')" lg
-                                        class="ml-2" value="right" wire:model.defer="image_position" />
+                                    <x-radio :label=" __('octo::messages.system.site.sections.form.image_align-left')"
+                                        lg value="left" wire:model.defer="image_align" />
+                                    <x-radio :label=" __('octo::messages.system.site.sections.form.image_align-center')"
+                                        lg class="ml-2" value="center" wire:model.defer="image_align" />
+                                    <x-radio :label=" __('octo::messages.system.site.sections.form.image_align-right')"
+                                        lg class="ml-2" value="right" wire:model.defer="image_align" />
                                 </div>
                             </div>
 
-                            <div class="col-span-6 sm:col-span-6">
+                            <div class="col-span-8 sm:col-span-8">
                                 <x-select label="{{ __('octo::messages.system.site.sections.form.theme') }}"
                                     placeholder="{{ __('octo::messages.system.site.sections.form.theme-description') }}"
-                                    :options="['Default', 'Hero', 'Clean']" wire:model.defer="theme" />
+                                    :options="['Light', 'Hero', 'Clean']" wire:model.defer="theme" />
                             </div>
 
-                            <div class="col-span-8 sm:col-span-8">
+                            <div class="col-span-4 sm:col-span-4">
                                 <x-jet-label for="name"
                                     value="{{ __('octo::messages.system.site.sections.form.theme-color') }}" />
-                                <input type="color" wire:model.defer="theme_color" name="theme_color" value="#2196f3">
+                                <x-jet-input id="theme_color" type="text" class="mt-1 block w-full"
+                                    wire:model.defer="theme_color" autocomplete="theme_color" />
+                                <x-jet-input-error for="theme_color" class="mt-2" />
                             </div>
 
                             <div class="col-span-6 sm:col-span-12">
-                                <x-jet-label for="content" value="{{ __('Content') }}" />
-                                <textarea id="content" type="text" name="content" wire:model.defer="content"
-                                    autocomplete="content"
+                                <x-jet-label for="description" value="{{ __('Description') }}" />
+                                <textarea id="description" type="text" name="description" wire:model.defer="description"
+                                    autocomplete="description"
                                     class="autoexpand tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full bg-gray-200 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
-                                <x-jet-input-error for="content" class="mt-2" />
+                                <x-jet-input-error for="description" class="mt-2" />
                             </div>
 
-                            <div class="col-span-6 sm:col-span-12">
-                                <x-jet-label for="name"
-                                    value="{{ __('octo::messages.system.site.sections.form.description-color') }}" />
-                                <input type="color" id="body" name="title_color" wire:model.defer="title_color"
-                                    value="#fff">
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-12">
-                                <x-jet-label for="name"
+                            <div class="col-span-6 sm:col-span-6">
+                                <x-jet-label for="title_color"
                                     value="{{ __('octo::messages.system.site.sections.form.title-color') }}" />
-                                <input type="color" id="body" name="description_color"
-                                    wire:model.defer="description_color" value="#fff">
+                                <x-jet-input id="title_color" type="text" class="mt-1 block w-full"
+                                    wire:model.defer="title_color" autocomplete="title_color" />
+                                <x-jet-input-error for="title_color" class="mt-2" />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-6">
+                                <x-jet-label for="description_color"
+                                    value="{{ __('octo::messages.system.site.sections.form.description-color') }}" />
+                                <x-jet-input id="description_color" type="text" class="mt-1 block w-full"
+                                    wire:model.defer="description_color" autocomplete="description_color" />
+                                <x-jet-input-error for="description_color" class="mt-2" />
                             </div>
                         </div>
                     </div>

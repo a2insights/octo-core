@@ -14,23 +14,23 @@ class SiteSection extends ModalComponent
     use InteractsWithBanner;
     use WithFileUploads;
 
-    public $name;
+    public $title;
     public $section_id;
-    public $content;
+    public $description;
     public $image;
     public $image_url;
     public $image_path;
-    public $image_position;
+    public $image_align;
     public $title_color;
     public $description_color;
     public $theme;
     public $theme_color;
 
     protected $rules = [
-        'name' => 'required|string',
+        'title' => 'required|string',
         'image' => 'nullable',
-        'image_position' => 'nullable',
-        'content' => 'nullable|string',
+        'image_align' => 'nullable',
+        'description' => 'nullable|string',
         'title_color' => 'nullable',
         'description_color' => 'nullable',
         'theme' => 'nullable',
@@ -46,15 +46,15 @@ class SiteSection extends ModalComponent
     {
         if ($section) {
             $this->section_id = $section['id'];
-            $this->name = $section['name'];
-            $this->content = $section['content'];
+            $this->title = $section['title'];
+            $this->description = $section['description'];
             $this->image_path = $section['image_path'] ?? null;
             $this->image_url = $section['image_url'] ?? null;
-            $this->image_position = $section['image_position'] ?? null;
+            $this->image_align = $section['image_align'] ?? null;
             $this->theme = $section['theme'] ?? null;
-            $this->theme_color = $section['theme_color'] ?? '#2196f3';
-            $this->title_color = $section['title_color'] ?? '#fff';
-            $this->description_color = $section['description_color'] ?? '#fff';
+            $this->theme_color = $section['theme_color'] ?? '';
+            $this->title_color = $section['title_color'] ?? '';
+            $this->description_color = $section['description_color'] ?? '';
         }
     }
 
@@ -72,9 +72,9 @@ class SiteSection extends ModalComponent
 
         $updated = Site::saveSection([
             'id' => $this->section_id,
-            'name' => $this->name,
-            'content' => $this->content,
-            'image_position' => $this->image_position ?? null,
+            'title' => $this->title,
+            'description' => $this->description,
+            'image_align' => $this->image_align ?? null,
             'image_path' => $image_path ? $image_path : $this->image_path,
             'image_url'  => $image_url ? $image_url : $this->image_url,
             'title_color' => $this->title_color ?? null,
@@ -101,9 +101,9 @@ class SiteSection extends ModalComponent
 
         Site::saveSection([
             'id' => $this->section_id,
-            'name' => $this->name,
-            'content' => $this->content,
-            'image_position' => $this->image_position ?? null,
+            'title' => $this->title,
+            'description' => $this->description,
+            'image_align' => $this->image_align ?? null,
             'image_path' => null,
             'image_url' => null,
             'title_color' => $this->title_color ?? null,

@@ -7,8 +7,8 @@ use Illuminate\Support\Str;
 class Section extends ObjectPrototype
 {
     protected $attributes = [
-        'id', 'name', 'content', 'image_url',
-        'image_path', 'image_position', 'title_color',
+        'id', 'title', 'description', 'image_url',
+        'image_path', 'image_align', 'title_color',
         'description_color', 'theme', 'theme_color',
     ];
 
