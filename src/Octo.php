@@ -6,6 +6,6 @@ class Octo
 {
     public static function site(): Site
     {
-        return new Site();
+        return app(Site::class);
     }
 }

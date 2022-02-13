@@ -61,12 +61,18 @@ return [
                     'image_align' => 'Posição da imagem',
                     'title-color' => 'Cor do título',
                     'description-color' => 'Cor da descrição',
-                    'theme-description' => 'Selecione um tema para a seção.',
+                    'theme-description' => 'Selecione um tema',
                     'image_align' => 'Posição da imagem',
                     'image_align-center' => 'Centro',
                     'image_align-left' => 'Esquerda',
                     'image_align-right' => 'Direita',
                 ]
+            ],
+            'footer' => [
+                'title' => 'Site links',
+                'description' => 'Adicionar, editar e excluir links do rodapé.',
+                'add_link' => 'Adicionar Link',
+                'create_link' => 'Criar Link',
             ],
             'info' => [
                 'title' => 'Informações do Site',

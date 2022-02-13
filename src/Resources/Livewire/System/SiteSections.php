@@ -4,7 +4,7 @@ namespace Octo\Resources\Livewire\System;
 
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
-use Octo\Site;
+use Octo\Octo;
 
 class SiteSections extends Component
 {
@@ -14,16 +14,21 @@ class SiteSections extends Component
 
     protected $listeners = ['refreshSectionsList' => '$refresh'];
 
+    public function mount()
+    {
+        $this->sections = Octo::site()->sections;
+    }
+
     public function render()
     {
-        $this->sections = Site::sections();
+        $this->sections = Octo::site()->sections;
 
         return view('octo::livewire.system.site.site-sections');
     }
 
     public function delete($id)
     {
-        $deleted = Site::deleteSection($id);
+        $deleted = Octo::site()->deleteSection($id);
 
         if ($deleted) {
             $this->banner('Section deleted successfully.');
@@ -36,6 +41,6 @@ class SiteSections extends Component
 
     public function updateSectionsOrder($sections)
     {
-        Site::updateSectionsOrder($sections);
+        Octo::site()->updateSectionsOrder($sections);
     }
 }

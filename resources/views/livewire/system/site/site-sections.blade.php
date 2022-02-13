@@ -40,7 +40,7 @@
 
                         <div class="flex justify-end">
                             <button
-                                wire:click='$emit("openModal", "octo-system-site-section", @json(["section" => $section]))'
+                                wire:click='$emit("openModal", "octo-system-site-section", @json(["state" => $section]))'
                                 class="py-2 px-3 text-gray-600 bg-grey-light rounded-full cursor-pointer hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                                 <span class="flex items-center">
                                     <span class="h-4 w-4">

@@ -6,143 +6,90 @@ use Octo\Settings\GeneralSettings;
 
 class Site extends ObjectPrototype
 {
-    public static function getName(): string
+    protected $attributes = [
+        'name', 'active', 'description',
+        'footer' => [['links' => [], 'networks' => []]],
+        'sections' => [],
+    ];
+
+    private $settings;
+
+    public function __construct()
     {
-        return self::settings()->site_name;
+        $this->settings = $this->settings();
+
+        parent::__construct($this->settings->site);
     }
 
-    public static function getActive(): bool
+    private function save()
     {
-        return self::settings()->site_active;
+        $this->settings->site = $this->toArray();
+
+        return $this->settings->save();
     }
 
-    public static function getDescription(): string
+    public function update($data)
     {
-        return self::settings()->site_description;
+        $this->name = $data['name'];
+        $this->active = $data['active'];
+        $this->description = $data['description'];
+
+        return $this->save();
     }
 
-    public static function getSections(): array
-    {
-        return self::settings()->site_sections;
-    }
-
-
-    public static function update($data)
-    {
-        $settings = self::settings();
-
-        $settings->site_name = $data['name'];
-        $settings->site_active = $data['active'];
-        $settings->site_description = $data['description'];
-
-        return $settings->save();
-    }
-
-    public static function sections()
-    {
-        return self::settings()->site_sections;
-    }
-
-    public static function saveSection($section)
+    public function saveSection($section)
     {
         if (! @$section['id']) {
-           return self::addSection($section);
+           return $this->addSection($section);
         }
 
-        return self::updateSection($section);
+
+        return $this->updateSection($section);
     }
 
-    public static function updateSection($data)
+    public function updateSection($data)
     {
-        $settings = self::settings();
-
-        foreach($settings->site_sections as $key => $section) {
+        foreach($this->sections as $key => $section) {
             if ($section['id'] === $data['id']) {
-                $settings->site_sections[$key]['title'] = $data['title'];
-                $settings->site_sections[$key]['description'] = $data['description'];
-                $settings->site_sections[$key]['image_align'] = $data['image_align'];
-                $settings->site_sections[$key]['image_path'] = $data['image_path'];
-                $settings->site_sections[$key]['image_url'] = $data['image_url'];
-                $settings->site_sections[$key]['title_color'] = $data['title_color'];
-                $settings->site_sections[$key]['description_color'] = $data['description_color'];
-                $settings->site_sections[$key]['theme'] = $data['theme'];
-                $settings->site_sections[$key]['theme_color'] = $data['theme_color'];
+                $this->sections[$key] = $data;
                 break;
             }
         }
 
-        return $settings->save();
+        return $this->save();
     }
 
-    public static function deleteSection($id)
+    public function deleteSection($id)
     {
-        $settings = self::settings();
-
-        foreach($settings->site_sections as $key => $section) {
+        foreach($this->sections as $key => $section) {
             if ($section['id'] === $id) {
-                unset($settings->site_sections[$key]);
+                unset($this->sections[$key]);
                 break;
             }
         }
 
-       return $settings->save();
+       return $this->save();
     }
 
-    public static function addSection($data)
+    public function addSection($data)
     {
-        $settings = self::settings();
+        array_push($this->sections, (new Section($data))->toArray());
 
-        $data = (new Section([
-            'title' =>  $data['title'],
-            'description' => $data['description'],
-            'image_align' => $data['image_align'],
-            'image_url' => $data['image_url'],
-            'image_path' => $data['image_path'],
-            'title_color' => $data['title_color'],
-            'description_color' => $data['description_color'],
-            'theme' => $data['theme'] ?? null,
-            'theme_color' => $data['theme_color'] ?? null,
-        ]))->toArray();
-
-        $sections = $settings->site_sections;
-
-        array_push($sections, $data);
-
-        $settings->site_sections = $sections;
-
-        return $settings->save();
+        return $this->save();
     }
 
-    public static function updateSectionsOrder($sections)
+    public function updateSectionsOrder($sections)
     {
-        $settings = self::settings();
-
-        $newSections = [];
-
         foreach($sections as $index => $section) {
-
-            $sectionSaved = collect($settings->site_sections)->where('id', $section['value'])->first();
-
-            $newSections[$index] = [
-                'id' => $sectionSaved['id'],
-                'title' => $sectionSaved['title'],
-                'description' => $sectionSaved['description'] ?? null,
-                'image_align' => $sectionSaved['image_align'] ?? null,
-                'image_path' => $sectionSaved['image_path'] ?? null,
-                'image_url'=> $sectionSaved['image_url'] ?? null,
-                'title_color' => $sectionSaved['title_color'] ?? null,
-                'description_color' => $sectionSaved['description_color'] ?? null,
-                'theme' => $sectionSaved['theme'] ?? null,
-                'theme_color' => $sectionSaved['theme_color'] ?? null,
-            ];
+            $newOrder[$index] = collect($this->sections)->where('id', $section['value'])->first();
         }
 
-        $settings->site_sections = $newSections;
+        $this->sections = $newOrder;
 
-       return $settings->save();
+        return $this->save();
     }
 
-    private static function settings(): GeneralSettings
+    private function settings(): GeneralSettings
     {
         return app(GeneralSettings::class);
     }
