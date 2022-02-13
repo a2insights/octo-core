@@ -46,6 +46,13 @@ abstract class ObjectPrototype implements Arrayable
     protected static $setAttributeMutatorCache = [];
 
     /**
+     * The rules property.
+     *
+     * @var array
+     */
+    protected $rules = [];
+
+    /**
      * Create a new Object instance.
      *
      * @param  array  $attributes
@@ -132,7 +139,7 @@ abstract class ObjectPrototype implements Arrayable
             $attributes[$key] = $this->{$key};
         }
 
-       return $attributes;
+        return $attributes;
     }
 
     /**
@@ -157,7 +164,7 @@ abstract class ObjectPrototype implements Arrayable
      */
     public function toArray($data = null): array
     {
-        return json_decode(json_encode($this->getAttributes()),TRUE);
+        return json_decode(json_encode($this->getAttributes()), true);
     }
 
     /**
@@ -174,7 +181,7 @@ abstract class ObjectPrototype implements Arrayable
                 $normalized[$key] = $value;
             }
 
-            if(is_string($value)){
+            if (is_string($value)) {
                 $normalized[$value] = null;
             }
         }
@@ -192,11 +199,21 @@ abstract class ObjectPrototype implements Arrayable
         $attributes = [];
 
         foreach ($this->attributes as $key => $value) {
-            if(Arr::exists($this->original, $key)){
+            if (Arr::exists($this->original, $key)) {
                 $attributes[$key] = $value;
             }
         }
 
         $this->attributes = $attributes;
+    }
+
+    /**
+     * Get object rules
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return $this->rules;
     }
 }
