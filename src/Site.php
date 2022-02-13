@@ -8,7 +8,7 @@ class Site extends ObjectPrototype
 {
     protected $attributes = [
         'name', 'active', 'description',
-        'footer' => [['links' => [], 'networks' => []]],
+        'footer' => ['links' => [], 'networks' => []],
         'sections' => [],
     ];
 
@@ -40,16 +40,15 @@ class Site extends ObjectPrototype
     public function saveSection($section)
     {
         if (! @$section['id']) {
-           return $this->addSection($section);
+            return $this->addSection($section);
         }
-
 
         return $this->updateSection($section);
     }
 
     public function updateSection($data)
     {
-        foreach($this->sections as $key => $section) {
+        foreach ($this->sections as $key => $section) {
             if ($section['id'] === $data['id']) {
                 $this->sections[$key] = $data;
                 break;
@@ -61,14 +60,14 @@ class Site extends ObjectPrototype
 
     public function deleteSection($id)
     {
-        foreach($this->sections as $key => $section) {
+        foreach ($this->sections as $key => $section) {
             if ($section['id'] === $id) {
                 unset($this->sections[$key]);
                 break;
             }
         }
 
-       return $this->save();
+        return $this->save();
     }
 
     public function addSection($data)
@@ -80,11 +79,40 @@ class Site extends ObjectPrototype
 
     public function updateSectionsOrder($sections)
     {
-        foreach($sections as $index => $section) {
+        foreach ($sections as $index => $section) {
             $newOrder[$index] = collect($this->sections)->where('id', $section['value'])->first();
         }
 
         $this->sections = $newOrder;
+
+        return $this->save();
+    }
+
+    public function updateFooterLinksOrder($links)
+    {
+        foreach ($links as $index => $link) {
+            $newOrder[$index] = collect($this->footer['links'])->where('id', $link['value'])->first();
+        }
+
+        $this->footer['links'] = $newOrder;
+
+        return $this->save();
+    }
+
+    public function updateFooterNetworksOrder($networks)
+    {
+        foreach ($networks as $index => $network) {
+            $newOrder[$index] = collect($this->footer['networks'])->where('id', $network['value'])->first();
+        }
+
+        $this->footer['networks'] = $newOrder;
+
+        return $this->save();
+    }
+
+    public function updateFooter($data)
+    {
+        $this->footer = $data;
 
         return $this->save();
     }

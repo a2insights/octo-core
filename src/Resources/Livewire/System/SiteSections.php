@@ -35,8 +35,6 @@ class SiteSections extends Component
         } else {
             $this->dangerBanner('There was an error deleting the section.');
         }
-
-        $this->emit('refreshSectionsList');
     }
 
     public function updateSectionsOrder($sections)

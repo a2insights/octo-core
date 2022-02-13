@@ -21,10 +21,9 @@
     <div class="container px-3 mb-2 flex mx-auto w-full items-center justify-center">
         <ul wire:sortable="updateSectionsOrder" class="flex w-full flex-col py-4">
             @foreach ($sections as $key => $section)
-                <li wire:key="section-{{ @$section['id'] }}" class="py-1 flex w-full flex-row cursor-move select-none"
+                <li wire:key="section-{{ @$section['id'] }}" class="py-1 flex w-full flex-row "
                     wire:sortable.item="{{ @$section['id'] }}">
-                    <div
-                        class="flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 hover:shadow-2xl border-gray-900">
+                    <div class="flex flex-1 items-center p-4 rounded-2xl border-2 p-6 border-gray-900">
                         @if (@$section['image_path'])
                             <div>
                                 <img src="{{ @$section['image_url'] }}" alt="{{ @$section['title'] }}"
@@ -32,7 +31,7 @@
                             </div>
                         @endif
 
-                        <div wire:sortable.handle class="flex-1 pl-1 mr-16">
+                        <div class="flex-1 pl-1 mr-16">
                             <div class="font-medium">
                                 {{ @$section['title'] }}
                             </div>
@@ -40,7 +39,7 @@
 
                         <div class="flex justify-end">
                             <button
-                                wire:click='$emit("openModal", "octo-system-site-section", @json(["state" => $section]))'
+                                wire:click='$emit("openModal", "octo-system-site-section", @json(['state' => $section]))'
                                 class="py-2 px-3 text-gray-600 bg-grey-light rounded-full cursor-pointer hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                                 <span class="flex items-center">
                                     <span class="h-4 w-4">
@@ -54,6 +53,14 @@
                                 <span class="flex items-center">
                                     <span class="h-4 w-4">
                                         {{ svg('zondicon-trash') }}
+                                    </span>
+                                </span>
+                            </button>
+                            <button wire:sortable.handle
+                                class="py-2 px-3 text-gray-600 bg-grey-light rounded-full cursor-move select-none hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
+                                <span class="flex items-center">
+                                    <span class="h-4 w-4">
+                                        {{ svg('zondicon-dots-horizontal-triple') }}
                                     </span>
                                 </span>
                             </button>

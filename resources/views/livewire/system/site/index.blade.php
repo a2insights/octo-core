@@ -12,6 +12,10 @@
             <x-jet-section-border />
 
             @livewire('octo-system-site-sections')
+
+            <x-jet-section-border />
+
+            @livewire('octo-system-site-footer')
         </div>
     </div>
 

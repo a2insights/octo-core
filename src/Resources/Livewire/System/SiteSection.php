@@ -3,7 +3,6 @@
 namespace Octo\Resources\Livewire\System;
 
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -11,7 +10,6 @@ use LivewireUI\Modal\ModalComponent;
 use Octo\Octo;
 use Octo\Resources\Livewire\Concerns\ValidateState;
 use Octo\Section;
-use Octo\Site;
 
 class SiteSection extends ModalComponent
 {
@@ -19,63 +17,32 @@ class SiteSection extends ModalComponent
     use WithFileUploads;
     use ValidateState;
 
-    /**
-     * The component's state.
-     *
-     * @var array
-     */
     public $state = [];
 
-    /**
-     * The section image.
-     *
-     * @var
-     */
     public $image;
 
-    /**
-     * The mount function.
-     *
-     * @param  array  $state
-     * @return void
-     */
     public function mount($state = null)
     {
         $this->state = $state ?? [];
     }
 
-    /**
-     * The component' rules.
-     *
-     * @var array
-     */
     protected function rules()
     {
         return app(Section::class)->rules();
     }
 
-    /**
-     * The modal size.
-     *
-     * @var array
-     */
     public static function modalMaxWidth(): string
     {
         return '4xl';
     }
 
-    /**
-     * The render function.
-     *
-     * @var array
-     */
     public function submit()
     {
         $this->resetErrorBag();
 
         $this->validate();
 
-        $image_path = $this->image instanceof TemporaryUploadedFile ? $this->image->store('site/sections' ,[
+        $image_path = $this->image instanceof TemporaryUploadedFile ? $this->image->store('site/sections', [
             'disk' => 'public',
         ]) : null;
 

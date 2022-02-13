@@ -69,9 +69,12 @@ return [
                 ]
             ],
             'footer' => [
-                'title' => 'Site links',
-                'description' => 'Adicionar, editar e excluir links do rodapé.',
+                'title_link' => 'Site links',
+                'description_link' => 'Adicionar, editar e excluir links do rodapé.',
                 'add_link' => 'Adicionar Link',
+                'title_network' => 'Redes Sociais',
+                'description_network' => 'Adicionar, editar e excluir redes sociais do rodapé.',
+                'add_network' => 'Adicionar Rede Social',
                 'create_link' => 'Criar Link',
             ],
             'info' => [
