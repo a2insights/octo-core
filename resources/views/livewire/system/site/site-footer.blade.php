@@ -33,7 +33,7 @@
                                         <x-error name="title" />
                                     </div>
                                     <div class="col-span-2">
-                                        <x-input wire:model='links.{{ $key }}.url' type="text" label="Url" />
+                                        <x-input wire:model='links.{{ $key }}.url' type="text" label="url" />
                                         <x-error name="url" />
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                                     <div class="col-span-1 mr-2 mb-3">
                                         <x-select label="{{ __('Rede social') }}"
                                             wire:model='networks.{{ $key }}.title'
-                                            :options="['Facebook', 'Twiter', 'Instagram', 'Youtube']" />
+                                            :options="['Facebook', 'Twitter', 'Instagram', 'Youtube']" />
                                         <x-error name="title" />
                                     </div>
                                     <div class="col-span-2">
