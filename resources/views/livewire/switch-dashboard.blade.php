@@ -5,7 +5,7 @@
             {{ __('System') }}
         </button>
     </div>
-    <div role="listitem" class="bg-white cursor-pointer shadow p-8 relative z-30 mt-7">
+    <div role="listitem" class="bg-white cursor-pointer shadow relative z-30 mt-7">
         <button wire:click="switchDashboard('platform')"
             class="w-full {{ $dashboard == 'platform' ? 'bg-gray-800 text-white' : 'text-gray-800' }}  px-6 py-2 text-md border-b hover:text-white hover:bg-gray-500">
             {{ __('Platform') }}
