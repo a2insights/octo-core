@@ -2,7 +2,7 @@
 <div x-data="{open: false }">
     <button @click="open = true" x-data="{show: @entangle('show') }" x-show="show" x-cloak
         class="rounded float-right px-3 mt-3 py-2 m-1 border-b-4 border-l-2 shadow-lg bg-gray-800"
-        style="position: fixed;right: -3px;">
+        style="position: fixed;right: -3px;display: none;">
         <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
             class="w-5 h-5 text-white fill-current text-center">
             <title>{{ __($title) }}</title>
