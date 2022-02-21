@@ -9,8 +9,8 @@
             {{ !$icon ?: svg($icon) }}
         </svg>
     </button>
-    <div x-show="open" class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog"
-        aria-modal="true">
+    <div style="display: none;" x-cloak x-show="open" class="fixed inset-0 overflow-hidden"
+        aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
         <div class="absolute inset-0 overflow-hidden">
             <div x-show="open" x-transition:enter="ease-in-out duration-500" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="ease-in-out duration-500"
