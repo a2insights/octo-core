@@ -7,11 +7,11 @@ use Livewire\Component;
 
 class SwitchDashboard extends Component
 {
-     /**
-     * The dashboard of subscribe intent
-     *
-     * @var string
-     */
+    /**
+    * The dashboard of subscribe intent
+    *
+    * @var string
+    */
     public string $dashboard = 'platform';
 
     /**
@@ -30,11 +30,11 @@ class SwitchDashboard extends Component
         'dashboard' => 'required|in:platform,system'
     ];
 
-     /**
-     * Get the auth user
-     *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-     */
+    /**
+    * Get the auth user
+    *
+    * @return \Illuminate\Contracts\Auth\Authenticatable|null
+    */
     private function getUser()
     {
         return Auth::user();
@@ -48,7 +48,7 @@ class SwitchDashboard extends Component
     public function mount()
     {
         $this->dashboard = Auth::user()->dashboard ?? $this->dashboard;
-        $this->show = Auth::user()->super_admin;
+        $this->show = Auth::user()->super_admin ?? false;
     }
 
     /**
@@ -83,7 +83,7 @@ class SwitchDashboard extends Component
             return redirect()->route('system.dashboard');
         }
 
-        if($dashboard === 'platform') {
+        if ($dashboard === 'platform') {
             session()->forget(['flash.banner', 'flash.bannerStyle']);
             return redirect()->route('filament.pages.dashboard');
         }
