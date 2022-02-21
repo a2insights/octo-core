@@ -1,6 +1,6 @@
 @props(['title' => '', 'icon' => '', 'count' => '', 'percent' => '', 'direction' => 1, 'route' => '#'])
 <a href="{{ $route }}"
-    class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+    class="hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
     <div class="p-5">
         <div class="flex justify-between">
             <span class="h-4 w-4">

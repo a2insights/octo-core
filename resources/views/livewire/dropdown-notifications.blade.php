@@ -1,7 +1,7 @@
 <div class="xl:flex mt-2 items-center space-x-5 items-center">
     <div x-data="{ dropdownOpen: false }" @click.away="dropdownOpen = false" class="relative my-32">
         <button @click="dropdownOpen = !dropdownOpen"
-            class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
+            class="relative z-5 block rounded-md bg-white p-2 focus:outline-none">
             <span class="relative inline-block">
                 {{ svg('heroicon-o-bell', 'w-6 h-6 text-gray-700') }}
                 @if ($noReads)

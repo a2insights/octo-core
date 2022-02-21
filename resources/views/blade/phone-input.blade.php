@@ -69,128 +69,129 @@
         <x-jet-input name="phone" id="phone" class="mt-1 ml-2 w-full" type="text" :value="old('phone')" />
     </div>
 
-    <script>
-        function select(config) {
-            return {
-                data: config.data,
-                emptyOptionsMessage: '{{ __('No results match your search.') }}',
-                focusedOptionOptionId: null,
-                focusedOptionIndex: null,
-                name: 'country',
-                open: false,
-                options: {},
-                placeholder: '{{ __('Select') }}',
-                search: '',
-                value: config.value,
-                ulSize: '10rem',
-
-                closeListbox: function() {
-                    this.open = false
-                    this.focusedOptionOptionId = null
-                    this.search = ''
-                    this.ulSize = '10rem'
-                },
-
-                focusNextOption: function() {
-                    if (this.focusedOptionIndex === null) return this.focusedOptionIndex = this.options.length - 1
-
-                    if (this.focusedOptionIndex + 1 >= this.options.length) return
-
-                    this.focusedOptionIndex++
-
-                    this.$refs.listbox.children[this.focusedOptionIndex++].scrollIntoView({
-                        block: 'center',
-                    })
-                },
-
-                focusPreviousOption: function() {
-                    if (this.focusedOptionIndex === null) return this.focusedOptionIndex = 0
-
-                    if (this.focusedOptionIndex <= 0) return
-
-                    this.focusedOptionIndex--
-
-                    this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
-                        block: 'center',
-                    })
-                },
-
-                init: function() {
-                    this.options = this.data
-
-                    @if (old('calling_code'))
-                        this.value = this.data.filter(c => c.calling_code == {{ old('calling_code') }})[0]
-                        this.formatPhone()
-                    @else
-                        if (!this.value) {
-                        fetch('https://extreme-ip-lookup.com/json')
-                        .then( res => res.json())
-                        .then(response => {
-                        this.value = this.data.filter(c => c.id.toLowerCase() === response.countryCode.toLowerCase())[0]
-                        this.formatPhone()
-                        })
-                        .catch(() => {
-                        this.value = this.options[0];
-                        this.formatPhone()
-                        })
-                        } else {
-                        this.formatPhone()
-                        }
-                    @endif
-
-                    this.$watch('search', ((value) => {
-                        if (!this.open || !value) return this.options = this.data
-
-                        this.options = this.data
-                            .filter((country) => country.name
-                                .normalize('NFD')
-                                .replace(/[\u0300-\u036f]/g, '')
-                                .toLowerCase()
-                                .includes(
-                                    value.normalize('NFD')
-                                    .replace(/[\u0300-\u036f]/g, '')
-                                    .toLowerCase())
-                            )
-
-                        if (this.options.length < 5) {
-                            this.ulSize = 'auto'
-                        } else {
-                            this.ulSize = '10rem'
-                        }
-                    }))
-                },
-
-                formatPhone() {
-                    Inputmask(this.value.phone_format).mask(document.getElementById('phone'));
-                },
-
-                selectOption: function() {
-                    if (!this.open) return this.toggleListboxVisibility()
-
-                    this.value = this.data.filter(c => c.id === this.focusedOptionOptionId)[0]
-
-                    this.formatPhone()
-
-                    this.closeListbox()
-                },
-
-                toggleListboxVisibility: function() {
-                    if (this.open) return this.closeListbox()
-
-                    this.focusedOptionIndex = this.options.indexOf(this.value)
-
-                    if (this.focusedOptionIndex < 0) this.focusedOptionIndex = 0
-
-                    this.open = true
-
-                    this.$nextTick(() => {
-                        this.$refs.search.focus()
-                        this.$refs.listbox.children[this.focusedOptionIndex + 2].scrollIntoView({
-                            block: 'center'
-                        })
-                    })
-                },
-            }
-        }
-    </script>
 </div>
+
+<script>
+    function select(config) {
+        return {
+            data: config.data,
+            emptyOptionsMessage: '{{ __('No results match your search.') }}',
+            focusedOptionOptionId: null,
+            focusedOptionIndex: null,
+            name: 'country',
+            open: false,
+            options: {},
+            placeholder: '{{ __('Select') }}',
+            search: '',
+            value: config.value,
+            ulSize: '10rem',
+
+            closeListbox: function() {
+                this.open = false
+                this.focusedOptionOptionId = null
+                this.search = ''
+                this.ulSize = '10rem'
+            },
+
+            focusNextOption: function() {
+                if (this.focusedOptionIndex === null) return this.focusedOptionIndex = this.options.length - 1
+
+                if (this.focusedOptionIndex + 1 >= this.options.length) return
+
+                this.focusedOptionIndex++
+
+                this.$refs.listbox.children[this.focusedOptionIndex++].scrollIntoView({
+                    block: 'center',
+                })
+            },
+
+            focusPreviousOption: function() {
+                if (this.focusedOptionIndex === null) return this.focusedOptionIndex = 0
+
+                if (this.focusedOptionIndex <= 0) return
+
+                this.focusedOptionIndex--
+
+                this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
+                    block: 'center',
+                })
+            },
+
+            init: function() {
+                this.options = this.data
+
+                @if (old('calling_code'))
+                    this.value = this.data.filter(c => c.calling_code == {{ old('calling_code') }})[0]
+                    this.formatPhone()
+                @else
+                    if (!this.value) {
+                        fetch('https://extreme-ip-lookup.com/json')
+                            .then( res => res.json())
+                            .then(response => {
+                                this.value = this.data.filter(c => c.id.toLowerCase() === response.countryCode.toLowerCase())[0]
+                                this.formatPhone()
+                            })
+                            .catch(() => {
+                                this.value = this.options[0];
+                                this.formatPhone()
+                            })
+                    } else {
+                        this.formatPhone()
+                    }
+                @endif
+
+                this.$watch('search', ((value) => {
+                    if (!this.open || !value) return this.options = this.data
+
+                    this.options = this.data
+                        .filter((country) => country.name
+                            .normalize('NFD')
+                            .replace(/[\u0300-\u036f]/g, '')
+                            .toLowerCase()
+                            .includes(
+                                value.normalize('NFD')
+                                .replace(/[\u0300-\u036f]/g, '')
+                                .toLowerCase())
+                        )
+
+                    if (this.options.length < 5) {
+                        this.ulSize = 'auto'
+                    } else {
+                        this.ulSize = '10rem'
+                    }
+                }))
+            },
+
+            formatPhone() {
+                Inputmask(this.value.phone_format).mask(document.getElementById('phone'));
+            },
+
+            selectOption: function() {
+                if (!this.open) return this.toggleListboxVisibility()
+
+                this.value = this.data.filter(c => c.id === this.focusedOptionOptionId)[0]
+
+                this.formatPhone()
+
+                this.closeListbox()
+            },
+
+            toggleListboxVisibility: function() {
+                if (this.open) return this.closeListbox()
+
+                this.focusedOptionIndex = this.options.indexOf(this.value)
+
+                if (this.focusedOptionIndex < 0) this.focusedOptionIndex = 0
+
+                this.open = true
+
+                this.$nextTick(() => {
+                    this.$refs.search.focus()
+                    this.$refs.listbox.children[this.focusedOptionIndex + 2].scrollIntoView({
+                        block: 'center'
+                    })
+                })
+            },
+        }
+    }
+</script>
