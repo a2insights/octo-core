@@ -23,13 +23,13 @@
             <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
                 <div x-show="open" x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
                     x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
-                    x-transition:leave="transform transition ease-in-out duration-300 sm:duration-700"
+                    x-transition:leave="transform transition ease-in-out duration-600 sm:duration-700"
                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                     class="relative w-screen max-w-md"
                     x-description="Slide-over panel, show/hide based on slide-over state.">
                     <div x-show="open" x-transition:enter="ease-in-out duration-500"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                        x-transition:leave="ease-in-out duration-300" x-transition:leave-start="opacity-100"
+                        x-transition:leave="ease-in-out duration-600" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
                         x-description="Close button, show/hide based on slide-over state."
                         class="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">

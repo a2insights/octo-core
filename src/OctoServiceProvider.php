@@ -78,6 +78,7 @@ class OctoServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->app->register(FilamentProvider::class);
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
         $this->mergeConfigFrom(__DIR__.'/../config/services.php', 'services');
     }
