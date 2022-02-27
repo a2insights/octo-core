@@ -13,7 +13,7 @@ class InvoiceTest extends TestCase
         $user->subscriptions()->delete();
 
         $this->actingAs($user)
-            ->get(route('billing-portal.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
+            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
             ->assertOk();
 
         $user->newSubscription('main', static::$stripePlanId)->create('pm_card_visa');
@@ -29,7 +29,7 @@ class InvoiceTest extends TestCase
         });
 
         $this->actingAs($user)
-            ->get(route('billing-portal.invoice.index'))
+            ->get(route('billing.invoice.index'))
             ->assertSee($invoices[0]['description']);
     }
 }

@@ -4,7 +4,7 @@ namespace Octo\Tests\Feature\Billing;
 
 use Octo\Tests\Feature\Billing\Models\User;
 
-class BillingPortalTest extends TestCase
+class BillingTest extends TestCase
 {
     public function test_billing_redirect_to_portal()
     {
@@ -13,11 +13,11 @@ class BillingPortalTest extends TestCase
         $user->subscriptions()->delete();
 
         $this->actingAs($user)
-            ->get(route('billing-portal.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
+            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
             ->assertOk();
 
         $this->actingAs($user)
-            ->get(route('billing-portal.portal'))
+            ->get(route('billing.portal'))
             ->assertStatus(302);
     }
 }

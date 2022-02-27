@@ -4,7 +4,7 @@ namespace Octo\Billing\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Octo\Billing\BillingPortal;
+use Octo\Billing\Billing;
 
 class InvoiceController extends Controller
 {
@@ -16,7 +16,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        $invoices = BillingPortal::getBillable($request)->invoicesIncludingPending()->map(function ($invoice) {
+        $invoices = Billing::getBillable($request)->invoicesIncludingPending()->map(function ($invoice) {
             return (object) [
                 'description' => $invoice->lines->data[0]->description,
                 'created' => $invoice->created,
@@ -26,7 +26,7 @@ class InvoiceController extends Controller
             ];
         });
 
-        return view('octo::livewire.billing-portal.invoice.index', [
+        return view('octo::livewire.billing.invoice.index', [
             'invoices' => $invoices,
         ]);
     }

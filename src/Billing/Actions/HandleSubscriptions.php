@@ -3,7 +3,7 @@
 namespace Octo\Billing\Actions;
 
 use Illuminate\Http\Request;
-use Octo\Billing\BillingPortal;
+use Octo\Billing\Billing;
 use Octo\Billing\Contracts\HandleSubscriptions as HandleSubscriptionsContract;
 use Octo\Billing\Plan;
 
@@ -20,8 +20,8 @@ class HandleSubscriptions implements HandleSubscriptionsContract
     public function checkoutOnSubscription($subscription, $billable, Plan $plan, Request $request)
     {
         return $subscription->checkout([
-            'success_url' => route('billing-portal.subscription.index', ['success' => "You have successfully subscribed to {$plan->getName()}!"]),
-            'cancel_url' => route('billing-portal.subscription.index', ['error' => "The subscription to {$plan->getName()} was cancelled!"]),
+            'success_url' => route('billing.subscription.index', ['success' => "You have successfully subscribed to {$plan->getName()}!"]),
+            'cancel_url' => route('billing.subscription.index', ['error' => "The subscription to {$plan->getName()} was cancelled!"]),
         ]);
     }
 
@@ -51,7 +51,7 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      */
     public function swapToPlan($subscription, $billable, Plan $plan, Request $request)
     {
-        if (BillingPortal::proratesOnSwap()) {
+        if (Billing::proratesOnSwap()) {
             return $subscription->swap($plan->getId());
         }
 

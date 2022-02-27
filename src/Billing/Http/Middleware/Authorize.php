@@ -4,7 +4,7 @@ namespace Octo\Billing\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\RedirectResponse;
-use Octo\Billing\BillingPortal;
+use Octo\Billing\Billing;
 
 class Authorize
 {
@@ -17,7 +17,7 @@ class Authorize
      */
     public function handle($request, Closure $next)
     {
-        $authorization = BillingPortal::isAuthorizedToPerform($request);
+        $authorization = Billing::isAuthorizedToPerform($request);
 
         if ($authorization instanceof RedirectResponse) {
             return $authorization;

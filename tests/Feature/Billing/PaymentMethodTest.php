@@ -11,7 +11,7 @@ class PaymentMethodTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->get(route('billing-portal.payment-method.index'))
+            ->get(route('billing.payment-method.index'))
             ->assertOk();
 
         $user->createOrGetStripeCustomer();
@@ -36,7 +36,7 @@ class PaymentMethodTest extends TestCase
             });
 
         $this->actingAs($user)
-            ->get(route('billing-portal.payment-method.index'))
+            ->get(route('billing.payment-method.index'))
             ->assertSee($methods[0]['brand']);
     }
 }

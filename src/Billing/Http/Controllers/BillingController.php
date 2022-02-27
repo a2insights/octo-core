@@ -5,7 +5,7 @@ namespace Octo\Billing\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
-use Octo\Billing\BillingPortal;
+use Octo\Billing\Billing;
 
 class BillingController extends Controller
 {
@@ -16,7 +16,7 @@ class BillingController extends Controller
      */
     public function dashboard()
     {
-        return Redirect::route('billing-portal.subscription.index');
+        return Redirect::route('billing.subscription.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class BillingController extends Controller
     public function portal(Request $request)
     {
         return $this->getBillingPortalRedirect(
-            BillingPortal::getBillable($request)
+            Billing::getBillable($request)
         );
     }
 
@@ -42,6 +42,6 @@ class BillingController extends Controller
     {
         $billable->createOrGetStripeCustomer();
 
-        return Redirect::to($billable->billingPortalUrl(route('billing-portal.dashboard')));
+        return Redirect::to($billable->billingPortalUrl(route('billing.dashboard')));
     }
 }

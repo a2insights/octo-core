@@ -1,4 +1,4 @@
-@extends('octo::livewire.billing-portal.layout')
+@extends('octo::livewire.billing.layout')
 
 @section('header')
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">

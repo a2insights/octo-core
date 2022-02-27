@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Cashier as StripeCashier;
-use Octo\Billing\BillingPortal;
+use Octo\Billing\Billing;
 use Octo\Billing\Saas;
 use Octo\OctoServiceProvider;
 use Stripe\ApiResource;
@@ -59,7 +59,7 @@ abstract class TestCase extends TestsTestCase
                 Saas::feature('Seats', 'teams', 5)->notResettable(),
             ]);
 
-        BillingPortal::resolveBillable(function (Request $request) {
+        Billing::resolveBillable(function (Request $request) {
             return $request->user();
         });
 
@@ -67,7 +67,7 @@ abstract class TestCase extends TestsTestCase
             StripeCashier::useCustomerModel(Models\User::class);
         }
 
-        BillingPortal::resolveAuthorization(function ($billable, Request $request) {
+        Billing::resolveAuthorization(function ($billable, Request $request) {
             return true;
         });
     }

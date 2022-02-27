@@ -5,7 +5,7 @@ namespace Octo\Billing\Http\Livewire;
 use Illuminate\Http\Request;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
-use Octo\Billing\BillingPortal;
+use Octo\Billing\Billing;
 use Octo\Billing\Contracts\HandleSubscriptions;
 use Octo\Billing\Saas;
 
@@ -21,11 +21,11 @@ class PlansSlide extends Component
      */
     public function render(Request $request)
     {
-        $billable = BillingPortal::getBillable($request);
+        $billable = Billing::getBillable($request);
 
         $subscription = $this->getCurrentSubscription($billable, $request->subscription ?? 'main');
 
-        return view('octo::livewire.billing-portal.subscription.plans-slide', [
+        return view('octo::livewire.billing.subscription.plans-slide', [
             'currentPlan' => $subscription ? $subscription->getPlan() : null,
             'hasDefaultPaymentMethod' => $billable->hasDefaultPaymentMethod(),
             'paymentMethods' => $billable->paymentMethods(),
@@ -45,7 +45,7 @@ class PlansSlide extends Component
      */
     public function subscribeToPlan(string $planId)
     {
-        return redirect()->route('billing-portal.subscription.plan-subscribe', ['plan' => $planId]);
+        return redirect()->route('billing.subscription.plan-subscribe', ['plan' => $planId]);
     }
 
     /**
@@ -59,7 +59,7 @@ class PlansSlide extends Component
     public function swapPlan(HandleSubscriptions $manager, Request $request, string $newPlanId)
     {
         $newPlan = Saas::getPlan($newPlanId);
-        $billable = BillingPortal::getBillable($request);
+        $billable = Billing::getBillable($request);
 
         if (! $subscription = $this->getCurrentSubscription($billable, $request->subscription)) {
             $this->dangerBanner("The subscription {$request->subscription} does not exist.");
@@ -70,7 +70,7 @@ class PlansSlide extends Component
         // If the desired plan has a price and the user has no payment method added to its account,
         // redirect it to the Checkout page to finish the payment info & subscribe.
         if ($newPlan->getPrice() > 0.00 && ! $billable->defaultPaymentMethod()) {
-            return redirect()->route('billing-portal.subscription.plan-subscribe', ['plan' => $newPlan->getId()]);
+            return redirect()->route('billing.subscription.plan-subscribe', ['plan' => $newPlan->getId()]);
         }
 
         // Otherwise, check if it is not already subscribed to the new plan and initiate
@@ -106,7 +106,7 @@ class PlansSlide extends Component
      */
     public function cancelSubscription(HandleSubscriptions $manager, Request $request)
     {
-        $billable = BillingPortal::getBillable($request);
+        $billable = Billing::getBillable($request);
 
         if (! $subscription = $this->getCurrentSubscription($billable, $request->subscription)) {
             $this->dangerBanner("The subscription {$request->subscription} does not exist.");
@@ -128,7 +128,7 @@ class PlansSlide extends Component
      */
     public function resumeSubscription(HandleSubscriptions $manager, Request $request)
     {
-        $billable = BillingPortal::getBillable($request);
+        $billable = Billing::getBillable($request);
 
         if (! $subscription = $this->getCurrentSubscription($billable, $request->subscription)) {
             $this->dangerBanner("The subscription {$request->subscription} does not exist.");

@@ -11,10 +11,7 @@ use Octo\Resources\Blade\Sidebar;
 use Octo\Resources\Livewire\Notifications\DropdownNotifications;
 use Octo\Resources\Livewire\Notifications\ListNotifications;
 use Octo\Resources\Livewire\Subscribe;
-use Laravel\Cashier\Cashier as StripeCashier;
 use Octo\Billing\BillingServiceProvider;
-use Octo\Billing\Http\Livewire\ListPaymentMethods;
-use Octo\Billing\Http\Livewire\PlansSlide;
 use Octo\Resources\Livewire\System\ListUsers;
 use Octo\Resources\Livewire\SwitchDashboard;
 use Octo\Resources\Livewire\System\SiteFooter;
@@ -26,10 +23,6 @@ class OctoServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        if (class_exists(StripeCashier::class)) {
-            StripeCashier::useSubscriptionModel(\Octo\Billing\Models\Stripe\Subscription::class);
-        }
-
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'octo');
 
         $this->publishes([
@@ -45,15 +38,11 @@ class OctoServiceProvider extends ServiceProvider
         Blade::component('octo::blade.card-count', 'octo-card-count');
         Blade::component('octo::blade.slide-over', 'octo-slide-over');
 
-        // Billing
-        Livewire::component('plans-slide', PlansSlide::class);
-        Livewire::component('switch-dashboard', SwitchDashboard::class);
-        Livewire::component('list-payment-methods', ListPaymentMethods::class);
-
         // Need publish
         Blade::component('footer', 'footer');
 
         // Livewire
+        Livewire::component('switch-dashboard', SwitchDashboard::class);
         Livewire::component('octo-subscribe', Subscribe::class);
         Livewire::component('octo-dropdown-notifications', DropdownNotifications::class);
         Livewire::component('octo-list-notifications', ListNotifications::class);
@@ -82,6 +71,7 @@ class OctoServiceProvider extends ServiceProvider
     {
         $this->app->register(FilamentServiceProvider::class);
         $this->app->register(BillingServiceProvider::class);
+        $this->app->register(MenuServiceProvider::class);
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
         $this->mergeConfigFrom(__DIR__.'/../config/services.php', 'services');
     }

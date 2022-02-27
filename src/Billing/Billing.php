@@ -2,7 +2,7 @@
 
 namespace Octo\Billing;
 
-class BillingPortal
+class Billing
 {
     use Concerns\ResolvesActions;
     use Concerns\ResolvesAuthorization;

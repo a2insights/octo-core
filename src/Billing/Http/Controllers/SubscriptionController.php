@@ -4,7 +4,7 @@ namespace Octo\Billing\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Octo\Billing\BillingPortal;
+use Octo\Billing\Billing;
 use Octo\Billing\Contracts\HandleSubscriptions;
 use Octo\Billing\Saas;
 
@@ -30,7 +30,7 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        return view('octo::livewire.billing-portal.subscription.index');
+        return view('octo::livewire.billing.subscription.index');
     }
 
     /**
@@ -43,7 +43,7 @@ class SubscriptionController extends Controller
      */
     public function redirectWithSubscribeIntent(HandleSubscriptions $manager, Request $request, string $planId)
     {
-        $billable = BillingPortal::getBillable($request);
+        $billable = Billing::getBillable($request);
 
         $plan = Saas::getPlan($planId);
 
