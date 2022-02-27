@@ -24,8 +24,11 @@
         "blade-ui-kit/blade-heroicons": "^1.2",
         "blade-ui-kit/blade-icons": "^1.2",
         "blade-ui-kit/blade-zondicons": "^1.2",
+        "filament/filament": "2.x-dev",
+        "filament/spatie-laravel-settings-plugin": "^2.0",
         "hieu-le/active": "^8.0",
         "illuminate/support": "^8.0",
+        "laravel/cashier": "14.x-dev",
         "laravel/jetstream": "^2.4",
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.7",
@@ -42,6 +45,10 @@
     "require-dev": {
         "orchestra/testbench": "^6.0",
         "phpunit/phpunit": "^9.3"
+    },
+    "suggest": {
+        "doctrine/dbal": "Required by Cashier to modify tables in the database.",
+        "laravel/cashier": "Required to use with the Stripe scaffolding."
     },
     "autoload": {
         "files": [

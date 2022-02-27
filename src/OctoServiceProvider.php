@@ -2,6 +2,7 @@
 
 namespace Octo;
 
+use Filament\SpatieLaravelSettingsPluginServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;

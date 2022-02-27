@@ -19,7 +19,7 @@ trait HasQuotas
      */
     public function usage()
     {
-        return $this->hasMany(config('saas.models.usage'));
+        return $this->hasMany(Usage::class);
     }
 
     /**

@@ -23,9 +23,9 @@ class PlansSlide extends Component
     {
         $billable = BillingPortal::getBillable($request);
 
-        $subscription = $this->getCurrentSubscription($billable, $request->subscription);
+        $subscription = $this->getCurrentSubscription($billable, $request->subscription ?? 'main');
 
-        return view('components.plans-slide', [
+        return view('octo::livewire.billing-portal.subscription.plans-slide', [
             'currentPlan' => $subscription ? $subscription->getPlan() : null,
             'hasDefaultPaymentMethod' => $billable->hasDefaultPaymentMethod(),
             'paymentMethods' => $billable->paymentMethods(),
@@ -87,7 +87,9 @@ class PlansSlide extends Component
                 // a default payment method set and we will initialize the subscription in case it is not subscribed
                 // to a plan with the given subscription name.
                 return $manager->subscribeToPlan(
-                    $billable, $newPlan, $request
+                    $billable,
+                    $newPlan,
+                    $request
                 );
             });
         }

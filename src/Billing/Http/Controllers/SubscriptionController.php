@@ -50,7 +50,10 @@ class SubscriptionController extends Controller
         $subscription = $billable->newSubscription($request->subscription, $plan->getId());
 
         $checkout = $manager->checkoutOnSubscription(
-            $subscription, $billable, $plan, $request
+            $subscription,
+            $billable,
+            $plan,
+            $request
         );
 
         return view('octo::blade.billing-checkout', [
