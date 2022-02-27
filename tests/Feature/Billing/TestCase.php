@@ -15,9 +15,9 @@ use Stripe\Exception\InvalidRequestException;
 use Stripe\Plan;
 use Stripe\Product;
 use Stripe\Stripe;
-use Illuminate\Support\Facades\Facade;
 use Laravel\Jetstream\JetstreamServiceProvider;
 use Livewire\LivewireServiceProvider;
+use Octo\Billing\BillingServiceProvider;
 use Octo\Tests\TestCase as TestsTestCase;
 
 abstract class TestCase extends TestsTestCase
@@ -140,10 +140,10 @@ abstract class TestCase extends TestsTestCase
     {
         return [
             \Laravel\Cashier\CashierServiceProvider::class,
-            TestServiceProvider::class,
             OctoServiceProvider::class,
             LivewireServiceProvider::class,
             JetstreamServiceProvider::class,
+            BillingServiceProvider::class,
         ];
     }
 
@@ -161,7 +161,7 @@ abstract class TestCase extends TestsTestCase
             'prefix'   => '',
         ]);
 
-        $app['config']->set('billing-portal.middleware', [
+        $app['config']->set('billing.middleware', [
             'web',
             \Octo\Billing\Http\Middleware\Authorize::class,
         ]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Tests\Feature\Billing\Actions;
+namespace Octo\Billing\Actions;
 
 use Illuminate\Http\Request;
 use Octo\Billing\BillingPortal;

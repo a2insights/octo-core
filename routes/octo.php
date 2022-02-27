@@ -23,6 +23,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::group([
             'prefix' => 'billing',
             'as' => 'billing-portal.',
+            'middleware' => 'billing',
         ], function () {
             Route::post('/stripe/webhook', [StripeWebhook::class, 'handleWebhook'])->name('stripe.webhook');
 

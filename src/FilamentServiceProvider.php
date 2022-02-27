@@ -5,7 +5,7 @@ use Filament\PluginServiceProvider;
 use Octo\Resources\Filament\Pages\UserSettings;
 use Spatie\LaravelPackageTools\Package;
 
-class FilamentProvider extends PluginServiceProvider
+class FilamentServiceProvider extends PluginServiceProvider
 {
     protected array $pages = [
         UserSettings::class,

@@ -2,7 +2,6 @@
 
 namespace Octo;
 
-use Filament\SpatieLaravelSettingsPluginServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -13,6 +12,7 @@ use Octo\Resources\Livewire\Notifications\DropdownNotifications;
 use Octo\Resources\Livewire\Notifications\ListNotifications;
 use Octo\Resources\Livewire\Subscribe;
 use Laravel\Cashier\Cashier as StripeCashier;
+use Octo\Billing\BillingServiceProvider;
 use Octo\Billing\Http\Livewire\ListPaymentMethods;
 use Octo\Billing\Http\Livewire\PlansSlide;
 use Octo\Resources\Livewire\System\ListUsers;
@@ -80,7 +80,8 @@ class OctoServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->register(FilamentProvider::class);
+        $this->app->register(FilamentServiceProvider::class);
+        $this->app->register(BillingServiceProvider::class);
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
         $this->mergeConfigFrom(__DIR__.'/../config/services.php', 'services');
     }
