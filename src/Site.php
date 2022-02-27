@@ -7,7 +7,7 @@ use Octo\Settings\GeneralSettings;
 class Site extends ObjectPrototype
 {
     protected $attributes = [
-        'name', 'active', 'description',
+        'name', 'active', 'description', 'demo',
         'footer' => ['links' => [], 'networks' => []],
         'sections' => [],
     ];
@@ -33,6 +33,7 @@ class Site extends ObjectPrototype
         $this->name = $data['name'];
         $this->active = $data['active'];
         $this->description = $data['description'];
+        $this->demo = $data['demo'];
 
         return $this->save();
     }

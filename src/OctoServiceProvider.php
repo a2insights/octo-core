@@ -70,6 +70,7 @@ class OctoServiceProvider extends ServiceProvider
             Console\InstallCommand::class,
             Console\InstallSmsDriverCommand::class,
             Console\UninstallSmsDriverCommand::class,
+            Console\SetupCommand::class,
         ]);
 
         Route::group([], function () {

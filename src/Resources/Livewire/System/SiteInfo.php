@@ -5,7 +5,6 @@ namespace Octo\Resources\Livewire\System;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
 use Octo\Octo;
-use Octo\Site;
 
 class SiteInfo extends Component
 {
@@ -14,11 +13,13 @@ class SiteInfo extends Component
     public $name;
     public $active;
     public $description;
+    public $demo;
 
     protected $rules = [
-        'name'        => 'required|string',
+        'name' => 'required|string',
         'description' => 'nullable|string',
-        'active'      => 'required|boolean',
+        'active' => 'required|boolean',
+        'demo' => 'required|boolean',
     ];
 
     public function mount()
@@ -26,6 +27,7 @@ class SiteInfo extends Component
         $this->name = Octo::site()->name;
         $this->description = Octo::site()->description;
         $this->active = Octo::site()->active;
+        $this->demo = Octo::site()->demo;
     }
 
     public function submit()
@@ -38,6 +40,7 @@ class SiteInfo extends Component
             'name' => $this->name,
             'active' => $this->active,
             'description' => $this->description,
+            'demo' => $this->demo,
         ]);
 
         if ($updated) {
