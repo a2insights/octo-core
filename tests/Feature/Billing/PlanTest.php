@@ -1,0 +1,83 @@
+<?php
+
+namespace Octo\Tests\Feature\Billing;
+
+use Octo\Billing\Saas;
+
+class PlanTest extends TestCase
+{
+    public function test_build_plans()
+    {
+        Saas::clearPlans();
+
+        Saas::plan('Active Plan', 'plan', 'plan-yearly')
+            ->monthly(10, 'USD')
+            ->yearly(100, 'USD')
+            ->description('Some plan...')
+            ->data(['somekey' => 'someval'])
+            ->popular();
+
+        Saas::plan('Archived Plan', 'archived-plan', 'archived-plan-yearly')
+            ->monthly(15, 'USD')
+            ->yearly(150, 'USD')
+            ->deprecated();
+
+        $this->assertCount(1, Saas::getAvailablePlans());
+
+        $plan = Saas::getPlan('plan');
+
+        $this->assertEquals('plan', $plan->getId());
+        $this->assertEquals('plan-yearly', $plan->getYearlyId());
+        $this->assertEquals(['somekey' => 'someval', 'popular' => true], $plan->getData());
+    }
+
+    public function test_build_plans_with_features()
+    {
+        Saas::clearPlans();
+
+        $plan = Saas::plan('Active Plan', 'plan')
+            ->description('Some plan...')
+            ->features([
+                Saas::feature('Build Minutes', 'build.minutes')
+                    ->description('Build minutes for all your projects.')
+                    ->value(100)
+                    ->data(['os' => 'linux']),
+            ]);
+
+        $this->assertCount(1, $plan->getFeatures());
+
+        $feature = $plan->getFeature('build.minutes');
+
+        $this->assertEquals(['os' => 'linux'], $feature->getData());
+    }
+
+    public function test_build_plans_with_inherited_features()
+    {
+        Saas::clearPlans();
+
+        $freePlan = Saas::plan('Free Plan', 'free-plan')
+            ->features([
+                Saas::feature('Build Minutes', 'build.minutes')
+                    ->description('Build minutes for all your projects.')
+                    ->value(100)
+                    ->data(['os' => 'linux']),
+            ]);
+
+        $plan = Saas::plan('Paid Plan', 'paid-plan')->inheritFeaturesFromPlan($freePlan, [
+            Saas::feature('Build Minutes', 'build.minutes')
+                ->value(200)
+                ->data(['os' => ['linux']]),
+
+            Saas::feature('Windows Builds', 'windows.build.minutes')->unlimited(),
+        ]);
+
+        $this->assertCount(2, $plan->getFeatures());
+
+        $feature = $plan->getFeature('build.minutes');
+        $windowsBuildsFeature = $plan->getFeature('windows.build.minutes');
+
+        $this->assertEquals(['os' => ['linux']], $feature->getData());
+        $this->assertEquals(200, $feature->getValue());
+        $this->assertTrue($windowsBuildsFeature->isUnlimited());
+    }
+}

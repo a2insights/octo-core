@@ -5,7 +5,6 @@ namespace Octo\Tests\Feature\Billing;
 use App\View\Components\AppLayout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Str;
 use Laravel\Cashier\Cashier as StripeCashier;
 use Octo\Billing\Billing;
 use Octo\Billing\Saas;
@@ -19,6 +18,7 @@ use Laravel\Jetstream\JetstreamServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Octo\Billing\BillingServiceProvider;
 use Octo\Tests\TestCase as TestsTestCase;
+use Stripe\Price;
 
 abstract class TestCase extends TestsTestCase
 {
@@ -26,16 +26,30 @@ abstract class TestCase extends TestsTestCase
 
     protected static $freeProductId;
 
-    protected static $stripePlanId;
+    protected static $stripeMonthlyPlanId;
+
+    protected static $stripeMeteredPriceId;
+
+    protected static $stripeYearlyPlanId;
 
     protected static $stripeFreePlanId;
+
+    protected static $stripePlanId;
 
     /**
      * {@inheritdoc}
      */
     public function setUp(): void
     {
+        if (!env('BILLING_TESTS', false)) {
+            $this->markTestSkipped('Billing tests are disabled. Set BILLING_TESTS=true to run them.');
+        }
+
         parent::setUp();
+
+        Saas::clearPlans();
+
+        Saas::cleanSyncUsageCallbacks();
 
         $this->resetDatabase();
 
@@ -45,26 +59,38 @@ abstract class TestCase extends TestsTestCase
 
         Blade::component(AppLayout::class, 'app-layout');
 
-        Saas::plan('Monthly $10', static::$stripePlanId)
-            ->price(10, 'USD')
-            ->features([
-                Saas::feature('Build Minutes', 'build.minutes', 3000),
-                Saas::feature('Seats', 'teams', 10)->notResettable(),
-            ]);
-
-        Saas::plan('Free Plan', static::$stripeFreePlanId)
+        $freeStripePlan = Saas::plan('Free Plan', static::$stripeFreePlanId, static::$stripeYearlyPlanId, static::$stripePlanId)
             ->features([
                 Saas::feature('Build Minutes', 'build.minutes', 10),
                 Saas::feature('Seats', 'teams', 5)->notResettable(),
+            ]);
+
+        Saas::plan('Monthly $10', static::$stripeMonthlyPlanId)
+            ->inheritFeaturesFromPlan($freeStripePlan, [
+                Saas::feature('Build Minutes', 'build.minutes', 3000),
+                Saas::meteredFeature('Metered Build Minutes', 'metered.build.minutes', 3000)
+                    ->meteredPrice(static::$stripeMeteredPriceId, 0.1, 'minute'),
+                Saas::feature('Seats', 'teams', 10)->notResettable(),
+                Saas::feature('Mails', 'mails', 300),
+            ]);
+
+        Saas::plan('Yearly $100', static::$stripeYearlyPlanId)
+            ->inheritFeaturesFromPlan($freeStripePlan, [
+                Saas::feature('Build Minutes', 'build.minutes')->unlimited(),
+                Saas::feature('Seats', 'teams', 10)->notResettable(),
+            ]);
+
+        Saas::plan('Yearly $100', static::$stripePlanId)
+            ->inheritFeaturesFromPlan($freeStripePlan, [
+                Saas::feature('Build Minutes', 'build.minutes')->unlimited(),
+                Saas::feature('Seats', 'teams', 1770)->notResettable(),
             ]);
 
         Billing::resolveBillable(function (Request $request) {
             return $request->user();
         });
 
-        if (class_exists(StripeCashier::class)) {
-            StripeCashier::useCustomerModel(Models\User::class);
-        }
+        StripeCashier::useCustomerModel(Models\User::class);
 
         Billing::resolveAuthorization(function ($billable, Request $request) {
             return true;
@@ -78,58 +104,95 @@ abstract class TestCase extends TestsTestCase
     {
         parent::setUpBeforeClass();
 
+        if (!env('BILLING_TESTS', false)) {
+            return;
+        }
+
         Stripe::setApiKey(getenv('STRIPE_SECRET') ?: env('STRIPE_SECRET'));
 
-        static::$stripePlanId = 'monthly-10-'.Str::random(10);
+        static::$freeProductId = Product::create([
+            'name' => 'Laravel Cashier Test Free Product',
+            'type' => 'service',
+        ])->id;
 
-        static::$stripeFreePlanId = 'free-'.Str::random(10);
-
-        static::$productId = 'product-1'.Str::random(10);
-
-        static::$freeProductId = 'product-free'.Str::random(10);
-
-        Product::create([
-            'id' => static::$productId,
+        static::$productId = Product::create([
             'name' => 'Laravel Cashier Test Product',
             'type' => 'service',
-        ]);
+        ])->id;
 
-        Product::create([
-            'id' => static::$freeProductId,
-            'name' => 'Laravel Cashier Test Product',
-            'type' => 'service',
-        ]);
-
-        Plan::create([
-            'id' => static::$stripePlanId,
-            'nickname' => 'Monthly $10',
-            'currency' => 'USD',
-            'interval' => 'month',
-            'billing_scheme' => 'per_unit',
-            'amount' => 1000,
-            'product' => static::$productId,
-        ]);
-
-        Plan::create([
-            'id' => static::$stripeFreePlanId,
+        static::$stripeFreePlanId = Plan::create([
             'nickname' => 'Free',
             'currency' => 'USD',
             'interval' => 'month',
             'billing_scheme' => 'per_unit',
             'amount' => 0,
             'product' => static::$freeProductId,
-        ]);
+        ])->id;
+
+        static::$stripeMonthlyPlanId = Plan::create([
+            'nickname' => 'Monthly $10',
+            'currency' => 'USD',
+            'interval' => 'month',
+            'billing_scheme' => 'per_unit',
+            'amount' => 1000,
+            'product' => static::$productId,
+        ])->id;
+
+        static::$stripeYearlyPlanId = Plan::create([
+            'nickname' => 'Yearly $100',
+            'currency' => 'USD',
+            'interval' => 'year',
+            'billing_scheme' => 'per_unit',
+            'amount' => 10000,
+            'product' => static::$productId,
+        ])->id;
+
+        static::$stripePlanId = Plan::create([
+            'nickname' => 'Plan',
+            'currency' => 'USD',
+            'interval' => 'month',
+            'billing_scheme' => 'per_unit',
+            'amount' => 1200,
+            'product' => static::$productId,
+        ])->id;
+
+        static::$stripeFreePlanId = Plan::create([
+            'nickname' => 'Free',
+            'currency' => 'USD',
+            'interval' => 'month',
+            'billing_scheme' => 'per_unit',
+            'amount' => 0,
+            'product' => static::$productId,
+        ])->id;
+
+        static::$stripeMeteredPriceId = Price::create([
+            'nickname' => 'Monthly Metered $0.01 per unit',
+            'currency' => 'USD',
+            'recurring' => [
+                'interval' => 'month',
+                'usage_type' => 'metered',
+            ],
+            'unit_amount' => 1,
+            'product' => static::$productId,
+        ])->id;
     }
 
     /**
-     * {@inheritdoc}
-     */
+    * {@inheritdoc}
+    */
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
 
-        static::deleteStripeResource(new Plan(static::$stripePlanId));
+        if (!env('BILLING_TESTS', false)) {
+            return;
+        }
+
+        static::deleteStripeResource(new Plan(static::$stripeMonthlyPlanId));
+        static::deleteStripeResource(new Plan(static::$stripeYearlyPlanId));
         static::deleteStripeResource(new Plan(static::$stripeFreePlanId));
+        static::deleteStripeResource(new Plan(static::$stripePlanId));
+        static::deleteStripeResource(new Product(static::$productId));
     }
 
     /**
