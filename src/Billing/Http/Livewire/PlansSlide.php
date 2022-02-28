@@ -42,6 +42,15 @@ class PlansSlide extends Component
      */
     public function subscribeToPlan(string $planId)
     {
+        $plan = Saas::getPlan($planId);
+        $billable = Billing::getBillable();
+
+        if ($plan->getPrice() === 0.0) {
+            $billable->forceFill([ 'current_plan_id' => $plan->getId()])->save();
+            $this->banner("The plan {$plan->getName()} is now active!");
+            return;
+        }
+
         return redirect()->route('billing.subscription.plan-subscribe', ['plan' => $planId]);
     }
 
@@ -56,6 +65,14 @@ class PlansSlide extends Component
     {
         $plan = Saas::getPlan($planId);
         $billable = Billing::getBillable();
+
+        if ($plan->getPrice() === 0.0) {
+            $billable->forceFill([ 'current_plan_id' => $plan->getId()])->save();
+
+            $this->banner("The plan got successfully changed to {$plan->getName()}!");
+
+            return;
+        }
 
         if (! $subscription = $this->getCurrentSubscription($billable, $plan->getName())) {
             $this->dangerBanner("The subscription {$plan->getName()} does not exist.");
@@ -96,6 +113,17 @@ class PlansSlide extends Component
     {
         $billable = Billing::getBillable();
         $plan = Saas::getPlan($planId);
+
+        if ($billable->current_plan_id === $plan->getId()) {
+            $billable->forceFill([ 'current_plan_id' => null])->save();
+        }
+
+
+        if ($plan->getPrice() === 0.0) {
+            $this->banner('The current subscription got cancelled!');
+
+            return false;
+        }
 
         if (! $subscription = $this->getCurrentSubscription($billable, $plan->getName())) {
             $this->dangerBanner("The subscription {$plan->getName()} does not exist.");

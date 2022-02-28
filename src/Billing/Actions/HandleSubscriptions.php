@@ -2,7 +2,6 @@
 
 namespace Octo\Billing\Actions;
 
-use Illuminate\Http\Request;
 use Octo\Billing\Billing;
 use Octo\Billing\Contracts\HandleSubscriptions as HandleSubscriptionsContract;
 use Octo\Billing\Plan;
@@ -69,6 +68,8 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      */
     public function resumeSubscription($subscription, $billable)
     {
+        $billable->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
+
         $subscription->resume();
     }
 
