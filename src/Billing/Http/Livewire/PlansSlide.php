@@ -29,7 +29,7 @@ class PlansSlide extends Component
             'paymentMethods' => $billable->paymentMethods(),
             'plans' => Saas::getPlans(),
             'subscriptions' => $billable->subscriptions,
-            'currentPlan' => Saas::getPlan($billable->current_plan_id),
+            'currentPlan' => $billable->current_plan_id ? Saas::getPlan($billable->current_plan_id) : null,
             'billable' => $billable,
         ]);
     }

@@ -21,6 +21,8 @@ class StripeWebhook extends WebhookController
                 ->whereStripeId($data['subscription'] ?? null)
                 ->first();
 
+            $user->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
+
             if ($subscription) {
                 $subscription->resetQuotas();
             }

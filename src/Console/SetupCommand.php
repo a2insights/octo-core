@@ -21,27 +21,17 @@ class SetupCommand extends Command
 
     public function handle()
     {
-        $this->info("\nOcto Setup");
-        $this->info("--------------------\n");
-
-        $this->info('Migrating database');
-
         $this->call('migrate:fresh', ['--force' => true]);
         $this->info('Seeding required data in database');
         $this->call('db:seed', ['--force' => true]);
         $this->info('Seeding fake data in database');
         $this->call('db:seed', ['--force' => true, '--class' => 'Database\Seeders\FakerDatabaseSeeder']);
-        $this->info('Set up default accounts');
         $this->setUpAdminAccount();
         $this->setUpUserAccount();
-
-        $this->info('✅ Everything succeeded ✅');
     }
 
     private function setUpUserAccount()
     {
-        $this->info('Creating default user account');
-
         $user = (new CreateNewUser())->create([
             'name' => self::DEFAULT_USER_NAME,
             'email' => self::DEFAULT_USER_EMAIL,
@@ -57,8 +47,6 @@ class SetupCommand extends Command
 
     private function setUpAdminAccount(): void
     {
-        $this->info('Creating default supper administrator account');
-
         $user = (new CreateNewUser())->create([
             'name' => self::DEFAULT_SUPER_ADMIN_NAME,
             'email' => self::DEFAULT_SUPER_ADMIN_EMAIL,
@@ -69,9 +57,7 @@ class SetupCommand extends Command
             'terms' => true,
         ]);
 
-        $user->forceFill([
-            'super_admin' => true,
-        ])->save();
+        $user->forceFill(['super_admin' => true])->save();
 
         $user->markEmailAsVerified();
 
