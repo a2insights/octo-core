@@ -30,7 +30,6 @@ abstract class TestCase extends TestsTestCase
 
     protected static $stripeFreePlanId;
 
-
     /**
      * {@inheritdoc}
      */
@@ -152,6 +151,8 @@ abstract class TestCase extends TestsTestCase
      */
     public function getEnvironmentSetUp($app)
     {
+        parent::getEnvironmentSetUp($app);
+
         $app['config']->set('app.key', 'wslxrEFGWY6GfGhvN9L3wH3KSRJQQpBD');
         $app['config']->set('auth.providers.users.model', Models\User::class);
         $app['config']->set('database.default', 'sqlite');

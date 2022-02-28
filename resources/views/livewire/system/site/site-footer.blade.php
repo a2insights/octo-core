@@ -26,7 +26,7 @@
                         wire:sortable.item="{{ @$link['id'] }}">
                         <div class="flex flex-1 items-center p-4 rounded-2xl border-2 p-6 border-gray-900">
                             <div class="flex-1 pl-1 mr-5">
-                                <div class="grid grid-flow-row-dense grid-cols-3 grid-rows-3">
+                                <div class="grid grid-flow-row-dense grid-cols-3">
                                     <div class="col-span-1 mr-2 mb-3">
                                         <x-input wire:model='links.{{ $key }}.title' type="text"
                                             label="title" />
@@ -93,7 +93,7 @@
                         wire:sortable.item="{{ @$network['id'] }}">
                         <div class="flex flex-1 items-center p-4 rounded-2xl border-2 p-6 border-gray-900">
                             <div class="flex-1 pl-1 mr-5">
-                                <div class="grid grid-flow-row-dense grid-cols-3 grid-rows-3">
+                                <div class="grid grid-flow-row-dense grid-cols-3">
                                     <div class="col-span-1 mr-2 mb-3">
                                         <x-select label="{{ __('Rede social') }}"
                                             wire:model='networks.{{ $key }}.title'
