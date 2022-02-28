@@ -1,9 +1,10 @@
 <?php
 
-namespace Octo\Tests\Feature\Billing\Database\Factories;
+namespace Octo\Tests\Feature\Billing\database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Octo\Tests\Feature\Billing\Models\User;
 
 class UserFactory extends Factory
 {

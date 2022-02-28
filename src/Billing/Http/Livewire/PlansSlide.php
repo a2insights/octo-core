@@ -67,13 +67,7 @@ class PlansSlide extends Component
             return false;
         }
 
-        // If the desired plan has a price and the user has no payment method added to its account,
-        // redirect it to the Checkout page to finish the payment info & subscribe.
-        if ($newPlan->getPrice() > 0.00 && ! $billable->defaultPaymentMethod()) {
-            return redirect()->route('billing.subscription.plan-subscribe', ['plan' => $newPlan->getId()]);
-        }
-
-        // Otherwise, check if it is not already subscribed to the new plan and initiate
+        // Check if it is not already subscribed to the new plan and initiate
         // a plan swapping. It also takes proration into account.
         if (! $billable->subscribed($subscription->name, $newPlan->getId())) {
             $hasValidSubscription = $subscription && $subscription->valid();
@@ -92,6 +86,9 @@ class PlansSlide extends Component
                     $request
                 );
             });
+        } else {
+            // Otherwise, redirect it to the Checkout page to finish the payment info & subscribe.
+            return redirect()->route('billing.subscription.plan-subscribe', ['plan' => $newPlan->getId()]);
         }
 
         $this->banner("The plan got successfully changed to {$newPlan->getName()}!");

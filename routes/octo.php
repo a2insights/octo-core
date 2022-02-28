@@ -12,11 +12,13 @@ use Octo\Http\Controllers\System\DashboardController;
 use Octo\Http\Controllers\System\SiteController;
 use Octo\Http\Controllers\System\UsersController;
 
+Route::post('billing/stripe/webhook', [StripeWebhook::class, 'handleWebhook'])->name('billing.webhook');
+
 Route::group(['middleware' => ['web']], function () {
     // We redirect filament login to jetstream login
     Route::redirect(config('filament.path') . '/login', '/login');
 
-    Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+    Route::group(['middleware' => ['auth', 'verified']], function () {
         // Notifications
         Route::get('/user/notifications', [NotificationsController::class, 'index'])->name('notifications');
 
@@ -28,8 +30,6 @@ Route::group(['middleware' => ['web']], function () {
                 Authorize::class
             ],
         ], function () {
-            Route::post('/stripe/webhook', [StripeWebhook::class, 'handleWebhook'])->name('stripe.webhook');
-
             Route::get('/', [BillingController::class, 'dashboard'])->name('dashboard');
             Route::get('/portal', [BillingController::class, 'portal'])->name('portal');
 
