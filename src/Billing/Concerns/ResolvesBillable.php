@@ -33,12 +33,12 @@ trait ResolvesBillable
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
-    public static function getBillable(Request $request)
+    public static function getBillable($request = null)
     {
         $closure = static::$billable;
 
         return $closure
-            ? $closure($request)
-            : $request->user();
+            ? $closure(request() ?: $request)
+            : request()->user();
     }
 }

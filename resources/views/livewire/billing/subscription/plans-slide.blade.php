@@ -3,10 +3,19 @@
         @foreach ($plans as $plan)
             <div class="w-full flex">
                 <div
-                    class="{{ $currentPlan && $plan->getId() === $currentPlan->getId() ? 'border-indigo-500' : 'border-gray-300' }} flex flex-col w-full justify-between border-2 rounded-lg p-4 space-y-9">
+                    class="{{ $currentPlan === $plan ? 'border-indigo-500' : 'border-gray-300' }} flex flex-col w-full justify-between border-2 rounded-lg p-4 space-y-9">
                     <div class="space-y-3">
                         <div class="font-bold text-lg">
                             {{ $plan->getName() }}
+                            <span class="text-xs text-gray-500">
+                                @if ($currentPlan === $plan && $billable->subscribed($plan->getName()))
+                                    ({{ __('Current') }})
+                                @elseif($billable->subscribed($plan->getName()))
+                                    <a href="#" wire:click.stop="swapPlan('{{ $plan->getId() }}')">
+                                        {{ __('Swap') }}
+                                    </a>
+                                @endif
+                            </span>
                         </div>
 
                         <div class="font-bold">
@@ -27,9 +36,9 @@
                         <div class="flex flex-col space-y-3">
                             @foreach ($plan->getFeatures() as $feature)
                                 <p
-                                    class="flex items-baseline {{ $currentPlan && $plan->getId('id') === $currentPlan->getId('id') ? 'text-indigo-500' : 'text-gray-600' }}">
+                                    class="flex items-baseline {{ $currentPlan === $plan ? 'text-indigo-500' : 'text-gray-600' }}">
                                     <span
-                                        class="{{ $currentPlan && $plan->getId('id') === $currentPlan->getId('id') ? 'bg-indigo-500' : 'bg-gray-600' }} w-4 h-4 mr-2 inline-flex items-center justify-center text-white rounded-full flex-shrink-0">
+                                        class="{{ $currentPlan === $plan ? 'bg-indigo-500' : 'bg-gray-600' }} w-4 h-4 mr-2 inline-flex items-center justify-center text-white rounded-full flex-shrink-0">
                                         <svg fill="none" stroke="currentColor" stroke-linecap="round"
                                             stroke-linejoin="round" stroke-width="2.5" class="w-3 h-3"
                                             viewBox="0 0 24 24">
@@ -53,29 +62,25 @@
                             @endforeach
                         </div>
                     </div>
-                    @if (!$currentPlan)
+                    @if (!$billable->subscribed($plan->getName()))
                         <x-jet-button wire:click="subscribeToPlan('{{ $plan->getId() }}')"
                             wire:loading.attr="disabled"
                             class="bg-indigo-100 hover:bg-indigo-200 text-indigo-600 hover:text-indigo-700 font-bold border-none shadow-none text-center">
                             <span class="mx-auto">Subscribe</span>
                         </x-jet-button>
-                    @elseif($currentPlan->getId('id') !== $plan->getId('id'))
-                        <x-jet-secondary-button wire:click="swapPlan('{{ $plan->getId() }}')"
-                            wire:loading.attr="disabled"
-                            class="bg-indigo-100 hover:bg-indigo-200 text-indigo-600 hover:text-indigo-700 font-bold border-none shadow-none text-center">
-                            <span class="mx-auto">Subscribe</span>
-                        </x-jet-secondary-button>
                     @endif
 
-                    @if ($currentPlan && $currentPlan->getId('id') === $plan->getId('id') && $recurring)
-                        <x-jet-secondary-button wire:click="cancelSubscription" wire:loading.attr="disabled"
+                    @if ($billable->subscribed($plan->getName()) && $billable->subscription($plan->getName())->recurring())
+                        <x-jet-secondary-button wire:click="cancelSubscription('{{ $plan->getId() }}')"
+                            wire:loading.attr="disabled"
                             class="bg-indigo-100 hover:bg-indigo-200 text-indigo-600 hover:text-indigo-700 font-bold border-none shadow-none text-center">
                             <span class="mx-auto">Cancel subscription</span>
                         </x-jet-secondary-button>
                     @endif
 
-                    @if ($currentPlan && $currentPlan->getId('id') === $plan->getId('id') && $cancelled && $onGracePeriod)
-                        <x-jet-button wire:click="resumeSubscription" wire:loading.attr="disable"
+                    @if ($billable->subscription($plan->getName()) && $billable->subscription($plan->getName())->canceled() && $billable->subscription($plan->getName())->onGracePeriod())
+                        <x-jet-button wire:click="resumeSubscription('{{ $plan->getId() }}')"
+                            wire:loading.attr="disable"
                             class="bg-indigo-100 hover:bg-indigo-200 text-indigo-600 hover:text-indigo-700 font-bold border-none shadow-none text-center">
                             <span class="mx-auto">Resume subscription</span>
                         </x-jet-button>
@@ -83,5 +88,13 @@
                 </div>
             </div>
         @endforeach
+    </div>
+    <div wire:loading wire:target="swapPlan"
+        class="w-full h-full fixed block top-0 left-0 mt-0 bg-white opacity-75 z-50">
+        <span class="top-1/2 my-0 mx-auto block relative w-0 h-0" style="
+          top: 50%;
+      ">
+            Switching...
+        </span>
     </div>
 </div>

@@ -3,7 +3,6 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             <a href="{{ route('billing.payment-method.index') }}" method="post" as="button"
                 class="focus:outline-none mr-1">
-                &larr;
             </a>
             {{ __('Billing') }}: {{ __('Add Payment Method') }}
         </h2>

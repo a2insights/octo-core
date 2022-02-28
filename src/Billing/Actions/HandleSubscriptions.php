@@ -14,10 +14,9 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      *
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Octo\Billing\Plan  $plan
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
-    public function checkoutOnSubscription($subscription, $billable, Plan $plan, Request $request)
+    public function checkoutOnSubscription($subscription, $billable, Plan $plan)
     {
         return $subscription->checkout([
             'success_url' => route('billing.subscription.index', ['success' => "You have successfully subscribed to {$plan->getName()}!"]),
@@ -30,14 +29,16 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      *
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Octo\Billing\Plan  $plan
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    public function subscribeToPlan($billable, Plan $plan, Request $request)
+    public function subscribeToPlan($billable, Plan $plan)
     {
-        return $billable
-            ->newSubscription($request->subscription, $plan->getId())
-            ->create($billable->defaultPaymentMethod()->id);
+        return tap(
+            $billable
+                ->newSubscription($plan->getName(), $plan->getId())
+                ->create($billable->defaultPaymentMethod()->id),
+            fn () => $billable->forceFill(['current_plan_id' => $plan->getId()])->save()
+        );
     }
 
     /**
@@ -46,11 +47,12 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      * @param  \Octo\Billing\Models\Stripe\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Octo\Billing\Plan  $plan
-     * @param  \Illuminate\Http\Request  $request
      * @return \Octo\Billing\Models\Stripe\Subscription
      */
-    public function swapToPlan($subscription, $billable, Plan $plan, Request $request)
+    public function swapToPlan($subscription, $billable, Plan $plan)
     {
+        $billable->forceFill(['current_plan_id' => $plan->getId()])->save();
+
         if (Billing::proratesOnSwap()) {
             return $subscription->swap($plan->getId());
         }
@@ -63,10 +65,9 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      *
      * @param  \Octo\Billing\Models\Stripe\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    public function resumeSubscription($subscription, $billable, Request $request)
+    public function resumeSubscription($subscription, $billable)
     {
         $subscription->resume();
     }
@@ -79,7 +80,7 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    public function cancelSubscription($subscription, $billable, Request $request)
+    public function cancelSubscription($subscription, $billable)
     {
         $subscription->cancel();
     }

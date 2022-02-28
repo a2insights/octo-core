@@ -16,8 +16,6 @@ class SubscriptionTest extends TestCase
         $this->actingAs($user)
             ->get(route('billing.subscription.index'))
             ->assertOk()
-            ->assertSee('Subscriptions')
-            ->assertSee($subscription ? 'Cancel subscription' : 'Subscribe')
             ->assertSee($subscription->getPlan()->getName());
     }
 

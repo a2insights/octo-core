@@ -11,19 +11,6 @@ use Octo\Billing\Saas;
 class SubscriptionController extends Controller
 {
     /**
-     * Initialize the controller.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
-     */
-    public function __construct(Request $request)
-    {
-        $request->merge([
-            'subscription' => $request->subscription ?: 'main',
-        ]);
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -37,23 +24,21 @@ class SubscriptionController extends Controller
      * Redirect the user to subscribe to the plan.
      *
      * @param  \Octo\Billing\Contracts\HandleSubscriptions  $manager
-     * @param  \Illuminate\Http\Request  $request
      * @param  string  $planId
      * @return \Illuminate\Http\Response
      */
-    public function redirectWithSubscribeIntent(HandleSubscriptions $manager, Request $request, string $planId)
+    public function redirectWithSubscribeIntent(HandleSubscriptions $manager, string $planId)
     {
-        $billable = Billing::getBillable($request);
+        $billable = Billing::getBillable();
 
         $plan = Saas::getPlan($planId);
 
-        $subscription = $billable->newSubscription($request->subscription, $plan->getId());
+        $subscription = $billable->newSubscription($plan->getName(), $plan->getId());
 
         $checkout = $manager->checkoutOnSubscription(
             $subscription,
             $billable,
             $plan,
-            $request
         );
 
         return view('octo::blade.billing-checkout', [

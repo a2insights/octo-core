@@ -12,20 +12,18 @@ interface HandleSubscriptions
      *
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Octo\Billing\Plan  $plan
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
-    public function checkoutOnSubscription($subscription, $billable, Plan $plan, Request $request);
+    public function checkoutOnSubscription($subscription, $billable, Plan $plan);
 
     /**
      * Subscribe the user to a given plan.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Octo\Billing\Plan  $plan
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    public function subscribeToPlan($billable, Plan $plan, Request $request);
+    public function subscribeToPlan($billable, Plan $plan);
 
     /**
      * Swap the current subscription plan.
@@ -33,28 +31,25 @@ interface HandleSubscriptions
      * @param  \Octo\Billing\Models\Stripe\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Octo\Billing\Plan  $plan
-     * @param  \Illuminate\Http\Request  $request
      * @return \Octo\Billing\Models\Stripe\Subscription
      */
-    public function swapToPlan($subscription, $billable, Plan $plan, Request $request);
+    public function swapToPlan($subscription, $billable, Plan $plan);
 
     /**
      * Define the logic to be called when the user requests resuming a subscription.
      *
      * @param  \Octo\Billing\Models\Stripe\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    public function resumeSubscription($subscription, $billable, Request $request);
+    public function resumeSubscription($subscription, $billable);
 
     /**
      * Define the subscriptioncancellation action.
      *
      * @param  \Octo\Billing\Models\Stripe\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    public function cancelSubscription($subscription, $billable, Request $request);
+    public function cancelSubscription($subscription, $billable);
 }
