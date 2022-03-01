@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Filament\Pages;
+namespace Octo\Settings\Filament\Pages;
 
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;

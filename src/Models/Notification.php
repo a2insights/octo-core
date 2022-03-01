@@ -4,7 +4,6 @@ namespace Octo\Models;
 
 use Illuminate\Notifications\DatabaseNotification;
 
-
 class Notification extends DatabaseNotification {
 
     public function scopeSearch($query, $term)

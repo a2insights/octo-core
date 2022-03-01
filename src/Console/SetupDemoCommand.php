@@ -4,12 +4,13 @@ namespace Octo\Console;
 
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Console\Command;
+use Octo\Common\Models\Contact;
 
-class SetupCommand extends Command
+class SetupDemoCommand extends Command
 {
-    protected $signature = 'octo:setup';
+    protected $signature = 'octo:demo';
 
-    protected $description = 'Setup assistant';
+    protected $description = 'Setup demo aplication';
 
     public const DEFAULT_SUPER_ADMIN_NAME = 'Octo Super Administrator';
     public const DEFAULT_SUPER_ADMIN_EMAIL = 'super-admin@octo.dev';
@@ -21,11 +22,8 @@ class SetupCommand extends Command
 
     public function handle()
     {
-        $this->call('migrate:fresh', ['--force' => true]);
-        $this->info('Seeding required data in database');
-        $this->call('db:seed', ['--force' => true]);
-        $this->info('Seeding fake data in database');
-        $this->call('db:seed', ['--force' => true, '--class' => 'Database\Seeders\FakerDatabaseSeeder']);
+        $this->call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        $this->factoryData();
         $this->setUpAdminAccount();
         $this->setUpUserAccount();
     }
@@ -42,7 +40,7 @@ class SetupCommand extends Command
 
         $user->markEmailAsVerified();
 
-        $this->comment(sprintf('Log in with email %s and password %s', self::DEFAULT_USER_EMAIL, self::DEFAULT_USER_PASSWORD));
+        $this->comment(sprintf('Log in user with email %s and password %s', self::DEFAULT_USER_EMAIL, self::DEFAULT_USER_PASSWORD));
     }
 
     private function setUpAdminAccount(): void
@@ -61,6 +59,13 @@ class SetupCommand extends Command
 
         $user->markEmailAsVerified();
 
-        $this->comment(sprintf('Log in with email %s and password %s', self::DEFAULT_SUPER_ADMIN_EMAIL, self::DEFAULT_SUPER_ADMIN_PASSWORD));
+        $this->comment(sprintf('Log in seper admin with email %s and password %s', self::DEFAULT_SUPER_ADMIN_EMAIL, self::DEFAULT_SUPER_ADMIN_PASSWORD));
+    }
+
+    public function factoryData()
+    {
+        $this->info('Seeding fake data in database');
+
+        Contact::factory()->count(40)->create();
     }
 }

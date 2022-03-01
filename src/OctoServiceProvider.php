@@ -19,6 +19,7 @@ use Octo\Resources\Livewire\System\SiteFooter;
 use Octo\Resources\Livewire\System\SiteInfo;
 use Octo\Resources\Livewire\System\SiteSection;
 use Octo\Resources\Livewire\System\SiteSections;
+use Octo\Settings\SettingServiceProvider;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -60,7 +61,7 @@ class OctoServiceProvider extends ServiceProvider
             Console\InstallCommand::class,
             Console\InstallSmsDriverCommand::class,
             Console\UninstallSmsDriverCommand::class,
-            Console\SetupCommand::class,
+            Console\SetupDemoCommand::class,
         ]);
 
         Route::group([], function () {
@@ -70,7 +71,7 @@ class OctoServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->register(FilamentServiceProvider::class);
+        $this->app->register(SettingServiceProvider::class);
         $this->app->register(CommonServiceProvider::class);
         $this->app->register(BillingServiceProvider::class);
         $this->app->register(MenuServiceProvider::class);

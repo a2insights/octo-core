@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Common;
+namespace Octo\Common\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -54,7 +54,7 @@ class Contact extends Model
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function newFactory()
+    public static function newFactory()
     {
         return ContactFactory::new();
     }

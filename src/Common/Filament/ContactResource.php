@@ -15,10 +15,10 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
-use Octo\Common\Contact;
 use Octo\Common\Filament\Pages\CreateContact;
 use Octo\Common\Filament\Pages\EditContact;
 use Octo\Common\Filament\Pages\ListContacts;
+use Octo\Common\Models\Contact;
 
 class ContactResource extends Resource
 {

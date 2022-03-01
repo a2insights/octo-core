@@ -3,8 +3,7 @@
 namespace Octo\Common\database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use App\Contact;
+use Octo\Common\Models\Contact;
 
 class ContactFactory extends Factory
 {
@@ -23,15 +22,15 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            //'contact_type' => $this->faker->word,
-            //'contact_id' => $this->faker->numberBetween(-10000, 10000),
+            // 'contact_type' => $this->faker->word,
+            // 'contact_id' => $this->faker->numberBetween(-10000, 10000),
             'status' => $this->faker->boolean,
             'name' => $this->faker->name,
             'properties' => '{}',
             'nickname' => $this->faker->name,
             'email' => $this->faker->safeEmail,
             'phone' => $this->faker->phoneNumber,
-            'mobile_phone' => $this->faker->word,
+            'mobile_phone' => $this->faker->phoneNumber,
             'mobile_phone_is_whatsapp' => $this->faker->boolean,
             'birthday' => $this->faker->date,
             'gender' => $this->faker->word,
