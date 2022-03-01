@@ -1,0 +1,20 @@
+models:
+    Contact:
+        id: increments
+        contact_type: string nullable
+        contact_id: integer nullable
+        status: boolean
+        name: string
+        properties: json nullable
+        nickname: string nullable
+        email: string nullable
+        phone: string nullable
+        mobile_phone: string nullable
+        mobile_phone_is_whatsapp: boolean nullable
+        birthday: string nullable
+        gender: string nullable
+        favorite: boolean nullable
+        notificable: boolean nullable
+        loggable: boolean nullable
+        deleted_at: softDeletes
+        timestamps: timestamps

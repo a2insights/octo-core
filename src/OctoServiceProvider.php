@@ -12,6 +12,7 @@ use Octo\Resources\Livewire\Notifications\DropdownNotifications;
 use Octo\Resources\Livewire\Notifications\ListNotifications;
 use Octo\Resources\Livewire\Subscribe;
 use Octo\Billing\BillingServiceProvider;
+use Octo\Common\CommonServiceProvider;
 use Octo\Resources\Livewire\System\ListUsers;
 use Octo\Resources\Livewire\SwitchDashboard;
 use Octo\Resources\Livewire\System\SiteFooter;
@@ -70,6 +71,7 @@ class OctoServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(FilamentServiceProvider::class);
+        $this->app->register(CommonServiceProvider::class);
         $this->app->register(BillingServiceProvider::class);
         $this->app->register(MenuServiceProvider::class);
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
