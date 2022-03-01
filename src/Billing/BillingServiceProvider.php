@@ -19,11 +19,10 @@ class BillingServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Billing
         Livewire::component('plans-slide', PlansSlide::class);
         Livewire::component('list-payment-methods', ListPaymentMethods::class);
 
-        Cashier::useSubscriptionModel(\Octo\Billing\Models\Stripe\Subscription::class);
+        Cashier::useSubscriptionModel(\Octo\Billing\Models\Subscription::class);
 
         Billing::dontProrateOnSwap();
 

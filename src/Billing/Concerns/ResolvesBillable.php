@@ -3,7 +3,6 @@
 namespace Octo\Billing\Concerns;
 
 use Closure;
-use Illuminate\Http\Request;
 
 trait ResolvesBillable
 {

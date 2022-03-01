@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Billing\Models\Paddle;
+namespace Octo\Billing\Models;
 
-use Laravel\Paddle\Subscription as CashierSubscription;
+use Laravel\Cashier\Subscription as CashierSubscription;
 use Octo\Billing\Concerns\HasPlans;
 use Octo\Billing\Concerns\HasQuotas;
 
@@ -14,10 +14,10 @@ class Subscription extends CashierSubscription
     /**
      * Get the service plan identifier for the resource.
      *
-     * @return mixed
+     * @return void
      */
     public function getPlanIdentifier()
     {
-        return $this->paddle_plan;
+        return $this->stripe_price;
     }
 }

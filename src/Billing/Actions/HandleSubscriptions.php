@@ -43,10 +43,10 @@ class HandleSubscriptions implements HandleSubscriptionsContract
     /**
      * Swap the current subscription plan.
      *
-     * @param  \Octo\Billing\Models\Stripe\Subscription  $subscription
+     * @param  \Octo\Billing\Models\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Octo\Billing\Plan  $plan
-     * @return \Octo\Billing\Models\Stripe\Subscription
+     * @return \Octo\Billing\Models\Subscription
      */
     public function swapToPlan($subscription, $billable, Plan $plan)
     {
@@ -62,7 +62,7 @@ class HandleSubscriptions implements HandleSubscriptionsContract
     /**
      * Define the logic to be called when the user requests resuming a subscription.
      *
-     * @param  \Octo\Billing\Models\Stripe\Subscription  $subscription
+     * @param  \Octo\Billing\Models\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @return void
      */
@@ -76,7 +76,7 @@ class HandleSubscriptions implements HandleSubscriptionsContract
     /**
      * Define the subscriptioncancellation action.
      *
-     * @param  \Octo\Billing\Models\Stripe\Subscription  $subscription
+     * @param  \Octo\Billing\Models\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Illuminate\Http\Request  $request
      * @return void

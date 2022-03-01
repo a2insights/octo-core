@@ -54,7 +54,7 @@ class ListPaymentMethods extends Component
         try {
             Billing::getBillable($request)->updateDefaultPaymentMethod($paymentMethod);
         } catch (Exception $e) {
-            $this->dangerBanner(__('The default payment method got updated!'));
+            $this->dangerBanner('The default payment method got updated!');
         }
 
         $this->banner('The default payment method got updated!');

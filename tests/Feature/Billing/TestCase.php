@@ -250,7 +250,7 @@ abstract class TestCase extends TestsTestCase
      *
      * @param  \Octo\Billing\Test\Models\Stripe\User  $user
      * @param  \Octo\Billing\Plan  $plan
-     * @return \Octo\Billing\Models\Stripe\Subscription
+     * @return \Octo\Billing\Models\Subscription
      */
     protected function createStripeSubscription($user, $plan)
     {
