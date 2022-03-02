@@ -45,8 +45,7 @@
 
                     <x-jet-button id="add-payment-method-button" data-secret="{{ $intent->client_secret }}"
                         :disabled="false" onclick="addPaymentMethod()">
-                        <div id="add-payment-method-button-loading"
-                            class="flex hidden mr-2 justify-center items-center">
+                        <div id="add-payment-method-button-loading" class="flex mr-2 justify-center items-center">
                             <div class="animate-spin rounded-full h-3 w-3 border-b-2 border-white-900"></div>
                         </div>
                         {{ __('Add Payment Method') }}

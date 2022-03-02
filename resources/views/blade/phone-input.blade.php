@@ -71,7 +71,7 @@
 
 </div>
 
-<script>
+<script lang="javascript">
     function select(config) {
         return {
             data: config.data,
