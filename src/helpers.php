@@ -13,7 +13,13 @@ if (!function_exists('demo')) {
      */
     function demo($field, $default = null)
     {
-        return env('app.env') === 'demo' && Octo::site()->demo ? collect([
+        $showValues = function () {
+            return (config('app.env') === 'demo'
+            || config('app.env') === 'local')
+            && Octo::site()->demo;
+        };
+
+        return $showValues ? collect([
             'email' => SetupDemoCommand::DEFAULT_USER_EMAIL,
             'password' => SetupDemoCommand::DEFAULT_USER_PASSWORD,
             'name' => SetupDemoCommand::DEFAULT_USER_NAME,
