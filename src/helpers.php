@@ -1,6 +1,6 @@
 <?php
 
-use Octo\Console\SetupCommand;
+use Octo\Console\SetupDemoCommand;
 use Octo\Octo;
 
 if (!function_exists('demo')) {
@@ -13,10 +13,10 @@ if (!function_exists('demo')) {
      */
     function demo($field, $default = null)
     {
-        return env('app.env') !== 'production' && Octo::site()->demo ? collect([
-            'email' => SetupCommand::DEFAULT_USER_EMAIL,
-            'password' => SetupCommand::DEFAULT_USER_PASSWORD,
-            'name' => SetupCommand::DEFAULT_USER_NAME,
+        return env('app.env') === 'demo' && Octo::site()->demo ? collect([
+            'email' => SetupDemoCommand::DEFAULT_USER_EMAIL,
+            'password' => SetupDemoCommand::DEFAULT_USER_PASSWORD,
+            'name' => SetupDemoCommand::DEFAULT_USER_NAME,
         ])
         ->filter(fn ($value, $key) => $key === $field)
         ->map(fn ($value, $key) => $default ? $default : $value)
