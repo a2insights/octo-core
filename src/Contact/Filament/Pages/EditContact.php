@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Common\Filament\Pages;
+namespace Octo\Contact\Filament\Pages;
 
 use Filament\Resources\Pages\EditRecord;
-use Octo\Common\Filament\ContactResource;
+use Octo\Contact\Filament\ContactResource;
 
 class EditContact extends EditRecord
 {

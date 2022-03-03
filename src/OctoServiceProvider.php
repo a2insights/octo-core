@@ -2,6 +2,7 @@
 
 namespace Octo;
 
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -11,7 +12,7 @@ use Octo\Resources\Livewire\Notifications\DropdownNotifications;
 use Octo\Resources\Livewire\Notifications\ListNotifications;
 use Octo\Resources\Livewire\Subscribe;
 use Octo\Billing\BillingServiceProvider;
-use Octo\Common\CommonServiceProvider;
+use Octo\Contact\CommonServiceProvider;
 use Octo\Settings\SettingServiceProvider;
 use Octo\System\SystemServiceProvider;
 
@@ -61,5 +62,9 @@ class OctoServiceProvider extends ServiceProvider
         $this->app->register(MenuServiceProvider::class);
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
         $this->mergeConfigFrom(__DIR__.'/../config/services.php', 'services');
+
+        Filament::serving(function (): void {
+            Filament::registerTheme(mix('css/app.css'));
+        });
     }
 }

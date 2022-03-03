@@ -1,8 +1,8 @@
 <?php
-namespace Octo\Common;
+namespace Octo\Contact;
 
 use Filament\PluginServiceProvider;
-use Octo\Common\Filament\ContactResource;
+use Octo\Contact\Filament\ContactResource;
 use Spatie\LaravelPackageTools\Package;
 
 class CommonServiceProvider extends PluginServiceProvider

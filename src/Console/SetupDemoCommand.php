@@ -4,7 +4,7 @@ namespace Octo\Console;
 
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Console\Command;
-use Octo\Common\Models\Contact;
+use Octo\Contact\Models\Contact;
 
 class SetupDemoCommand extends Command
 {

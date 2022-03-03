@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Common\database\factories;
+namespace Octo\Contact\database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Octo\Common\Models\Contact;
+use Octo\Contact\Models\Contact;
 
 class ContactFactory extends Factory
 {

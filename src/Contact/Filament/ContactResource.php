@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Common\Filament;
+namespace Octo\Contact\Filament;
 
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Checkbox;
@@ -15,10 +15,10 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
-use Octo\Common\Filament\Pages\CreateContact;
-use Octo\Common\Filament\Pages\EditContact;
-use Octo\Common\Filament\Pages\ListContacts;
-use Octo\Common\Models\Contact;
+use Octo\Contact\Filament\Pages\CreateContact;
+use Octo\Contact\Filament\Pages\EditContact;
+use Octo\Contact\Filament\Pages\ListContacts;
+use Octo\Contact\Models\Contact;
 
 class ContactResource extends Resource
 {

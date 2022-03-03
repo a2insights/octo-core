@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Common\Filament\Pages;
+namespace Octo\Contact\Filament\Pages;
 
 use Filament\Resources\Pages\ListRecords;
-use Octo\Common\Filament\ContactResource;
+use Octo\Contact\Filament\ContactResource;
 
 class ListContacts extends ListRecords
 {
