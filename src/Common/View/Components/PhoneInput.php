@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Blade;
+namespace Octo\Common\View\Components;
 
 use Illuminate\Support\Facades\Request;
 use Octo\Country;

@@ -8,7 +8,7 @@ use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 use Octo\Octo;
-use Octo\Resources\Livewire\Concerns\ValidateState;
+use Octo\Common\Concerns\ValidateState;
 use Octo\Section;
 
 class SiteSection extends ModalComponent

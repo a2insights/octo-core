@@ -1,11 +1,11 @@
 <?php
 
-namespace Octo\Models;
+namespace Octo\Common\Models;
 
 use Illuminate\Notifications\DatabaseNotification;
 
-class Notification extends DatabaseNotification {
-
+class Notification extends DatabaseNotification
+{
     public function scopeSearch($query, $term)
     {
         return $query->where('data', 'like', '%'.$term.'%');

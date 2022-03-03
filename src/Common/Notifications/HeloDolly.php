@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Notifications;
+namespace Octo\Common\Notifications;
 
 use Illuminate\Notifications\Notification;
 use Octo\Concerns\ToSmsProvider;
@@ -29,7 +29,8 @@ class HeloDolly extends Notification
         ]))->toArray();
     }
 
-    function lyrics() {
+    public function lyrics()
+    {
         /*
         Original Name: Hello Dolly
         Plugin URI: http://wordpress.org/plugins/hello-dolly/
@@ -68,9 +69,9 @@ Promise, you'll never go away
 Dolly'll never go away again";
 
         // Here we split it into lines.
-        $lyrics = explode( "\n", $lyrics );
+        $lyrics = explode("\n", $lyrics);
 
         // And then randomly choose a line.
-        return $lyrics[ mt_rand( 0, count( $lyrics ) - 1 ) ];
+        return $lyrics[ mt_rand(0, count($lyrics) - 1) ];
     }
 }

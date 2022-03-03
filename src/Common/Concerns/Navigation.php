@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Concerns;
+namespace Octo\Common\Concerns;
 
 trait Navigation
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Blade;
+namespace Octo\Common\View\Components;
 
 class Sidebar extends Menu
 {

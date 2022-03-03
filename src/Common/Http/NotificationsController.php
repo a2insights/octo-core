@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Http\Controllers;
+namespace Octo\Common\Http;
 
 use Illuminate\Routing\Controller;
 

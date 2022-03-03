@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Notifications;
+namespace Octo\Common\Notifications;
 
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;

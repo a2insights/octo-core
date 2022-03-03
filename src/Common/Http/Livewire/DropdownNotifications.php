@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Resources\Livewire\Notifications;
+namespace Octo\Common\Http\Livewire;
 
 use Livewire\Component;
-use Octo\Resources\Livewire\Concerns\Notifications;
+use Octo\Common\Concerns\Notifications;
 
 class DropdownNotifications extends Component
 {

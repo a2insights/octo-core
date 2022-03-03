@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Livewire\Concerns;
+namespace Octo\Common\Concerns;
 
 use Illuminate\Support\Facades\Validator;
 

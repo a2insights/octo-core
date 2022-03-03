@@ -76,8 +76,6 @@ class SwitchDashboard extends Component
             'dashboard' => $this->dashboard
         ])->save();
 
-
-
         if ($this->dashboard === 'system') {
             return redirect()->route('system.dashboard');
         }

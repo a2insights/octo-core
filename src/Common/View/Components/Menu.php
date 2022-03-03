@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Resources\Blade;
+namespace Octo\Common\View\Components;
 
-use Octo\Resources\Concerns\Icon;
-use Octo\Resources\Concerns\Navigation;
+use Octo\Common\Concerns\Icon;
+use Octo\Common\Concerns\Navigation;
 
 abstract class Menu extends Component
 {

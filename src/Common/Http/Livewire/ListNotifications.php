@@ -1,10 +1,10 @@
 <?php
 
-namespace Octo\Resources\Livewire\Notifications;
+namespace Octo\Common\Http\Livewire;
 
-use Octo\Resources\Livewire\Concerns\Notifications;
+use Octo\Common\Concerns\Notifications;
 use Illuminate\Database\Eloquent\Builder;
-use Octo\Models\Notification;
+use Octo\Common\Models\Notification;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;

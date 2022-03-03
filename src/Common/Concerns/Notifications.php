@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Livewire\Concerns;
+namespace Octo\Common\Concerns;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +27,7 @@ trait Notifications
     {
         return $this->getUser()
             ->notifications()
-            ->when($take, fn($q) => $q->take($take))
+            ->when($take, fn ($q) => $q->take($take))
             ->when(isset($this->filter) && $this->filter === 'unread', function ($q) {
                 return $q->whereNull('read_at');
             })

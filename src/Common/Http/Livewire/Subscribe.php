@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Livewire;
+namespace Octo\Common\Http\Livewire;
 
 use Illuminate\Support\Facades\Cookie;
 use Laravel\Jetstream\InteractsWithBanner;
