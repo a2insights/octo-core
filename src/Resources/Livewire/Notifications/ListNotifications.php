@@ -9,7 +9,6 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
 
-
 class ListNotifications extends DataTableComponent
 {
     use Notifications;
@@ -33,7 +32,7 @@ class ListNotifications extends DataTableComponent
 
     public function rowView(): string
     {
-        return 'octo::livewire.notifications.row-notification';
+        return 'octo::notifications.row-notification';
     }
 
     public function columns(): array

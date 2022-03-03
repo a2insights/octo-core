@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Livewire\System;
+namespace Octo\System\Http\Livewire;
 
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\WithFileUploads;
@@ -38,7 +38,7 @@ class SiteFooter extends ModalComponent
             $this->sorting = false;
         }
 
-        return view('octo::livewire.system.site.site-footer');
+        return view('octo::system.site.site-footer');
     }
 
     public function addLink()

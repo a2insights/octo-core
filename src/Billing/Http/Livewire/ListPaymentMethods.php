@@ -39,7 +39,7 @@ class ListPaymentMethods extends Component
             ];
         });
 
-        return view('octo::livewire.billing.payment-method.list-payment-methods', ['methods' => $methods]);
+        return view('octo::billing.payment-method.list-payment-methods', ['methods' => $methods]);
     }
 
     /**

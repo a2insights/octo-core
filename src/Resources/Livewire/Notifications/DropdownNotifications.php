@@ -16,7 +16,7 @@ class DropdownNotifications extends Component
      */
     public function render()
     {
-        return view('octo::livewire.dropdown-notifications', [
+        return view('octo::components.dropdown-notifications', [
             'notifications' => $this->getNotifications(4),
             'noReads' => $this->getUser()->unreadNotifications->count()
         ]);

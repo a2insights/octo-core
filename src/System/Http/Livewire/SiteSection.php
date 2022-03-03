@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Livewire\System;
+namespace Octo\System\Http\Livewire;
 
 use Illuminate\Support\Facades\Storage;
 use Laravel\Jetstream\InteractsWithBanner;

@@ -8,9 +8,9 @@ use Octo\Billing\Http\Controllers\StripeWebhook;
 use Octo\Billing\Http\Controllers\SubscriptionController;
 use Octo\Billing\Http\Middleware\Authorize;
 use Octo\Http\Controllers\NotificationsController;
-use Octo\Http\Controllers\System\DashboardController;
-use Octo\Http\Controllers\System\SiteController;
-use Octo\Http\Controllers\System\UsersController;
+use Octo\System\Http\Controllers\DashboardController;
+use Octo\System\Http\Controllers\SiteController;
+use Octo\System\Http\Controllers\UsersController;
 
 Route::post('billing/stripe/webhook', [StripeWebhook::class, 'handleWebhook'])->name('billing.webhook');
 

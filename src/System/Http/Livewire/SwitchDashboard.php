@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Livewire;
+namespace Octo\System\Http\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -96,6 +96,6 @@ class SwitchDashboard extends Component
      */
     public function render()
     {
-        return view('octo::livewire.switch-dashboard');
+        return view('octo::system.switch-dashboard');
     }
 }

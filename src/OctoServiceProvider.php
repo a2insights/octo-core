@@ -20,6 +20,7 @@ use Octo\Resources\Livewire\System\SiteInfo;
 use Octo\Resources\Livewire\System\SiteSection;
 use Octo\Resources\Livewire\System\SiteSections;
 use Octo\Settings\SettingServiceProvider;
+use Octo\System\SystemServiceProvider;
 
 class OctoServiceProvider extends ServiceProvider
 {
@@ -33,28 +34,18 @@ class OctoServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'octo');
 
-        // Octo blade
+        // Register Blade components
         Blade::component(Sidebar::class, 'octo-sidebar');
         Blade::component(PhoneInput::class, 'octo-phone-input');
-        Blade::component('octo::blade.tile', 'octo-tile');
-        Blade::component('octo::blade.card-count', 'octo-card-count');
-        Blade::component('octo::blade.slide-over', 'octo-slide-over');
-
-        // Need publish
+        Blade::component('octo::components.tile', 'octo-tile');
+        Blade::component('octo::components.card-count', 'octo-card-count');
+        Blade::component('octo::components.slide-over', 'octo-slide-over');
         Blade::component('footer', 'footer');
 
-        // Livewire
-        Livewire::component('switch-dashboard', SwitchDashboard::class);
+        // Register Livewire components
         Livewire::component('octo-subscribe', Subscribe::class);
         Livewire::component('octo-dropdown-notifications', DropdownNotifications::class);
         Livewire::component('octo-list-notifications', ListNotifications::class);
-
-        // System
-        Livewire::component('octo-system-list-users', ListUsers::class);
-        Livewire::component('octo-system-site-info', SiteInfo::class);
-        Livewire::component('octo-system-site-footer', SiteFooter::class);
-        Livewire::component('octo-system-site-section', SiteSection::class);
-        Livewire::component('octo-system-site-sections', SiteSections::class);
 
         // Configure commmands
         $this->commands([
@@ -64,14 +55,14 @@ class OctoServiceProvider extends ServiceProvider
             Console\SetupDemoCommand::class,
         ]);
 
-        Route::group([], function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
-        });
+        // Configure routes
+        $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
     }
 
     public function register()
     {
         $this->app->register(SettingServiceProvider::class);
+        $this->app->register(SystemServiceProvider::class);
         $this->app->register(CommonServiceProvider::class);
         $this->app->register(BillingServiceProvider::class);
         $this->app->register(MenuServiceProvider::class);

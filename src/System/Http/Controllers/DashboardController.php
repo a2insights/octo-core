@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Http\Controllers\System;
+namespace Octo\System\Http\Controllers;
 
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Routing\Controller;
@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('octo::livewire.system.dashboard.index', [
+        return view('octo::system.dashboard.index', [
             'stats' => [
                 [
                     'title' => __('Users'),

@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Livewire\System;
+namespace Octo\System\Http\Livewire;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -53,7 +53,7 @@ class ListUsers extends DataTableComponent
 
     public function modalsView(): string
     {
-        return 'octo::livewire.system.users.modals';
+        return 'octo::system.users.modals';
     }
 
     public function columns(): array

@@ -24,7 +24,7 @@ class PlansSlide extends Component
     {
         $billable = Billing::getBillable($request);
 
-        return view('octo::livewire.billing.subscription.plans-slide', [
+        return view('octo::billing.subscription.plans-slide', [
             'hasDefaultPaymentMethod' => $billable->hasDefaultPaymentMethod(),
             'paymentMethods' => $billable->paymentMethods(),
             'plans' => Saas::getPlans(),

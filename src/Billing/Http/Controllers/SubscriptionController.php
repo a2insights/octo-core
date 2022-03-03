@@ -16,7 +16,7 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        return view('octo::livewire.billing.subscription.index');
+        return view('octo::billing.subscription.index');
     }
 
     /**

@@ -62,7 +62,7 @@ class Subscribe extends ModalComponent
      */
     public function mount()
     {
-        if(request()->user() && NewsletterFacade::isSubscribed(request()->user()->email)) {
+        if (request()->user() && NewsletterFacade::isSubscribed(request()->user()->email)) {
             $this->close = true;
             return;
         }
@@ -108,7 +108,7 @@ class Subscribe extends ModalComponent
      */
     public function render()
     {
-        return view('octo::livewire.subscribe', [
+        return view('octo::components.subscribe', [
             'headline' => __('octo::messages.subscribe.headline'),
             'tagline' => __('octo::messages.subscribe.tagline'),
             'closable' => $this->closable,

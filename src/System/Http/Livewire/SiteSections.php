@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Resources\Livewire\System;
+namespace Octo\System\Http\Livewire;
 
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
@@ -23,7 +23,7 @@ class SiteSections extends Component
     {
         $this->sections = Octo::site()->sections;
 
-        return view('octo::livewire.system.site.site-sections');
+        return view('octo::system.site.site-sections');
     }
 
     public function delete($id)
