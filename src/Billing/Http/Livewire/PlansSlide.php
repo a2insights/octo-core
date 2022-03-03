@@ -2,8 +2,6 @@
 
 namespace Octo\Billing\Http\Livewire;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
 use Octo\Billing\Billing;
@@ -14,23 +12,34 @@ class PlansSlide extends Component
 {
     use InteractsWithBanner;
 
+    private $user;
+
+    /**
+     * Sleep for a second to wait for stripe updates
+     *
+     * @return void
+     */
+    public function sleep()
+    {
+        sleep(4);
+    }
+
     /**
      * Render the compoenent.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
+     * @return \Illuminate\Contracts\View\View
      */
-    public function render(Request $request)
+    public function render()
     {
-        $billable = Billing::getBillable($request);
+        $this->user = Billing::getBillable();
 
         return view('octo::billing.subscription.plans-slide', [
-            'hasDefaultPaymentMethod' => $billable->hasDefaultPaymentMethod(),
-            'paymentMethods' => $billable->paymentMethods(),
+            'hasDefaultPaymentMethod' => $this->user->hasDefaultPaymentMethod(),
+            'paymentMethods' => $this->user->paymentMethods(),
             'plans' => Saas::getPlans(),
-            'subscriptions' => $billable->subscriptions,
-            'currentPlan' => $billable->current_plan_id ? Saas::getPlan($billable->current_plan_id) : null,
-            'billable' => $billable,
+            'subscriptions' => $this->user->subscriptions,
+            'currentPlan' => $this->user->current_plan_id ? Saas::getPlan($this->user->current_plan_id) : null,
+            'billable' => $this->user,
         ]);
     }
 
@@ -42,16 +51,7 @@ class PlansSlide extends Component
      */
     public function subscribeToPlan(string $planId)
     {
-        $plan = Saas::getPlan($planId);
-        $billable = Billing::getBillable();
-
-        if ($plan->getPrice() === 0.0) {
-            $billable->forceFill([ 'current_plan_id' => $plan->getId()])->save();
-            $this->banner("The plan {$plan->getName()} is now active!");
-            return;
-        }
-
-        return redirect()->route('billing.subscription.plan-subscribe', ['plan' => $planId]);
+        return $this->redirectRoute('billing.subscription.plan-subscribe', ['plan' => $planId]);
     }
 
     /**
@@ -59,22 +59,14 @@ class PlansSlide extends Component
      *
      * @param  \Octo\Billing\Contracts\HandleSubscriptions  $manager
      * @param  string  $planId
-     * @return \Illuminate\Http\Response|void
+     * @return \Illuminate\Http\Response|bool
      */
     public function swapPlan(HandleSubscriptions $manager, string $planId)
     {
+        $this->user = Billing::getBillable();
         $plan = Saas::getPlan($planId);
-        $billable = Billing::getBillable();
 
-        if ($plan->getPrice() === 0.0) {
-            $billable->forceFill([ 'current_plan_id' => $plan->getId()])->save();
-
-            $this->banner("The plan got successfully changed to {$plan->getName()}!");
-
-            return;
-        }
-
-        if (! $subscription = $this->getCurrentSubscription($billable, $plan->getName())) {
+        if (! $subscription = $this->getCurrentSubscription($this->user, $plan->getName())) {
             $this->dangerBanner("The subscription {$plan->getName()} does not exist.");
 
             return false;
@@ -82,25 +74,27 @@ class PlansSlide extends Component
 
         // Otherwise, check if it is not already subscribed to the new plan and initiate
         // a plan swapping. It also takes proration into account.
-        if ($billable->subscribed($subscription->name, $plan->getId())) {
+        if ($this->user->subscribed($subscription->name, $plan->getId())) {
             $hasValidSubscription = $subscription && $subscription->valid();
 
-            $subscription = value(function () use ($hasValidSubscription, $subscription, $plan, $billable, $manager) {
+            $subscription = value(function () use ($hasValidSubscription, $subscription, $plan, $manager) {
                 if ($hasValidSubscription) {
-                    return $manager->swapToPlan($subscription, $billable, $plan);
+                    return $manager->swapToPlan($subscription, $this->user, $plan);
                 }
 
                 // However, this is the only place where a ->create() method is involved. At this point, the user has
                 // a default payment method set and we will initialize the subscription in case it is not subscribed
                 // to a plan with the given subscription name.
                 return $manager->subscribeToPlan(
-                    $billable,
+                    $this->user,
                     $plan,
                 );
             });
         }
 
-        $this->banner("The plan got successfully changed to {$plan->getName()}!");
+        $this->sleep();
+
+        return $this->redirectRoute('billing.subscription.index');
     }
 
     /**
@@ -111,29 +105,20 @@ class PlansSlide extends Component
      */
     public function cancelSubscription(HandleSubscriptions $manager, string $planId)
     {
-        $billable = Billing::getBillable();
+        $this->user = Billing::getBillable();
         $plan = Saas::getPlan($planId);
 
-        if ($billable->current_plan_id === $plan->getId()) {
-            $billable->forceFill([ 'current_plan_id' => null])->save();
-        }
-
-
-        if ($plan->getPrice() === 0.0) {
-            $this->banner('The current subscription got cancelled!');
-
-            return false;
-        }
-
-        if (! $subscription = $this->getCurrentSubscription($billable, $plan->getName())) {
+        if (! $subscription = $this->getCurrentSubscription($this->user, $plan->getName())) {
             $this->dangerBanner("The subscription {$plan->getName()} does not exist.");
 
             return false;
         }
 
-        $manager->cancelSubscription($subscription, $billable);
+        $manager->cancelSubscription($subscription, $this->user);
 
-        $this->banner('The current subscription got cancelled!');
+        $this->sleep();
+
+        return $this->redirectRoute('billing.subscription.index');
     }
 
     /**
@@ -144,29 +129,31 @@ class PlansSlide extends Component
      */
     public function resumeSubscription(HandleSubscriptions $manager, string $planId)
     {
-        $billable = Billing::getBillable();
+        $this->user = Billing::getBillable();
         $plan = Saas::getPlan($planId);
 
-        if (! $subscription = $this->getCurrentSubscription($billable, $plan->getName())) {
+        if (! $subscription = $this->getCurrentSubscription($this->user, $plan->getName())) {
             $this->dangerBanner("The subscription {$plan->getName()} does not exist.");
 
             return false;
         }
 
-        $manager->resumeSubscription($subscription, $billable);
+        $manager->resumeSubscription($subscription, $this->user);
 
-        $this->banner('The subscription has been resumed.');
+        $this->sleep();
+
+        return $this->redirectRoute('billing.subscription.index');
     }
 
     /**
      * Get the current billable subscription.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $billable
+     * @param  \Illuminate\Database\Eloquent\Model  $this->user
      * @param  string  $subscription
      * @return \Laravel\Cashier\Subscription|null
      */
-    protected function getCurrentSubscription($billable, string $subscription)
+    protected function getCurrentSubscription($user, string $subscription)
     {
-        return $billable->subscription($subscription);
+        return $user->subscription($subscription);
     }
 }

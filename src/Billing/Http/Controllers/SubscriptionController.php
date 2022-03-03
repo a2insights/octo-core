@@ -40,7 +40,7 @@ class SubscriptionController extends Controller
             $plan,
         );
 
-        return view('octo::blade.billing-checkout', [
+        return view('octo::billing.checkout', [
             'checkout' => $checkout,
             'stripeKey' => config('cashier.key'),
         ]);

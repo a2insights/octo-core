@@ -29,15 +29,10 @@ trait ResolvesBillable
     /**
      * Get the billable model from the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
-    public static function getBillable($request = null)
+    public static function getBillable()
     {
-        $closure = static::$billable;
-
-        return $closure
-            ? $closure(request() ?: $request)
-            : request()->user();
+        return request()->user();
     }
 }

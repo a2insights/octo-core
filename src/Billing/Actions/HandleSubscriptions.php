@@ -32,12 +32,7 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      */
     public function subscribeToPlan($billable, Plan $plan)
     {
-        return tap(
-            $billable
-                ->newSubscription($plan->getName(), $plan->getId())
-                ->create($billable->defaultPaymentMethod()->id),
-            fn () => $billable->forceFill(['current_plan_id' => $plan->getId()])->save()
-        );
+        $billable->newSubscription($plan->getName(), $plan->getId())->create($billable->defaultPaymentMethod()->id);
     }
 
     /**
@@ -46,17 +41,15 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      * @param  \Octo\Billing\Models\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
      * @param  \Octo\Billing\Plan  $plan
-     * @return \Octo\Billing\Models\Subscription
+     * @return void
      */
     public function swapToPlan($subscription, $billable, Plan $plan)
     {
-        $billable->forceFill(['current_plan_id' => $plan->getId()])->save();
-
         if (Billing::proratesOnSwap()) {
-            return $subscription->swap($plan->getId());
+            $subscription->swap($plan->getId());
+        } else {
+            $subscription->noProrate()->swap($plan->getId());
         }
-
-        return $subscription->noProrate()->swap($plan->getId());
     }
 
     /**
@@ -68,8 +61,6 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      */
     public function resumeSubscription($subscription, $billable)
     {
-        $billable->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
-
         $subscription->resume();
     }
 
@@ -78,7 +69,6 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      *
      * @param  \Octo\Billing\Models\Subscription  $subscription
      * @param  \Illuminate\Database\Eloquent\Model  $billable
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
     public function cancelSubscription($subscription, $billable)

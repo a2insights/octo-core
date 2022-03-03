@@ -2,6 +2,7 @@
 
 namespace Octo\Billing\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Http\Controllers\WebhookController;
 
 class StripeWebhook extends WebhookController
@@ -22,9 +23,40 @@ class StripeWebhook extends WebhookController
                 ->first();
 
             if ($subscription) {
-                $user->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
-
                 $subscription->resetQuotas();
+            }
+
+            if (@$data['lines']['data'][0]['plan']['id']) {
+                $user->forceFill(['current_plan_id' => $data['lines']['data'][0]['plan']['id']])->save();
+            }
+        }
+
+        return $this->successMethod();
+    }
+
+    /**
+       * Handle customer subscription updated.
+       *
+       * @param  array  $payload
+       * @return \Symfony\Component\HttpFoundation\Response
+       */
+    protected function handleCustomerSubscriptionUpdated(array $payload)
+    {
+        parent::handleCustomerSubscriptionUpdated($payload);
+
+        if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
+            $data = $payload['data']['object'];
+
+            $subscription = $user->subscriptions()
+                ->whereStripeId($data['id'] ?? null)
+                ->first();
+
+            if ($subscription) {
+                if ($data['cancel_at']) {
+                    $user->forceFill(['current_plan_id' => null])->save();
+                } else {
+                    $user->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
+                }
             }
         }
 

@@ -68,23 +68,21 @@ class SwitchDashboard extends Component
      */
     public function switchDashboard($dashboard)
     {
+        $this->dashboard = $dashboard;
+
         $this->validate();
 
         $this->getUser()->forceFill([
-            'dashboard' => $dashboard
+            'dashboard' => $this->dashboard
         ])->save();
 
-        $this->dashboard = $dashboard;
 
-        if ($dashboard === 'system') {
-            session(['flash.banner' => __('octo::messages.dashboard.system.banner')]);
-            session(['flash.bannerStyle' => 'success']);
 
+        if ($this->dashboard === 'system') {
             return redirect()->route('system.dashboard');
         }
 
-        if ($dashboard === 'platform') {
-            session()->forget(['flash.banner', 'flash.bannerStyle']);
+        if ($this->dashboard === 'platform') {
             return redirect()->route('filament.pages.dashboard');
         }
     }
