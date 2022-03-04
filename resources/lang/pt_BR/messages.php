@@ -45,6 +45,8 @@ return [
             'has_plan_active' => 'Tem plano ativo',
             'no_has_plan_active' => 'Não tem plano ativo',
             'plan_active' => 'Plano Ativo',
+            'features_usage' => 'Uso de recursos',
+            'other_subscribed_plans' => 'Outros planos inscritos',
         ],
         'site' => [
             'sections' => [

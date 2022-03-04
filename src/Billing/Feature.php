@@ -118,7 +118,7 @@ class Feature implements Arrayable
             'id' => $this->getId(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
-            'value' => $this->getValue(),
+            'value' => $this->isUnlimited() ? '∞' : $this->getValue(),
             'unlimited' => $this->isUnlimited(),
             'resettable' => $this->isResettable(),
         ];

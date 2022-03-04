@@ -66,6 +66,6 @@ class SetupDemoCommand extends Command
     {
         $this->info('Seeding fake data in database');
 
-        Contact::factory()->count(40)->create();
+        Contact::factory()->count(49)->create();
     }
 }

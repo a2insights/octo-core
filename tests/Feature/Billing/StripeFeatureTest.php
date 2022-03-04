@@ -9,9 +9,6 @@ use Octo\Billing\Saas;
 use Octo\Tests\Feature\Billing\Models\User;
 use Stripe\ApiResource;
 use Stripe\Exception\InvalidRequestException;
-use Stripe\Plan;
-use Stripe\Price;
-use Stripe\Product;
 use Stripe\Stripe;
 
 class StripeFeatureTest extends TestCase

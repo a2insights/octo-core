@@ -2,7 +2,6 @@
 
 namespace Octo\Billing\Http\Controllers;
 
-use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Http\Controllers\WebhookController;
 
 class StripeWebhook extends WebhookController

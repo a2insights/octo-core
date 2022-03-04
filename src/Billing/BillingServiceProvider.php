@@ -34,22 +34,21 @@ class BillingServiceProvider extends ServiceProvider
             ->monthly(0)
             ->features([
                 Saas::feature('1 Team', 'teams', 1)->notResettable(),
-                Saas::feature('20 Products', 'products', 20)->notResettable(),
+                Saas::feature('50 Contacts', 'contacts', 50)->notResettable(),
             ]);
 
         Saas::plan('Starter', 'price_1IriI3KBVLqcMf8ufdEbBfEp')
             ->monthly(5)
             ->features([
-                Saas::feature('2 Teams', 'teams', 1)->notResettable(),
-                Saas::feature('100 Products', 'products', 100)->notResettable(),
+                Saas::feature('2 Teams', 'teams', 2)->notResettable(),
+                Saas::feature('100 Contacts', 'contacts', 100)->notResettable(),
             ]);
 
         Saas::plan('Prime', 'price_1Jh22oKBVLqcMf8ufFUi7upc')
             ->monthly(10)
             ->features([
-                Saas::feature('5 Teams', 'teams', 1)->notResettable(),
-                Saas::feature('Unlimited Products', 'products')->unlimited()->notResettable(),
-                Saas::feature('100 Invoices per month', 'invoices', 100),
+                Saas::feature('5 Teams', 'teams', 5)->notResettable(),
+                Saas::feature('Unlimited contacts', 'contacts')->unlimited()->notResettable(),
             ]);
     }
 }

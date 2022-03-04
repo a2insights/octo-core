@@ -4,6 +4,7 @@ namespace Octo\System\Http\Livewire;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Octo\Billing\Saas;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -14,7 +15,9 @@ class ListUsers extends DataTableComponent
 
     public $user;
 
-    public $userCurrentPlan;
+    public $plans = [];
+
+    public $plan;
 
     public function getTableRowUrl(): string
     {
@@ -31,7 +34,17 @@ class ListUsers extends DataTableComponent
         $this->user = User::findOrFail($id);
 
         $this->viewingModal = true;
-        $this->userCurrentPlan = $this->getUserCurrentPlan($this->user);
+        $this->plan = $this->getCurrentPlan($this->user);
+        $this->plans = Saas::getPlans()
+            ->filter(
+                fn ($p) => in_array(
+                    $p->getId(),
+                    $this->user->subscriptions
+                        ->filter(fn ($s) => $s->stripe_price !== $this->plan['id'])
+                        ->pluck('stripe_price')
+                        ->toArray()
+                )
+            )->toArray();
     }
 
     public function resetModal(): void
@@ -77,11 +90,19 @@ class ListUsers extends DataTableComponent
     }
 
 
-    private function getUserCurrentPlan($user)
+    private function getCurrentPlan($user)
     {
-        return $user->subscription('main') ? [
-            'name' => $user->subscription('main')->getPlan()->getName(),
-            'price' => $user->subscription('main')->getPlan()->getPrice(),
-        ] : null;
+        $currentPlan = Saas::getPlan($user->current_plan_id)->toArray();
+
+        $subscription = $user->subscription($currentPlan['name']);
+
+        $currentPlan['features'] = collect($currentPlan['features'])->map(fn ($f) => [
+            'id' => $f['id'],
+            'name' => $f['name'],
+            'value' => $f['value'],
+            'total_used' => $subscription?->getUsedQuota($f['id']),
+        ]);
+
+        return $user->subscription($currentPlan['name']) ? $currentPlan : null;
     }
 }
