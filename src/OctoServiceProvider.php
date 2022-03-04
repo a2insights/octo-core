@@ -23,7 +23,6 @@ class OctoServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'octo');
 
         $this->commands([
-            Console\InstallCommand::class,
             Console\InstallSmsDriverCommand::class,
             Console\UninstallSmsDriverCommand::class,
             Console\SetupDemoCommand::class,
