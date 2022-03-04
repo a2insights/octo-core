@@ -1,20 +1,18 @@
 <?php
-namespace Octo\Contact;
+namespace Octo\Common;
 
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Livewire\Livewire;
 use Octo\Common\Http\Livewire\DropdownNotifications;
 use Octo\Common\Http\Livewire\ListNotifications;
-use Octo\Contact\Filament\ContactResource;
+use Octo\Common\Http\Livewire\Subscribe;
+use Octo\Common\View\Components\PhoneInput;
+use Octo\Common\View\Components\Sidebar;
 use Spatie\LaravelPackageTools\Package;
 
 class CommonServiceProvider extends PluginServiceProvider
 {
-    protected array $resources = [
-        ContactResource::class,
-    ];
-
     public function boot()
     {
         parent::boot();
