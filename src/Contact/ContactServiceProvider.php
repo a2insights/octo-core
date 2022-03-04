@@ -11,6 +11,13 @@ class ContactServiceProvider extends PluginServiceProvider
         ContactResource::class,
     ];
 
+    public function boot()
+    {
+        parent::boot();
+
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+    }
+
     public function configurePackage(Package $package): void
     {
         $package->name('octo.common');

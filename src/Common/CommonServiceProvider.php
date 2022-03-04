@@ -17,8 +17,6 @@ class CommonServiceProvider extends PluginServiceProvider
     {
         parent::boot();
 
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-
         Blade::component(Sidebar::class, 'octo-sidebar');
         Blade::component(PhoneInput::class, 'octo-phone-input');
         Blade::component('octo::components.tile', 'octo-tile');
