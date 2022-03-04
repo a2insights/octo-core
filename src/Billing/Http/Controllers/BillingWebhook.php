@@ -4,7 +4,7 @@ namespace Octo\Billing\Http\Controllers;
 
 use Laravel\Cashier\Http\Controllers\WebhookController;
 
-class StripeWebhook extends WebhookController
+class BillingWebhook extends WebhookController
 {
     /**
      * Handle invoice payment succeeded.

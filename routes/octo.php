@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Octo\Billing\Http\Controllers\BillingController;
 use Octo\Billing\Http\Controllers\InvoiceController;
 use Octo\Billing\Http\Controllers\PaymentMethodController;
-use Octo\Billing\Http\Controllers\StripeWebhook;
+use Octo\Billing\Http\Controllers\BillingWebhook;
 use Octo\Billing\Http\Controllers\SubscriptionController;
 use Octo\Billing\Http\Middleware\Authorize;
 use Octo\Common\Http\NotificationsController;
@@ -12,7 +12,7 @@ use Octo\System\Http\Controllers\DashboardController;
 use Octo\System\Http\Controllers\SiteController;
 use Octo\System\Http\Controllers\UsersController;
 
-Route::post('billing/stripe/webhook', [StripeWebhook::class, 'handleWebhook'])->name('billing.webhook');
+Route::post('billing/stripe/webhook', [BillingWebhook::class, 'handleWebhook'])->name('billing.webhook');
 
 Route::group(['middleware' => ['web']], function () {
     // We redirect filament login to jetstream login

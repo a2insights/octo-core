@@ -14,7 +14,7 @@ class WebhookTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeFreePlanId);
+        $plan = Saas::getPlan(static::$billingFreePlanId);
 
         $subscription = $this->createStripeSubscription($user, $plan);
 

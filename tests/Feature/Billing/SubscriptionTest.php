@@ -10,7 +10,7 @@ class SubscriptionTest extends TestCase
     public function test_index_subscriptions()
     {
         $user = User::factory()->create();
-        $plan = Saas::getPlan(static::$stripeFreePlanId);
+        $plan = Saas::getPlan(static::$billingFreePlanId);
         $subscription = $this->createStripeSubscription($user, $plan);
 
         $this->actingAs($user)
@@ -26,10 +26,10 @@ class SubscriptionTest extends TestCase
         $user->subscriptions()->delete();
 
         $this->actingAs($user)
-            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
+            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$billingFreePlanId]))
             ->assertOk();
 
-        $user->newSubscription('main', static::$stripeFreePlanId)->create('pm_card_us');
+        $user->newSubscription('main', static::$billingFreePlanId)->create('pm_card_us');
 
         $this->assertCount(1, $user->subscriptions);
     }
@@ -41,7 +41,7 @@ class SubscriptionTest extends TestCase
         $user->subscriptions()->delete();
 
         $this->actingAs($user)
-            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$stripePlanId]))
+            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$billingPlanId]))
             ->assertOk();
 
         $this->assertCount(0, $user->subscriptions);
@@ -54,10 +54,10 @@ class SubscriptionTest extends TestCase
         $user->subscriptions()->delete();
 
         $this->actingAs($user)
-            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
+            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$billingFreePlanId]))
             ->assertOk();
 
-        $user->newSubscription('main', static::$stripeFreePlanId)->create('pm_card_us');
+        $user->newSubscription('main', static::$billingFreePlanId)->create('pm_card_us');
 
         $user->deletePaymentMethods();
     }
@@ -69,9 +69,9 @@ class SubscriptionTest extends TestCase
         $user->subscriptions()->delete();
 
         $this->actingAs($user)
-            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
+            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$billingFreePlanId]))
             ->assertOk();
 
-        $user->newSubscription('main', static::$stripeFreePlanId)->create('pm_card_us');
+        $user->newSubscription('main', static::$billingFreePlanId)->create('pm_card_us');
     }
 }

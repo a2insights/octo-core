@@ -42,7 +42,7 @@
                     <div class="flex space-x-2 text-gray-500 hover:bg-gray-200 p-3 rounded-lg">
                         <a href="{{ route('billing.portal') }}" method="post" as="button">
                             <div class="font-semibold text-gray-700">
-                                {{ __('Stripe Billing Portal') }}
+                                {{ __('Billing Portal') }}
                                 <svg viewBox="0 0 24 24" class="w-4 h-4 ml-1 inline">
                                     <path fill="currentColor"
                                         d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />

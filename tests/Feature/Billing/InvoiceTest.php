@@ -13,10 +13,10 @@ class InvoiceTest extends TestCase
         $user->subscriptions()->delete();
 
         $this->actingAs($user)
-            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
+            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$billingFreePlanId]))
             ->assertOk();
 
-        $user->newSubscription('main', static::$stripePlanId)->create('pm_card_visa');
+        $user->newSubscription('main', static::$billingPlanId)->create('pm_card_visa');
 
         $invoices = $user->invoicesIncludingPending()->map(function ($invoice) {
             return [

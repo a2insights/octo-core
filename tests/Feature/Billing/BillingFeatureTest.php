@@ -11,7 +11,7 @@ use Stripe\ApiResource;
 use Stripe\Exception\InvalidRequestException;
 use Stripe\Stripe;
 
-class StripeFeatureTest extends TestCase
+class BillingFeatureTest extends TestCase
 {
     /**
      * Delete the given Stripe resource.
@@ -49,7 +49,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -67,7 +67,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -90,7 +90,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -113,7 +113,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -129,7 +129,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -157,7 +157,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -185,7 +185,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId)
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId)
             ->features([]);
 
         $subscription = $this->createSubscription($user, $plan);
@@ -207,7 +207,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $this->assertTrue(
             is_array($plan->toArray())
@@ -222,7 +222,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -250,7 +250,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -267,7 +267,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -289,7 +289,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $plan);
 
@@ -306,7 +306,7 @@ class StripeFeatureTest extends TestCase
             $subscription->getUsedQuota('metered.build.minutes')
         );
 
-        $usage = $subscription->usageRecordsFor(static::$stripeMeteredPriceId)[0]->total_usage;
+        $usage = $subscription->usageRecordsFor(static::$billingMeteredPriceId)[0]->total_usage;
 
         $this->assertEquals(1000, $usage);
 
@@ -317,7 +317,7 @@ class StripeFeatureTest extends TestCase
 
         $this->assertEquals(4000, $overQuota);
 
-        $usage = $subscription->usageRecordsFor(static::$stripeMeteredPriceId)[0]->total_usage;
+        $usage = $subscription->usageRecordsFor(static::$billingMeteredPriceId)[0]->total_usage;
 
         $this->assertEquals(5000, $usage);
 
@@ -331,7 +331,7 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId)
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId)
             ->features([
                 Saas::feature('Seats', 'teams')->unlimited()->notResettable(),
             ]);
@@ -368,16 +368,16 @@ class StripeFeatureTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $freePlan = Saas::getPlan(static::$stripeFreePlanId);
+        $freePlan = Saas::getPlan(static::$billingFreePlanId);
 
-        $paidPlan = Saas::getPlan(static::$stripeMonthlyPlanId);
+        $paidPlan = Saas::getPlan(static::$billingMonthlyPlanId);
 
         $subscription = $this->createSubscription($user, $paidPlan);
 
         $subscription->recordFeatureUsage('teams', 10);
 
         $overQuotaFeatures = $subscription->featuresOverQuotaWhenSwapping(
-            static::$stripeFreePlanId
+            static::$billingFreePlanId
         );
 
         $this->assertCount(
@@ -406,7 +406,7 @@ class StripeFeatureTest extends TestCase
 
         $user = User::factory()->create();
 
-        $plan = Saas::getPlan(static::$stripeMonthlyPlanId)
+        $plan = Saas::getPlan(static::$billingMonthlyPlanId)
             ->features([
                 Saas::feature('Seats', 'teams', 100)->notResettable(),
             ]);

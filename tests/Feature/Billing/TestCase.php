@@ -26,15 +26,15 @@ abstract class TestCase extends TestsTestCase
 
     protected static $freeProductId;
 
-    protected static $stripeMonthlyPlanId;
+    protected static $billingMonthlyPlanId;
 
-    protected static $stripeMeteredPriceId;
+    protected static $billingMeteredPriceId;
 
-    protected static $stripeYearlyPlanId;
+    protected static $billingYearlyPlanId;
 
-    protected static $stripeFreePlanId;
+    protected static $billingFreePlanId;
 
-    protected static $stripePlanId;
+    protected static $billingPlanId;
 
     /**
      * {@inheritdoc}
@@ -59,28 +59,28 @@ abstract class TestCase extends TestsTestCase
 
         Blade::component(AppLayout::class, 'app-layout');
 
-        $freeStripePlan = Saas::plan('Free Plan', static::$stripeFreePlanId, static::$stripeYearlyPlanId, static::$stripePlanId)
+        $freeStripePlan = Saas::plan('Free Plan', static::$billingFreePlanId, static::$billingYearlyPlanId, static::$billingPlanId)
             ->features([
                 Saas::feature('Build Minutes', 'build.minutes', 10),
                 Saas::feature('Seats', 'teams', 5)->notResettable(),
             ]);
 
-        Saas::plan('Monthly $10', static::$stripeMonthlyPlanId)
+        Saas::plan('Monthly $10', static::$billingMonthlyPlanId)
             ->inheritFeaturesFromPlan($freeStripePlan, [
                 Saas::feature('Build Minutes', 'build.minutes', 3000),
                 Saas::meteredFeature('Metered Build Minutes', 'metered.build.minutes', 3000)
-                    ->meteredPrice(static::$stripeMeteredPriceId, 0.1, 'minute'),
+                    ->meteredPrice(static::$billingMeteredPriceId, 0.1, 'minute'),
                 Saas::feature('Seats', 'teams', 10)->notResettable(),
                 Saas::feature('Mails', 'mails', 300),
             ]);
 
-        Saas::plan('Yearly $100', static::$stripeYearlyPlanId)
+        Saas::plan('Yearly $100', static::$billingYearlyPlanId)
             ->inheritFeaturesFromPlan($freeStripePlan, [
                 Saas::feature('Build Minutes', 'build.minutes')->unlimited(),
                 Saas::feature('Seats', 'teams', 10)->notResettable(),
             ]);
 
-        Saas::plan('Yearly $100', static::$stripePlanId)
+        Saas::plan('Yearly $100', static::$billingPlanId)
             ->inheritFeaturesFromPlan($freeStripePlan, [
                 Saas::feature('Build Minutes', 'build.minutes')->unlimited(),
                 Saas::feature('Seats', 'teams', 1770)->notResettable(),
@@ -120,7 +120,7 @@ abstract class TestCase extends TestsTestCase
             'type' => 'service',
         ])->id;
 
-        static::$stripeFreePlanId = Plan::create([
+        static::$billingFreePlanId = Plan::create([
             'nickname' => 'Free',
             'currency' => 'USD',
             'interval' => 'month',
@@ -129,7 +129,7 @@ abstract class TestCase extends TestsTestCase
             'product' => static::$freeProductId,
         ])->id;
 
-        static::$stripeMonthlyPlanId = Plan::create([
+        static::$billingMonthlyPlanId = Plan::create([
             'nickname' => 'Monthly $10',
             'currency' => 'USD',
             'interval' => 'month',
@@ -138,7 +138,7 @@ abstract class TestCase extends TestsTestCase
             'product' => static::$productId,
         ])->id;
 
-        static::$stripeYearlyPlanId = Plan::create([
+        static::$billingYearlyPlanId = Plan::create([
             'nickname' => 'Yearly $100',
             'currency' => 'USD',
             'interval' => 'year',
@@ -147,7 +147,7 @@ abstract class TestCase extends TestsTestCase
             'product' => static::$productId,
         ])->id;
 
-        static::$stripePlanId = Plan::create([
+        static::$billingPlanId = Plan::create([
             'nickname' => 'Plan',
             'currency' => 'USD',
             'interval' => 'month',
@@ -156,7 +156,7 @@ abstract class TestCase extends TestsTestCase
             'product' => static::$productId,
         ])->id;
 
-        static::$stripeFreePlanId = Plan::create([
+        static::$billingFreePlanId = Plan::create([
             'nickname' => 'Free',
             'currency' => 'USD',
             'interval' => 'month',
@@ -165,7 +165,7 @@ abstract class TestCase extends TestsTestCase
             'product' => static::$productId,
         ])->id;
 
-        static::$stripeMeteredPriceId = Price::create([
+        static::$billingMeteredPriceId = Price::create([
             'nickname' => 'Monthly Metered $0.01 per unit',
             'currency' => 'USD',
             'recurring' => [
@@ -188,10 +188,10 @@ abstract class TestCase extends TestsTestCase
             return;
         }
 
-        static::deleteStripeResource(new Plan(static::$stripeMonthlyPlanId));
-        static::deleteStripeResource(new Plan(static::$stripeYearlyPlanId));
-        static::deleteStripeResource(new Plan(static::$stripeFreePlanId));
-        static::deleteStripeResource(new Plan(static::$stripePlanId));
+        static::deleteStripeResource(new Plan(static::$billingMonthlyPlanId));
+        static::deleteStripeResource(new Plan(static::$billingYearlyPlanId));
+        static::deleteStripeResource(new Plan(static::$billingFreePlanId));
+        static::deleteStripeResource(new Plan(static::$billingPlanId));
         static::deleteStripeResource(new Product(static::$productId));
     }
 

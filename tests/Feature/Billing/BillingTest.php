@@ -13,7 +13,7 @@ class BillingTest extends TestCase
         $user->subscriptions()->delete();
 
         $this->actingAs($user)
-            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$stripeFreePlanId]))
+            ->get(route('billing.subscription.plan-subscribe', ['plan' => static::$billingFreePlanId]))
             ->assertOk();
 
         $this->actingAs($user)
