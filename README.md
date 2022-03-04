@@ -1,27 +1,8 @@
-# OctoCore
-
-### A part of Octo system
+# octo-core
 
 [![GitHub license](https://img.shields.io/github/license/gothinkster/laravel-realworld-example-app.svg)](https://raw.githubusercontent.com/gothinkster/laravel-realworld-example-app/master/LICENSE)
 
-> ### Core of Octo
-PRs and issues welcome!
-
-## Installation
-
-You can install the package via composer:
-
-```bash
-composer require a2insights/octo-core
-```
-
-## Usage
-
-``` php
-php artisan vendor:publish --provider="Octo\OctoServiceProvider"
-```
-
-### Changelog
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
