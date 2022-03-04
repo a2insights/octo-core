@@ -39,22 +39,22 @@ class ContactResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        ->columns([
-            TextColumn::make('id')
-                ->label('ID')
-                ->sortable(),
-            TextColumn::make('name')
-                ->searchable()
-                ->sortable(),
-             TextColumn::make('email')
-                ->searchable()
-                ->sortable(),
-           BadgeColumn::make('status')
-                ->getStateUsing(fn ($record): ?string => $record->status ? 'active' : 'inactive')
-                ->colors([
-                    'success' => 'active',
-                    'danger' => 'inactive',
-                ]),
+            ->columns([
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('email')
+                    ->searchable()
+                    ->sortable(),
+                BadgeColumn::make('status')
+                    ->getStateUsing(fn ($record): ?string => $record->status ? 'active' : 'inactive')
+                    ->colors([
+                        'success' => 'active',
+                        'danger' => 'inactive',
+                    ]),
 
         ]);
     }
@@ -105,11 +105,12 @@ class ContactResource extends Resource
                                 ->columnSpan([
                                     'sm' => 2,
                                 ]),
-                        ])->columns([
+                        ])
+                        ->columns([
                             'sm' => 2,
                         ]),
-
-                ])->columnSpan([
+                ])
+                ->columnSpan([
                     'sm' => 2,
                 ]),
             Group::make()
