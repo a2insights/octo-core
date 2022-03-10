@@ -71,6 +71,6 @@ class SiteSection extends ModalComponent
 
     public function render()
     {
-        return view('octo::livewire.system.site.site-section');
+        return view('octo::system.site.site-section');
     }
 }

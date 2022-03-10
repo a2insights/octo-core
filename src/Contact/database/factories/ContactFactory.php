@@ -26,7 +26,9 @@ class ContactFactory extends Factory
             // 'contact_id' => $this->faker->numberBetween(-10000, 10000),
             'status' => $this->faker->boolean,
             'name' => $this->faker->name,
-            'properties' => '{}',
+            'properties' => [
+                'description' => $this->faker->sentence,
+            ],
             'nickname' => $this->faker->name,
             'email' => $this->faker->safeEmail,
             'phone' => $this->faker->phoneNumber,
@@ -39,5 +41,17 @@ class ContactFactory extends Factory
             'loggable' => $this->faker->boolean,
             // 'deleted_at' => $this->faker->word,
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Contact $contact) {
+            $contact->syncTagsWithType($this->faker->words(rand(0, 2)), 'contacts.tags');
+        });
     }
 }

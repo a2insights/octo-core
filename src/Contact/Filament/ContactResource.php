@@ -15,10 +15,15 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Tables\Columns\SpatieTagsColumn;
+use Filament\Tables\Filters\MultiSelectFilter;
+use Filament\Tables\Filters\SelectFilter;
 use Octo\Contact\Filament\Pages\CreateContact;
 use Octo\Contact\Filament\Pages\EditContact;
 use Octo\Contact\Filament\Pages\ListContacts;
 use Octo\Contact\Models\Contact;
+use Spatie\Tags\Tag;
 
 class ContactResource extends Resource
 {
@@ -42,13 +47,13 @@ class ContactResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
-                    ->sortable(),
+                    ->sortable('desc'),
                 TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
                 TextColumn::make('email')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
+                SpatieTagsColumn::make('tags')
+                    ->type('contacts.tags'),
                 BadgeColumn::make('status')
                     ->getStateUsing(fn ($record): ?string => $record->status ? 'active' : 'inactive')
                     ->colors([
@@ -56,7 +61,18 @@ class ContactResource extends Resource
                         'danger' => 'inactive',
                     ]),
 
-        ]);
+            ])
+            ->defaultSort('id', 'desc')
+            ->filters([
+                SelectFilter::make('status')
+                    ->options([
+                        true => 'active',
+                        false => 'inactive',
+                    ]),
+                MultiSelectFilter::make('tags')
+                    ->relationship('tags', 'name'),
+
+            ]);
     }
 
     public static function getRelations(): array
@@ -90,6 +106,11 @@ class ContactResource extends Resource
                                 ->tel(),
                             TextInput::make('email')
                                 ->email()
+                                ->columnSpan([
+                                    'sm' => 2,
+                                ]),
+                            SpatieTagsInput::make('tags')
+                                ->type('contacts.tags')
                                 ->columnSpan([
                                     'sm' => 2,
                                 ]),

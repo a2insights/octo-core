@@ -31,7 +31,7 @@ class PhoneInput extends Component
      */
     public function render()
     {
-        return view('octo::blade.phone-input', [
+        return view('octo::components.phone-input', [
             'country' => json_encode($this->getCountry()->toArray()),
             'countries' => json_encode($this->countryRepository->setLocale($this->getCountry()->locale)->all())
         ]);

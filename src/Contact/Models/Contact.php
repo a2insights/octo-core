@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Octo\Contact\database\factories\ContactFactory;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Octo\ObservableModel;
+use Spatie\Tags\HasTags;
 
 class Contact extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasTags;
+    use ObservableModel;
 
     /**
      * The attributes that are mass assignable.
@@ -36,17 +41,36 @@ class Contact extends Model
     ];
 
     /**
+     * The default model attributes
+     *
+     * @var array
+     */
+    protected $attributes = [
+       'properties' => '{"description": ""}',
+       'status' => true
+    ];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
         'status' => 'boolean',
-        'properties' => 'array',
+        'properties' => AsArrayObject::class,
         'mobile_phone_is_whatsapp' => 'boolean',
         'favorite' => 'boolean',
         'notificable' => 'boolean',
         'loggable' => 'boolean',
+    ];
+
+    /**
+     * The attributes of kind date
+     *
+     * @var array
+     */
+    protected $dates = [
+        'birthday',
     ];
 
     /**

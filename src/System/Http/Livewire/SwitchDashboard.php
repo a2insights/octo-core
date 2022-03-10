@@ -81,7 +81,7 @@ class SwitchDashboard extends Component
         }
 
         if ($this->dashboard === 'platform') {
-            return redirect()->route('filament.pages.dashboard');
+            return redirect()->route('home');
         }
     }
 
