@@ -46,12 +46,12 @@
                                         </svg>
                                     </span>
                                     @if (method_exists($feature, 'getMeteredId'))
-                                        <span v-if="feature.metered_id">
+                                        <span>
                                             {{ $feature->getName() }}
-                                            <div class="text-gray-400 text-sm">
-                                                {{ $plan->getCurrency() }}{{ $feature->getMeteredId() }}/{{ $feature->getMeteredUnitName() }}
-                                                after
-                                            </div>
+                                            <span class="text-xs text-gray-500">
+                                                Após
+                                                {{ $plan->getCurrency() }}{{ $feature->getMeteredPrice() }}/{{ $feature->getMeteredUnitName() }}
+                                            </span>
                                         </span>
                                     @else
                                         <span>

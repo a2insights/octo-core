@@ -60,9 +60,9 @@ class Saas
      * @param  int|float  $value
      * @return \Octo\Billing\Feature
      */
-    public static function feature(string $name, $id, $value = 0)
+    public static function feature(string $name, $id, $value = 0, $model = null, $calcule = null)
     {
-        return new Feature($name, $id, $value);
+        return new Feature($name, $id, $value, $model, $calcule);
     }
 
     /**
@@ -192,6 +192,19 @@ class Saas
     public static function getItems()
     {
         return collect(static::$items);
+    }
+
+    /**
+     * Get a free plan.
+     *
+      * @param  \Octo\Billing\Plan|string|int|null  $plan
+     * @return \Octo\Billing\Plan|null
+     */
+    public static function getFreePlan()
+    {
+        return static::getPlans()->filter(function ($plan) {
+            return $plan->isFree();
+        })->first();
     }
 
     /**

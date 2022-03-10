@@ -125,6 +125,16 @@ class Plan implements Arrayable
     }
 
     /**
+     * Determine if the plan is free.
+     *
+     * @return float
+     */
+    public function isFree()
+    {
+        return $this->getMonthlyPrice() == 0.00 || $this->getYearlyPrice() == 0.00;
+    }
+
+    /**
      * Convert the object to its JSON representation.
      *
      * @param  int  $options

@@ -4,6 +4,7 @@ namespace Octo\Console;
 
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Console\Command;
+use Octo\Billing\Saas;
 use Octo\Contact\Models\Contact;
 
 class SetupDemoCommand extends Command
@@ -23,9 +24,9 @@ class SetupDemoCommand extends Command
     public function handle()
     {
         $this->call('migrate:fresh', ['--force' => true, '--seed' => true]);
-        $this->factoryData();
         $this->setUpAdminAccount();
         $this->setUpUserAccount();
+        $this->factoryData();
     }
 
     private function setUpUserAccount()
@@ -37,6 +38,14 @@ class SetupDemoCommand extends Command
             'password_confirmation' => self::DEFAULT_USER_PASSWORD,
             'terms' => true,
         ]);
+
+        $planFree = Saas::getFreePlan();
+
+        $subscription = $user->newSubscription($planFree->getName(), $planFree->getId());
+        $subscription = $subscription->create('pm_card_visa');
+        $user->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
+        $subscription->recordFeatureUsage('contacts', 49);
+        $subscription->recordFeatureUsage('teams', 1);
 
         $user->markEmailAsVerified();
 
@@ -55,9 +64,17 @@ class SetupDemoCommand extends Command
             'terms' => true,
         ]);
 
-        $user->forceFill(['super_admin' => true])->save();
+        $user->forceFill(['super_admin' => true,  'dashboard' => 'system'])->save();
 
         $user->markEmailAsVerified();
+
+        $planFree = Saas::getFreePlan();
+
+        $subscription = $user->newSubscription($planFree->getName(), $planFree->getId());
+        $subscription = $subscription->create('pm_card_visa');
+        $user->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
+        $subscription->recordFeatureUsage('contacts', 49);
+        $subscription->recordFeatureUsage('teams', 1);
 
         $this->comment(sprintf('Log in seper admin with email %s and password %s', self::DEFAULT_SUPER_ADMIN_EMAIL, self::DEFAULT_SUPER_ADMIN_PASSWORD));
     }
