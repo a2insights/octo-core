@@ -22,8 +22,6 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            // 'contact_type' => $this->faker->word,
-            // 'contact_id' => $this->faker->numberBetween(-10000, 10000),
             'status' => $this->faker->boolean,
             'name' => $this->faker->name,
             'properties' => [
@@ -38,7 +36,6 @@ class ContactFactory extends Factory
             'favorite' => $this->faker->boolean,
             'notificable' => $this->faker->boolean,
             'loggable' => $this->faker->boolean,
-            // 'deleted_at' => $this->faker->word,
         ];
     }
 

@@ -1,8 +1,8 @@
 models:
     Contact:
         id: increments
-        contact_type: string nullable
-        contact_id: integer nullable
+        model_type: string nullable
+        model_id: integer nullable
         status: boolean
         name: string
         properties: json nullable
