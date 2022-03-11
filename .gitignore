@@ -4,3 +4,4 @@ vendor
 composer.lock
 .phpunit.result.cache
 tests/Feature/Billing/database.sqlite
+.tool-versions
