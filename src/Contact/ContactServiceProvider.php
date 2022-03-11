@@ -34,6 +34,6 @@ class ContactServiceProvider extends PluginServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        $package->name('octo.common');
+        $package->name('octo.contact');
     }
 }
