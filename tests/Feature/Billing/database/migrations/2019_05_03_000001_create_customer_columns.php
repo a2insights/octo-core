@@ -18,7 +18,7 @@ class CreateCustomerColumns extends Migration
             $table->string('pm_type')->nullable();
             $table->string('pm_last_four', 4)->nullable();
             $table->timestamp('trial_ends_at')->nullable();
-            $table->string('current_plan_id')->nullable();
+            $table->string('current_subscription_id')->nullable();
         });
     }
 
@@ -35,7 +35,7 @@ class CreateCustomerColumns extends Migration
                 'pm_type',
                 'pm_last_four',
                 'trial_ends_at',
-                'current_plan_id'
+                'current_subscription_id'
             ]);
         });
     }

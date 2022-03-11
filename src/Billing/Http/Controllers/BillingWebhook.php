@@ -26,7 +26,7 @@ class BillingWebhook extends WebhookController
             }
 
             if (@$data['lines']['data'][0]['plan']['id']) {
-                $user->forceFill(['current_plan_id' => $data['lines']['data'][0]['plan']['id']])->save();
+                $user->forceFill(['current_subscription_id' => $data['lines']['data'][0]['plan']['id']])->save();
             }
         }
 
@@ -52,9 +52,9 @@ class BillingWebhook extends WebhookController
 
             if ($subscription) {
                 if ($data['cancel_at']) {
-                    $user->forceFill(['current_plan_id' => null])->save();
+                    $user->forceFill(['current_subscription_id' => null])->save();
                 } else {
-                    $user->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
+                    $user->forceFill(['current_subscription_id' => $subscription->stripe_price])->save();
                 }
             }
         }

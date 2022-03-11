@@ -38,7 +38,7 @@ class PlansSlide extends Component
             'paymentMethods' => $this->user->paymentMethods(),
             'plans' => Saas::getPlans(),
             'subscriptions' => $this->user->subscriptions,
-            'currentPlan' => $this->user->current_plan_id ? Saas::getPlan($this->user->current_plan_id) : null,
+            'currentPlan' => $this->user->current_subscription_id ? Saas::getPlan($this->user->current_subscription_id) : null,
             'billable' => $this->user,
         ]);
     }

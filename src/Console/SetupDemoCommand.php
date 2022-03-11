@@ -43,7 +43,7 @@ class SetupDemoCommand extends Command
 
         $subscription = $user->newSubscription($planFree->getName(), $planFree->getId());
         $subscription = $subscription->create('pm_card_visa');
-        $user->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
+        $user->forceFill(['current_subscription_id' => $subscription->stripe_price])->save();
         $subscription->recordFeatureUsage('contacts', 49);
         $subscription->recordFeatureUsage('teams', 1);
 
@@ -72,7 +72,7 @@ class SetupDemoCommand extends Command
 
         $subscription = $user->newSubscription($planFree->getName(), $planFree->getId());
         $subscription = $subscription->create('pm_card_visa');
-        $user->forceFill(['current_plan_id' => $subscription->stripe_price])->save();
+        $user->forceFill(['current_subscription_id' => $subscription->stripe_price])->save();
         $subscription->recordFeatureUsage('contacts', 49);
         $subscription->recordFeatureUsage('teams', 1);
 

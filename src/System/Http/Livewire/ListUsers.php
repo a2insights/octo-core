@@ -92,7 +92,7 @@ class ListUsers extends DataTableComponent
 
     private function getCurrentPlan($user)
     {
-        $currentPlan = Saas::getPlan($user->current_plan_id)->toArray();
+        $currentPlan = Saas::getPlan($user->current_subscription_id)->toArray();
 
         $subscription = $user->subscription($currentPlan['name']);
 
