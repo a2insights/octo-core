@@ -22,9 +22,8 @@ class CreateContactsTable extends Migration
             $table->json('properties')->nullable();
             $table->string('nickname')->nullable();
             $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('mobile_phone')->nullable();
-            $table->boolean('mobile_phone_is_whatsapp')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->boolean('phone_number_is_whatsapp')->nullable();
             $table->string('birthday')->nullable();
             $table->string('gender')->nullable();
             $table->boolean('favorite')->nullable();

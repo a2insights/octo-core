@@ -8,9 +8,8 @@ models:
         properties: json nullable
         nickname: string nullable
         email: string nullable
-        phone: string nullable
-        mobile_phone: string nullable
-        mobile_phone_is_whatsapp: boolean nullable
+        phone_number: string nullable
+        phone_number_is_whatsapp: boolean nullable
         birthday: string nullable
         gender: string nullable
         favorite: boolean nullable

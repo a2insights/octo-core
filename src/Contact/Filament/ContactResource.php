@@ -102,26 +102,22 @@ class ContactResource extends Resource
                                 ->required()
                                 ->reactive()
                                 ->afterStateUpdated(fn ($state, callable $set) => $set('email', "{$state}@example.com")),
-                            TextInput::make('phone')
-                                ->tel(),
+                            DatePicker::make('birthday')
+                                ->label('Birthday'),
                             TextInput::make('email')
                                 ->email()
                                 ->columnSpan([
                                     'sm' => 2,
                                 ]),
-                            SpatieTagsInput::make('tags')
-                                ->type('contacts.tags')
-                                ->columnSpan([
-                                    'sm' => 2,
-                                ]),
                             $layout::make()
                                 ->schema([
-                                    TextInput::make('mobile_phone')
+                                    TextInput::make('phone_number')
                                     ->reactive()
-                                    ->afterStateUpdated(fn ($state, callable $set) => $state ?? $set('mobile_phone_is_whatsapp', false))
+                                    ->afterStateUpdated(fn ($state, callable $set) => $state ?? $set('phone_number_is_whatsapp', false))
                                     ->tel(),
-                                    Checkbox::make('mobile_phone_is_whatsapp')->disabled(fn ($state, callable $get) => $get('mobile_phone') == ''),
+                                    Checkbox::make('phone_number_is_whatsapp')->disabled(fn ($state, callable $get) => $get('phone_number') == ''),
                                 ]),
+
                             MarkdownEditor::make('properties.description')
                                 ->columnSpan([
                                     'sm' => 2,
@@ -137,6 +133,12 @@ class ContactResource extends Resource
             Group::make()
                 ->schema([
                     $layout::make()
+                    ->schema([
+                        SpatieTagsInput::make('tags')
+                        ->type('contacts.tags'),
+                    ])
+                    ->columns(1),
+                    $layout::make()
                         ->schema([
                             Placeholder::make('Status'),
                             Group::make()
@@ -146,8 +148,7 @@ class ContactResource extends Resource
                                         ->helperText('This contact will be disabled for the other modules.')
                                         ->default(true),
                                 ]),
-                            DatePicker::make('birthday')
-                                ->label('Birthday'),
+
                         ])
                         ->columns(1),
                     $layout::make()
