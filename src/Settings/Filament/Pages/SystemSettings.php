@@ -5,13 +5,17 @@ namespace Octo\Settings\Filament\Pages;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
-use Octo\Settings\UserSettings as BUserSettings;
+use Octo\Settings\SystemSettings as SettingsSystemSettings;
 
-class UserSettings extends SettingsPage
+class SystemSettings extends SettingsPage
 {
-    protected static ?string $navigationIcon = 'heroicon-o-cog';
+    protected static ?string $navigationIcon = 'heroicon-o-adjustments';
 
-    protected static string $settings = BUserSettings::class;
+    protected static ?string $navigationGroup = 'Settings';
+
+    protected static ?string $navigationLabel = 'System';
+
+    protected static string $settings = SettingsSystemSettings::class;
 
     protected function getFormSchema(): array
     {

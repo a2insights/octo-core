@@ -31,6 +31,12 @@ class ContactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationGroup = 'Marketing';
+
+    protected static ?string $navigationLabel = 'Contacts';
+
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -135,7 +141,7 @@ class ContactResource extends Resource
                     $layout::make()
                     ->schema([
                         SpatieTagsInput::make('tags')
-                        ->type('contacts.tags'),
+                            ->type('contacts.tags'),
                     ])
                     ->columns(1),
                     $layout::make()

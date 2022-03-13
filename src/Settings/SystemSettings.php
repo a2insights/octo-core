@@ -4,12 +4,12 @@ namespace Octo\Settings;
 
 use Spatie\LaravelSettings\Settings;
 
-class UserSettings extends Settings
+class SystemSettings extends Settings
 {
     public bool $show_notifications;
 
     public static function group(): string
     {
-        return 'user';
+        return 'system';
     }
 }

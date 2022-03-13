@@ -2,11 +2,11 @@
 
 namespace Octo\Contact\Models;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Octo\Contact\database\factories\ContactFactory;
-use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Octo\ObservableModel;
 use Spatie\Tags\HasTags;
 
