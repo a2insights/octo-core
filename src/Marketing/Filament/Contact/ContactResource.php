@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Contact\Filament;
+namespace Octo\Marketing\Filament\Contact;
 
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Checkbox;
@@ -19,11 +19,10 @@ use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Tables\Filters\SelectFilter;
-use Octo\Contact\Filament\Pages\CreateContact;
-use Octo\Contact\Filament\Pages\EditContact;
-use Octo\Contact\Filament\Pages\ListContacts;
-use Octo\Contact\Models\Contact;
-use Spatie\Tags\Tag;
+use Octo\Marketing\Filament\Contact\Pages\CreateContact;
+use Octo\Marketing\Filament\Contact\Pages\EditContact;
+use Octo\Marketing\Filament\Contact\Pages\ListContacts;
+use Octo\Marketing\Models\Contact;
 
 class ContactResource extends Resource
 {

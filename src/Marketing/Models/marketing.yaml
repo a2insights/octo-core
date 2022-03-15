@@ -1,0 +1,40 @@
+models:
+    Contact:
+        id: increments
+        model_type: string nullable
+        model_id: integer nullable
+        status: boolean
+        name: string
+        properties: json nullable
+        nickname: string nullable
+        email: string nullable
+        phone_number: string nullable
+        phone_number_is_whatsapp: boolean nullable
+        birthday: string nullable
+        gender: string nullable
+        favorite: boolean nullable
+        notificable: boolean nullable
+        loggable: boolean nullable
+        deleted_at: softDeletes
+        timestamps: timestamps
+    Campaign:
+        id: increments
+        status: string nullable
+        name: string nullable
+        description: string nullable
+        message: text nullable
+        start_at: timestamp
+        end_at: timestamp
+        recurrent: boolean
+        properties: json nullable
+        deleted_at: softDeletes
+        timestamps: timestamps
+    CampaignTarget:
+        id: increments
+        contact_id: integer nullable
+        campaign_id: integer nullable
+        status: string
+        sended_at: timestamp nullable
+        data: json nullable
+        deleted_at: softDeletes
+        timestamps: timestamps

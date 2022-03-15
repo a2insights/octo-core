@@ -4,8 +4,8 @@ namespace Octo\Console;
 
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Console\Command;
-use Octo\Billing\Saas;
-use Octo\Contact\Models\Contact;
+use Octo\Marketing\Models\Campaign;
+use Octo\Marketing\Models\Contact;
 
 class SetupDemoCommand extends Command
 {
@@ -74,5 +74,6 @@ class SetupDemoCommand extends Command
         $this->info('Seeding fake data in database');
 
         Contact::factory()->count(49)->create();
+        Campaign::factory()->count(10)->create();
     }
 }
