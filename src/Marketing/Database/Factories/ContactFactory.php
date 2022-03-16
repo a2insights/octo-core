@@ -24,9 +24,7 @@ class ContactFactory extends Factory
         return [
             'status' => $this->faker->boolean,
             'name' => $this->faker->name,
-            'properties' => [
-                'description' => $this->faker->sentence,
-            ],
+            'properties' => [],
             'nickname' => $this->faker->name,
             'email' => $this->faker->safeEmail,
             'phone_number' => $this->faker->phoneNumber,

@@ -25,7 +25,6 @@ class CampaignFactory extends Factory
         return [
             'status' => CampaignStatus::DRAFT(),
             'name' => $this->faker->word(2, true),
-            'description' => $this->faker->words(3, true),
             'message' => $this->faker->words(10, true),
             'start_at' => $this->faker->dateTime(),
             'end_at' => $this->faker->dateTime(),

@@ -4,6 +4,7 @@ namespace Octo\Marketing\Database\Factories;
 
 use App\CampaingnTarget;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Octo\Marketing\Enums\CampaignStatus;
 
 class CampaingnTargetFactory extends Factory
 {
@@ -22,10 +23,9 @@ class CampaingnTargetFactory extends Factory
     public function definition()
     {
         return [
-            'status' => $this->faker->word,
+            'status' => CampaignStatus::DRAFT(),
             'sended_at' => $this->faker->dateTime(),
             'data' =>  [],
-            'deleted_at' => $this->faker->word,
         ];
     }
 }

@@ -16,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Tables\Actions\LinkAction;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Tables\Filters\SelectFilter;
@@ -77,6 +78,11 @@ class ContactResource extends Resource
                 MultiSelectFilter::make('tags')
                     ->relationship('tags', 'name'),
 
+            ])->pushActions([
+                LinkAction::make('delete')
+                    ->action(fn ($record) => $record->delete())
+                    ->requiresConfirmation()
+                    ->color('danger'),
             ]);
     }
 
@@ -117,32 +123,28 @@ class ContactResource extends Resource
                             $layout::make()
                                 ->schema([
                                     TextInput::make('phone_number')
-                                    ->reactive()
-                                    ->afterStateUpdated(fn ($state, callable $set) => $state ?? $set('phone_number_is_whatsapp', false))
-                                    ->tel(),
-                                    Checkbox::make('phone_number_is_whatsapp')->disabled(fn ($state, callable $get) => $get('phone_number') == ''),
-                                ]),
-
-                            MarkdownEditor::make('properties.description')
-                                ->columnSpan([
-                                    'sm' => 2,
+                                        ->reactive()
+                                        ->afterStateUpdated(fn ($state, callable $set) => $state ?? $set('phone_number_is_whatsapp', false))
+                                        ->tel(),
+                                    Checkbox::make('phone_number_is_whatsapp')
+                                        ->disabled(fn ($state, callable $get) => $get('phone_number') == ''),
                                 ]),
                         ])
                         ->columns([
                             'sm' => 2,
                         ]),
+                        $layout::make()
+                            ->schema([
+                                SpatieTagsInput::make('tags')
+                                    ->type('contacts.tags'),
+                            ])
+                            ->columns(1),
                 ])
                 ->columnSpan([
                     'sm' => 2,
                 ]),
             Group::make()
                 ->schema([
-                    $layout::make()
-                    ->schema([
-                        SpatieTagsInput::make('tags')
-                            ->type('contacts.tags'),
-                    ])
-                    ->columns(1),
                     $layout::make()
                         ->schema([
                             Placeholder::make('Status'),

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Octo\Marketing\Enums\CampaignStatus;
 
 class CreateCampaignsTable extends Migration
 {
@@ -15,12 +16,11 @@ class CreateCampaignsTable extends Migration
     {
         Schema::create('campaigns', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('status')->nullable();
+            $table->string('status')->default(CampaignStatus::DRAFT());
             $table->string('name')->nullable();
-            $table->string('description')->nullable();
             $table->text('message');
-            $table->timestamp('start_at');
-            $table->timestamp('end_at');
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('end_at')->nullable();
             $table->boolean('recurrent');
             $table->json('properties')->nullable();
             $table->softDeletes('deleted_at');

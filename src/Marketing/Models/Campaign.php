@@ -17,9 +17,7 @@ class Campaign extends Model
      * @var array
      */
     protected $fillable = [
-        'status',
         'name',
-        'description',
         'message',
         'start_at',
         'end_at',
@@ -33,7 +31,6 @@ class Campaign extends Model
      * @var array
      */
     protected $attributes = [
-        'recurrent' => false,
         'properties' => '{}',
     ];
 
@@ -43,7 +40,6 @@ class Campaign extends Model
      * @var array
      */
     protected $casts = [
-        'recurrent' => 'boolean',
         'properties' => 'array',
         'status' => CampaignStatus::class,
     ];

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Octo\Marketing\Enums\CampaignTargetStatus;
 
 class CreateCampaingnContactTable extends Migration
 {
@@ -17,7 +18,7 @@ class CreateCampaingnContactTable extends Migration
             $table->increments('id');
             $table->integer('campaign_id')->nullable();
             $table->integer('contact_id')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('status')->default(CampaignTargetStatus::PENDING());
             $table->string('model_type')->nullable();
             $table->timestamp('sended_at')->nullable();
             $table->json('data')->nullable();
@@ -33,6 +34,6 @@ class CreateCampaingnContactTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('campaingn_targets');
+        Schema::dropIfExists('campaign_contact');
     }
 }

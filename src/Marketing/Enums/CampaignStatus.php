@@ -6,12 +6,10 @@ use Spatie\Enum\Laravel\Enum;
 
 /**
  * @method static self DRAFT()
- * @method static self SCHEDULED()
  * @method static self ACTIVE()
  * @method static self CANCELLED()
  * @method static self PAUSED()
  * @method static self PENDING()
- * @method static self ENDED()
  * @method static self FINISHED()
  */
 final class CampaignStatus extends Enum
@@ -20,12 +18,11 @@ final class CampaignStatus extends Enum
     {
         return [
             'secondary' => self::DRAFT()->value,
-            'primary' => self::SCHEDULED()->value,
             'success' => self::ACTIVE()->value,
             'danger' => self::CANCELLED()->value,
             'warning' => self::PAUSED()->value,
             'info' => self::PENDING()->value,
-            'info' => self::ENDED()->value,
+            'info' => self::FINISHED()->value,
         ];
     }
 
@@ -33,12 +30,11 @@ final class CampaignStatus extends Enum
     {
         return [
             self::DRAFT()->value => 'Draft',
-            self::SCHEDULED()->value => 'Scheduled',
             self::ACTIVE()->value => 'Active',
             self::CANCELLED()->value => 'Cancelled',
             self::PAUSED()->value => 'Paused',
             self::PENDING()->value => 'Pending',
-            self::ENDED()->value => 'Ended',
+            self::FINISHED()->value => 'Finished',
         ];
     }
 
@@ -46,12 +42,11 @@ final class CampaignStatus extends Enum
     {
         return [
             self::DRAFT()->value => 'Draft',
-            self::SCHEDULED()->value => 'Scheduled',
             self::ACTIVE()->value => 'Active',
             self::CANCELLED()->value => 'Cancelled',
             self::PAUSED()->value => 'Paused',
             self::PENDING()->value => 'Pending',
-            self::ENDED()->value => 'Ended',
+            self::FINISHED()->value => 'Finished',
         ];
     }
 }

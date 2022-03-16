@@ -6,26 +6,21 @@ models:
         status: boolean
         name: string
         properties: json nullable
-        nickname: string nullable
         email: string nullable
         phone_number: string nullable
         phone_number_is_whatsapp: boolean nullable
-        birthday: string nullable
+        birthday: date nullable
         gender: string nullable
         favorite: boolean nullable
-        notificable: boolean nullable
-        loggable: boolean nullable
         deleted_at: softDeletes
         timestamps: timestamps
     Campaign:
         id: increments
-        status: string nullable
+        status: string
         name: string nullable
-        description: string nullable
         message: text nullable
-        start_at: timestamp
-        end_at: timestamp
-        recurrent: boolean
+        start_at: timestamp nullable
+        end_at: timestamp nullable
         properties: json nullable
         deleted_at: softDeletes
         timestamps: timestamps

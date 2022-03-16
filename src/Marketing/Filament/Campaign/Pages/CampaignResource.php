@@ -2,18 +2,18 @@
 
 namespace Octo\Marketing\Filament\Campaign;
 
-use Closure;
 use Filament\Forms\Components\BelongsToManyMultiSelect;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\LinkAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -68,11 +68,6 @@ class CampaignResource extends Resource
                 SelectFilter::make('status')
                     ->options(CampaignStatus::toArray()),
 
-            ])->pushActions([
-                LinkAction::make('delete')
-                    ->action(fn ($record) => $record->delete())
-                    ->requiresConfirmation()
-                    ->color('danger'),
             ]);
     }
 
@@ -130,13 +125,14 @@ class CampaignResource extends Resource
                             Group::make()
                                 ->schema([
                                     CheckboxList::make('properties.channel')
-                                    ->label('Channels')
-                                    ->required()
-                                    ->default(['email'])
-                                    ->options([
-                                        'email' => 'Email',
-                                        'sms' => 'SMS',
-                                    ]),
+                                        ->label('Channels')
+                                        ->required()
+                                        ->disabled(fn ($record): bool => $record)
+                                        ->default(['email'])
+                                        ->options([
+                                            'email' => 'Email',
+                                            'sms' => 'SMS',
+                                        ]),
                                 ]),
 
                         ])

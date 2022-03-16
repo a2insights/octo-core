@@ -26,16 +26,12 @@ class Contact extends Model
         'status',
         'name',
         'properties',
-        'nickname',
         'email',
-        'phone',
         'phone_number',
         'phone_number_is_whatsapp',
         'birthday',
         'gender',
         'favorite',
-        'notificable',
-        'loggable',
     ];
 
     /**
@@ -44,7 +40,7 @@ class Contact extends Model
      * @var array
      */
     protected $attributes = [
-       'properties' => '{"description": ""}',
+       'properties' => '{}',
        'status' => true
     ];
 
@@ -58,8 +54,6 @@ class Contact extends Model
         'properties' => AsArrayObject::class,
         'phone_is_whatsapp' => 'boolean',
         'favorite' => 'boolean',
-        'notificable' => 'boolean',
-        'loggable' => 'boolean',
     ];
 
     /**
