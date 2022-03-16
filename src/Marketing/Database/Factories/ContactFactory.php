@@ -25,15 +25,12 @@ class ContactFactory extends Factory
             'status' => $this->faker->boolean,
             'name' => $this->faker->name,
             'properties' => [],
-            'nickname' => $this->faker->name,
             'email' => $this->faker->safeEmail,
             'phone_number' => $this->faker->phoneNumber,
             'phone_number_is_whatsapp' => $this->faker->boolean,
             'birthday' => $this->faker->date,
             'gender' => $this->faker->word,
             'favorite' => $this->faker->boolean,
-            'notificable' => $this->faker->boolean,
-            'loggable' => $this->faker->boolean,
         ];
     }
 

@@ -26,7 +26,6 @@ class CreateContactsTable extends Migration
             $table->date('birthday')->nullable();
             $table->string('gender')->nullable();
             $table->boolean('favorite')->nullable();
-            $table->boolean('notificable')->nullable();
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });

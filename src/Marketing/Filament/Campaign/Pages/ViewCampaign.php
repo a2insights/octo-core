@@ -15,7 +15,7 @@ class ViewCampaign extends ViewRecord
     {
         return [
             ButtonAction::make('edit')
-                ->hidden(CampaignStatus::ACTIVE() === $this->record->status)
+                ->disabled(CampaignStatus::ACTIVE() === $this->record->status)
                 ->visible(CampaignStatus::CANCELLED() !== $this->record->status)
                 ->url(fn () => static::getResource()::getUrl('edit', ['record' => $this->record])),
             ButtonAction::make('cancel')
@@ -30,12 +30,16 @@ class ViewCampaign extends ViewRecord
         ];
     }
 
-    public function start(): void
+    public function start()
     {
         $this->record->status = CampaignStatus::ACTIVE();
+        $this->record->start_at = now();
+
         $this->record->save();
 
-        $this->notify('success', 'Campaign started successfully');
+        $this->notify('danger', 'Campaign started successfully', isAfterRedirect: true);
+
+        return redirect($this->getResource()::getUrl('view', ['record' => $this->record]));
     }
 
     public function pause(): void
@@ -49,6 +53,7 @@ class ViewCampaign extends ViewRecord
     public function cancel()
     {
         $this->record->status = CampaignStatus::CANCELLED();
+
         $this->record->save();
 
         $this->notify('danger', 'Campaign canceled successfully', isAfterRedirect: true);
@@ -77,12 +82,14 @@ class ViewCampaign extends ViewRecord
         if ($this->record->status == CampaignStatus::CANCELLED()) {
             return ButtonAction::make('canceled')
                 ->color('danger')
+                ->disabled()
                 ->outlined()
                 ->icon('heroicon-o-ban');
         }
 
         return ButtonAction::make('start')
             ->color('success')
+            ->requiresConfirmation()
             ->action('start')
             ->outlined()
             ->icon('heroicon-o-play');

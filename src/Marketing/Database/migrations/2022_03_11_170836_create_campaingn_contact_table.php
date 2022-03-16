@@ -20,9 +20,9 @@ class CreateCampaingnContactTable extends Migration
             $table->integer('contact_id')->nullable();
             $table->string('status')->default(CampaignTargetStatus::PENDING());
             $table->string('model_type')->nullable();
-            $table->timestamp('sended_at')->nullable();
+            $table->dateTime('sended_at')->nullable();
             $table->json('data')->nullable();
-            $table->softDeletes('deleted_at');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

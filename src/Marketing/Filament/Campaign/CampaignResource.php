@@ -70,7 +70,8 @@ class CampaignResource extends Resource
 
             ])->pushActions([
                 LinkAction::make('delete')
-                    ->action(fn ($record) => $record->delete())
+                    ->action(fn ($record) =>  CampaignStatus::DRAFT() === $record->status ? $record->delete() : null)
+                    ->disabled(fn ($record) => CampaignStatus::DRAFT() !== $record->status)
                     ->requiresConfirmation()
                     ->color('danger'),
             ]);

@@ -28,7 +28,6 @@ class CampaignFactory extends Factory
             'message' => $this->faker->words(10, true),
             'start_at' => $this->faker->dateTime(),
             'end_at' => $this->faker->dateTime(),
-            'recurrent' => $this->faker->boolean,
             'properties' => [],
         ];
     }

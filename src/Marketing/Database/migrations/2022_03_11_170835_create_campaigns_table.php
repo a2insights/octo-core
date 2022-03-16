@@ -19,11 +19,10 @@ class CreateCampaignsTable extends Migration
             $table->string('status')->default(CampaignStatus::DRAFT());
             $table->string('name')->nullable();
             $table->text('message');
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
-            $table->boolean('recurrent');
+            $table->dateTime('start_at')->nullable();
+            $table->dateTime('end_at')->nullable();
             $table->json('properties')->nullable();
-            $table->softDeletes('deleted_at');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

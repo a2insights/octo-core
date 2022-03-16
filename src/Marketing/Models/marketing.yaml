@@ -19,8 +19,8 @@ models:
         status: string
         name: string nullable
         message: text nullable
-        start_at: timestamp nullable
-        end_at: timestamp nullable
+        start_at: dateTime nullable
+        end_at: dateTime nullable
         properties: json nullable
         deleted_at: softDeletes
         timestamps: timestamps
@@ -29,7 +29,7 @@ models:
         contact_id: integer nullable
         campaign_id: integer nullable
         status: string
-        sended_at: timestamp nullable
+        sended_at: dateTime nullable
         data: json nullable
         deleted_at: softDeletes
         timestamps: timestamps

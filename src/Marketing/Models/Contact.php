@@ -54,6 +54,7 @@ class Contact extends Model
         'properties' => AsArrayObject::class,
         'phone_is_whatsapp' => 'boolean',
         'favorite' => 'boolean',
+        'birthday' => 'date',
     ];
 
     /**
