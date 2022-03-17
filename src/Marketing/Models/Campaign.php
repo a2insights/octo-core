@@ -46,16 +46,6 @@ class Campaign extends Model
     ];
 
     /**
-     * Get the contacts for the campaign.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function contacts()
-    {
-        return $this->belongsToMany(Contact::class);
-    }
-
-    /**
     * The factory associated with the model.
     *
     * @return \Illuminate\Database\Eloquent\Factories\Factory
@@ -73,5 +63,15 @@ class Campaign extends Model
     public function hasPendingContacts()
     {
         return $this->contacts()->wherePivot('status', CampaignContactStatus::PENDING())->count() !== 0;
+    }
+
+    /**
+    * Get the contacts for the campaign.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function contacts()
+    {
+        return $this->belongsToMany(Contact::class)->using(CampaignContact::class);
     }
 }

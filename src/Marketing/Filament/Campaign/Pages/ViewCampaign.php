@@ -5,10 +5,9 @@ namespace Octo\Marketing\Filament\Campaign\Pages;
 use Filament\Pages\Actions\ButtonAction;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Support\Facades\Notification;
-use Octo\Common\Notifications\CampaignNotification;
-use Octo\Common\Notifications\HeloDolly;
 use Octo\Marketing\Enums\CampaignStatus;
 use Octo\Marketing\Filament\Campaign\CampaignResource;
+use Octo\Marketing\Notifications\CampaignNotification;
 
 class ViewCampaign extends ViewRecord
 {

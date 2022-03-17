@@ -28,7 +28,23 @@ class CampaignFactory extends Factory
             'message' => $this->faker->words(10, true),
             'start_at' => $this->faker->dateTime(),
             'end_at' => $this->faker->dateTime(),
-            'properties' => [],
+            'properties' => [
+                'channels' => ['email', 'sms'],
+            ],
         ];
+    }
+
+    /**
+    * Configure the model factory.
+    *
+    * @return $this
+    */
+    public function configure()
+    {
+        return $this->afterCreating(function (Campaign $campaign) {
+            $campaign->contacts()->sync(
+                ContactFactory::new()->count(rand(1, 5))->create()->pluck('id')
+            );
+        });
     }
 }

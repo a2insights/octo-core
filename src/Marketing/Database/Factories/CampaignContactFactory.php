@@ -2,18 +2,18 @@
 
 namespace Octo\Marketing\Database\Factories;
 
-use App\CampaingnTarget;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Octo\Marketing\Enums\CampaignStatus;
+use Octo\Marketing\Models\CampaignContact;
 
-class CampaingnTargetFactory extends Factory
+class CampaignContactFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = CampaingnTarget::class;
+    protected $model = CampaignContact::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +24,7 @@ class CampaingnTargetFactory extends Factory
     {
         return [
             'status' => CampaignStatus::DRAFT(),
-            'sended_at' => $this->faker->dateTime(),
+            'notified_at' => $this->faker->dateTime(),
             'data' =>  [],
         ];
     }

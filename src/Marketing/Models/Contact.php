@@ -77,4 +77,9 @@ class Contact extends Model
     {
         return ContactFactory::new();
     }
+
+    public function campaigns()
+    {
+        return $this->belongsToMany(Campaign::class)->using(CampaignContact::class);
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Octo\Marketing\Filament\Campaign;
 
-use Closure;
 use Filament\Forms\Components\BelongsToManyMultiSelect;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\CheckboxList;
@@ -130,7 +129,7 @@ class CampaignResource extends Resource
                         ->schema([
                             Group::make()
                                 ->schema([
-                                    CheckboxList::make('properties.channel')
+                                    CheckboxList::make('properties.channels')
                                     ->label('Channels')
                                     ->required()
                                     ->default(['email'])

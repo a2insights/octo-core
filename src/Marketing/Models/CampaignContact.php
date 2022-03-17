@@ -3,10 +3,11 @@
 namespace Octo\Marketing\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Octo\Marketing\Database\Factories\CampaignFactory;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+use Octo\Marketing\Database\Factories\CampaignContactFactory;
+use Octo\Marketing\Enums\CampaignContactStatus;
 
-class CampaignContact extends Model
+class CampaignContact extends Pivot
 {
     use HasFactory;
 
@@ -28,6 +29,7 @@ class CampaignContact extends Model
      */
     protected $casts = [
         'data' => 'array',
+        'status' => CampaignContactStatus::class,
     ];
 
     /**
@@ -37,6 +39,6 @@ class CampaignContact extends Model
      */
     public static function newFactory()
     {
-        return CampaignFactory::new();
+        return CampaignContactFactory::new();
     }
 }

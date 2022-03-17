@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Common\Notifications;
+namespace Octo\Marketing\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
