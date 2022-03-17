@@ -72,6 +72,6 @@ class Campaign extends Model
     */
     public function contacts()
     {
-        return $this->belongsToMany(Contact::class)->using(CampaignContact::class);
+        return $this->belongsToMany(Contact::class)->using(CampaignContact::class)->withPivot('status', 'notified_at', 'data');
     }
 }

@@ -80,6 +80,6 @@ class Contact extends Model
 
     public function campaigns()
     {
-        return $this->belongsToMany(Campaign::class)->using(CampaignContact::class);
+        return $this->belongsToMany(Campaign::class)->using(CampaignContact::class)->withPivot('status', 'notified_at', 'data');
     }
 }
