@@ -4,10 +4,10 @@ namespace Octo\Marketing\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class CampaignTarget extends Facade
+class CampaignContact extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'CampaignTarget';
+        return 'CampaignContact';
     }
 }

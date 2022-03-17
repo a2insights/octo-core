@@ -5,6 +5,7 @@ namespace Octo\Marketing\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Octo\Marketing\Database\Factories\CampaignFactory;
+use Octo\Marketing\Enums\CampaignContactStatus;
 use Octo\Marketing\Enums\CampaignStatus;
 
 class Campaign extends Model
@@ -62,5 +63,15 @@ class Campaign extends Model
     public static function newFactory()
     {
         return CampaignFactory::new();
+    }
+
+    /**
+     * Check if the campaign has pending contactss.
+     *
+     * @return bool
+     */
+    public function hasPendingContacts()
+    {
+        return $this->contacts()->wherePivot('status', CampaignContactStatus::PENDING())->count() !== 0;
     }
 }

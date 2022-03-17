@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Octo\Marketing\Database\Factories\ContactFactory;
 use Octo\ObservableModel;
 use Spatie\Tags\HasTags;
@@ -16,6 +17,7 @@ class Contact extends Model
     use SoftDeletes;
     use HasTags;
     use ObservableModel;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

@@ -24,12 +24,12 @@ models:
         properties: json nullable
         deleted_at: softDeletes
         timestamps: timestamps
-    CampaignTarget:
+    CampaignContact:
         id: increments
         contact_id: integer nullable
         campaign_id: integer nullable
         status: string
-        sended_at: dateTime nullable
+        notified_at: dateTime nullable
         data: json nullable
         deleted_at: softDeletes
         timestamps: timestamps

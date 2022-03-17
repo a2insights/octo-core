@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Octo\Marketing\Enums\CampaignTargetStatus;
+use Octo\Marketing\Enums\CampaignContactStatus;
 
 class CreateCampaingnContactTable extends Migration
 {
@@ -18,9 +18,9 @@ class CreateCampaingnContactTable extends Migration
             $table->increments('id');
             $table->integer('campaign_id')->nullable();
             $table->integer('contact_id')->nullable();
-            $table->string('status')->default(CampaignTargetStatus::PENDING());
+            $table->string('status')->default(CampaignContactStatus::PENDING());
             $table->string('model_type')->nullable();
-            $table->dateTime('sended_at')->nullable();
+            $table->dateTime('notified_at')->nullable();
             $table->json('data')->nullable();
             $table->softDeletes();
             $table->timestamps();

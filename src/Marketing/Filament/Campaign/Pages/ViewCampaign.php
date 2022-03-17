@@ -4,6 +4,9 @@ namespace Octo\Marketing\Filament\Campaign\Pages;
 
 use Filament\Pages\Actions\ButtonAction;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Notification;
+use Octo\Common\Notifications\CampaignNotification;
+use Octo\Common\Notifications\HeloDolly;
 use Octo\Marketing\Enums\CampaignStatus;
 use Octo\Marketing\Filament\Campaign\CampaignResource;
 
@@ -13,7 +16,7 @@ class ViewCampaign extends ViewRecord
 
     protected function getActions(): array
     {
-        return [
+        return CampaignStatus::FINISHED() !== $this->record->status ? [
             ButtonAction::make('edit')
                 ->disabled(CampaignStatus::ACTIVE() === $this->record->status)
                 ->visible(CampaignStatus::CANCELLED() !== $this->record->status)
@@ -27,6 +30,12 @@ class ViewCampaign extends ViewRecord
                 ->outlined()
                 ->icon('heroicon-o-ban'),
             $this->action()
+        ] : [
+            ButtonAction::make('finished')
+            ->color('primary')
+            ->disabled()
+            ->outlined()
+            ->icon('heroicon-o-check'),
         ];
     }
 
@@ -35,9 +44,11 @@ class ViewCampaign extends ViewRecord
         $this->record->status = CampaignStatus::ACTIVE();
         $this->record->start_at = now();
 
+        Notification::send($this->record->contacts, new CampaignNotification($this->record));
+
         $this->record->save();
 
-        $this->notify('danger', 'Campaign started successfully', isAfterRedirect: true);
+        $this->notify('success', 'Campaign started successfully', isAfterRedirect: true);
 
         return redirect($this->getResource()::getUrl('view', ['record' => $this->record]));
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Octo\Marketing\Database\Factories\CampaignFactory;
 
-class CampaignTarget extends Model
+class CampaignContact extends Model
 {
     use HasFactory;
 
@@ -17,7 +17,7 @@ class CampaignTarget extends Model
      */
     protected $fillable = [
         'status',
-        'sended_at',
+        'notified_at',
         'data',
     ];
 
