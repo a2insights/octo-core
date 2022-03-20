@@ -4,9 +4,11 @@ namespace Octo\Marketing\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
 use Octo\Marketing\Database\Factories\CampaignFactory;
 use Octo\Marketing\Enums\CampaignContactStatus;
 use Octo\Marketing\Enums\CampaignStatus;
+use Octo\Marketing\Notifications\CampaignNotification;
 
 class Campaign extends Model
 {
@@ -22,7 +24,6 @@ class Campaign extends Model
         'message',
         'start_at',
         'end_at',
-        'recurrent',
         'properties',
     ];
 
@@ -73,5 +74,153 @@ class Campaign extends Model
     public function contacts()
     {
         return $this->belongsToMany(Contact::class)->using(CampaignContact::class)->withPivot('status', 'notified_at', 'data');
+    }
+
+    /**
+     * Check if the campaign is draft.
+     *
+     * @return bool
+    */
+    public function isDraft()
+    {
+        return $this->status === CampaignStatus::DRAFT();
+    }
+
+    /**
+     * Check if the campaign is active.
+     *
+     * @return bool
+    */
+    public function isActive()
+    {
+        return $this->status === CampaignStatus::ACTIVE();
+    }
+
+    /**
+     * Check if the campaign is paused.
+     *
+     * @return bool
+    */
+    public function isPaused()
+    {
+        return $this->status === CampaignStatus::PAUSED();
+    }
+
+    /**
+     * Check if the campaign is finished.
+     *
+     * @return bool
+    */
+    public function isFinished()
+    {
+        return $this->status === CampaignStatus::FINISHED();
+    }
+
+    /**
+     * Check if the campaign is cancelled.
+     *
+     * @return bool
+    */
+    public function isCanceled()
+    {
+        return $this->status === CampaignStatus::CANCELED();
+    }
+
+    /**
+    * Check if the campaign is pending.
+    *
+    * @return bool
+    */
+    public function isPending()
+    {
+        return $this->status === CampaignStatus::PENDING();
+    }
+
+    /**
+    * Check any given status is the same as the campaign status.
+    *
+    * @return bool
+    */
+    public function hasAnyStatus(array $status): bool
+    {
+        return in_array($this->status, $status);
+    }
+
+    /**
+     * Start the campaign.
+     *
+     * @return void
+     */
+    public function start()
+    {
+        if (!$this->isDraft()) {
+            throw new \Exception('The campaign cant be start.');
+        }
+
+        $this->status = CampaignStatus::ACTIVE();
+        $this->start_at = now();
+
+        Notification::send($this->contacts, new CampaignNotification($this));
+
+        $this->save();
+    }
+
+    /**
+    * Pause the campaign.
+    *
+    * @return void
+    */
+    public function pause()
+    {
+        if (!$this->isActive()) {
+            throw new \Exception('The campaign cant be paused.');
+        }
+
+        $this->status = CampaignStatus::PAUSED();
+
+        $this->save();
+    }
+
+    public function cancel()
+    {
+        if (!$this->isPaused()) {
+            throw new \Exception('The campaign cant be canceled.');
+        }
+
+        $this->status = CampaignStatus::CANCELED();
+
+        $this->save();
+    }
+
+    /**
+     * Resume the campaign.
+     *
+     * @return void
+     */
+    public function resume()
+    {
+        if (!$this->isPaused()) {
+            throw new \Exception('The campaign is not paused');
+        }
+
+        $this->status = CampaignStatus::ACTIVE();
+
+        $this->save();
+    }
+
+    /**
+     * Finish the campaign.
+     *
+     * @return void
+     */
+    public function finish() : void
+    {
+        if (!$this->isActive()) {
+            throw new \Exception('The campaign cant be finished.');
+        }
+
+        $this->status = CampaignStatus::FINISHED();
+
+        $this->save();
     }
 }

@@ -55,8 +55,6 @@ class CampaignResource extends Resource
                     ->sortable('desc'),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('description')
-                    ->searchable(),
                 BadgeColumn::make('status')
                     ->getStateUsing(fn ($record): ?string => $record->status)
                     ->colors(CampaignStatus::colors()),
@@ -66,11 +64,10 @@ class CampaignResource extends Resource
             ->filters([
                 SelectFilter::make('status')
                     ->options(CampaignStatus::toArray()),
-
             ])->pushActions([
                 LinkAction::make('delete')
-                    ->action(fn ($record) =>  CampaignStatus::DRAFT() === $record->status ? $record->delete() : null)
-                    ->disabled(fn ($record) => CampaignStatus::DRAFT() !== $record->status)
+                    ->action(fn ($record) =>  $record->isDraft() ? $record->delete() : null)
+                    ->disabled(fn ($record) => !$record->isDraft())
                     ->requiresConfirmation()
                     ->color('danger'),
             ]);
@@ -130,13 +127,13 @@ class CampaignResource extends Resource
                             Group::make()
                                 ->schema([
                                     CheckboxList::make('properties.channels')
-                                    ->label('Channels')
-                                    ->required()
-                                    ->default(['email'])
-                                    ->options([
-                                        'email' => 'Email',
-                                        'sms' => 'SMS',
-                                    ]),
+                                        ->label('Channels')
+                                        ->required()
+                                        ->default(['email'])
+                                        ->options([
+                                            'email' => 'Email',
+                                            'sms' => 'SMS',
+                                        ]),
                                 ]),
 
                         ])

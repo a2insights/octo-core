@@ -122,7 +122,7 @@ class PlansSlide extends Component
     }
 
     /**
-     * Resume the current cancelled subscription.
+     * Resume the current canceled subscription.
      *
      * @param  \Octo\Billing\Contracts\HandleSubscriptions  $manager
      * @return \Illuminate\Http\Response|void

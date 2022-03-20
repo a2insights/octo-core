@@ -19,7 +19,7 @@ class HandleSubscriptions implements HandleSubscriptionsContract
     {
         return $subscription->checkout([
             'success_url' => route('billing.subscription.index', ['success' => "You have successfully subscribed to {$plan->getName()}!"]),
-            'cancel_url' => route('billing.subscription.index', ['error' => "The subscription to {$plan->getName()} was cancelled!"]),
+            'cancel_url' => route('billing.subscription.index', ['error' => "The subscription to {$plan->getName()} was canceled!"]),
         ]);
     }
 

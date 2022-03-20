@@ -5,6 +5,7 @@ namespace Octo\Marketing\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Octo\Marketing\Enums\CampaignStatus;
 use Octo\Marketing\Models\Campaign;
+use Octo\Marketing\Models\Contact;
 
 class CampaignFactory extends Factory
 {
@@ -43,7 +44,7 @@ class CampaignFactory extends Factory
     {
         return $this->afterCreating(function (Campaign $campaign) {
             $campaign->contacts()->sync(
-                ContactFactory::new()->count(rand(1, 5))->create()->pluck('id')
+                Contact::inRandomOrder()->limit(rand(1, 5))->pluck('id')->toArray()
             );
         });
     }

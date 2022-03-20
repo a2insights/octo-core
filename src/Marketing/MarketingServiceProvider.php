@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Octo\Marketing\Enums\CampaignContactStatus;
-use Octo\Marketing\Enums\CampaignStatus;
 use Octo\Marketing\Models\Campaign;
 use Octo\Marketing\Facades\Campaign as FacadesCampaign;
 use Octo\Marketing\Facades\CampaignContact as FacadesCampaignContact;
@@ -53,10 +52,15 @@ class MarketingServiceProvider extends PluginServiceProvider
         Event::listen(JobProcessed::class, function (JobProcessed $event) {
             try {
                 $notification = unserialize($event->job->payload()['data']['command'])->notification;
-                $campaign = $notification->campaign;
+
+                $campaign = $notification?->campaign;
+
+                if (!$campaign instanceof Campaign) {
+                    return;
+                }
+
                 if (!$campaign->hasPendingContacts()) {
-                    $campaign->status = CampaignStatus::FINISHED();
-                    $campaign->save();
+                    $campaign->finish();
                 }
             } catch (\Exception $e) {
                 Log::error($e->getMessage());

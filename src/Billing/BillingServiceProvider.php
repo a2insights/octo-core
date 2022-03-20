@@ -10,7 +10,7 @@ use Octo\Billing\Actions\HandleSubscriptions;
 use Octo\Billing\Billing;
 use Octo\Billing\Http\Livewire\ListPaymentMethods;
 use Octo\Billing\Http\Livewire\PlansSlide;
-use Octo\Contact\Models\Contact;
+use Octo\Marketing\Models\Contact;
 
 class BillingServiceProvider extends ServiceProvider
 {

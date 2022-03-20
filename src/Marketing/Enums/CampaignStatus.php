@@ -7,7 +7,7 @@ use Spatie\Enum\Laravel\Enum;
 /**
  * @method static self DRAFT()
  * @method static self ACTIVE()
- * @method static self CANCELLED()
+ * @method static self CANCELED()
  * @method static self PAUSED()
  * @method static self PENDING()
  * @method static self FINISHED()
@@ -19,7 +19,7 @@ final class CampaignStatus extends Enum
         return [
             'secondary' => self::DRAFT()->value,
             'success' => self::ACTIVE()->value,
-            'danger' => self::CANCELLED()->value,
+            'danger' => self::CANCELED()->value,
             'warning' => self::PAUSED()->value,
             'info' => self::PENDING()->value,
             'info' => self::FINISHED()->value,
@@ -31,7 +31,7 @@ final class CampaignStatus extends Enum
         return [
             self::DRAFT()->value => 'Draft',
             self::ACTIVE()->value => 'Active',
-            self::CANCELLED()->value => 'Cancelled',
+            self::CANCELED()->value => 'Canceled',
             self::PAUSED()->value => 'Paused',
             self::PENDING()->value => 'Pending',
             self::FINISHED()->value => 'Finished',
@@ -43,7 +43,7 @@ final class CampaignStatus extends Enum
         return [
             self::DRAFT()->value => 'Draft',
             self::ACTIVE()->value => 'Active',
-            self::CANCELLED()->value => 'Cancelled',
+            self::CANCELED()->value => 'Canceled',
             self::PAUSED()->value => 'Paused',
             self::PENDING()->value => 'Pending',
             self::FINISHED()->value => 'Finished',

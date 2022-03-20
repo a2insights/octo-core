@@ -6,7 +6,7 @@ use Spatie\Enum\Laravel\Enum;
 
 /**
  * @method static self PENDING()
- * @method static self CANCELLED()
+ * @method static self CANCELED()
  * @method static self NOTIFIED()
  * @method static self FAILED()
  */
