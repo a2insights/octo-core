@@ -22,7 +22,6 @@ class CreateCampaingnContactTable extends Migration
             $table->string('model_type')->nullable();
             $table->dateTime('notified_at')->nullable();
             $table->json('data')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

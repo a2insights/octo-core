@@ -31,5 +31,4 @@ models:
         status: string
         notified_at: dateTime nullable
         data: json nullable
-        deleted_at: softDeletes
         timestamps: timestamps

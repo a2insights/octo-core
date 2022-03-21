@@ -4,6 +4,7 @@ namespace Octo\Marketing\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Notification;
 use Octo\Marketing\Database\Factories\CampaignFactory;
 use Octo\Marketing\Enums\CampaignContactStatus;
@@ -13,6 +14,7 @@ use Octo\Marketing\Notifications\CampaignNotification;
 class Campaign extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

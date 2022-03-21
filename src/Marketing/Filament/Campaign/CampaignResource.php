@@ -58,7 +58,6 @@ class CampaignResource extends Resource
                 BadgeColumn::make('status')
                     ->getStateUsing(fn ($record): ?string => $record->status)
                     ->colors(CampaignStatus::colors()),
-
             ])
             ->defaultSort('id', 'desc')
             ->filters([
@@ -107,7 +106,7 @@ class CampaignResource extends Resource
                                 ->columnSpan([
                                     'sm' => 2,
                                 ]),
-                            BelongsToManyMultiSelect::make('targets')
+                            BelongsToManyMultiSelect::make('contacts')
                                 ->relationship('contacts', 'name')
                                 ->columns(2)
                                 ->required()
@@ -135,7 +134,6 @@ class CampaignResource extends Resource
                                             'sms' => 'SMS',
                                         ]),
                                 ]),
-
                         ])
                         ->columns(1),
                     $layout::make()
