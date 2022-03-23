@@ -44,7 +44,7 @@ class CampaignFactory extends Factory
     {
         return $this->afterCreating(function (Campaign $campaign) {
             $campaign->contacts()->sync(
-                Contact::inRandomOrder()->limit(rand(1, 5))->pluck('id')->toArray()
+                Contact::inRandomOrder()->limit(rand(10, 49))->pluck('id')->toArray()
             );
         });
     }

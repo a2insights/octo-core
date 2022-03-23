@@ -29,7 +29,7 @@
                 </h3>
                 <div class="flex flex-nowrap">
                     @foreach ($plan['features'] as $feature)
-                        <div class="w-60 h-40 shadow-lg rounded-lg mr-3">
+                        <div class="w-60 shadow-lg rounded-lg mr-3">
                             <div class="md:p-7 p-4">
                                 <h2 class="text-xl text-center capitalize">{{ Str::title($feature['id']) }}</h2>
                                 <h3 class="text-sm text-center">
@@ -46,7 +46,8 @@
                     <div class="flex space-x-6 items-center">
                         <div>
                             <p class="font-semibold text-base">
-                                {{ __('octo::messages.system.users.no_has_plan_active') }}</p>
+                                {{ __('octo::messages.system.users.no_has_plan_active') }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +72,8 @@
                     <div class="flex space-x-2 items-center">
                         <div class="bg-yellow-200 rounded-md p-2 flex items-center">
                             <p class="text-yellow-600 font-semibold text-xs">R$
-                                {{ number_format($p['price'] ?? 0, 2, '.', ',') ?? 'price' }}</p>
+                                {{ number_format($p['price'] ?? 0, 2, '.', ',') ?? 'price' }}
+                            </p>
                         </div>
                     </div>
                 </div>

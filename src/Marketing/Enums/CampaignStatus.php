@@ -17,12 +17,12 @@ final class CampaignStatus extends Enum
     public static function colors(): array
     {
         return [
-            'secondary' => self::DRAFT()->value,
+            'primary' => self::DRAFT()->value,
             'success' => self::ACTIVE()->value,
             'danger' => self::CANCELED()->value,
             'warning' => self::PAUSED()->value,
-            'info' => self::PENDING()->value,
-            'info' => self::FINISHED()->value,
+            'primary' => self::PENDING()->value,
+            'success' => self::FINISHED()->value,
         ];
     }
 

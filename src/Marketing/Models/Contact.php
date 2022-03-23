@@ -25,7 +25,6 @@ class Contact extends Model
      * @var array
      */
     protected $fillable = [
-        'status',
         'name',
         'properties',
         'email',
@@ -42,8 +41,7 @@ class Contact extends Model
      * @var array
      */
     protected $attributes = [
-       'properties' => '{}',
-       'status' => true
+       'properties' => '{}'
     ];
 
     /**
@@ -52,7 +50,6 @@ class Contact extends Model
      * @var array
      */
     protected $casts = [
-        'status' => 'boolean',
         'properties' => AsArrayObject::class,
         'phone_is_whatsapp' => 'boolean',
         'favorite' => 'boolean',

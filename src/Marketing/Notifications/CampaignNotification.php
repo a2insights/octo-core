@@ -64,7 +64,7 @@ class CampaignNotification extends Notification implements ShouldQueue
     {
         $this->campaign = $campaign;
 
-        $this->onQueue("campaign");
+        $this->onQueue("campaigns");
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Octo\Marketing\Filament\Campaign;
 
-use Filament\Forms\Components\BelongsToManyMultiSelect;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Group;
@@ -22,7 +21,6 @@ use Octo\Marketing\Filament\Campaign\Pages\EditCampaign;
 use Octo\Marketing\Filament\Campaign\Pages\ListCampaigns;
 use Octo\Marketing\Filament\Campaign\Pages\ViewCampaign;
 use Octo\Marketing\Models\Campaign;
-use Octo\Marketing\Models\Contact;
 
 class CampaignResource extends Resource
 {
@@ -75,7 +73,7 @@ class CampaignResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CampaignContactRelationManager::class,
         ];
     }
 
@@ -106,14 +104,6 @@ class CampaignResource extends Resource
                                 ->columnSpan([
                                     'sm' => 2,
                                 ]),
-                            BelongsToManyMultiSelect::make('contacts')
-                                ->relationship('contacts', 'name')
-                                ->columns(2)
-                                ->required()
-                                ->options(Contact::all()->pluck('name', 'id'))
-                                ->columnSpan([
-                                    'sm' => 2,
-                                ])
                         ]),
                 ])
                 ->columnSpan([

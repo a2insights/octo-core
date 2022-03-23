@@ -11,6 +11,8 @@ class ViewCampaign extends ViewRecord
 {
     protected static string $resource = CampaignResource::class;
 
+    protected static string $view = 'octo::marketing.campaign';
+
     protected function getActions(): array
     {
         return [
@@ -22,13 +24,13 @@ class ViewCampaign extends ViewRecord
                 ]))
                 ->url(fn () => static::getResource()::getUrl('edit', ['record' => $this->record])),
             ButtonAction::make('cancel')
-                ->visible($this->record->isActive() && $this->record->isPaused())
+                ->visible($this->record->isPaused())
                 ->color('danger')
                 ->action('cancel')
                 ->requiresConfirmation()
                 ->outlined()
                 ->icon('heroicon-o-ban'),
-             ButtonAction::make('finished')
+            ButtonAction::make('finished')
                 ->color('primary')
                 ->visible($this->record->isFinished())
                 ->disabled()
@@ -66,30 +68,33 @@ class ViewCampaign extends ViewRecord
     {
         $this->record->start();
 
-        $this->notify('success', 'Campaign started successfully', isAfterRedirect: true);
-
-        return redirect($this->getResource()::getUrl('view', ['record' => $this->record]));
+        return $this->back('Campaign started successfully', 'success');
     }
 
-    public function pause(): void
+    public function pause()
     {
         $this->record->pause();
 
-        $this->notify('primary', 'Campaign paused successfully');
+        return $this->back('Campaign paused successfully', 'primary');
     }
 
-    public function resume(): void
+    public function resume()
     {
         $this->record->resume();
 
-        $this->notify('primary', 'Campaign resumed successfully');
+        return $this->back('Campaign resumed successfully', 'success');
     }
 
     public function cancel()
     {
         $this->record->cancel();
 
-        $this->notify('danger', 'Campaign canceled successfully', isAfterRedirect: true);
+        return $this->back('Campaign canceled successfully', 'danger');
+    }
+
+    private function back($msg, $variant)
+    {
+        $this->notify($variant, $msg, isAfterRedirect: true);
 
         return redirect($this->getResource()::getUrl('view', ['record' => $this->record]));
     }

@@ -5,6 +5,7 @@ namespace Octo\Marketing\Filament\Contact;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
@@ -39,7 +40,7 @@ class ContactResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(static::getFormSchema(Card::class))
+            ->schema(static::getFormSchema())
             ->columns([
                 'sm' => 3,
                 'lg' => null,
@@ -59,21 +60,9 @@ class ContactResource extends Resource
                     ->searchable(),
                 SpatieTagsColumn::make('tags')
                     ->type('contacts.tags'),
-                BadgeColumn::make('status')
-                    ->getStateUsing(fn ($record): ?string => $record->status ? 'active' : 'inactive')
-                    ->colors([
-                        'success' => 'active',
-                        'danger' => 'inactive',
-                    ]),
-
             ])
             ->defaultSort('id', 'desc')
             ->filters([
-                SelectFilter::make('status')
-                    ->options([
-                        true => 'active',
-                        false => 'inactive',
-                    ]),
                 MultiSelectFilter::make('tags')
                     ->relationship('tags', 'name'),
 
@@ -101,7 +90,7 @@ class ContactResource extends Resource
         ];
     }
 
-    public static function getFormSchema(string $layout = Grid::class): array
+    public static function getFormSchema(string $layout = Card::class): array
     {
         return [
             Group::make()
@@ -109,9 +98,7 @@ class ContactResource extends Resource
                     $layout::make()
                         ->schema([
                             TextInput::make('name')
-                                ->required()
-                                ->reactive()
-                                ->afterStateUpdated(fn ($state, callable $set) => $set('email', "{$state}@example.com")),
+                                ->required(),
                             DatePicker::make('birthday')
                                 ->label('Birthday'),
                             TextInput::make('email')
@@ -132,12 +119,6 @@ class ContactResource extends Resource
                         ->columns([
                             'sm' => 2,
                         ]),
-                        $layout::make()
-                            ->schema([
-                                SpatieTagsInput::make('tags')
-                                    ->type('contacts.tags'),
-                            ])
-                            ->columns(1),
                 ])
                 ->columnSpan([
                     'sm' => 2,
@@ -146,25 +127,18 @@ class ContactResource extends Resource
                 ->schema([
                     $layout::make()
                         ->schema([
-                            Placeholder::make('Status'),
-                            Group::make()
-                                ->schema([
-                                    Toggle::make('status')
-                                        ->label('Active')
-                                        ->helperText('This contact will be disabled for the other modules.')
-                                        ->default(true),
-                                ]),
-
+                            SpatieTagsInput::make('tags')
+                                ->type('contacts.tags'),
                         ])
                         ->columns(1),
                     $layout::make()
                         ->schema([
                             Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(fn (?Contact $record): string => $record ? $record->created_at->diffForHumans() : '-'),
-                        Placeholder::make('updated_at')
-                            ->label('Last modified at')
-                            ->content(fn (?Contact $record): string => $record ? $record->updated_at->diffForHumans() : '-'),
+                                ->label('Created at')
+                                ->content(fn (?Contact $record): string => $record ? $record->created_at->diffForHumans() : '-'),
+                            Placeholder::make('updated_at')
+                                ->label('Last modified at')
+                                ->content(fn (?Contact $record): string => $record ? $record->updated_at->diffForHumans() : '-'),
                         ])
                         ->columns(1),
                 ])

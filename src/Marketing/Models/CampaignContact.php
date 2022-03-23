@@ -32,6 +32,10 @@ class CampaignContact extends Pivot
         'status' => CampaignContactStatus::class,
     ];
 
+    protected $attributes = [
+        'status' => 'PENDING',
+    ];
+
     /**
      * The factory associated with the model.
      *
@@ -40,5 +44,25 @@ class CampaignContact extends Pivot
     public static function newFactory()
     {
         return CampaignContactFactory::new();
+    }
+
+    public function isPending()
+    {
+        return $this->status == CampaignContactStatus::PENDING();
+    }
+
+    public function isCanceled()
+    {
+        return $this->status == CampaignContactStatus::CANCELED();
+    }
+
+    public function isNotified()
+    {
+        return $this->status == CampaignContactStatus::NOTIFIED();
+    }
+
+    public function isFailed()
+    {
+        return $this->status == CampaignContactStatus::FAILED();
     }
 }

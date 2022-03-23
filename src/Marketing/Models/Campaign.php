@@ -5,6 +5,8 @@ namespace Octo\Marketing\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Octo\Marketing\Database\Factories\CampaignFactory;
 use Octo\Marketing\Enums\CampaignContactStatus;
@@ -75,7 +77,22 @@ class Campaign extends Model
     */
     public function contacts()
     {
-        return $this->belongsToMany(Contact::class)->using(CampaignContact::class)->withPivot('status', 'notified_at', 'data');
+        return $this->belongsToMany(Contact::class)
+            ->using(CampaignContact::class)
+            ->withPivot('status', 'notified_at', 'data');
+    }
+
+    /**
+    * Get the contacts for the campaign.
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function pendings()
+    {
+        return $this->belongsToMany(Contact::class)
+                ->wherePivot('status', CampaignContactStatus::PENDING())
+                ->using(CampaignContact::class)
+                ->withPivot('status', 'notified_at', 'data');
     }
 
     /**
@@ -85,7 +102,7 @@ class Campaign extends Model
     */
     public function isDraft()
     {
-        return $this->status === CampaignStatus::DRAFT();
+        return $this->status == CampaignStatus::DRAFT();
     }
 
     /**
@@ -95,7 +112,7 @@ class Campaign extends Model
     */
     public function isActive()
     {
-        return $this->status === CampaignStatus::ACTIVE();
+        return $this->status == CampaignStatus::ACTIVE();
     }
 
     /**
@@ -105,7 +122,7 @@ class Campaign extends Model
     */
     public function isPaused()
     {
-        return $this->status === CampaignStatus::PAUSED();
+        return $this->status == CampaignStatus::PAUSED();
     }
 
     /**
@@ -115,7 +132,7 @@ class Campaign extends Model
     */
     public function isFinished()
     {
-        return $this->status === CampaignStatus::FINISHED();
+        return $this->status == CampaignStatus::FINISHED();
     }
 
     /**
@@ -125,7 +142,7 @@ class Campaign extends Model
     */
     public function isCanceled()
     {
-        return $this->status === CampaignStatus::CANCELED();
+        return $this->status == CampaignStatus::CANCELED();
     }
 
     /**
@@ -135,7 +152,7 @@ class Campaign extends Model
     */
     public function isPending()
     {
-        return $this->status === CampaignStatus::PENDING();
+        return $this->status == CampaignStatus::PENDING();
     }
 
     /**
@@ -162,9 +179,12 @@ class Campaign extends Model
         $this->status = CampaignStatus::ACTIVE();
         $this->start_at = now();
 
-        Notification::send($this->contacts, new CampaignNotification($this));
-
         $this->save();
+
+        Notification::send(
+            $this->contacts,
+            new CampaignNotification($this)
+        );
     }
 
     /**
@@ -178,7 +198,26 @@ class Campaign extends Model
             throw new \Exception('The campaign cant be paused.');
         }
 
+        $campaigns = DB::table('jobs')
+            ->where('queue', 'campaigns')
+            ->get();
+
+        $jobs = $campaigns
+            ->map(fn ($p) => ['id' => $p->id ,'campaign' => unserialize(json_decode($p->payload, true)['data']['command'])->notification->campaign])
+            ->where('campaign.id', $this->id)
+            ->pluck('id')
+            ->toArray();
+
+        DB::table('jobs')
+            ->where('queue', 'campaigns')
+            ->whereIn('id', $jobs)
+            ->delete();
+
         $this->status = CampaignStatus::PAUSED();
+
+        if (!$this->hasPendingContacts()) {
+            $this->status = CampaignStatus::FINISHED();
+        }
 
         $this->save();
     }
@@ -207,7 +246,16 @@ class Campaign extends Model
 
         $this->status = CampaignStatus::ACTIVE();
 
+        if (!$this->hasPendingContacts()) {
+            $this->status = CampaignStatus::FINISHED();
+        }
+
         $this->save();
+
+        Notification::send(
+            $this->pendings,
+            new CampaignNotification($this)
+        );
     }
 
     /**

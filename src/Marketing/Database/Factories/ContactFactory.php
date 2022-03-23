@@ -22,7 +22,6 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            'status' => $this->faker->boolean,
             'name' => $this->faker->name,
             'properties' => [],
             'email' => $this->faker->safeEmail,

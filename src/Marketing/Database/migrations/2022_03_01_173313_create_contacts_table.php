@@ -17,7 +17,6 @@ class CreateContactsTable extends Migration
             $table->increments('id');
             $table->string('model_type')->nullable();
             $table->integer('model_id')->nullable();
-            $table->boolean('status');
             $table->string('name');
             $table->json('properties')->nullable();
             $table->string('email')->nullable();

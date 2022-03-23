@@ -3,7 +3,6 @@ models:
         id: increments
         model_type: string nullable
         model_id: integer nullable
-        status: boolean
         name: string
         properties: json nullable
         email: string nullable
