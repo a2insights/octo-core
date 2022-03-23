@@ -30,7 +30,7 @@ class CampaignFactory extends Factory
             'start_at' => $this->faker->dateTime(),
             'end_at' => $this->faker->dateTime(),
             'properties' => [
-                'channels' => ['email', 'sms'],
+                'channels' => [Campaign::$MAIL_CHANNEL],
             ],
         ];
     }

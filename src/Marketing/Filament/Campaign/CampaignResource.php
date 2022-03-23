@@ -34,6 +34,11 @@ class CampaignResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    protected static function getNavigationBadge(): ?string
+    {
+        return Campaign::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -119,11 +124,10 @@ class CampaignResource extends Resource
                                         ->label('Channels')
                                         ->required()
                                         ->disabled()
-                                        ->readonly()
-                                        ->default(['email'])
+                                        ->default([Campaign::$MAIL_CHANNEL])
                                         ->options([
-                                            'email' => 'Email',
-                                            'sms' => 'SMS',
+                                            Campaign::$MAIL_CHANNEL => 'Email',
+                                            Campaign::$SMS_CHANNEL => 'SMS',
                                         ]),
                                 ]),
                         ])

@@ -17,6 +17,10 @@ class Campaign extends Model
     use HasFactory;
     use SoftDeletes;
 
+    public static $MAIL_CHANNEL = 'mail';
+
+    public static $SMS_CHANNEL = 'sms';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -28,7 +28,7 @@ class CampaignNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return $this->to(['mail']);
+        return $this->to($this->campaign->properties['channels']);
     }
 
     /**
@@ -38,7 +38,7 @@ class CampaignNotification extends Notification implements ShouldQueue
       */
     public function toSms($notifiable)
     {
-        return '';
+        return $this->campaign->message;
     }
 
 
