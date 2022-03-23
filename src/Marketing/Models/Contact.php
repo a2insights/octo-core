@@ -75,8 +75,15 @@ class Contact extends Model
         return ContactFactory::new();
     }
 
+    /**
+     * Get the campaigns for the contact.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
     public function campaigns()
     {
-        return $this->belongsToMany(Campaign::class)->using(CampaignContact::class)->withPivot('status', 'notified_at', 'data');
+        return $this->belongsToMany(Campaign::class)
+            ->using(CampaignContact::class)
+            ->withPivot('status', 'notified_at', 'data');
     }
 }

@@ -5,7 +5,6 @@ namespace Octo\Marketing\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Octo\Marketing\Database\Factories\CampaignFactory;
@@ -67,7 +66,9 @@ class Campaign extends Model
      */
     public function hasPendingContacts()
     {
-        return $this->contacts()->wherePivot('status', CampaignContactStatus::PENDING())->count() !== 0;
+        return $this->contacts()
+            ->wherePivot('status', CampaignContactStatus::PENDING())
+            ->count() !== 0;
     }
 
     /**
@@ -90,9 +91,9 @@ class Campaign extends Model
     public function pendings()
     {
         return $this->belongsToMany(Contact::class)
-                ->wherePivot('status', CampaignContactStatus::PENDING())
-                ->using(CampaignContact::class)
-                ->withPivot('status', 'notified_at', 'data');
+            ->wherePivot('status', CampaignContactStatus::PENDING())
+            ->using(CampaignContact::class)
+            ->withPivot('status', 'notified_at', 'data');
     }
 
     /**
@@ -102,7 +103,7 @@ class Campaign extends Model
     */
     public function isDraft()
     {
-        return $this->status == CampaignStatus::DRAFT();
+        return $this->status === CampaignStatus::DRAFT();
     }
 
     /**
@@ -112,7 +113,7 @@ class Campaign extends Model
     */
     public function isActive()
     {
-        return $this->status == CampaignStatus::ACTIVE();
+        return $this->status === CampaignStatus::ACTIVE();
     }
 
     /**
@@ -122,7 +123,7 @@ class Campaign extends Model
     */
     public function isPaused()
     {
-        return $this->status == CampaignStatus::PAUSED();
+        return $this->status === CampaignStatus::PAUSED();
     }
 
     /**
@@ -132,7 +133,7 @@ class Campaign extends Model
     */
     public function isFinished()
     {
-        return $this->status == CampaignStatus::FINISHED();
+        return $this->status === CampaignStatus::FINISHED();
     }
 
     /**
@@ -142,7 +143,7 @@ class Campaign extends Model
     */
     public function isCanceled()
     {
-        return $this->status == CampaignStatus::CANCELED();
+        return $this->status === CampaignStatus::CANCELED();
     }
 
     /**
@@ -152,7 +153,7 @@ class Campaign extends Model
     */
     public function isPending()
     {
-        return $this->status == CampaignStatus::PENDING();
+        return $this->status === CampaignStatus::PENDING();
     }
 
     /**

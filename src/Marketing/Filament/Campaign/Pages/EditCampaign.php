@@ -20,4 +20,11 @@ class EditCampaign extends EditRecord
     {
         return $this->getResource()::getUrl('view', ['record' => $this->record]);
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['properties']['channels'] = ['email'];
+
+        return $data;
+    }
 }

@@ -118,6 +118,8 @@ class CampaignResource extends Resource
                                     CheckboxList::make('properties.channels')
                                         ->label('Channels')
                                         ->required()
+                                        ->disabled()
+                                        ->readonly()
                                         ->default(['email'])
                                         ->options([
                                             'email' => 'Email',
