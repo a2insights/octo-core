@@ -50,6 +50,11 @@ class BillingWebhook extends WebhookController
                 ->whereStripeId($data['id'] ?? null)
                 ->first();
 
+            if (@$data['items']['data'][0]['plan']['id']) {
+                $subscription->stripe_price = $data['items']['data'][0]['plan']['id'];
+                $subscription->save();
+            }
+
             if ($subscription) {
                 if ($data['cancel_at']) {
                     $user->forceFill(['current_subscription_id' => null])->save();

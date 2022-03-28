@@ -15,6 +15,7 @@ models:
         timestamps: timestamps
     Campaign:
         id: increments
+        user_id: integer
         status: string
         name: string nullable
         message: text nullable

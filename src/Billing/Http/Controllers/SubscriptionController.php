@@ -34,6 +34,14 @@ class SubscriptionController extends Controller
 
         $subscription = $billable->newSubscription($plan->getName(), $plan->getId());
 
+        $meteredFeatures = $plan->getMeteredFeatures();
+
+        if (! $meteredFeatures->isEmpty()) {
+            foreach ($meteredFeatures as $feature) {
+                $subscription->meteredPrice($feature->getMeteredId());
+            }
+        }
+
         $checkout = $manager->checkoutOnSubscription(
             $subscription,
             $billable,

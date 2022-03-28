@@ -100,7 +100,8 @@ class ListUsers extends DataTableComponent
             'id' => $f['id'],
             'name' => $f['name'],
             'value' => $f['value'],
-            'total_used' => $subscription?->getUsedQuota($f['id']),
+            'used' => $subscription?->getUsedQuota($f['id']),
+            'total_used' => $subscription?->getTotalUsedQuota($f['id']),
         ]);
 
         return $user->subscription($currentPlan['name']) ? $currentPlan : null;

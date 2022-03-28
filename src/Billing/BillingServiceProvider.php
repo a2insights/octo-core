@@ -32,27 +32,29 @@ class BillingServiceProvider extends ServiceProvider
 
         Saas::currency('BRL');
 
-        Saas::plan('Free', 'price_1JgbF1KBVLqcMf8uOBf7NYAF')
+        Saas::plan('Free', 'price_1Kh0OzKBVLqcMf8ulLNlGPMv')
             ->monthly(0)
             ->features([
                 Saas::feature('1 Team', 'teams', 1, Team::class)->notResettable(),
                 Saas::feature('50 Contacts', 'contacts', 50, Contact::class)->notResettable(),
+                Saas::meteredFeature('10.000 Mails', 'metered.mails.units', 10000)
+                    ->meteredPrice('price_1Kh0OzKBVLqcMf8uHJWWnhfi', 0.1, 'unit')
             ]);
-
-        Saas::plan('Starter', 'price_1IriI3KBVLqcMf8ufdEbBfEp')
-            ->monthly(5)
+        Saas::plan('Starter', 'price_1KhNitKBVLqcMf8uDO3LHE2r')
+            ->monthly(30)
             ->features([
-                Saas::feature('2 Teams', 'teams', 2, Team::class)->notResettable(),
-                Saas::feature('100 Contacts', 'contacts', 100, Contact::class, fn () => 1)->notResettable(),
+                Saas::feature('5 Teams', 'teams', 5, Team::class)->notResettable(),
+                Saas::feature('10.000 Contacts', 'contacts', 10000, Contact::class, fn () => 1)->notResettable(),
+                Saas::meteredFeature('50.000 Mails', 'metered.mails.units', 50000)
+                    ->meteredPrice('price_1KhNitKBVLqcMf8uD3XIo5eu', 0.01, 'unit')
             ]);
-
-        Saas::plan('Prime', 'price_1Jh22oKBVLqcMf8ufFUi7upc')
-            ->monthly(10)
+        Saas::plan('Prime', 'price_1KhNnSKBVLqcMf8u5Gj5649E')
+            ->monthly(120)
             ->features([
                 Saas::feature('5 Teams', 'teams', 5, Team::class)->notResettable(),
                 Saas::feature('Unlimited contacts', 'contacts', Contact::class)->unlimited()->notResettable(),
-                Saas::meteredFeature('100 Sms', 'metered.sms.units', 100)
-                    ->meteredPrice('price_1KaSu9KBVLqcMf8ucfnWDtB2', 1, 'unit')
+                Saas::meteredFeature('150.000 Mails', 'metered.mails.units', 150000)
+                    ->meteredPrice('price_1KhNnSKBVLqcMf8uh8HjVyNC', 0.002, 'unit')
             ]);
     }
 }

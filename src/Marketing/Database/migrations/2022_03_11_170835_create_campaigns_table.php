@@ -16,6 +16,7 @@ class CreateCampaignsTable extends Migration
     {
         Schema::create('campaigns', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('status')->default(CampaignStatus::DRAFT());
             $table->string('name')->nullable();
             $table->text('message');

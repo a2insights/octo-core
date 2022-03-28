@@ -4,6 +4,7 @@ namespace Octo\Marketing\Filament\Campaign\Pages;
 
 use Filament\Resources\Pages\EditRecord;
 use Octo\Marketing\Filament\Campaign\CampaignResource;
+use Octo\Marketing\Models\Campaign;
 
 class EditCampaign extends EditRecord
 {
@@ -23,7 +24,7 @@ class EditCampaign extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $data['properties']['channels'] = ['email'];
+        $data['properties']['channels'] = [Campaign::$MAIL_CHANNEL];
 
         return $data;
     }

@@ -46,6 +46,16 @@ class MarketingServiceProvider extends PluginServiceProvider
                     'notified_at' => now(),
                     'status' => CampaignContactStatus::NOTIFIED(),
                 ]);
+
+                try {
+                    $subscription = $campaign->user->currentSubscription;
+
+                    $subscription->recordFeatureUsage('metered.mails.units', 1, true, function ($feature, $valueOverQuota, $subscription) use (&$overQuota) {
+                        $overQuota = $valueOverQuota;
+                    });
+                } catch (\Exception $e) {
+                    Log::error($e->getMessage());
+                }
             }
         });
 

@@ -40,7 +40,6 @@ class SetupDemoCommand extends Command
         ]);
 
         $user->currentSubscription->recordFeatureUsage('contacts', 49);
-        $user->currentSubscription->recordFeatureUsage('teams', 1);
 
         $user->markEmailAsVerified();
 
@@ -64,7 +63,6 @@ class SetupDemoCommand extends Command
         $user->markEmailAsVerified();
 
         $user->currentSubscription->recordFeatureUsage('contacts', 49);
-        $user->currentSubscription->recordFeatureUsage('teams', 1);
 
         $this->comment(sprintf('Log in seper admin with email %s and password %s', self::DEFAULT_SUPER_ADMIN_EMAIL, self::DEFAULT_SUPER_ADMIN_PASSWORD));
     }
@@ -74,6 +72,8 @@ class SetupDemoCommand extends Command
         $this->info('Seeding fake data in database');
 
         Contact::factory()->count(49)->create();
-        Campaign::factory()->count(10)->create();
+        Campaign::factory()->count(10)->create([
+            'user_id' => 2,
+        ]);
     }
 }

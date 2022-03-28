@@ -32,7 +32,21 @@ class HandleSubscriptions implements HandleSubscriptionsContract
      */
     public function subscribeToPlan($billable, Plan $plan)
     {
-        $billable->newSubscription($plan->getName(), $plan->getId())->create($billable->defaultPaymentMethod()->id);
+        $subscription = $billable->newSubscription($plan->getName(), $plan->getId());
+
+        $meteredFeatures = $plan->getMeteredFeatures();
+
+        if (! $meteredFeatures->isEmpty()) {
+            foreach ($meteredFeatures as $feature) {
+                $subscription->meteredPrice($feature->getMeteredId());
+            }
+        }
+
+        $subscription = $subscription->create($billable->defaultPaymentMethod()->id);
+
+        $subscription->stripe_price = $plan->getId();
+
+        $subscription->save();
     }
 
     /**
