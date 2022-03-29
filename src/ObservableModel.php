@@ -3,16 +3,23 @@
 namespace Octo;
 
 use Illuminate\Support\Facades\Auth;
+use Octo\Marketing\Stats\ContactStats;
+use Octo\Marketing\Stats\CampaignStats;
+use Illuminate\Support\Str;
 
 trait ObservableModel
 {
+    protected static $stats = [
+        'contact' => ContactStats::class,
+        'campaign' => CampaignStats::class,
+    ];
+
     protected static function booted()
     {
         parent::booted();
 
         static::creating(function ($model) {
             $user = Auth::user();
-
 
             $subscription = $user?->currentSubscription;
 
@@ -50,6 +57,14 @@ trait ObservableModel
             if ($featureObservable) {
                 $subscription->recordFeatureUsage($featureObservable->getId(), $featureObservable->calculeUsage($model));
             }
+
+            $className = (new \ReflectionClass(self::class))->getShortName();
+
+            $stats = @self::$stats[Str::lower($className)] ?? null;
+
+            if (class_exists($stats)) {
+                $stats::increase();
+            }
         });
 
         static::deleted(function ($model) {
@@ -68,6 +83,14 @@ trait ObservableModel
 
             if ($featureObservable) {
                 $subscription->reduceFeatureUsage($featureObservable->getId(), $featureObservable->calculeUsage($model));
+            }
+
+            $className = (new \ReflectionClass(self::class))->getShortName();
+
+            $stats = @self::$stats[Str::lower($className)] ?? null;
+
+            if (class_exists($stats)) {
+                $stats::decrease();
             }
         });
     }

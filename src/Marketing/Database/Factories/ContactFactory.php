@@ -30,6 +30,8 @@ class ContactFactory extends Factory
             'birthday' => $this->faker->date,
             'gender' => $this->faker->word,
             'favorite' => $this->faker->boolean,
+            'created_at' => now()->subDays(rand(1, 360)),
+            'updated_at' => now()->subDays(rand(1, 360)),
         ];
     }
 

@@ -12,11 +12,13 @@ use Octo\Marketing\Database\Factories\CampaignFactory;
 use Octo\Marketing\Enums\CampaignContactStatus;
 use Octo\Marketing\Enums\CampaignStatus;
 use Octo\Marketing\Notifications\CampaignNotification;
+use Octo\ObservableModel;
 
 class Campaign extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use ObservableModel;
 
     public static $MAIL_CHANNEL = 'mail';
 

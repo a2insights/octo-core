@@ -6,6 +6,8 @@ use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Console\Command;
 use Octo\Marketing\Models\Campaign;
 use Octo\Marketing\Models\Contact;
+use Octo\Marketing\Stats\CampaignStats;
+use Octo\Marketing\Stats\ContactStats;
 
 class SetupDemoCommand extends Command
 {
@@ -71,9 +73,12 @@ class SetupDemoCommand extends Command
     {
         $this->info('Seeding fake data in database');
 
-        Contact::factory()->count(49)->create();
-        Campaign::factory()->count(10)->create([
+        $contacts = Contact::factory()->count(49)->create();
+        $campaings = Campaign::factory()->count(10)->create([
             'user_id' => 2,
         ]);
+
+        $contacts->each(fn (Contact $c) => ContactStats::increase(1, $c->created_at));
+        $campaings->each(fn (Campaign $c) => CampaignStats::increase(1, $c->created_at));
     }
 }

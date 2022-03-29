@@ -32,6 +32,8 @@ class CampaignFactory extends Factory
             'properties' => [
                 'channels' => [Campaign::$MAIL_CHANNEL],
             ],
+            'created_at' => now()->subDays(rand(1, 360)),
+            'updated_at' => now()->subDays(rand(1, 360)),
         ];
     }
 

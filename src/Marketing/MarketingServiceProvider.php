@@ -15,6 +15,11 @@ use Octo\Marketing\Facades\CampaignContact as FacadesCampaignContact;
 use Octo\Marketing\Facades\Contact as FacadesContact;
 use Octo\Marketing\Filament\Campaign\CampaignResource;
 use Octo\Marketing\Filament\Contact\ContactResource;
+use Octo\Marketing\Filament\Widgets\CampaingsChart;
+use Octo\Marketing\Filament\Widgets\ContactsChart;
+use Octo\Marketing\Filament\Widgets\LatestCampaigns;
+use Octo\Marketing\Filament\Widgets\LatestContacts;
+use Octo\Marketing\Filament\Widgets\Overview;
 use Octo\Marketing\Models\CampaignContact;
 use Octo\Marketing\Models\Contact;
 use Spatie\LaravelPackageTools\Package;
@@ -24,6 +29,14 @@ class MarketingServiceProvider extends PluginServiceProvider
     protected array $resources = [
         ContactResource::class,
         CampaignResource::class,
+    ];
+
+    protected array $widgets = [
+        Overview::class,
+        ContactsChart::class,
+        CampaingsChart::class,
+        LatestContacts::class,
+        LatestCampaigns::class,
     ];
 
     public function boot()
