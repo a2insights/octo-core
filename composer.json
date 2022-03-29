@@ -37,7 +37,7 @@
         "rappasoft/laravel-livewire-tables": "dev-master",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-newsletter": "dev-main",
-        "spatie/laravel-stats": "dev-main",
+        "spatie/laravel-stats": "2.0",
         "stidges/laravel-country-flags": "dev-master",
         "symfony/intl": "^3.4",
         "torann/geoip": "^3.0",
