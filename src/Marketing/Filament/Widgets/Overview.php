@@ -29,7 +29,7 @@ class Overview extends BaseWidget
                 ->descriptionIcon('heroicon-s-trending-up')
                 ->chart($statsContactsWeek->pluck('value')->toArray())
                 ->color($this->color($statsContactsWeek->last())),
-            Card::make('Contacts', $statsCampaignsWeek->last()->value)
+            Card::make('Campaigns', $statsCampaignsWeek->last()->value)
                 ->description($this->description($statsCampaignsWeek->last()))
                 ->descriptionIcon('heroicon-s-trending-up')
                 ->chart($statsCampaignsWeek->pluck('value')->toArray())
