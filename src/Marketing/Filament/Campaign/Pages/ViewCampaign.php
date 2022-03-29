@@ -38,7 +38,7 @@ class ViewCampaign extends ViewRecord
                 ->icon('heroicon-o-check'),
             ButtonAction::make('start')
                 ->color('success')
-                ->visible($this->record->isDraft())
+                ->visible($this->record->isDraft() && $this->record->contacts->count() > 0)
                 ->requiresConfirmation()
                 ->action('start')
                 ->outlined()
