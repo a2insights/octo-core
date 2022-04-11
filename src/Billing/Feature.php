@@ -41,7 +41,6 @@ class Feature implements Arrayable
     */
     protected $model;
 
-
     /**
      * Create a new feature builder.
      *

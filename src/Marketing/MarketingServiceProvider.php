@@ -43,7 +43,7 @@ class MarketingServiceProvider extends PluginServiceProvider
     {
         parent::boot();
 
-        $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
+        // $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
     }
 
     public function register()
@@ -53,6 +53,7 @@ class MarketingServiceProvider extends PluginServiceProvider
         Event::listen(NotificationSent::class, function (NotificationSent $event) {
             $campaign = $event?->notification?->campaign;
             $notifiable = $event?->notifiable;
+
 
             if ($campaign instanceof Campaign) {
                 $campaign->contacts()->updateExistingPivot($notifiable->id, [

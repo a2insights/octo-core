@@ -4,7 +4,6 @@ namespace Octo\Marketing\Filament\Campaign\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use Octo\Marketing\Filament\Campaign\CampaignResource;
 use Octo\Marketing\Models\Campaign;
 
@@ -20,7 +19,6 @@ class CreateCampaign extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['properties']['channels'] = [Campaign::$MAIL_CHANNEL];
-        $data['user_id'] = Auth::user()->id;
 
         return $data;
     }

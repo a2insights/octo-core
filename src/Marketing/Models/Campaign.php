@@ -2,7 +2,6 @@
 
 namespace Octo\Marketing\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -76,11 +75,6 @@ class Campaign extends Model
         return $this->contacts()
             ->wherePivot('status', CampaignContactStatus::PENDING())
             ->count() !== 0;
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
     /**
@@ -216,7 +210,7 @@ class Campaign extends Model
             ->get();
 
         $jobs = $campaigns
-            ->map(fn ($p) => ['id' => $p->id ,'campaign' => unserialize(json_decode($p->payload, true)['data']['command'])->notification->campaign])
+            ->map(fn ($p) => ['id' => $p->id, 'campaign' => unserialize(json_decode($p->payload, true)['data']['command'])->notification->campaign])
             ->where('campaign.id', $this->id)
             ->pluck('id')
             ->toArray();

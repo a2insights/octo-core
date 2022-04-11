@@ -34,7 +34,7 @@
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.7",
         "pragmarx/countries": "^0.7.2",
-        "rappasoft/laravel-livewire-tables": "dev-master",
+        "rappasoft/laravel-livewire-tables": "^1.25",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-newsletter": "dev-main",
         "spatie/laravel-stats": "2.0",

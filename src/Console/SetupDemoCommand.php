@@ -25,10 +25,33 @@ class SetupDemoCommand extends Command
 
     public function handle()
     {
+        try {
+            \App\Models\Tenant::all()->each(function ($tenant) {
+                $tenant->delete();
+            });
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
+
         $this->call('migrate:fresh', ['--force' => true, '--seed' => true]);
-        $this->setUpAdminAccount();
-        $this->setUpUserAccount();
-        $this->factoryData();
+
+        $this->info('Creating super admin user');
+        $admin = $this->setUpAdminAccount();
+        $this->info('Super admin user created');
+
+        $this->info('Creating user account');
+        $user = $this->setUpUserAccount();
+        $this->info('User account created');
+
+        $this->info('Seeding fake data in database');
+
+        $admin->tenant->run(function () {
+            $this->factoryData();
+        });
+
+        $user->tenant->run(function () {
+            $this->factoryData();
+        });
     }
 
     private function setUpUserAccount()
@@ -46,9 +69,11 @@ class SetupDemoCommand extends Command
         $user->markEmailAsVerified();
 
         $this->comment(sprintf('Log in user with email %s and password %s', self::DEFAULT_USER_EMAIL, self::DEFAULT_USER_PASSWORD));
+
+        return $user;
     }
 
-    private function setUpAdminAccount(): void
+    private function setUpAdminAccount()
     {
         $user = (new CreateNewUser())->create([
             'name' => self::DEFAULT_SUPER_ADMIN_NAME,
@@ -67,16 +92,14 @@ class SetupDemoCommand extends Command
         $user->currentSubscription->recordFeatureUsage('contacts', 49);
 
         $this->comment(sprintf('Log in seper admin with email %s and password %s', self::DEFAULT_SUPER_ADMIN_EMAIL, self::DEFAULT_SUPER_ADMIN_PASSWORD));
+
+        return $user;
     }
 
     public function factoryData()
     {
-        $this->info('Seeding fake data in database');
-
         $contacts = Contact::factory()->count(49)->create();
-        $campaings = Campaign::factory()->count(10)->create([
-            'user_id' => 2,
-        ]);
+        $campaings = Campaign::factory()->count(10)->create();
 
         $contacts->each(fn (Contact $c) => ContactStats::increase(1, $c->created_at));
         $campaings->each(fn (Campaign $c) => CampaignStats::increase(1, $c->created_at));
