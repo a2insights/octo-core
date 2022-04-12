@@ -2,10 +2,12 @@
 
 namespace Octo;
 
+use Octo\Settings\SiteSettings;
+
 class Octo
 {
-    public static function site(): Site
+    public static function site(): SiteSettings
     {
-        return app(Site::class);
+        return app(SiteSettings::class);
     }
 }

@@ -8,14 +8,6 @@
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             @livewire('octo-system-site-info')
-
-            <x-jet-section-border />
-
-            @livewire('octo-system-site-sections')
-
-            <x-jet-section-border />
-
-            @livewire('octo-system-site-footer')
         </div>
     </div>
 

@@ -2,9 +2,10 @@
 
 namespace Octo;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PragmaRX\Countries\Package\Countries;
-use PragmaRX\Countries\Package\Support\Collection;
+use PragmaRX\Countries\Package\Support\Collection as CountryCollection;
 use Stidges\CountryFlags\CountryFlag;
 use Symfony\Component\Intl\Intl;
 use WhiteCube\Lingua\Service as Lingua;
@@ -79,11 +80,11 @@ class Country extends ObjectPrototype
     /**
      * Create country data
      *
-     * @param Collection $country
+     * @param CountryCollection $country
      * @param array $translatedNamed
      * @return array|Country|null
      */
-    private function create(Collection $country, array $translatedNamed)
+    private function create(CountryCollection $country, array $translatedNamed)
     {
         $maskbase = '99999999999999999999999';
 
@@ -93,8 +94,8 @@ class Country extends ObjectPrototype
         $nationalNumberLengths = $country['dialling']['national_number_lengths'] ?? null;
 
         if ($nationalDestinationCodeLengths && $nationalNumberLengths) {
-            $nationalDestinationCodePattern = Str::substr($maskbase,0, end($nationalDestinationCodeLengths));
-            $nationalNumberPattern = Str::substr($maskbase,0, end($nationalNumberLengths) - end($nationalDestinationCodeLengths));
+            $nationalDestinationCodePattern = Str::substr($maskbase, 0, end($nationalDestinationCodeLengths));
+            $nationalNumberPattern = Str::substr($maskbase, 0, end($nationalNumberLengths) - end($nationalDestinationCodeLengths));
         }
 
         $object = null;
@@ -116,7 +117,7 @@ class Country extends ObjectPrototype
                     'flag' => (new CountryFlag())->get($country['cca2']),
                     'name' => $translatedNamed[$country['cca2']]
                 ]);
-            } catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 return null;
             }
         }

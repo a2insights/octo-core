@@ -33,7 +33,11 @@ class PhoneInput extends Component
     {
         return view('octo::components.phone-input', [
             'country' => json_encode($this->getCountry()->toArray()),
-            'countries' => json_encode($this->countryRepository->setLocale($this->getCountry()->locale)->all())
+            'countries' => json_encode(
+                $this->countryRepository->setLocale($this->getCountry()->locale)
+                    ->all()
+                    ->map(fn ($c) => $this->preventFlag($c))
+            )
         ]);
     }
 
@@ -41,6 +45,16 @@ class PhoneInput extends Component
     {
         return $this->countryRepository->all()
             ->where('iso_code', geoip(Request::ip())->iso_code)
+            ->map(fn ($c) => $this->preventFlag($c))
             ->first();
+    }
+
+    private function preventFlag($country)
+    {
+        if ($country->calling_code == '1') {
+            $country->flag =  '🇺🇸 🇨🇦';
+        }
+
+        return $country;
     }
 }

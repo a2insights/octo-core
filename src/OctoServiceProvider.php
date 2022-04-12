@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use Octo\Billing\BillingServiceProvider;
 use Octo\Common\CommonServiceProvider;
 use Octo\Marketing\MarketingServiceProvider;
-use Octo\Settings\SettingServiceProvider;
 use Octo\System\SystemServiceProvider;
 
 class OctoServiceProvider extends ServiceProvider
@@ -34,7 +33,6 @@ class OctoServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->register(SettingServiceProvider::class);
         $this->app->register(SystemServiceProvider::class);
         $this->app->register(CommonServiceProvider::class);
         $this->app->register(BillingServiceProvider::class);

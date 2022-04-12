@@ -15,6 +15,8 @@ class SiteInfo extends Component
     public $description;
     public $demo;
 
+    private $site;
+
     protected $rules = [
         'name' => 'required|string',
         'description' => 'nullable|string',
@@ -24,10 +26,12 @@ class SiteInfo extends Component
 
     public function mount()
     {
-        $this->name = Octo::site()->name;
-        $this->description = Octo::site()->description;
-        $this->active = Octo::site()->active;
-        $this->demo = Octo::site()->demo;
+        $this->site = Octo::site();
+
+        $this->name = $this->site->name;
+        $this->description = $this->site->description;
+        $this->active = $this->site->active;
+        $this->demo =  $this->site->demo;
     }
 
     public function submit()
@@ -36,14 +40,14 @@ class SiteInfo extends Component
 
         $this->validate();
 
-        $updated = Octo::site()->update([
-            'name' => $this->name,
-            'active' => $this->active,
-            'description' => $this->description,
-            'demo' => $this->demo,
-        ]);
+        $this->site = Octo::site();
 
-        if ($updated) {
+        $this->site->name = $this->name;
+        $this->site->description = $this->description;
+        $this->site->active = $this->active;
+        $this->site->demo = $this->demo;
+
+        if ($this->site->save()) {
             $this->banner('Site updated successfully.');
             $this->emit('saved');
         } else {
