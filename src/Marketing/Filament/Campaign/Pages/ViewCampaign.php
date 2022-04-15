@@ -11,8 +11,6 @@ class ViewCampaign extends ViewRecord
 {
     protected static string $resource = CampaignResource::class;
 
-    protected static string $view = 'octo::marketing.campaign';
-
     protected function getActions(): array
     {
         return [
@@ -38,7 +36,7 @@ class ViewCampaign extends ViewRecord
                 ->icon('heroicon-o-check'),
             ButtonAction::make('start')
                 ->color('success')
-                ->visible($this->record->isDraft() && $this->record->contacts->count() > 0)
+                ->visible($this->record->isDraft())
                 ->requiresConfirmation()
                 ->action('start')
                 ->outlined()
@@ -66,9 +64,12 @@ class ViewCampaign extends ViewRecord
 
     public function start()
     {
-        $this->record->start();
-
-        return $this->back('Campaign started successfully', 'success');
+        if ($this->record->contacts->count() > 0) {
+            $this->record->start();
+            return $this->back('Campaign started successfully', 'success');
+        } else {
+            return $this->back('Campaign can be start because there are no contacts', 'danger');
+        }
     }
 
     public function pause()

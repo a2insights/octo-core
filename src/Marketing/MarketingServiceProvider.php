@@ -17,8 +17,6 @@ use Octo\Marketing\Filament\Campaign\CampaignResource;
 use Octo\Marketing\Filament\Contact\ContactResource;
 use Octo\Marketing\Filament\Widgets\CampaingsChart;
 use Octo\Marketing\Filament\Widgets\ContactsChart;
-use Octo\Marketing\Filament\Widgets\LatestCampaigns;
-use Octo\Marketing\Filament\Widgets\LatestContacts;
 use Octo\Marketing\Filament\Widgets\Overview;
 use Octo\Marketing\Models\CampaignContact;
 use Octo\Marketing\Models\Contact;
@@ -35,15 +33,11 @@ class MarketingServiceProvider extends PluginServiceProvider
         Overview::class,
         ContactsChart::class,
         CampaingsChart::class,
-        LatestContacts::class,
-        LatestCampaigns::class,
     ];
 
     public function boot()
     {
         parent::boot();
-
-        // $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
     }
 
     public function register()

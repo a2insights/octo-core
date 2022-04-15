@@ -70,7 +70,7 @@ class CampaignResource extends Resource
                 LinkAction::make('delete')
                     ->action(fn ($record) =>  $record->isDraft() ? $record->delete() : null)
                     ->disabled(fn ($record) => !$record->isDraft())
-                    ->requiresConfirmation()
+                    ->icon('heroicon-o-trash')
                     ->color('danger'),
             ]);
     }

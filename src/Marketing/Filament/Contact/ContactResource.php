@@ -19,6 +19,7 @@ use Filament\Tables\Filters\MultiSelectFilter;
 use Octo\Marketing\Filament\Contact\Pages\CreateContact;
 use Octo\Marketing\Filament\Contact\Pages\EditContact;
 use Octo\Marketing\Filament\Contact\Pages\ListContacts;
+use Octo\Marketing\Filament\Contact\Pages\ViewContact;
 use Octo\Marketing\Models\Contact;
 
 class ContactResource extends Resource
@@ -66,20 +67,13 @@ class ContactResource extends Resource
             ->filters([
                 MultiSelectFilter::make('tags')
                     ->relationship('tags', 'name'),
-
             ])->pushActions([
                 LinkAction::make('delete')
                     ->action(fn ($record) => $record->delete())
-                    ->requiresConfirmation()
+                    ->icon('heroicon-o-trash')
+                    ->requiresConfirmation('Are you sure you want to delete this contact?')
                     ->color('danger'),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
@@ -88,6 +82,7 @@ class ContactResource extends Resource
             'index' => ListContacts::route('/'),
             'create' => CreateContact::route('/create'),
             'edit' => EditContact::route('/{record}/edit'),
+            'view' => ViewContact::route('/{record}'),
         ];
     }
 
