@@ -54,6 +54,12 @@ class MenuServiceProvider extends ServiceProvider
                 'route'  => 'system.site',
                 'active' => Route::is('system.site'),
             ],
+            [
+                'name'   => 'Themes',
+                'icon'   => 'themes',
+                'route'  => 'system.themes',
+                'active' => Route::is('system.themes'),
+            ],
         ];
     }
 }

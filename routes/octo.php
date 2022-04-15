@@ -10,6 +10,7 @@ use Octo\Billing\Http\Middleware\Authorize;
 use Octo\Common\Http\NotificationsController;
 use Octo\System\Http\Controllers\DashboardController;
 use Octo\System\Http\Controllers\SiteController;
+use Octo\System\Http\Controllers\ThemesController;
 use Octo\System\Http\Controllers\UsersController;
 
 Route::post('billing/stripe/webhook', [BillingWebhook::class, 'handleWebhook'])->name('billing.webhook');
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['middleware' => ['system.dashboard']], function () {
             Route::get('/system/users', [UsersController::class, 'index'])->name('system.users.index');
             Route::get('/system/site', [SiteController::class, 'index'])->name('system.site');
+            Route::get('/system/themes', [ThemesController::class, 'index'])->name('system.themes');
             Route::prefix('/system/dashboard')->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('system.dashboard');
             });
