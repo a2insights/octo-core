@@ -71,7 +71,7 @@ class ContactResource extends Resource
                 LinkAction::make('delete')
                     ->action(fn ($record) => $record->delete())
                     ->icon('heroicon-o-trash')
-                    ->requiresConfirmation('Are you sure you want to delete this contact?')
+                    ->requiresConfirmation()
                     ->color('danger'),
             ]);
     }

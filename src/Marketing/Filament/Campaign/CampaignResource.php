@@ -71,6 +71,7 @@ class CampaignResource extends Resource
                     ->action(fn ($record) =>  $record->isDraft() ? $record->delete() : null)
                     ->disabled(fn ($record) => !$record->isDraft())
                     ->icon('heroicon-o-trash')
+                    ->requiresConfirmation()
                     ->color('danger'),
             ]);
     }
