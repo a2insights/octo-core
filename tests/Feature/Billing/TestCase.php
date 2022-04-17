@@ -218,13 +218,6 @@ abstract class TestCase extends TestsTestCase
 
         $app['config']->set('app.key', 'wslxrEFGWY6GfGhvN9L3wH3KSRJQQpBD');
         $app['config']->set('auth.providers.users.model', Models\User::class);
-        /*  $app['config']->set('database.default', 'sqlite');
-         $app['config']->set('database.connections.sqlite', [
-             'driver'   => 'sqlite',
-             'database' => __DIR__.'/database.sqlite',
-             'prefix'   => '',
-         ]);
- */
         $app['config']->set('billing.middleware', [
             'web',
             \Octo\Billing\Http\Middleware\Authorize::class,
@@ -234,16 +227,6 @@ abstract class TestCase extends TestsTestCase
 
         $app['config']->set('jetstream.stack', 'livewire');
     }
-
-    /**
-     * Reset the database.
-     *
-     * @return void
-     */
-    /*    protected function resetDatabase()
-       {
-           file_put_contents(__DIR__.'/database.sqlite', null);
-       } */
 
     /**
      * Create a new subscription.

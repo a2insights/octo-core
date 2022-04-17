@@ -16,7 +16,6 @@ class InstallAddonCommand extends Command
      */
     protected $signature = 'octo:addon-install {composer_command} {composer_json_path}';
 
-
     /**
      * The console command description.
      *
