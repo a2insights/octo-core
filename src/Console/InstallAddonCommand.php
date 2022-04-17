@@ -3,27 +3,26 @@
 namespace Octo\Console;
 
 use Illuminate\Console\Command;
-use Octo\Concerns\HasSmsProviderConfig;
 use Octo\Console\Concerns\InteractWithComposer;
 
-class UninstallSmsDriverCommand extends Command
+class InstallAddonCommand extends Command
 {
     use InteractWithComposer;
-    use HasSmsProviderConfig;
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'octo:sms-uninstall {provider}';
+    protected $signature = 'octo:addon-install {composer_command} {composer_json_path}';
+
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install the octo sms feature';
+    protected $description = 'Install the octo addon feature';
 
     /**
      * Execute the console command.
@@ -32,9 +31,9 @@ class UninstallSmsDriverCommand extends Command
      */
     public function handle()
     {
-        $this->info("\nOcto SMS Installer");
+        $this->info("\nOcto Addon Installer");
         $this->info("--------------------\n");
 
-        $this->removeComposerPackages($this->getSmsProvider($this->argument('provider'))['sdk']);
+        $this->composer($this->argument('composer_command'), $this->argument('composer_json_path'));
     }
 }

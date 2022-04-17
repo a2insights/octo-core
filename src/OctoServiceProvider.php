@@ -26,6 +26,7 @@ class OctoServiceProvider extends ServiceProvider
             Console\UninstallSmsDriverCommand::class,
             Console\SetupDemoCommand::class,
             Console\InstallCommand::class,
+            Console\InstallAddonCommand::class,
         ]);
 
         $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');

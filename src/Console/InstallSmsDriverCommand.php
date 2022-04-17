@@ -4,7 +4,7 @@ namespace Octo\Console;
 
 use Illuminate\Console\Command;
 use Octo\Concerns\HasSmsProviderConfig;
-use Octo\Concerns\InteractWithComposer;
+use Octo\Console\Concerns\InteractWithComposer;
 
 class InstallSmsDriverCommand extends Command
 {
@@ -16,8 +16,7 @@ class InstallSmsDriverCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'octo:sms-install {provider}
-                           {--composer=global : Absolute path to the Composer binary which should be used to install packages}';
+    protected $signature = 'octo:sms-install {provider}';
 
     /**
      * The console command description.
