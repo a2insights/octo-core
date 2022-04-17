@@ -2,7 +2,6 @@
 
 namespace Octo;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PragmaRX\Countries\Package\Countries;
 use PragmaRX\Countries\Package\Support\Collection as CountryCollection;
