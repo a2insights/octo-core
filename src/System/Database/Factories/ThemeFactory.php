@@ -23,7 +23,7 @@ class ThemeFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'slug' => $this->faker->slug,
+            'title' => $this->faker->name,
             'description' => $this->faker->sentence,
             'author' => $this->faker->name,
             'license' => $this->faker->word,

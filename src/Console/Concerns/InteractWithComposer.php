@@ -2,71 +2,41 @@
 
 namespace Octo\Console\Concerns;
 
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 trait InteractWithComposer
 {
     /**
-     * Installs the given Composer Packages into the application.
-     *
-     * @param mixed $packages
-     * @param string $workingPath
-     * @return void
-     */
-    protected function requireComposerPackages($packages, $workingPath = null)
-    {
-        $this->composer('require', $workingPath ?? base_path(), $packages);
-    }
-
-    /**
-     * Installs the given Composer Packages into the application.
-     *
-     * @param mixed $packages
-     * @param string $workingPath
-     * @return void
-     */
-    protected function removeComposerPackages($packages, $workingPath = null)
-    {
-        $this->composer('remove', $workingPath ?? base_path(), $packages);
-    }
-
-    /**
-    * Update the given Composer Packages into the application.
-    *
-    * @param string $workingPath
-    * @return void
-    */
-    protected function updateComposerPackages($workingPath = null)
-    {
-        $this->composer(['update'], $workingPath ?? base_path());
-    }
-
-    /**
      * Execute composer comand.
      *
-     * @param array $command
-     * @param string $workingPath
-     * @param mixed $packages
+     * @param array $commands
      * @return void
      */
-    public function composer($command, $workingPath, $packages = [])
+    public function composer($commands)
     {
-        $composer = 'global';
+        $commands = array_merge([$this->phpBinary(), 'composer.phar'], $commands);
 
-        if ($composer !== 'global') {
-            $commandArr = ['php', $composer, $command];
-        }
+        $vars = [
+            'COMPOSER_MEMORY_LIMIT' => '-1',
+            'COMPOSER_HOME' =>  base_path(),
+            'COMPOSER_CACHE_DIR' => '/tmp/composer-cache',
+        ];
 
-        $commands = array_merge(
-            $commandArr ?? ['composer'],
-            $command,
-            is_array($packages) ? $packages : func_get_args()
-        );
-
-        (new Process($commands, $workingPath, ['COMPOSER_MEMORY_LIMIT' => '-1']))
+        (new Process($commands, base_path(), $vars))
             ->setTimeout(null)
             ->run(function ($type, $output) {
                 $this->output->write($output);
             });
+    }
+
+    /**
+     * Get the path to the appropriate PHP binary.
+     *
+     * @return string
+     */
+    protected function phpBinary()
+    {
+        return (new PhpExecutableFinder())->find(false) ?: 'php';
     }
 }

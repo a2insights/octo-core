@@ -8,30 +8,30 @@ use LaravelViews\Views\View;
 use Octo\System\Addons\AddonManager;
 use Octo\System\Addons\ThemeAddon;
 
-class ThemeInstallAction extends Action
+class ThemeUninstallAction extends Action
 {
     use Confirmable;
 
-    public $title = "Install theme";
+    public $title = "Uninstall theme";
 
-    public $icon = "download";
+    public $icon = "trash";
 
     public function getConfirmationMessage($model = null)
     {
-        return "Do you really want to install {$model->name} theme?";
+        return "Do you really want to uninstall {$model->name} theme?";
     }
 
     public function handle($model, View $view)
     {
         $manager = new AddonManager();
 
-        $manager->install((new ThemeAddon($model)));
+        $manager->uninstall((new ThemeAddon($model)));
 
-        $this->success("Theme {$model->name} installed successfully!");
+        $this->success("Theme {$model->name} uninstalled successfully!");
     }
 
     public function renderIf($item, View $view)
     {
-        return !$item->installed;
+        return $item->installed;
     }
 }

@@ -6,13 +6,13 @@ interface AddonContract
 {
     public function getName(): string;
 
-    public function getRepositoryName(): string;
+    public function getVersion(): string;
 
     public function getRepositoryUrl(): string;
 
-    public function install(): void;
+    public function markAsInstalled(): void;
 
-    public function uninstall(): void;
+    public function markAsUninstalled(): void;
 
     public function isInstalled(): bool;
 

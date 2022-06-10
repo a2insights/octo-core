@@ -3,7 +3,6 @@
 namespace Octo\System\Addons;
 
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
 use Octo\System\Addons\Contracts\AddonContract;
 use Octo\System\Addons\Types\VcsAddon;
 
@@ -24,25 +23,6 @@ class AddonManager
     protected $plugins = [];
 
     /**
-    * Path to the composer.json addon.
-    *
-    * @var string
-    */
-    protected string $composerJsonPath;
-
-    /**
-     * AddonManager constructor.
-     *
-     * @param string $composerJsonPath
-     */
-    public function __construct($composerJsonPath = null)
-    {
-        $this->composerJsonPath = $composerJsonPath  ?? storage_path('app/addons');
-
-        $this->ensureComposerJsonExists();
-    }
-
-    /**
      * Install an addon.
      *
      * @param AddonContract $addon
@@ -50,41 +30,48 @@ class AddonManager
      */
     public function install(AddonContract $addon)
     {
-        $addon = $this->getAddon($addon);
-
         if ($addon->isInstalled()) {
             return;
         }
 
-        $this->pushAddonToComposer($addon);
+        $addonType = $this->resolveAddonType($addon);
 
-        $addon->install();
+        try {
+            Artisan::call("octo:composer", [
+                'instructions' => $addonType->add()
+            ]);
+
+            Artisan::call("octo:composer", [
+                'instructions' => "require|{$addon->getName()}:{$addon->getVersion()}"
+            ]);
+
+            $addon->markAsInstalled();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     /**
      * Uninstall an addon.
      *
+     * @param AddonContract $addon
      * @return void
      */
-    public function uninstall($addon)
+    public function uninstall(AddonContract $addon)
     {
-        $addon = $this->getAddon($addon);
-
         if (! $addon->isInstalled()) {
             return;
         }
 
-        $addon->uninstall();
-    }
+        try {
+            Artisan::call("octo:composer", [
+                'instructions' => "remove|{$addon->getName()}:{$addon->getVersion()}"
+            ]);
 
-    /**
-     * Get an addon.
-     *
-     * @return AddonContract
-     */
-    public function getAddon(AddonContract $addon): AddonContract
-    {
-        return $addon;
+            $addon->markAsUninstalled();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     /**
@@ -107,48 +94,10 @@ class AddonManager
         return $this->plugins;
     }
 
-    /**
-     * Push an addon to composer.json file.
-     *
-     * @return void
-     */
-    protected function pushAddonToComposer(AddonContract $addon)
-    {
-        Artisan::call('octo:addon-install', [
-            'composer_command' => $this->buildAddomPusCommand($addon),
-            'composer_json_path' => $this->composerJsonPath,
-        ]);
-    }
-
-    /**
-     * Build the addon push command.
-     *
-     * @param AddonContract $addon
-     * @return array
-     */
-    private function buildAddomPusCommand(AddonContract $addon)
+    private function resolveAddonType(AddonContract $addon)
     {
         if ($addon->isVcs()) {
-            return [
-                'config',
-                "repositories.{$addon->getRepositoryName()}",
-                (new VcsAddon($addon->getName(), $addon->getRepositoryUrl()))->toJson(),
-            ];
-        }
-    }
-
-    /**
-     * Ensure the composer.json file exists.
-     *
-     * @return void
-     */
-    private function ensureComposerJsonExists()
-    {
-        $filePath = "$this->composerJsonPath/composer.json";
-
-        if (! file_exists($filePath)) {
-            file_put_contents($filePath, '{}');
-            Storage::disk('local')->put($filePath, '{}');
+            return new VcsAddon($addon->getName(), $addon->getRepositoryUrl());
         }
     }
 }

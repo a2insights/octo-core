@@ -7,7 +7,7 @@ class VcsAddon
     /**
      * Addon name.
      *
-     * @param Theme $theme
+     * @param string
      */
     protected $name;
 
@@ -32,15 +32,12 @@ class VcsAddon
     }
 
     /**
-     * Get addon string representation.
+     * Get addon array representation.
      *
-     * @return string
+     * @return array
      */
-    public function toJson(): string
+    public function add(): string
     {
-        return json_encode([
-            'type' => $this->type,
-            'url' => $this->url,
-        ]);
+        return "config|repositories.{$this->name}|vcs|{$this->url}";
     }
 }

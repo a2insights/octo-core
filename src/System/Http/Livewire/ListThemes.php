@@ -11,15 +11,15 @@ class ListThemes extends GridView
 
     public $withBackground = true;
 
-    public $maxCols = 4;
+    public $maxCols = 3;
 
-    public $searchBy = ['name', 'description'];
+    public $searchBy = ['name', 'title', 'description'];
 
     public function card($model)
     {
         return [
-            'image' => 'https://via.placeholder.com/150',
-            'title' => $model->name,
+            'image' => $model->thumbnail,
+            'title' => $model->title,
             'subtitle' => $model->version,
             'description' => $model->description
         ];
@@ -28,7 +28,8 @@ class ListThemes extends GridView
     protected function actionsByRow()
     {
         return [
-            new ThemeInstallAction,
+            new ThemeInstallAction(),
+            new ThemeUninstallAction(),
         ];
     }
 }

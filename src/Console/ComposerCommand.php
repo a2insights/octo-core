@@ -5,7 +5,7 @@ namespace Octo\Console;
 use Illuminate\Console\Command;
 use Octo\Console\Concerns\InteractWithComposer;
 
-class InstallAddonCommand extends Command
+class ComposerCommand extends Command
 {
     use InteractWithComposer;
 
@@ -14,14 +14,14 @@ class InstallAddonCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'octo:addon-install {composer_command} {composer_json_path}';
+    protected $signature = 'octo:composer {instructions}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install the octo addon feature';
+    protected $description = 'Composer command';
 
     /**
      * Execute the console command.
@@ -30,9 +30,9 @@ class InstallAddonCommand extends Command
      */
     public function handle()
     {
-        $this->info("\nOcto Addon Installer");
+        $this->info("\nComposer Command");
         $this->info("--------------------\n");
 
-        $this->composer($this->argument('composer_command'), $this->argument('composer_json_path'));
+        $this->composer(explode('|', $this->argument('instructions')));
     }
 }

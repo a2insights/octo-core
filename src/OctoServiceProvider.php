@@ -22,14 +22,21 @@ class OctoServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'octo');
 
         $this->commands([
-            Console\InstallSmsDriverCommand::class,
-            Console\UninstallSmsDriverCommand::class,
             Console\SetupDemoCommand::class,
             Console\InstallCommand::class,
-            Console\InstallAddonCommand::class,
+            Console\ComposerCommand::class,
         ]);
 
         $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
+
+        Filament::serving(function (): void {
+            Filament::registerTheme(mix('css/app.css'));
+
+            Filament::registerNavigationGroups([
+                'Marketing',
+                'Settings',
+            ]);
+        });
     }
 
     public function register()
@@ -42,14 +49,5 @@ class OctoServiceProvider extends ServiceProvider
         $this->app->register(MarketingServiceProvider::class);
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
         $this->mergeConfigFrom(__DIR__.'/../config/services.php', 'services');
-
-        Filament::serving(function (): void {
-            Filament::registerTheme(mix('css/app.css'));
-
-            Filament::registerNavigationGroups([
-                'Marketing',
-                'Settings',
-            ]);
-        });
     }
 }

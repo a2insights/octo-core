@@ -35,13 +35,13 @@ class ThemeAddon implements AddonContract
     }
 
     /**
-     * Get the addon repository name.
+     * Get the addon version.
      *
      * @return string
      */
-    public function getRepositoryName(): string
+    public function getVersion(): string
     {
-        return explode('/', $this->theme->name)[0];
+        return $this->theme->version;
     }
 
     /**
@@ -59,9 +59,10 @@ class ThemeAddon implements AddonContract
      *
      * @return void
      */
-    public function install(): void
+    public function markAsInstalled(): void
     {
         $this->theme->installed = true;
+        $this->theme->save();
     }
 
     /**
@@ -69,10 +70,11 @@ class ThemeAddon implements AddonContract
      *
      * @return void
      */
-    public function uninstall(): void
+    public function markAsUninstalled(): void
     {
         $this->theme->active = false;
         $this->theme->installed = false;
+        $this->theme->save();
     }
 
     /**
