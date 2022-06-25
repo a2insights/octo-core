@@ -29,3 +29,42 @@ if (!function_exists('demo')) {
         ->first() : null;
     }
 }
+
+if (!function_exists('if_feature_is_enabled')) {
+    /**
+     * Perform action if feature is enabled
+     *
+     * @param string $feature
+     * @param function $callback
+     * @return bool
+     */
+    function if_feature_is_enabled($feature, $callback)
+    {
+        // TODO: implement with some package
+        if (feature($feature)) {
+            return $callback();
+        }
+
+        return false;
+    }
+}
+
+if (!function_exists('feature')) {
+    /**
+     * Check if feature is enabled
+     *
+     * @param string $feature
+     * @return bool
+     */
+    function feature($feature)
+    {
+        // TODO: implement with some package
+        $features = config('octo.features');
+
+        if (isset($features[$feature]) && $features[$feature]) {
+            return true;
+        }
+
+        return false;
+    }
+}

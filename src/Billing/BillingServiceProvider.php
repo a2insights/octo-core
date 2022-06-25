@@ -32,29 +32,38 @@ class BillingServiceProvider extends ServiceProvider
 
         Saas::currency('BRL');
 
-        Saas::plan('Free', 'price_1Kh0OzKBVLqcMf8ulLNlGPMv')
+        Saas::plan('Free', config('octo.free-plan-price-id', null))
             ->monthly(0)
             ->features([
                 Saas::feature('1 Team', 'teams', 1, Team::class)->notResettable(),
                 Saas::feature('50 Contacts', 'contacts', 50, Contact::class)->notResettable(),
-                Saas::meteredFeature('10.000 Mails', 'metered.mails.units', 10000)
-                    ->meteredPrice('price_1Kh0OzKBVLqcMf8uHJWWnhfi', 0.1, 'unit')
             ]);
-        Saas::plan('Starter', 'price_1KhNitKBVLqcMf8uDO3LHE2r')
-            ->monthly(30)
-            ->features([
-                Saas::feature('5 Teams', 'teams', 5, Team::class)->notResettable(),
-                Saas::feature('10.000 Contacts', 'contacts', 10000, Contact::class, fn () => 1)->notResettable(),
-                Saas::meteredFeature('50.000 Mails', 'metered.mails.units', 50000)
-                    ->meteredPrice('price_1KhNitKBVLqcMf8uD3XIo5eu', 0.01, 'unit')
-            ]);
-        Saas::plan('Prime', 'price_1KhNnSKBVLqcMf8u5Gj5649E')
-            ->monthly(120)
-            ->features([
-                Saas::feature('5 Teams', 'teams', 5, Team::class)->notResettable(),
-                Saas::feature('Unlimited contacts', 'contacts', Contact::class)->unlimited()->notResettable(),
-                Saas::meteredFeature('150.000 Mails', 'metered.mails.units', 150000)
-                    ->meteredPrice('price_1KhNnSKBVLqcMf8uh8HjVyNC', 0.002, 'unit')
-            ]);
+
+        // You can register your own plans like this:
+
+        /*  Saas::plan('Free', '')
+             ->monthly(0)
+             ->features([
+                 Saas::feature('1 Team', 'teams', 1, Team::class)->notResettable(),
+                 Saas::feature('50 Contacts', 'contacts', 50, Contact::class)->notResettable(),
+                 Saas::meteredFeature('10.000 Mails', 'metered.mails.units', 10000)
+                     ->meteredPrice('price_1Kh0OzKBVLqcMf8uHJWWnhfi', 0.1, 'unit')
+             ]);
+          Saas::plan('Starter', 'price_1KhNitKBVLqcMf8uDO3LHE2r')
+              ->monthly(30)
+              ->features([
+                  Saas::feature('5 Teams', 'teams', 5, Team::class)->notResettable(),
+                  Saas::feature('10.000 Contacts', 'contacts', 10000, Contact::class, fn () => 1)->notResettable(),
+                  Saas::meteredFeature('50.000 Mails', 'metered.mails.units', 50000)
+                      ->meteredPrice('price_1KhNitKBVLqcMf8uD3XIo5eu', 0.01, 'unit')
+              ]);
+          Saas::plan('Prime', 'price_1KhNnSKBVLqcMf8u5Gj5649E')
+              ->monthly(120)
+              ->features([
+                  Saas::feature('5 Teams', 'teams', 5, Team::class)->notResettable(),
+                  Saas::feature('Unlimited contacts', 'contacts', Contact::class)->unlimited()->notResettable(),
+                  Saas::meteredFeature('150.000 Mails', 'metered.mails.units', 150000)
+                      ->meteredPrice('price_1KhNnSKBVLqcMf8uh8HjVyNC', 0.002, 'unit')
+              ]); */
     }
 }

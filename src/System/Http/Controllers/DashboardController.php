@@ -18,7 +18,7 @@ class DashboardController extends Controller
                     'route' => route('system.users.index'),
                     'color' => 'primary',
                     'direction' => 'up',
-                    'percent' => '10',
+                    // 'percent' => '10',
                 ]
             ],
         ]);

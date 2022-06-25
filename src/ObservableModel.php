@@ -19,45 +19,30 @@ trait ObservableModel
         parent::booted();
 
         static::creating(function ($model) {
-            $user = Auth::user();
+            if_feature_is_enabled('billing', function () {
+                $user = Auth::user();
 
-            $subscription = $user?->currentSubscription;
+                $subscription = $user?->currentSubscription;
 
-            if (!$subscription) {
-                return;
-            }
-
-            $features = $subscription->features;
-
-            /** @var \Octo\Billing\Feature $featureObservable */
-            $featureObservable = $features->filter(fn ($f) => $f->getModel() === self::class)->first();
-
-            if ($featureObservable) {
-                if ($subscription->getRemainingQuota($featureObservable) <= 0) {
-                    abort(403, 'Subscription quota exceeded');
+                if (!$subscription) {
+                    return;
                 }
-            }
+
+                $features = $subscription->features;
+
+                /** @var \Octo\Billing\Feature $featureObservable */
+                $featureObservable = $features->filter(fn ($f) => $f->getModel() === self::class)->first();
+
+                if ($featureObservable) {
+                    if ($subscription->getRemainingQuota($featureObservable) <= 0) {
+                        abort(403, 'Subscription quota exceeded');
+                    }
+                }
+            });
         });
 
 
         static::created(function ($model) {
-            $user = Auth::user();
-
-            $subscription = $user?->currentSubscription;
-
-            if (!$subscription) {
-                return;
-            }
-
-            $features = $subscription->features;
-
-            /** @var \Octo\Billing\Feature $featureObservable */
-            $featureObservable = $features->filter(fn ($f) => $f->getModel() === self::class)->first();
-
-            if ($featureObservable) {
-                $subscription->recordFeatureUsage($featureObservable->getId(), $featureObservable->calculeUsage($model));
-            }
-
             $className = (new \ReflectionClass(self::class))->getShortName();
 
             $stats = @self::$stats[Str::lower($className)] ?? null;
@@ -65,26 +50,28 @@ trait ObservableModel
             if (class_exists($stats)) {
                 $stats::increase();
             }
+
+            if_feature_is_enabled('billing', function () {
+                $user = Auth::user();
+
+                $subscription = $user?->currentSubscription;
+
+                if (!$subscription) {
+                    return;
+                }
+
+                $features = $subscription->features;
+
+                /** @var \Octo\Billing\Feature $featureObservable */
+                $featureObservable = $features->filter(fn ($f) => $f->getModel() === self::class)->first();
+
+                if ($featureObservable) {
+                    $subscription->recordFeatureUsage($featureObservable->getId(), $featureObservable->calculeUsage($model));
+                }
+            });
         });
 
         static::deleted(function ($model) {
-            $user = Auth::user();
-
-            $subscription = $user?->currentSubscription;
-
-            if (!$subscription) {
-                return;
-            }
-
-            $features = $subscription->features;
-
-            /** @var \Octo\Billing\Feature $featureObservable */
-            $featureObservable = $features->filter(fn ($f) => $f->getModel() === self::class)->first();
-
-            if ($featureObservable) {
-                $subscription->reduceFeatureUsage($featureObservable->getId(), $featureObservable->calculeUsage($model));
-            }
-
             $className = (new \ReflectionClass(self::class))->getShortName();
 
             $stats = @self::$stats[Str::lower($className)] ?? null;
@@ -92,6 +79,25 @@ trait ObservableModel
             if (class_exists($stats)) {
                 $stats::decrease();
             }
+
+            if_feature_is_enabled('billing', function () {
+                $user = Auth::user();
+
+                $subscription = $user?->currentSubscription;
+
+                if (!$subscription) {
+                    return;
+                }
+
+                $features = $subscription->features;
+
+                /** @var \Octo\Billing\Feature $featureObservable */
+                $featureObservable = $features->filter(fn ($f) => $f->getModel() === self::class)->first();
+
+                if ($featureObservable) {
+                    $subscription->reduceFeatureUsage($featureObservable->getId(), $featureObservable->calculeUsage($model));
+                }
+            });
         });
     }
 }

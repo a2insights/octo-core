@@ -31,20 +31,24 @@ class ListUsers extends DataTableComponent
 
     public function viewModal($id): void
     {
-        $this->user = User::findOrFail($id);
+        if_feature_is_enabled('billing', function () use ($id) {
+            $this->user = User::findOrFail($id);
 
-        $this->viewingModal = true;
-        $this->plan = $this->getCurrentPlan($this->user);
-        $this->plans = Saas::getPlans()
-            ->filter(
-                fn ($p) => in_array(
-                    $p->getId(),
-                    $this->user->subscriptions
-                        ->filter(fn ($s) => $s->stripe_price !== $this->plan['id'])
-                        ->pluck('stripe_price')
-                        ->toArray()
-                )
-            )->toArray();
+            $this->viewingModal = true;
+
+            $this->plan = $this->getCurrentPlan($this->user);
+
+            $this->plans = Saas::getPlans()
+                ->filter(
+                    fn ($p) => in_array(
+                        $p->getId(),
+                        $this->user->subscriptions
+                            ->filter(fn ($s) => $s->stripe_price !== $this->plan['id'])
+                            ->pluck('stripe_price')
+                            ->toArray()
+                    )
+                )->toArray();
+        });
     }
 
     public function resetModal(): void

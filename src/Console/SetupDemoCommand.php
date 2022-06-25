@@ -36,7 +36,7 @@ class SetupDemoCommand extends Command
         $this->call('migrate:fresh', ['--force' => true, '--seed' => true]);
 
         $this->info('Creating super admin user');
-        $admin = $this->setUpAdminAccount();
+        $admin = $this->setUpSuperAdminAccount();
         $this->info('Super admin user created');
 
         $this->info('Creating user account');
@@ -64,7 +64,9 @@ class SetupDemoCommand extends Command
             'terms' => true,
         ]);
 
-        $user->currentSubscription->recordFeatureUsage('contacts', 49);
+        if_feature_is_enabled('billing', function () use ($user) {
+            $user->currentSubscription->recordFeatureUsage('contacts', 49);
+        });
 
         $user->markEmailAsVerified();
 
@@ -73,7 +75,7 @@ class SetupDemoCommand extends Command
         return $user;
     }
 
-    private function setUpAdminAccount()
+    private function setUpSuperAdminAccount()
     {
         $user = (new CreateNewUser())->create([
             'name' => self::DEFAULT_SUPER_ADMIN_NAME,
@@ -89,7 +91,9 @@ class SetupDemoCommand extends Command
 
         $user->markEmailAsVerified();
 
-        $user->currentSubscription->recordFeatureUsage('contacts', 49);
+        if_feature_is_enabled('billing', function () use ($user) {
+            $user->currentSubscription->recordFeatureUsage('contacts', 49);
+        });
 
         $this->comment(sprintf('Log in seper admin with email %s and password %s', self::DEFAULT_SUPER_ADMIN_EMAIL, self::DEFAULT_SUPER_ADMIN_PASSWORD));
 

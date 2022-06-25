@@ -92,7 +92,7 @@
                         </x-jet-secondary-button>
                     @endif
 
-                    @if ($billable->subscription($plan->getName()) && $billable->subscription($plan->getName())->canceled() && $billable->subscription($plan->getName())->onGracePeriod())
+                    @if ($billable->subscription($plan->getName()) && $billable->subscription($plan->getName())->onGracePeriod())
                         <x-jet-button wire:click="resumeSubscription('{{ $plan->getId() }}')"
                             wire:loading.attr="disable"
                             class="bg-indigo-100 hover:bg-indigo-200 text-indigo-600 hover:text-indigo-700 font-bold border-none shadow-none text-center">

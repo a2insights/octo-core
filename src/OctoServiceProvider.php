@@ -3,6 +3,7 @@
 namespace Octo;
 
 use Filament\Facades\Filament;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Octo\Billing\BillingServiceProvider;
 use Octo\Common\CommonServiceProvider;
@@ -29,13 +30,33 @@ class OctoServiceProvider extends ServiceProvider
         ]);
 
         $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
+
+        Filament::serving(function (): void {
+            Filament::registerTheme(mix('css/app.css'));
+
+            Filament::registerNavigationGroups([
+                'Marketing',
+                'Settings',
+            ]);
+        });
+
+        // TODO: Add Blade directives for the following: using feature package. It is an workaround.
+        Blade::if('feature', function (string $feature, $applyIfOn = true) {
+            return $applyIfOn
+                ? feature($feature)
+                : ! feature($feature);
+        });
     }
 
     public function register()
     {
         $this->app->register(SystemServiceProvider::class);
         $this->app->register(CommonServiceProvider::class);
-        $this->app->register(BillingServiceProvider::class);
+
+        if_feature_is_enabled('billing', function () {
+            $this->app->register(BillingServiceProvider::class);
+        });
+
         $this->app->register(MenuServiceProvider::class);
         $this->app->register(CommonServiceProvider::class);
         $this->app->register(MarketingServiceProvider::class);
