@@ -4,7 +4,7 @@ namespace Octo\Billing\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\RedirectResponse;
-use Octo\Billing\Billing;
+use OctoBilling\Billing;
 
 class Authorize
 {

@@ -4,9 +4,9 @@ namespace Octo\Billing\Http\Livewire;
 
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
-use Octo\Billing\Billing;
-use Octo\Billing\Contracts\HandleSubscriptions;
-use Octo\Billing\Saas;
+use OctoBilling\Billing;
+use OctoBilling\Contracts\HandleSubscriptions;
+use OctoBilling\Saas;
 
 class PlansSlide extends Component
 {

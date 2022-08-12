@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
-use Octo\Billing\Billing;
+use OctoBilling\Billing;
 
 class ListPaymentMethods extends Component
 {

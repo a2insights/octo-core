@@ -6,11 +6,11 @@ use App\Models\Team;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 use Livewire\Livewire;
-use Octo\Billing\Actions\HandleSubscriptions;
-use Octo\Billing\Billing;
 use Octo\Billing\Http\Livewire\ListPaymentMethods;
 use Octo\Billing\Http\Livewire\PlansSlide;
 use Octo\Marketing\Models\Contact;
+use OctoBilling\Billing;
+use OctoBilling\Saas;
 
 class BillingServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class BillingServiceProvider extends ServiceProvider
         Livewire::component('plans-slide', PlansSlide::class);
         Livewire::component('list-payment-methods', ListPaymentMethods::class);
 
-        Cashier::useSubscriptionModel(\Octo\Billing\Models\Subscription::class);
+        Cashier::useSubscriptionModel(\OctoBilling\Models\Subscription::class);
 
         Billing::dontProrateOnSwap();
 

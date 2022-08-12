@@ -13,8 +13,6 @@ use Octo\System\Http\Controllers\SiteController;
 use Octo\System\Http\Controllers\ThemesController;
 use Octo\System\Http\Controllers\UsersController;
 
-Route::post('billing/stripe/webhook', [BillingWebhook::class, 'handleWebhook'])->name('billing.webhook');
-
 Route::group(['middleware' => ['web']], function () {
     // We redirect filament login to jetstream login
     Route::redirect(config('filament.path') . '/login', '/login');

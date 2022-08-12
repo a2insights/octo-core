@@ -3,9 +3,9 @@
 namespace Octo\Billing\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Octo\Billing\Billing;
-use Octo\Billing\Contracts\HandleSubscriptions;
-use Octo\Billing\Saas;
+use OctoBilling\Billing;
+use OctoBilling\Contracts\HandleSubscriptions;
+use OctoBilling\Saas;
 
 class SubscriptionController extends Controller
 {
