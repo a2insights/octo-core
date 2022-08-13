@@ -42,6 +42,7 @@
         "symfony/intl": "^3.4",
         "torann/geoip": "^3.0",
         "whitecube/lingua": "dev-master",
+        "a2insights/octo-billing": "dev-main",
         "wire-elements/modal": "^1.0",
         "wireui/wireui": "^1.0"
     },
