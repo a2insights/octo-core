@@ -4,7 +4,7 @@ namespace Octo\Billing\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use OctoBilling\Billing;
+use OctoBilling\OctoBilling;
 
 class InvoiceController extends Controller
 {
@@ -16,7 +16,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        $invoices = Billing::getBillable($request)->invoicesIncludingPending()->map(function ($invoice) {
+        $invoices = OctoBilling::getBillable($request)->invoicesIncludingPending()->map(function ($invoice) {
             return (object) [
                 'description' => $invoice->lines->data[0]->description,
                 'created' => $invoice->created,

@@ -3,7 +3,7 @@
 namespace Octo\Billing\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use OctoBilling\Billing;
+use OctoBilling\OctoBilling;
 use OctoBilling\Contracts\HandleSubscriptions;
 use OctoBilling\Saas;
 
@@ -28,7 +28,7 @@ class SubscriptionController extends Controller
      */
     public function redirectWithSubscribeIntent(HandleSubscriptions $manager, string $planId)
     {
-        $billable = Billing::getBillable();
+        $billable = OctoBilling::getBillable();
 
         $plan = Saas::getPlan($planId);
 

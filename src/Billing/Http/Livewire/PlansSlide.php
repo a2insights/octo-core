@@ -4,7 +4,7 @@ namespace Octo\Billing\Http\Livewire;
 
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
-use OctoBilling\Billing;
+use OctoBilling\OctoBilling;
 use OctoBilling\Contracts\HandleSubscriptions;
 use OctoBilling\Saas;
 
@@ -31,7 +31,7 @@ class PlansSlide extends Component
      */
     public function render()
     {
-        $this->user = Billing::getBillable();
+        $this->user = OctoBilling::getBillable();
 
         return view('octo::billing.subscription.plans-slide', [
             'hasDefaultPaymentMethod' => $this->user->hasDefaultPaymentMethod(),
@@ -63,7 +63,7 @@ class PlansSlide extends Component
      */
     public function swapPlan(HandleSubscriptions $manager, string $planId)
     {
-        $this->user = Billing::getBillable();
+        $this->user = OctoBilling::getBillable();
         $plan = Saas::getPlan($planId);
 
         if (! $subscription = $this->getCurrentSubscription($this->user, $plan->getName())) {
@@ -105,7 +105,7 @@ class PlansSlide extends Component
      */
     public function cancelSubscription(HandleSubscriptions $manager, string $planId)
     {
-        $this->user = Billing::getBillable();
+        $this->user = OctoBilling::getBillable();
         $plan = Saas::getPlan($planId);
 
         if (! $subscription = $this->getCurrentSubscription($this->user, $plan->getName())) {
@@ -129,7 +129,7 @@ class PlansSlide extends Component
      */
     public function resumeSubscription(HandleSubscriptions $manager, string $planId)
     {
-        $this->user = Billing::getBillable();
+        $this->user = OctoBilling::getBillable();
         $plan = Saas::getPlan($planId);
 
         if (! $subscription = $this->getCurrentSubscription($this->user, $plan->getName())) {

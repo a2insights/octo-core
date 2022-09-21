@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
-use OctoBilling\Billing;
+use OctoBilling\OctoBilling;
 
 class ListPaymentMethods extends Component
 {
@@ -20,7 +20,7 @@ class ListPaymentMethods extends Component
      */
     public function render(Request $request)
     {
-        $billable = Billing::getBillable($request);
+        $billable = OctoBilling::getBillable($request);
 
         $billable->updateDefaultPaymentMethodFromStripe();
 
@@ -52,7 +52,7 @@ class ListPaymentMethods extends Component
     public function setAsDefault(Request $request, string $paymentMethod)
     {
         try {
-            Billing::getBillable($request)->updateDefaultPaymentMethod($paymentMethod);
+            OctoBilling::getBillable($request)->updateDefaultPaymentMethod($paymentMethod);
         } catch (Exception $e) {
             $this->dangerBanner('The default payment method got updated!');
         }
@@ -70,7 +70,7 @@ class ListPaymentMethods extends Component
     public function deletePaymentMethod(Request $request, string $paymentMethod)
     {
         try {
-            $paymentMethod = Billing::getBillable($request)->findPaymentMethod($paymentMethod);
+            $paymentMethod = OctoBilling::getBillable($request)->findPaymentMethod($paymentMethod);
         } catch (Exception $e) {
             $this->banner('The payment method got removed!');
 

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
-use OctoBilling\Billing;
+use OctoBilling\OctoBilling;
 
 class PaymentMethodController extends Controller
 {
@@ -19,7 +19,7 @@ class PaymentMethodController extends Controller
     public function __construct(Request $request)
     {
         $this->middleware(function (Request $request, Closure $next) {
-            Billing::getBillable($request)->createOrGetStripeCustomer();
+            OctoBilling::getBillable($request)->createOrGetStripeCustomer();
 
             return $next($request);
         });
@@ -45,7 +45,7 @@ class PaymentMethodController extends Controller
     public function create(Request $request)
     {
         return view('octo::billing.payment-method.create', [
-            'intent' => Billing::getBillable($request)->createSetupIntent(),
+            'intent' => OctoBilling::getBillable($request)->createSetupIntent(),
             'stripe_key' => config('cashier.key'),
         ]);
     }
@@ -62,7 +62,7 @@ class PaymentMethodController extends Controller
             'token' => ['required', 'string'],
         ]);
 
-        $billable = Billing::getBillable($request);
+        $billable = OctoBilling::getBillable($request);
 
         $billable->addPaymentMethod($request->token);
 

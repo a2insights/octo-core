@@ -9,7 +9,7 @@ use Livewire\Livewire;
 use Octo\Billing\Http\Livewire\ListPaymentMethods;
 use Octo\Billing\Http\Livewire\PlansSlide;
 use Octo\Marketing\Models\Contact;
-use OctoBilling\Billing;
+use OctoBilling\OctoBilling;
 use OctoBilling\Saas;
 
 class BillingServiceProvider extends ServiceProvider
@@ -26,9 +26,9 @@ class BillingServiceProvider extends ServiceProvider
 
         Cashier::useSubscriptionModel(\OctoBilling\Models\Subscription::class);
 
-        Billing::dontProrateOnSwap();
+        OctoBilling::dontProrateOnSwap();
 
-        Billing::handleSubscriptionsUsing(HandleSubscriptions::class);
+        OctoBilling::handleSubscriptionsUsing(HandleSubscriptions::class);
 
         Saas::currency('BRL');
 

@@ -5,7 +5,7 @@ namespace Octo\Billing\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
-use OctoBilling\Billing;
+use OctoBilling\OctoBilling;
 
 class BillingController extends Controller
 {
@@ -28,7 +28,7 @@ class BillingController extends Controller
     public function portal(Request $request)
     {
         return $this->getBillingPortalRedirect(
-            Billing::getBillable($request)
+            OctoBilling::getBillable($request)
         );
     }
 
