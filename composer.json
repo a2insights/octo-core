@@ -34,7 +34,6 @@
         "pragmarx/countries": "^0.7.2",
         "rappasoft/laravel-livewire-tables": "^1.25",
         "spatie/laravel-enum": "^3.0",
-        "spatie/laravel-newsletter": "dev-main",
         "spatie/laravel-stats": "2.0",
         "stidges/laravel-country-flags": "dev-master",
         "symfony/intl": "^3.4",
