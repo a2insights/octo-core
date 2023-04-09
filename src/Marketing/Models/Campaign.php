@@ -17,7 +17,6 @@ class Campaign extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use ObservableModel;
 
     public static $MAIL_CHANNEL = 'mail';
 

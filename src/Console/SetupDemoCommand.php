@@ -2,8 +2,9 @@
 
 namespace Octo\Console;
 
-use App\Actions\Fortify\CreateNewUser;
+use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 use Octo\Marketing\Models\Campaign;
 use Octo\Marketing\Models\Contact;
 use Octo\Marketing\Stats\CampaignStats;
@@ -15,6 +16,8 @@ class SetupDemoCommand extends Command
 
     protected $description = 'Setup demo aplication';
 
+    private $tenant;
+
     public const DEFAULT_SUPER_ADMIN_NAME = 'Octo Super Administrator';
     public const DEFAULT_SUPER_ADMIN_EMAIL = 'super-admin@octo.dev';
     public const DEFAULT_SUPER_ADMIN_PASSWORD = 'octoSuperAdmin';
@@ -25,14 +28,6 @@ class SetupDemoCommand extends Command
 
     public function handle()
     {
-        try {
-            \App\Models\Tenant::all()->each(function ($tenant) {
-                $tenant->delete();
-            });
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
-        }
-
         $this->call('migrate:fresh', ['--force' => true, '--seed' => true]);
 
         $this->info('Creating super admin user');
@@ -42,31 +37,15 @@ class SetupDemoCommand extends Command
         $this->info('Creating user account');
         $user = $this->setUpUserAccount();
         $this->info('User account created');
-
-        $this->info('Seeding fake data in database');
-
-        $admin->tenant->run(function () {
-            $this->factoryData();
-        });
-
-        $user->tenant->run(function () {
-            $this->factoryData();
-        });
     }
 
     private function setUpUserAccount()
     {
-        $user = (new CreateNewUser())->create([
+        $user = User::forceCreate([
             'name' => self::DEFAULT_USER_NAME,
             'email' => self::DEFAULT_USER_EMAIL,
-            'password' => self::DEFAULT_USER_PASSWORD,
-            'password_confirmation' => self::DEFAULT_USER_PASSWORD,
-            'terms' => true,
+            'password' => Hash::make(self::DEFAULT_USER_PASSWORD),
         ]);
-
-        if_feature_is_enabled('billing', function () use ($user) {
-            $user->currentSubscription->recordFeatureUsage('contacts', 49);
-        });
 
         $user->markEmailAsVerified();
 
@@ -77,23 +56,13 @@ class SetupDemoCommand extends Command
 
     private function setUpSuperAdminAccount()
     {
-        $user = (new CreateNewUser())->create([
+        $user = User::forceCreate([
             'name' => self::DEFAULT_SUPER_ADMIN_NAME,
             'email' => self::DEFAULT_SUPER_ADMIN_EMAIL,
-            'calling_code' => '55',
-            'phone' => '91 989242304',
-            'password' => self::DEFAULT_SUPER_ADMIN_PASSWORD,
-            'password_confirmation' => self::DEFAULT_SUPER_ADMIN_PASSWORD,
-            'terms' => true,
+            'password' => Hash::make(self::DEFAULT_USER_PASSWORD),
         ]);
 
-        $user->forceFill(['super_admin' => true,  'dashboard' => 'system'])->save();
-
         $user->markEmailAsVerified();
-
-        if_feature_is_enabled('billing', function () use ($user) {
-            $user->currentSubscription->recordFeatureUsage('contacts', 49);
-        });
 
         $this->comment(sprintf('Log in seper admin with email %s and password %s', self::DEFAULT_SUPER_ADMIN_EMAIL, self::DEFAULT_SUPER_ADMIN_PASSWORD));
 

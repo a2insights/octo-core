@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Octo\Marketing\Database\Factories\ContactFactory;
-use Octo\ObservableModel;
 use Spatie\Tags\HasTags;
 
 class Contact extends Model
@@ -16,7 +15,6 @@ class Contact extends Model
     use HasFactory;
     use SoftDeletes;
     use HasTags;
-    use ObservableModel;
     use Notifiable;
 
     /**

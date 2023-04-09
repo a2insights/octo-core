@@ -34,6 +34,5 @@ class InstallCommand extends Command
         $this->info("\nOcto Installer");
         $this->info("--------------------\n");
 
-        $this->call('laravel-mail-editor:install');
     }
 }
