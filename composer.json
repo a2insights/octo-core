@@ -28,7 +28,6 @@
         "filament/spatie-laravel-settings-plugin": "^2.12",
         "filament/spatie-laravel-tags-plugin": "^2.12",
         "illuminate/support": "^9.0",
-        "laravel/cashier": "^14.0",
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.7",
         "pragmarx/countries": "^0.7.2",

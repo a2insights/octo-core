@@ -3,13 +3,9 @@
 namespace Octo\Console;
 
 use Illuminate\Console\Command;
-use Octo\Concerns\HasSmsProviderConfig;
-use Octo\Concerns\InteractWithComposer;
 
 class InstallCommand extends Command
 {
-    use InteractWithComposer;
-
     /**
      * The name and signature of the console command.
      *
