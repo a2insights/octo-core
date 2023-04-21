@@ -2,7 +2,6 @@
 
 namespace Octo;
 
-use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 
 class OctoServiceProvider extends ServiceProvider
@@ -19,10 +18,6 @@ class OctoServiceProvider extends ServiceProvider
         ]);
 
         $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
-
-        Filament::serving(function (): void {
-            Filament::registerTheme(mix('css/app.css'));
-        });
     }
 
     public function register()
