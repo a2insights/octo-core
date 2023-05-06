@@ -19,11 +19,11 @@
         }
     ],
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "ext-json": "*",
-        "filament/filament": "^2.12",
-        "illuminate/support": "^9.0",
-        "livewire/livewire": "^2.7",
+        "filament/filament": "^2.17",
+        "illuminate/support": "^10.0",
+        "livewire/livewire": "^2.12",
         "spatie/laravel-enum": "^3.0"
     },
     "require-dev": {
