@@ -26,21 +26,12 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         $app['config']->set('octo', $config);
 
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
+        $app['config']->set('database.default', 'testbench');
+
+        $app['config']->set('database.connections.testbench', [
             'driver'   => 'sqlite',
-            'database' => __DIR__.'/database.sqlite',
+            'database' => ':memory:',
             'prefix'   => '',
         ]);
-    }
-
-    /**
-     * Reset the database.
-     *
-     * @return void
-     */
-    protected function resetDatabase()
-    {
-        file_put_contents(__DIR__.'/database.sqlite', null);
     }
 }

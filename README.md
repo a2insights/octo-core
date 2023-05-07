@@ -16,7 +16,7 @@ If you discover any security related issues, please email atila.danvi@outlook.co
 
 ## Credits
 
-- [Atila Silva](https://github.com/atiladanvi)
+- [Atila Silva](https://github.com/a21ns1g4ts)
 - [All Contributors](../../contributors)
 
 ## License
