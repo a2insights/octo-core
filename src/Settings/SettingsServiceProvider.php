@@ -43,6 +43,8 @@ class SettingsServiceProvider extends PluginServiceProvider
         $this->syncRegistration();
         $this->syncLogin();
 
+        // Register middleware to restrict access to the settings pages.
+        $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(\Octo\Settings\Http\Middleware\RestrictAccess::class);
     }
 
     private function syncDarkMode(): void

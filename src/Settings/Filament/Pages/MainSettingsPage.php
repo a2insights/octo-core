@@ -41,7 +41,7 @@ class MainSettingsPage extends SettingsPage
                         'laravel',
                         'livewire',
                     ]),
-                    Textarea::make('description')->rows(10)->cols(12),
+                    Textarea::make('description')->rows(2),
                 ])->columns(1),
             Fieldset::make('Style')
                 ->schema([
