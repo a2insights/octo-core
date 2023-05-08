@@ -12,13 +12,11 @@ class Settings extends BaseSettings
 
     public array $keywords;
 
-    public bool $dark;
+    public bool $dark_mode;
 
-    public string $theme;
+    public string|null $logo;
 
-    public string $logo;
-
-    public string $favicon;
+    public string|null $favicon;
 
     public bool $auth_registration;
 

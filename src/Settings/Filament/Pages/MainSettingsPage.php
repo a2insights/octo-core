@@ -45,10 +45,7 @@ class MainSettingsPage extends SettingsPage
                 ])->columns(1),
             Fieldset::make('Style')
                 ->schema([
-                    Select::make('theme')->options([
-                        'default' => 'Default',
-                    ])->default('default'),
-                    Toggle::make('dark')->default(false),
+                    Toggle::make('dark_mode')->default(false),
                     FileUpload::make('logo')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         return 'logo.'.$file->guessExtension();
                     }),
