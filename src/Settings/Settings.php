@@ -22,6 +22,8 @@ class Settings extends BaseSettings
 
     public bool $auth_login;
 
+    public bool $auth_2fa;
+
     public array $restrict_ips;
 
     public array $restrict_users;

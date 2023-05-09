@@ -35,6 +35,5 @@ class OctoServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
 
         $this->app->register(SettingsServiceProvider::class);
-
     }
 }

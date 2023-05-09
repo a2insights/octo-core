@@ -2,12 +2,13 @@
 
 namespace Octo\Settings;
 
+use Filament\Facades\Filament;
 use Filament\Navigation\UserMenuItem;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use Octo\Settings\Filament\Pages\MainSettingsPage;
 use Spatie\LaravelPackageTools\Package;
 
@@ -29,7 +30,7 @@ class SettingsServiceProvider extends PluginServiceProvider
         return [
             UserMenuItem::make()
                 ->label('Settings')
-                ->url('/settings/main')
+                ->url('/dashboard/settings/main')
                 ->icon('heroicon-s-cog'),
         ];
     }
@@ -49,12 +50,42 @@ class SettingsServiceProvider extends PluginServiceProvider
         $this->syncRegistration();
         $this->syncLogin();
         $this->syncFavicon();
+        $this->syncMetadata();
+        $this->sync2fa();
 
         // Register middleware to restrict ip access from settings
         $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(\Octo\Settings\Http\Middleware\RestrictIps::class);
     }
 
-    protected function syncFavicon(): void
+    private function sync2fa(): void
+    {
+        Config::set('filament-breezy.enable_2fa', $this->settings->auth_2fa);
+    }
+
+    private function syncMetadata(): void
+    {
+        $name = $this->settings->name;
+        $description = $this->settings->description;
+        $keywords = $this->settings->keywords;
+
+        if ($name) {
+            Config::set('filament.brand', $name);
+        }
+
+        if ($description) {
+            Filament::pushMeta([
+                new HtmlString('<meta name="description" content="'.$description.'">'),
+            ]);
+        }
+
+        if ($keywords) {
+            Filament::pushMeta([
+                new HtmlString('<meta name="keywords" content="'.implode(',', $keywords).'">'),
+            ]);
+        }
+    }
+
+    private function syncFavicon(): void
     {
         $favicon = $this->settings->favicon;
 
@@ -75,17 +106,13 @@ class SettingsServiceProvider extends PluginServiceProvider
 
     private function syncLogin(): void
     {
-        $loginEnabled = $this->settings->auth_login;
-
         $pages = Config::get('filament.auth.pages');
 
-        if ($loginEnabled) {
+        if ($this->settings->auth_login) {
             $pages['login'] = \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login::class;
         } else {
             unset($pages['login']);
         }
-
-        Artisan::call('route:clear');
 
         Config::set('filament.auth.pages', $pages);
     }

@@ -11,6 +11,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
+use Illuminate\Support\Facades\Artisan;
 use Livewire\TemporaryUploadedFile;
 use Octo\Settings\Settings;
 
@@ -28,9 +29,18 @@ class MainSettingsPage extends SettingsPage
 
     protected ?string $subheading = 'Update your main settings.';
 
+    protected function getRedirectUrl(): ?string
+    {
+        return '/dashboard/settings/main';
+    }
+
+    protected function afterSave(): void
+    {
+        Artisan::call('route:clear');
+    }
+
     protected function getFormSchema(): array
     {
-
         return [
             Fieldset::make('Metadata')
                 ->schema([
@@ -61,13 +71,15 @@ class MainSettingsPage extends SettingsPage
                     Toggle::make('auth_registration')
                         ->label('Registration')
                         ->hint('You can disable registration to your site.')
-                        ->helperText('Caution: If you disable registration, users will not be able to register to your site.')
-                        ->default(true),
+                        ->helperText('Caution: If you disable registration, users will not be able to register to your site.'),
                     Toggle::make('auth_login')
                         ->label('Login')
                         ->hint('You can disable login to your site.')
-                        ->helperText('Caution: If you disable login, users will not be able to login to your site.')
-                        ->default(true),
+                        ->helperText('Caution: If you disable login, users will not be able to login to your site.'),
+                    Toggle::make('auth_2fa')
+                        ->label('2FA')
+                        ->hint('You can enable 2FA to your site.')
+                        ->helperText('Caution: If you enable 2FA, users will can enable 2FA to their account.'),
                 ])->columns(1),
             Fieldset::make('Security')
                 ->schema([
@@ -82,9 +94,9 @@ class MainSettingsPage extends SettingsPage
                         ->searchable()
                         ->hint('You can restrict access to your site by user.')
                         ->helperText('Caution: If you block your own user, you will be locked out of your site. And you will have to manually remove your user from the database or access from another user.')
-                        ->options(User::all()->pluck('name', 'id'))
+                        ->options(fn () => User::all()->pluck('name', 'id'))
                         ->getSearchResultsUsing(fn (string $search) => User::where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id'))
-                        ->getOptionLabelUsing(fn ($value): ?string => User::find(2)?->name),
+                        ->getOptionLabelUsing(fn ($value): ?string => User::find($value)?->name),
                 ])->columns(1),
         ];
     }
