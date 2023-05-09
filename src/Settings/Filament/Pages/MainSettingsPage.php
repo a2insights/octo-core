@@ -59,10 +59,12 @@ class MainSettingsPage extends SettingsPage
             Fieldset::make('Authentication')
                 ->schema([
                     Toggle::make('auth_registration')
+                        ->label('Registration')
                         ->hint('You can disable registration to your site.')
                         ->helperText('Caution: If you disable registration, users will not be able to register to your site.')
                         ->default(true),
                     Toggle::make('auth_login')
+                        ->label('Login')
                         ->hint('You can disable login to your site.')
                         ->helperText('Caution: If you disable login, users will not be able to login to your site.')
                         ->default(true),
