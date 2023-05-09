@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RestrictAccess
+class RestrictIps
 {
     public function handle(Request $request, Closure $next): Response
     {

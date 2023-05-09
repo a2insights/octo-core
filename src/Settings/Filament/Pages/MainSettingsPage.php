@@ -45,7 +45,10 @@ class MainSettingsPage extends SettingsPage
                 ])->columns(1),
             Fieldset::make('Style')
                 ->schema([
-                    Toggle::make('dark_mode')->default(false),
+                    Toggle::make('dark_mode')
+                        ->hint('You can enable the toggle button for switching between light and dark mode.')
+                        ->helperText('Caution: If you enable dark mode, your site will be displayed the toggle button for switching between light and dark mode.')
+                        ->default(false),
                     FileUpload::make('logo')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         return 'logo.'.$file->guessExtension();
                     }),
@@ -55,17 +58,28 @@ class MainSettingsPage extends SettingsPage
                 ])->columns(1),
             Fieldset::make('Authentication')
                 ->schema([
-                    Toggle::make('auth_registration')->default(true),
-                    Toggle::make('auth_login')->default(true),
+                    Toggle::make('auth_registration')
+                        ->hint('You can disable registration to your site.')
+                        ->helperText('Caution: If you disable registration, users will not be able to register to your site.')
+                        ->default(true),
+                    Toggle::make('auth_login')
+                        ->hint('You can disable login to your site.')
+                        ->helperText('Caution: If you disable login, users will not be able to login to your site.')
+                        ->default(true),
                 ])->columns(1),
             Fieldset::make('Security')
                 ->schema([
-                    TagsInput::make('restrict_ips')->suggestions([
-                        request()->ip(),
-                    ]),
+                    TagsInput::make('restrict_ips')
+                        ->hint('You can restrict access to your site by IP address.')
+                        ->helperText('Caution: If you block your own IP address, you will be locked out of your site. And you will have to manually remove your IP address from the database or access from another IP address.')
+                        ->suggestions([
+                            request()->ip(),
+                        ]),
                     Select::make('restrict_users')
                         ->multiple()
                         ->searchable()
+                        ->hint('You can restrict access to your site by user.')
+                        ->helperText('Caution: If you block your own user, you will be locked out of your site. And you will have to manually remove your user from the database or access from another user.')
                         ->options(User::all()->pluck('name', 'id'))
                         ->getSearchResultsUsing(fn (string $search) => User::where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id'))
                         ->getOptionLabelUsing(fn ($value): ?string => User::find(2)?->name),

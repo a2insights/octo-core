@@ -7,6 +7,7 @@ use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 use Octo\Settings\Filament\Pages\MainSettingsPage;
 use Spatie\LaravelPackageTools\Package;
 
@@ -39,12 +40,27 @@ class SettingsServiceProvider extends PluginServiceProvider
 
         $this->settings = App::make(Settings::class);
 
+        // return if running in the console
+        if (App::runningInConsole()) {
+            return;
+        }
+
         $this->syncDarkMode();
         $this->syncRegistration();
         $this->syncLogin();
+        $this->syncFavicon();
 
-        // Register middleware to restrict access to the settings pages.
-        $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(\Octo\Settings\Http\Middleware\RestrictAccess::class);
+        // Register middleware to restrict ip access from settings
+        $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(\Octo\Settings\Http\Middleware\RestrictIps::class);
+    }
+
+    protected function syncFavicon(): void
+    {
+        $favicon = $this->settings->favicon;
+
+        if ($favicon) {
+            Config::set('filament.favicon', Storage::url($favicon));
+        }
     }
 
     private function syncDarkMode(): void
