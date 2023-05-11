@@ -5,6 +5,7 @@ namespace Octo;
 use Filament\Facades\Filament;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Pennant\Feature;
 use Octo\Settings\Settings;
 use Octo\Settings\SettingsServiceProvider;
 use Octo\User\UserServiceProvider;
@@ -29,6 +30,8 @@ class OctoServiceProvider extends ServiceProvider
             'footer.start',
             fn (): View => view('octo::admin.footer', app(Settings::class)->toArray())
         );
+
+        // Feature::define('language-switch', true);
     }
 
     public function register()

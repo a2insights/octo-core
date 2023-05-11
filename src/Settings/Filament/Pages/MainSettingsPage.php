@@ -12,8 +12,11 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
 use Octo\Settings\Settings;
+use Symfony\Component\Intl\Locales;
+use Symfony\Component\Intl\Timezones;
 
 class MainSettingsPage extends SettingsPage
 {
@@ -41,6 +44,9 @@ class MainSettingsPage extends SettingsPage
 
     protected function getFormSchema(): array
     {
+        $locales = collect(Locales::getNames())->mapWithKeys(fn ($name, $code) => [$code => Str::title($name)])->toArray();
+        $timezones = collect(Timezones::getNames())->mapWithKeys(fn ($name, $code) => [$code => Str::title($name)])->toArray();
+
         return [
             Fieldset::make('Metadata')
                 ->schema([
@@ -97,6 +103,26 @@ class MainSettingsPage extends SettingsPage
                         ->options(fn () => User::all()->pluck('name', 'id'))
                         ->getSearchResultsUsing(fn (string $search) => User::where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id'))
                         ->getOptionLabelUsing(fn ($value): ?string => User::find($value)?->name),
+                ])->columns(1),
+            Fieldset::make('Localization')
+                ->schema([
+                    Select::make('timezone')
+                        ->options($timezones)
+                        ->searchable()
+                        ->hint('You can set the timezone for your site.')
+                        ->helperText('Current time is: '.now()->format('Y-m-d H:i:s')),
+                    Select::make('locales')
+                        ->multiple()
+                        ->options($locales)
+                        ->searchable()
+                        ->hint('You can set the languages available for your site. But the user can change the language.')
+                        ->helperText('Caution: If you change the languages availables, the users will lose the language they have set.'),
+                    Select::make('locale')
+                        ->options(collect(app(Settings::class)->locales)->mapWithKeys(fn ($locale) => [$locale => Str::title(Locales::getName($locale))])->toArray())
+                        ->searchable()
+                        ->hint('You can set the default locale for your site. But the user can change the locale.')
+                        ->helperText('Caution: If you change the locale, the locale will be displayed according to the locale you set.')
+                        ->dehydrateStateUsing(fn ($state) => ! in_array($state, app(Settings::class)->locales) ? app(Settings::class)->locales[0] : $state),
                 ])->columns(1),
         ];
     }

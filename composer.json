@@ -25,9 +25,11 @@
         "illuminate/support": "^10.0",
         "livewire/livewire": "^2.12",
         "spatie/laravel-enum": "^3.0",
-        "spatie/laravel-stats": "dev-main"
+        "spatie/laravel-stats": "^2.1",
+        "symfony/intl": "^6.2"
     },
     "require-dev": {
+        "laravel/pint": "dev-main",
         "orchestra/testbench-core": "^8.0",
         "phpunit/phpunit": "^9.3"
     },

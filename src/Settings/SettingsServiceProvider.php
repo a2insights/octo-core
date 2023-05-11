@@ -6,9 +6,12 @@ use Filament\Facades\Filament;
 use Filament\Navigation\UserMenuItem;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
+use Livewire\Livewire;
+use Octo\Settings\Filament\Components\SwitchLanguage;
 use Octo\Settings\Filament\Pages\MainSettingsPage;
 use Spatie\LaravelPackageTools\Package;
 
@@ -39,12 +42,18 @@ class SettingsServiceProvider extends PluginServiceProvider
     {
         parent::packageBooted();
 
-        $this->settings = App::make(Settings::class);
-
         // return if running in the console
         if (App::runningInConsole()) {
             return;
         }
+
+        Livewire::component('switch-language', SwitchLanguage::class);
+        Filament::registerRenderHook(
+            'global-search.end',
+            fn (): string => Blade::render("@livewire('switch-language')")
+        );
+
+        $this->settings = App::make(Settings::class);
 
         $this->syncDarkMode();
         $this->syncRegistration();
@@ -52,9 +61,32 @@ class SettingsServiceProvider extends PluginServiceProvider
         $this->syncFavicon();
         $this->syncMetadata();
         $this->sync2fa();
+        $this->syncTimezone();
+        $this->syncLocale();
 
         // Register middleware to restrict ip access from settings
         $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(\Octo\Settings\Http\Middleware\RestrictIps::class);
+    }
+
+    private function syncTimezone(): void
+    {
+        $timezone = $this->settings->timezone;
+
+        if ($timezone) {
+            Config::set('app.timezone', $timezone);
+            date_default_timezone_set($timezone);
+        }
+    }
+
+    private function syncLocale(): void
+    {
+        $locale = $this->settings->locale;
+
+        if ($locale) {
+            Config::set('app.locale', $locale);
+            App::setLocale($locale);
+            \Locale::setDefault($locale);
+        }
     }
 
     private function sync2fa(): void

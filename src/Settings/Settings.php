@@ -28,6 +28,12 @@ class Settings extends BaseSettings
 
     public array $restrict_users;
 
+    public string $timezone;
+
+    public string $locale;
+
+    public array $locales;
+
     public static function group(): string
     {
         return 'settings';
