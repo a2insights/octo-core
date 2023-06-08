@@ -3,6 +3,7 @@
 namespace Octo\Settings;
 
 use Filament\Facades\Filament;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\UserMenuItem;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
@@ -62,10 +63,25 @@ class SettingsServiceProvider extends PluginServiceProvider
         $this->syncMetadata();
         $this->sync2fa();
         $this->syncTimezone();
-        $this->syncLocale();
 
         // Register middleware to restrict ip access from settings
         $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(\Octo\Settings\Http\Middleware\RestrictIps::class);
+
+        // credits: https://github.com/bezhanSalleh/filament-language-switch/blob/main/src/FilamentLanguageSwitchServiceProvider.php
+        $middlewareStack = config('filament.middleware.base');
+        $switchLanguageIndex = array_search(\Octo\Settings\Http\Middleware\Locale::class, $middlewareStack);
+        $dispatchServingFilamentEventIndex = array_search(DispatchServingFilamentEvent::class, $middlewareStack);
+
+        if ($switchLanguageIndex === false || $switchLanguageIndex > $dispatchServingFilamentEventIndex) {
+
+            $middlewareStack = array_filter($middlewareStack, function ($middleware) {
+                return $middleware !== \Octo\Settings\Http\Middleware\Locale::class;
+            });
+
+            array_splice($middlewareStack, $dispatchServingFilamentEventIndex, 0, [\Octo\Settings\Http\Middleware\Locale::class]);
+
+            config(['filament.middleware.base' => $middlewareStack]);
+        }
     }
 
     private function syncTimezone(): void
@@ -75,17 +91,6 @@ class SettingsServiceProvider extends PluginServiceProvider
         if ($timezone) {
             Config::set('app.timezone', $timezone);
             date_default_timezone_set($timezone);
-        }
-    }
-
-    private function syncLocale(): void
-    {
-        $locale = $this->settings->locale;
-
-        if ($locale) {
-            Config::set('app.locale', $locale);
-            App::setLocale($locale);
-            \Locale::setDefault($locale);
         }
     }
 

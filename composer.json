@@ -24,6 +24,7 @@
         "filament/filament": "^2.17",
         "illuminate/support": "^10.0",
         "livewire/livewire": "^2.12",
+        "spatie/laravel-data": "^3.6",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-stats": "^2.1",
         "symfony/intl": "^6.2"

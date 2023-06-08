@@ -5,6 +5,7 @@ namespace Octo\Settings\Filament\Components;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Octo\Settings\Settings;
+use Octo\User\Settings as UserSettings;
 
 class SwitchLanguage extends Component
 {
@@ -20,10 +21,17 @@ class SwitchLanguage extends Component
 
     public function changeLocale($locale)
     {
-        $settings = app(Settings::class);
-        $settings->locale = $locale;
+        $user = auth()->user();
 
-        $settings->save();
+        $settings = UserSettings::from(array_merge(
+            $user->settings->toArray(),
+            ['locale' => $locale]
+        ));
+
+        $user->settings = $settings;
+
+        $user->save();
+
         $this->redirect(request()->header('Referer'));
     }
 
