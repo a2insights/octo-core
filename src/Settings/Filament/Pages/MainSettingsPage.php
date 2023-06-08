@@ -9,9 +9,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
 use Octo\Settings\Settings;
@@ -37,11 +35,6 @@ class MainSettingsPage extends SettingsPage
         return '/dashboard/settings/main';
     }
 
-    protected function afterSave(): void
-    {
-        Artisan::call('route:clear');
-    }
-
     protected function getFormSchema(): array
     {
         $locales = collect(Locales::getNames())->mapWithKeys(fn ($name, $code) => [$code => Str::title($name)])->toArray();
@@ -61,31 +54,12 @@ class MainSettingsPage extends SettingsPage
                 ])->columns(1),
             Fieldset::make('Style')
                 ->schema([
-                    Toggle::make('dark_mode')
-                        ->hint('You can enable the toggle button for switching between light and dark mode.')
-                        ->helperText('Caution: If you enable dark mode, your site will be displayed the toggle button for switching between light and dark mode.')
-                        ->default(false),
                     FileUpload::make('logo')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         return 'logo.'.$file->guessExtension();
                     }),
                     FileUpload::make('favicon')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         return 'favicon.'.$file->guessExtension();
                     }),
-                ])->columns(1),
-            Fieldset::make('Authentication')
-                ->schema([
-                    Toggle::make('auth_registration')
-                        ->label('Registration')
-                        ->hint('You can disable registration to your site.')
-                        ->helperText('Caution: If you disable registration, users will not be able to register to your site.'),
-                    Toggle::make('auth_login')
-                        ->label('Login')
-                        ->hint('You can disable login to your site.')
-                        ->helperText('Caution: If you disable login, users will not be able to login to your site.'),
-                    Toggle::make('auth_2fa')
-                        ->label('2FA')
-                        ->hint('You can enable 2FA to your site.')
-                        ->helperText('Caution: If you enable 2FA, users will can enable 2FA to their account.'),
                 ])->columns(1),
             Fieldset::make('Security')
                 ->schema([

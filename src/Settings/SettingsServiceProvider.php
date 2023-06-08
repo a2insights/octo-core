@@ -59,12 +59,8 @@ class SettingsServiceProvider extends PluginServiceProvider
 
         $this->settings = App::make(Settings::class);
 
-        $this->syncDarkMode();
-        $this->syncRegistration();
-        $this->syncLogin();
         $this->syncFavicon();
         $this->syncMetadata();
-        $this->sync2fa();
         $this->syncTimezone();
     }
 
@@ -76,11 +72,6 @@ class SettingsServiceProvider extends PluginServiceProvider
             Config::set('app.timezone', $timezone);
             date_default_timezone_set($timezone);
         }
-    }
-
-    private function sync2fa(): void
-    {
-        Config::set('filament-breezy.enable_2fa', $this->settings->auth_2fa);
     }
 
     private function syncMetadata(): void
@@ -113,28 +104,5 @@ class SettingsServiceProvider extends PluginServiceProvider
         if ($favicon) {
             Config::set('filament.favicon', Storage::url($favicon));
         }
-    }
-
-    private function syncDarkMode(): void
-    {
-        Config::set('filament.dark_mode', $this->settings->dark_mode);
-    }
-
-    private function syncRegistration(): void
-    {
-        Config::set('filament-breezy.enable_registration', $this->settings->auth_registration);
-    }
-
-    private function syncLogin(): void
-    {
-        $pages = Config::get('filament.auth.pages');
-
-        if ($this->settings->auth_login) {
-            $pages['login'] = \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login::class;
-        } else {
-            unset($pages['login']);
-        }
-
-        Config::set('filament.auth.pages', $pages);
     }
 }

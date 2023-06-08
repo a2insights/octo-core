@@ -4,10 +4,13 @@ namespace Octo\Features\Filament\Pages;
 
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Toggle;
+use Filament\Pages\SettingsPage;
+use Illuminate\Support\Facades\Artisan;
+use Octo\Features\Features;
 
-class FeaturesPage extends PennantPage
+class FeaturesPage extends SettingsPage
 {
-    protected static string $settings = Settings::class;
+    protected static string $settings = Features::class;
 
     protected static bool $shouldRegisterNavigation = false;
 
@@ -26,6 +29,7 @@ class FeaturesPage extends PennantPage
 
     protected function afterSave(): void
     {
+        Artisan::call('route:clear');
     }
 
     protected function getFormSchema(): array
