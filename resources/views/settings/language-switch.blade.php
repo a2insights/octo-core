@@ -7,12 +7,23 @@
         }
     </style>
     <x-slot name="trigger">
-        <div
-            class="flex items-center justify-center w-10 h-10 font-semibold ">
-            {{ \Illuminate\Support\Str::of(app()->getLocale())->length() > 2
-                ? \Illuminate\Support\Str::of(app()->getLocale())->substr(0, 2)->upper()
-                : \Illuminate\Support\Str::of(app()->getLocale())->upper() }}
-        </div>
+            <button
+            type="button"
+            @class([
+                'flex h-10 items-center justify-center gap-3 rounded-lg px-3 py-2 transition',
+                'hover:bg-gray-500/5 focus:bg-gray-500/5 dark:text-gray-300 dark:hover:bg-gray-700' ,
+            ])
+        >
+            <x-heroicon-o-globe class="w-5 h-5" />
+            @unless(config('filament-maintenance.tiny_toggle'))
+                <span>
+                   {{ \Illuminate\Support\Str::of(app()->getLocale())->length() > 2
+                    ? \Illuminate\Support\Str::of(app()->getLocale())->substr(0, 2)->upper()
+                    : \Illuminate\Support\Str::of(app()->getLocale())->upper() }}
+                </span>
+            @endif
+        </button>
+
     </x-slot>
     <x-filament::dropdown.list class="">
         @foreach ($locales as $key => $locale)

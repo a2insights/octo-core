@@ -7,6 +7,7 @@ use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
+use Octo\Features\FeaturesServiceProvider;
 use Octo\Settings\Settings;
 use Octo\Settings\SettingsServiceProvider;
 use Octo\User\UserServiceProvider;
@@ -48,6 +49,7 @@ class OctoServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
 
         $this->app->register(SettingsServiceProvider::class);
+        $this->app->register(FeaturesServiceProvider::class);
         $this->app->register(UserServiceProvider::class);
     }
 }
