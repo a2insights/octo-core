@@ -6,10 +6,7 @@
             align-items: center;
         }
     </style>
-    <x-slot name="trigger" @class([
-        'ml-4' => __('filament::layout.direction') === 'ltr',
-        'mr-4' => __('filament::layout.direction') === 'rtl',
-    ])>
+    <x-slot name="trigger">
         <div
             class="flex items-center justify-center w-10 h-10 font-semibold ">
             {{ \Illuminate\Support\Str::of(app()->getLocale())->length() > 2
