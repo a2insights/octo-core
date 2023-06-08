@@ -3,7 +3,6 @@
 namespace Octo\Settings;
 
 use Filament\Facades\Filament;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\UserMenuItem;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
@@ -36,30 +35,15 @@ class SettingsServiceProvider extends PluginServiceProvider
                 ->label('Settings')
                 ->url('/dashboard/settings/main')
                 ->icon('heroicon-s-cog'),
+            UserMenuItem::make()
+                ->label('Firewall')
+                ->url('/dashboard/ips')
+                ->icon('heroicon-s-shield-check'),
         ];
     }
 
     public function packageBooted(): void
     {
-        // Register middleware to restrict ip access from settings
-        $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(\Octo\Settings\Http\Middleware\RestrictIps::class);
-
-        // credits: https://github.com/bezhanSalleh/filament-language-switch/blob/65192edd4ca0e2e4dd35e5b78d1912760585a29e/src/FilamentLanguageSwitchServiceProvider.php#L33
-        $middlewareStack = config('filament.middleware.base');
-        $switchLanguageIndex = array_search(\Octo\Settings\Http\Middleware\Locale::class, $middlewareStack);
-        $dispatchServingFilamentEventIndex = array_search(DispatchServingFilamentEvent::class, $middlewareStack);
-
-        if ($switchLanguageIndex === false || $switchLanguageIndex > $dispatchServingFilamentEventIndex) {
-
-            $middlewareStack = array_filter($middlewareStack, function ($middleware) {
-                return $middleware !== \Octo\Settings\Http\Middleware\Locale::class;
-            });
-
-            array_splice($middlewareStack, $dispatchServingFilamentEventIndex, 0, [\Octo\Settings\Http\Middleware\Locale::class]);
-
-            config(['filament.middleware.base' => $middlewareStack]);
-        }
-
         parent::packageBooted();
 
         // return if running in the console
