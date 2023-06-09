@@ -39,6 +39,9 @@ class SetupDevCommand extends Command
 
         $this->info('Creating user account');
         $user = $this->setUpUserAccount();
+
+        $this->info('Installing LogViewer');
+        $this->call('log-viewer:publish', ['--force' => true, '--tag' => 'log-viewer-assets']);
     }
 
     private function setUpUserAccount()

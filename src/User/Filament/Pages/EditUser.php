@@ -3,9 +3,10 @@
 namespace Octo\User\Filament\Pages;
 
 use Filament\Pages\Actions;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Octo\User\Filament\UserResource;
-use Filament\Pages\Actions\Action;
+use XliteDev\FilamentImpersonate\Pages\Actions\ImpersonateAction;
 
 class EditUser extends EditRecord
 {
@@ -15,6 +16,7 @@ class EditUser extends EditRecord
     {
         return [
             Actions\DeleteAction::make()->disabled(fn () => $this->record->is(auth()->user())),
+            ImpersonateAction::make()->record($this->getRecord()),
         ];
     }
 

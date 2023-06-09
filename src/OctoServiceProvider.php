@@ -3,6 +3,7 @@
 namespace Octo;
 
 use Filament\Facades\Filament;
+use Filament\Navigation\NavigationItem;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 use Octo\Features\FeaturesServiceProvider;
@@ -31,6 +32,16 @@ class OctoServiceProvider extends ServiceProvider
             'footer.start',
             fn (): View => view('octo::admin.footer', app(Settings::class)->toArray())
         );
+
+        Filament::serving(function () {
+            Filament::registerNavigationItems([
+                NavigationItem::make('Logs')
+                    ->url(config('log-viewer.route_path'))
+                    ->icon('heroicon-o-clipboard-list')
+                    ->group('System')
+                    ->sort(3),
+            ]);
+        });
     }
 
     public function register()

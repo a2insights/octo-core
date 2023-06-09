@@ -6,8 +6,13 @@
             align-items: center;
         }
     </style>
-    <x-slot name="trigger">
-            <button
+    <x-slot
+        name="trigger"
+        @class([
+            'ml-4' => __('filament::layout.direction') === 'ltr',
+            'mr-4' => __('filament::layout.direction') === 'rtl',
+    ])>
+        <button
             type="button"
             @class([
                 'flex h-10 items-center justify-center gap-3 rounded-lg px-3 py-2 transition',
@@ -17,13 +22,12 @@
             <x-heroicon-o-globe class="w-5 h-5" />
             @unless(config('filament-maintenance.tiny_toggle'))
                 <span>
-                   {{ \Illuminate\Support\Str::of(app()->getLocale())->length() > 2
+                {{ \Illuminate\Support\Str::of(app()->getLocale())->length() > 2
                     ? \Illuminate\Support\Str::of(app()->getLocale())->substr(0, 2)->upper()
                     : \Illuminate\Support\Str::of(app()->getLocale())->upper() }}
                 </span>
             @endif
         </button>
-
     </x-slot>
     <x-filament::dropdown.list class="">
         @foreach ($locales as $key => $locale)
