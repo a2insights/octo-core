@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 use Octo\Features\FeaturesServiceProvider;
 use Octo\Firewall\FirewallServiceProvider;
+use Octo\Middleware\MiddlewareServiceProvider;
 use Octo\Settings\Settings;
 use Octo\Settings\SettingsServiceProvider;
 use Octo\User\UserServiceProvider;
@@ -52,5 +53,6 @@ class OctoServiceProvider extends ServiceProvider
         $this->app->register(FeaturesServiceProvider::class);
         $this->app->register(FirewallServiceProvider::class);
         $this->app->register(UserServiceProvider::class);
+        $this->app->register(MiddlewareServiceProvider::class);
     }
 }

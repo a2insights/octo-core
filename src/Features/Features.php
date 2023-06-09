@@ -14,6 +14,8 @@ class Features extends BaseSettings
 
     public bool $auth_registration;
 
+    public bool $webhooks;
+
     public static function group(): string
     {
         return 'features';

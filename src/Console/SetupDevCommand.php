@@ -54,6 +54,8 @@ class SetupDevCommand extends Command
 
         $user->markEmailAsVerified();
 
+        $user->assignRole('user');
+
         $this->comment(sprintf('Log in user with email %s and password %s', self::DEFAULT_USER_EMAIL, self::DEFAULT_USER_PASSWORD));
 
         return $user;

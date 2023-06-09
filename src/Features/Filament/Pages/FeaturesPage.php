@@ -60,6 +60,13 @@ class FeaturesPage extends SettingsPage
                         ->hint('You can enable 2FA to your site.')
                         ->helperText('Caution: If you enable 2FA, users will can enable 2FA to their account.'),
                 ])->columns(1),
+            Fieldset::make('Developer')
+                ->schema([
+                    Toggle::make('webhooks')
+                        ->label('Webhooks')
+                        ->hint('You can enable webhooks to your site.')
+                        ->helperText('Caution: If you enable webhooks, users will can enable webhooks to their account.'),
+                ])->columns(1),
         ];
     }
 }

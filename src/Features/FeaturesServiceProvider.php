@@ -50,6 +50,12 @@ class FeaturesServiceProvider extends PluginServiceProvider
         $this->syncRegistration();
         $this->syncLogin();
         $this->sync2fa();
+        $this->syncWebhooks();
+    }
+
+    private function syncWebhooks(): void
+    {
+        // TODO: Implement syncWebhooks() method.
     }
 
     private function syncDarkMode(): void

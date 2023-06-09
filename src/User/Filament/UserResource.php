@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
+use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 use Octo\User\Filament\Pages\CreateUser;
 use Octo\User\Filament\Pages\EditUser;
 use Octo\User\Filament\Pages\ListUsers;
@@ -110,6 +111,7 @@ class UserResource extends Resource
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                DateRangeFilter::make('created_at'),
             ])
             ->actions([
                 ImpersonateAction::make(),
