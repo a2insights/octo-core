@@ -26,7 +26,7 @@
         "filament/spatie-laravel-settings-plugin": "^2.0",
         "illuminate/support": "^9.0|^10.0",
         "livewire/livewire": "^2.12",
-        "solution-forest/filament-firewall": "dev-main",
+        "solution-forest/filament-firewall": "^1.0",
         "spatie/laravel-data": "^3.6",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-stats": "^2.1",
