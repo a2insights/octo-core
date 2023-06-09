@@ -2,6 +2,7 @@
 
 namespace Octo\Features\Filament\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
@@ -10,6 +11,8 @@ use Octo\Features\Features;
 
 class FeaturesPage extends SettingsPage
 {
+    use HasPageShield;
+
     protected static string $settings = Features::class;
 
     protected static bool $shouldRegisterNavigation = false;
@@ -57,7 +60,6 @@ class FeaturesPage extends SettingsPage
                         ->hint('You can enable 2FA to your site.')
                         ->helperText('Caution: If you enable 2FA, users will can enable 2FA to their account.'),
                 ])->columns(1),
-
         ];
     }
 }

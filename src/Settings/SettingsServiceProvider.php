@@ -35,10 +35,6 @@ class SettingsServiceProvider extends PluginServiceProvider
                 ->label('Settings')
                 ->url('/dashboard/settings/main')
                 ->icon('heroicon-s-cog'),
-            UserMenuItem::make()
-                ->label('Firewall')
-                ->url('/dashboard/ips')
-                ->icon('heroicon-s-shield-check'),
         ];
     }
 

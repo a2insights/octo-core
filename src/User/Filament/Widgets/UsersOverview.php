@@ -2,12 +2,15 @@
 
 namespace Octo\User\Filament\Widgets;
 
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Card;
 use Octo\User\Stats\UserStats;
 
 class UsersOverview extends BaseWidget
 {
+    use HasWidgetShield;
+
     protected function getCards(): array
     {
         $statsUsersWeek = UserStats::query()
@@ -41,7 +44,7 @@ class UsersOverview extends BaseWidget
     private function description($stats)
     {
         if ($stats->increments - $stats->decrements === 0) {
-            return "No change";
+            return 'No change';
         }
 
         if ($stats->increments > $stats->decrements) {

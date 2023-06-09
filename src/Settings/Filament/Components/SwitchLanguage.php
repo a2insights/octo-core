@@ -24,7 +24,7 @@ class SwitchLanguage extends Component
         $user = auth()->user();
 
         $settings = UserSettings::from(array_merge(
-            $user->settings->toArray(),
+            $user->settings?->toArray() ?? [],
             ['locale' => $locale]
         ));
 

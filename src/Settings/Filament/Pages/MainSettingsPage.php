@@ -3,6 +3,7 @@
 namespace Octo\Settings\Filament\Pages;
 
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -18,6 +19,8 @@ use Symfony\Component\Intl\Timezones;
 
 class MainSettingsPage extends SettingsPage
 {
+    use HasPageShield;
+
     protected static string $settings = Settings::class;
 
     protected static bool $shouldRegisterNavigation = false;

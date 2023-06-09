@@ -2,11 +2,14 @@
 
 namespace Octo\User\Filament\Widgets;
 
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\LineChartWidget;
 use Octo\User\Stats\UserStats;
 
 class UsersChart extends LineChartWidget
 {
+    use HasWidgetShield;
+
     protected static ?string $heading = 'Users Chart';
 
     protected static ?string $maxHeight = '250px';
@@ -30,7 +33,7 @@ class UsersChart extends LineChartWidget
         ];
     }
 
-    public function getColumnSpan(): int | string | array
+    public function getColumnSpan(): int|string|array
     {
         return 2;
     }
