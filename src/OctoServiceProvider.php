@@ -35,13 +35,20 @@ class OctoServiceProvider extends ServiceProvider
         );
 
         Filament::serving(function () {
-            Filament::registerNavigationItems([
-                NavigationItem::make('Logs')
-                    ->url(config('log-viewer.route_path'))
-                    ->icon('heroicon-o-clipboard-list')
-                    ->group('System')
-                    ->sort(3),
-            ]);
+            $navigation = [
+                'super_admin' => [
+                    [
+                        NavigationItem::make('Logs')
+                            ->url(config('log-viewer.route_path'))
+                            ->icon('heroicon-o-clipboard-list')
+                            ->group('System'),
+                    ],
+                ],
+            ];
+
+            $isSuperAdmin = auth()?->user()?->hasRole('super_admin');
+
+            collect($navigation['super_admin'])->each(fn ($items) => $isSuperAdmin ? Filament::registerNavigationItems($items) : null);
         });
     }
 

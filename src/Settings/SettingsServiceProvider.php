@@ -30,12 +30,16 @@ class SettingsServiceProvider extends PluginServiceProvider
 
     protected function getUserMenuItems(): array
     {
-        return [
-            UserMenuItem::make()
-                ->label('Settings')
-                ->url('/dashboard/settings/main')
-                ->icon('heroicon-s-cog'),
-        ];
+        return collect([])
+            ->when(
+                auth()?->user()?->hasRole('super_admin'),
+                fn ($items) => $items->push(
+                    UserMenuItem::make()
+                        ->label('Settings')
+                        ->url('/dashboard/settings/main')
+                        ->icon('heroicon-s-cog')
+                ))
+            ->toArray();
     }
 
     public function packageBooted(): void
@@ -78,6 +82,7 @@ class SettingsServiceProvider extends PluginServiceProvider
 
         if ($name) {
             Config::set('filament.brand', $name);
+            Config::set('app.name', $name);
         }
 
         if ($description) {

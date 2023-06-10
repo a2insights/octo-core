@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Settings\Http\Middleware;
+namespace Octo\Middleware\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

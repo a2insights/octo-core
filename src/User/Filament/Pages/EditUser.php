@@ -6,7 +6,6 @@ use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Octo\User\Filament\UserResource;
-use XliteDev\FilamentImpersonate\Pages\Actions\ImpersonateAction;
 
 class EditUser extends EditRecord
 {
@@ -14,18 +13,20 @@ class EditUser extends EditRecord
 
     protected function getActions(): array
     {
-        return [
-            Actions\DeleteAction::make()->disabled(fn () => $this->record->is(auth()->user())),
-            ImpersonateAction::make()->record($this->getRecord()),
-        ];
+        return collect([
+            Actions\DeleteAction::make()->disabled(fn () => $this->record->is(auth()->user()) || $this->record->hasRole('super_admin')),
+        ])->when(
+            auth()->user()->hasRole('super_admin'),
+            fn ($actions) => $actions->push(\XliteDev\FilamentImpersonate\Pages\Actions\ImpersonateAction::make()->record($this->getRecord()))
+        )->toArray();
     }
 
     protected function getSaveFormAction(): Action
     {
         return Action::make('save')
             ->label(__('filament::resources/pages/edit-record.form.actions.save.label'))
-            ->disabled(fn () => $this->record->is(auth()->user()))
+            ->disabled(fn () => $this->record->is(auth()->user()) || $this->record->hasRole('super_admin'))
             ->submit('save')
-            ->keyBindings(['mod+s']);
+            ->keyBindings(['ctrl+s']);
     }
 }

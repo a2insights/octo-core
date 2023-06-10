@@ -27,12 +27,16 @@ class FeaturesServiceProvider extends PluginServiceProvider
 
     protected function getUserMenuItems(): array
     {
-        return [
-            UserMenuItem::make()
-                ->label('Features')
-                ->url('/dashboard/features')
-                ->icon('heroicon-o-view-grid-add'),
-        ];
+        return collect([])
+            ->when(
+                auth()?->user()?->hasRole('super_admin'),
+                fn ($items) => $items->push(
+                    UserMenuItem::make()
+                        ->label('Features')
+                        ->url('/dashboard/features')
+                        ->icon('heroicon-o-view-grid-add'),
+                ))
+            ->toArray();
     }
 
     public function packageBooted(): void
@@ -61,6 +65,7 @@ class FeaturesServiceProvider extends PluginServiceProvider
     private function syncDarkMode(): void
     {
         Config::set('filament.dark_mode', $this->features->dark_mode);
+        Config::set('notifications.dark_mode', $this->features->dark_mode);
     }
 
     private function syncRegistration(): void
