@@ -4,7 +4,7 @@
 
 # Instead, use [octo](https://github.com/a2insights/octo) template
 
-[![GitHub license](https://img.shields.io/github/license/a21ns1g4ts/octo-core.svg)](https://raw.githubusercontent.com/a21ns1g4ts/octo-core/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/a21ns1g4ts/octo-core.svg)](https://raw.githubusercontent.com/a2insights/octo-core/main/LICENSE)
 
 ## Changelog
 
