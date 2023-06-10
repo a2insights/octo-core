@@ -3,6 +3,7 @@
 namespace Octo\User\Filament;
 
 use App\Models\User;
+use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
@@ -12,7 +13,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -71,6 +71,9 @@ class UserResource extends Resource
                                 ->placeholder(__('Email')),
                             TextInput::make('password')
                                 ->password()
+                                ->hidden(static function (?User $record): bool|null {
+                                    return $record?->exists;
+                                })
                                 ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                                 ->placeholder(__('Password')),
                             Select::make('roles')
@@ -95,7 +98,7 @@ class UserResource extends Resource
                                 ->content(fn (?User $record): string => $record ? $record->updated_at->diffForHumans() : '-'),
                             Placeholder::make('roles')
                                 ->label('Roles')
-                                ->content(fn (?User $record): string => $record ? $record->roles->map(fn ($role) => $role->name)->join(', ') : '-'),
+                                ->content(fn (?User $record): string => $record ? $record->roles->map(fn ($role) => Str::title($role->name))->join(', ') : '-'),
                             Placeholder::make('email_verified_at')
                                 ->label('Email verified at')
                                 ->content(fn (?User $record): string => $record?->email_verified_at ? $record->email_verified_at->diffForHumans() : '-'),
@@ -116,17 +119,17 @@ class UserResource extends Resource
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->searchable()
-                    ->url(fn ($record) => "mailto:{$record->email}"),
-                IconColumn::make('email_verified_at')
-                    ->options([
-                        'heroicon-o-check-circle',
-                        'heroicon-o-x-circle' => fn ($state): bool => $state === null,
-                    ])
-                    ->colors([
-                        'success',
-                        'danger' => fn ($state): bool => $state === null,
-                    ])
+                    ->searchable(),
+                ToggleIconColumn::make('email_verified_at')
+                    ->onIcon('heroicon-o-check-circle')
+                    ->offIcon('heroicon-o-x-circle')
+                    ->offColor('danger')
+                    ->onColor('success')
+                    ->alignCenter()
+                    ->sortable()
+                    ->updateStateUsing(fn ($state, Model $record) => $record->forceFill(['email_verified_at' => $state ? now() : null])->save())
+                    ->disabled(fn ($record) => ! auth()->user()->hasRole('super_admin') || $record->hasRole('super_admin'))
+                    ->hoverColor(fn (Model $record) => $record->email_verified_at ? 'danger' : 'success')
                     ->label('Email verified'),
                 TagsColumn::make('roles')->separator(',')->getStateUsing(fn ($record) => $record->roles->map(fn ($role) => $role->name)->implode(', ')),
                 TextColumn::make('created_at')
@@ -136,6 +139,7 @@ class UserResource extends Resource
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
                 \Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter::make('created_at'),
+                Tables\Filters\Filter::make('email_verified_at')->label('Not verified')->query(fn (Builder $query) => $query->whereNull('email_verified_at')),
             ])
             ->actions([
 
