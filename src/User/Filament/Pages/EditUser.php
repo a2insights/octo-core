@@ -16,7 +16,7 @@ class EditUser extends EditRecord
         return collect([
             Actions\DeleteAction::make()->disabled(fn () => $this->record->is(auth()->user()) || $this->record->hasRole('super_admin')),
         ])->when(
-            auth()->user()->hasRole('super_admin'),
+            auth()->user()->hasRole('super_admin') && ! $this->record->hasRole('super_admin'),
             fn ($actions) => $actions->push(\XliteDev\FilamentImpersonate\Pages\Actions\ImpersonateAction::make()->record($this->getRecord()))
         )->toArray();
     }

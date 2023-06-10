@@ -142,7 +142,6 @@ class UserResource extends Resource
                 Tables\Filters\Filter::make('email_verified_at')->label('Not verified')->query(fn (Builder $query) => $query->whereNull('email_verified_at')),
             ])
             ->actions([
-
                 \XliteDev\FilamentImpersonate\Tables\Actions\ImpersonateAction::make()
                     ->visible(fn ($record) => auth()->user()->hasRole('super_admin') && ! $record->hasRole('super_admin'))
                     ->iconButton(),
@@ -153,17 +152,17 @@ class UserResource extends Resource
                     ->visible(fn ($record) => auth()->user()->hasRole('super_admin') && $record->isBanned() && ! $record->hasRole('super_admin'))
                     ->iconButton(),
                 Tables\Actions\EditAction::make()
-                    ->visible(fn ($record) => ! $record->is(auth()->user()) || ! $record->hasRole('super_admin'))
+                    ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))
                     ->iconButton(),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn ($record) => ! $record->is(auth()->user()) || ! $record->hasRole('super_admin'))
+                    ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))
                     ->iconButton(),
-                Tables\Actions\ForceDeleteAction::make()->iconButton(),
+                Tables\Actions\ForceDeleteAction::make()->iconButton()->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin')),
                 Tables\Actions\RestoreAction::make()->iconButton(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => $record->isNot(auth()->user()))->each->delete()),
-                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))->each->delete()),
+                Tables\Actions\ForceDeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))->each->forceDelete()),
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
