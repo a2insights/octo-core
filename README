@@ -1,6 +1,10 @@
 # octo-core
 
-[![GitHub license](https://img.shields.io/github/license/gothinkster/laravel-realworld-example-app.svg)](https://raw.githubusercontent.com/gothinkster/laravel-realworld-example-app/master/LICENSE)
+# Don't try install this package, it's not ready yet to use directly in your project
+
+# Instead, use [octo](https://github.com/a2insights/octo) template
+
+[![GitHub license](https://img.shields.io/github/license/a21ns1g4ts/octo-core.svg)](https://raw.githubusercontent.com/a21ns1g4ts/octo-core/master/LICENSE)
 
 ## Changelog
 
@@ -16,8 +20,8 @@ If you discover any security related issues, please email atila.danvi@outlook.co
 
 ## Credits
 
-- [Atila Silva](https://github.com/a21ns1g4ts)
-- [All Contributors](../../contributors)
+-   [Atila Silva](https://github.com/a21ns1g4ts)
+-   [All Contributors](../../contributors)
 
 ## License
 
