@@ -23,7 +23,9 @@ class MainSettingsPage extends SettingsPage
 
     protected static string $settings = Settings::class;
 
-    protected static bool $shouldRegisterNavigation = false;
+    protected static ?string $navigationIcon = 'heroicon-o-cog';
+
+    protected static ?string $navigationGroup = 'System';
 
     protected static ?string $slug = 'settings/main';
 

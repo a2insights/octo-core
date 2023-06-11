@@ -15,7 +15,9 @@ class FeaturesPage extends SettingsPage
 
     protected static string $settings = Features::class;
 
-    protected static bool $shouldRegisterNavigation = false;
+    protected static ?string $navigationIcon = 'heroicon-o-view-grid-add';
+
+    protected static ?string $navigationGroup = 'System';
 
     protected static ?string $slug = 'features';
 

@@ -3,7 +3,6 @@
 namespace Octo\Settings;
 
 use Filament\Facades\Filament;
-use Filament\Navigation\UserMenuItem;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Blade;
@@ -26,20 +25,6 @@ class SettingsServiceProvider extends PluginServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name('octo.settings');
-    }
-
-    protected function getUserMenuItems(): array
-    {
-        return collect([])
-            ->when(
-                auth()?->user()?->hasRole('super_admin'),
-                fn ($items) => $items->push(
-                    UserMenuItem::make()
-                        ->label('Settings')
-                        ->url('/dashboard/settings/main')
-                        ->icon('heroicon-s-cog')
-                ))
-            ->toArray();
     }
 
     public function packageBooted(): void

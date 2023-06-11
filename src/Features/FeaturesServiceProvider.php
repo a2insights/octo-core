@@ -2,7 +2,6 @@
 
 namespace Octo\Features;
 
-use Filament\Navigation\UserMenuItem;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -23,20 +22,6 @@ class FeaturesServiceProvider extends PluginServiceProvider
 
         // Future we wiil integrate with laravel pennant
         // Feature::define('dark_mode');
-    }
-
-    protected function getUserMenuItems(): array
-    {
-        return collect([])
-            ->when(
-                auth()?->user()?->hasRole('super_admin'),
-                fn ($items) => $items->push(
-                    UserMenuItem::make()
-                        ->label('Features')
-                        ->url('/dashboard/features')
-                        ->icon('heroicon-o-view-grid-add'),
-                ))
-            ->toArray();
     }
 
     public function packageBooted(): void
