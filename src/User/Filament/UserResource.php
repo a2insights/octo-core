@@ -157,7 +157,7 @@ class UserResource extends Resource
                 Tables\Actions\DeleteAction::make()
                     ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))
                     ->iconButton(),
-                Tables\Actions\ForceDeleteAction::make()->iconButton()->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin')),
+                Tables\Actions\ForceDeleteAction::make()->iconButton()->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin') && $record->trashed()),
                 Tables\Actions\RestoreAction::make()->iconButton(),
             ])
             ->bulkActions([
