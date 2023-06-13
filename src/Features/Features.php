@@ -16,6 +16,8 @@ class Features extends BaseSettings
 
     public bool $webhooks;
 
+    public bool $recaptcha;
+
     public static function group(): string
     {
         return 'features';

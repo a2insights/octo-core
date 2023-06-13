@@ -4,10 +4,13 @@ namespace Octo\Features\Filament\Pages;
 
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Octo\Features\Features;
+use Octo\Settings\reCAPTCHASettings;
 
 class FeaturesPage extends SettingsPage
 {
@@ -35,6 +38,27 @@ class FeaturesPage extends SettingsPage
     protected function afterSave(): void
     {
         Artisan::call('route:clear');
+
+        $data = $this->form->getState();
+
+        if ($data['recaptcha']) {
+            $recaptchaSettings = App::make(reCAPTCHASettings::class);
+
+            $recaptchaSettings->site_key = $data['recaptcha-site_key'];
+            $recaptchaSettings->secret_key = $data['recaptcha-secret_key'];
+
+            $recaptchaSettings->save();
+        }
+    }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $recaptchaSettings = App::make(reCAPTCHASettings::class);
+
+        $data['recaptcha-site_key'] = $recaptchaSettings->site_key;
+        $data['recaptcha-secret_key'] = $recaptchaSettings->secret_key;
+
+        return $data;
     }
 
     protected function getFormSchema(): array
@@ -61,6 +85,19 @@ class FeaturesPage extends SettingsPage
                         ->label('2FA')
                         ->hint('You can enable 2FA to your site.')
                         ->helperText('Caution: If you enable 2FA, users will can enable 2FA to their account.'),
+                    Toggle::make('recaptcha')
+                        ->label('reCAPTCHA')
+                        ->reactive()
+                        ->hint('You can enable reCAPTCHA to your site.')
+                        ->helperText('Caution: If you enable reCAPTCHA, users will login with reCAPTCHA.'),
+                    TextInput::make('recaptcha-site_key')
+                        ->label('reCAPTCHA Site Key')
+                        ->visible(fn ($state, callable $get) => $get('recaptcha'))
+                        ->hint('You can set reCAPTCHA site key to your site.'),
+                    TextInput::make('recaptcha-secret_key')
+                        ->label('reCAPTCHA Secret Key')
+                        ->visible(fn ($state, callable $get) => $get('recaptcha'))
+                        ->hint('You can set reCAPTCHA secret key to your site.'),
                 ])->columns(1),
             Fieldset::make('Developer')
                 ->schema([

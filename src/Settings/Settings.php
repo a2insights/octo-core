@@ -12,9 +12,9 @@ class Settings extends BaseSettings
 
     public array $keywords;
 
-    public string|null $logo;
+    public ?string $logo;
 
-    public string|null $favicon;
+    public ?string $favicon;
 
     public array $restrict_ips;
 

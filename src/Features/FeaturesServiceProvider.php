@@ -6,6 +6,7 @@ use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Octo\Features\Filament\Pages\FeaturesPage;
+use Octo\Settings\reCAPTCHASettings;
 use Spatie\LaravelPackageTools\Package;
 
 class FeaturesServiceProvider extends PluginServiceProvider
@@ -40,6 +41,22 @@ class FeaturesServiceProvider extends PluginServiceProvider
         $this->syncLogin();
         $this->sync2fa();
         $this->syncWebhooks();
+        $this->syncRecaptcha();
+    }
+
+    private function syncRecaptcha(): void
+    {
+        if ($this->features->recaptcha) {
+            $recaptchaSettings = App::make(reCAPTCHASettings::class);
+
+            // Prevents login page from breaking if recaptcha is enabled but no keys are set
+            if (! $recaptchaSettings->site_key || ! $recaptchaSettings->secret_key) {
+                return;
+            }
+
+            Config::set('captcha.sitekey', $recaptchaSettings->site_key);
+            Config::set('captcha.secret', $recaptchaSettings->secret_key);
+        }
     }
 
     private function syncWebhooks(): void
