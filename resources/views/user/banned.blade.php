@@ -9,9 +9,9 @@
             'p-8 space-y-8 bg-white/50 backdrop-blur-xl border border-gray-200 shadow-2xl rounded-2xl relative filament-breezy-auth-card',
             'dark:bg-gray-900/50 dark:border-gray-700' => config('filament.dark_mode'),
         ])>
-            <div class="w-full flex justify-center">
-        <x-filament::brand />
-    </div>
+        <div class="w-full flex justify-center">
+            <x-filament::brand />
+        </div>
 
         <div class="space-y-8">
             <h2 class="font-bold tracking-tight text-center text-2xl">
@@ -37,14 +37,14 @@
             </div>
         </div>
 
-      {{--   {{ $this->form }} --}}
+        {{-- {{ $this->form }} --}}
 
         <x-filament::button type="submit" class="w-full">
             Logout
         </x-filament::button>
         </form>
 
-        {{ $this->modal }}
+       {{-- {{ $this->modal }} --}}
         <x-filament::footer />
     </div>
 

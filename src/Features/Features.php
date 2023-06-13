@@ -18,6 +18,8 @@ class Features extends BaseSettings
 
     public bool $recaptcha;
 
+    public bool $terms;
+
     public static function group(): string
     {
         return 'features';

@@ -5,6 +5,7 @@ namespace Octo;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Octo\Features\FeaturesServiceProvider;
 use Octo\Firewall\FirewallServiceProvider;
@@ -50,6 +51,8 @@ class OctoServiceProvider extends ServiceProvider
 
             collect($navigation['super_admin'])->each(fn ($items) => $isSuperAdmin ? Filament::registerNavigationItems($items) : null);
         });
+
+        Route::get('/', fn () => redirect(config('filament.path')));
     }
 
     public function register()

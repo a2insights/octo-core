@@ -5,7 +5,10 @@ namespace Octo\Features;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Route;
 use Octo\Features\Filament\Pages\FeaturesPage;
+use Octo\Features\Filament\Pages\Policy;
+use Octo\Features\Filament\Pages\Terms;
 use Octo\Settings\reCAPTCHASettings;
 use Spatie\LaravelPackageTools\Package;
 
@@ -20,6 +23,14 @@ class FeaturesServiceProvider extends PluginServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name('octo.features');
+
+        Route::get('/terms-of-service', Terms::class)
+            ->middleware('web')
+            ->name('terms.show');
+
+        Route::get('/privacy-policy', Policy::class)
+            ->middleware('web')
+            ->name('policy.show');
 
         // Future we wiil integrate with laravel pennant
         // Feature::define('dark_mode');
