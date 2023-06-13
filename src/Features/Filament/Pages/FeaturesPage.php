@@ -49,8 +49,6 @@ class FeaturesPage extends SettingsPage
 
     protected function afterSave(): void
     {
-        Artisan::call('route:clear');
-
         $data = $this->form->getState();
 
         if ($data['recaptcha']) {
@@ -68,6 +66,8 @@ class FeaturesPage extends SettingsPage
 
             $termsSettings->save();
         }
+
+        Artisan::call('optimize');
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
