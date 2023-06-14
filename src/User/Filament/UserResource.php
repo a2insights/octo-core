@@ -4,6 +4,8 @@ namespace Octo\User\Filament;
 
 use App\Models\User;
 use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
+use Awcodes\FilamentBadgeableColumn\Components\Badge;
+use Awcodes\FilamentBadgeableColumn\Components\BadgeableTagsColumn;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
@@ -13,7 +15,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -24,6 +25,8 @@ use Illuminate\Support\Str;
 use Octo\User\Filament\Pages\CreateUser;
 use Octo\User\Filament\Pages\EditUser;
 use Octo\User\Filament\Pages\ListUsers;
+use Webbingbrasil\FilamentCopyActions\Tables\CopyableTextColumn;
+use Wiebenieuwenhuis\FilamentCharCounter\TextInput as TextInputCharCounter;
 
 class UserResource extends Resource
 {
@@ -60,10 +63,13 @@ class UserResource extends Resource
                 ->schema([
                     $layout::make()
                         ->schema([
-                            TextInput::make('name')
+                            TextInputCharCounter::make('name')
                                 ->autofocus()
                                 ->required()
-                                ->placeholder(__('Name')),
+                                ->placeholder(__('Name'))
+                                ->rules(['required', 'max:8', 'min:3', 'string'])
+                                ->maxLength(10),
+                            //  ->characterLimit(8), // value can exceed the limit but the counter will be red
                             TextInput::make('email')
                                 ->email()
                                 ->required()
@@ -118,8 +124,10 @@ class UserResource extends Resource
                     ->sortable('desc'),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->searchable(),
+                CopyableTextColumn::make('email')
+                    ->copyMessage('Email copied to clipboard')
+                    ->searchable()
+                    ->toggleable(),
                 ToggleIconColumn::make('email_verified_at')
                     ->onIcon('heroicon-o-check-circle')
                     ->offIcon('heroicon-o-x-circle')
@@ -131,7 +139,16 @@ class UserResource extends Resource
                     ->disabled(fn ($record) => ! auth()->user()->hasRole('super_admin') || $record->hasRole('super_admin'))
                     ->hoverColor(fn (Model $record) => $record->email_verified_at ? 'danger' : 'success')
                     ->label('Email verified'),
-                TagsColumn::make('roles')->separator(',')->getStateUsing(fn ($record) => $record->roles->map(fn ($role) => $role->name)->implode(', ')),
+                BadgeableTagsColumn::make('roles')
+                    ->badges(function ($record) {
+                        return $record->roles->map(function ($role) {
+                            return Badge::make($role->name)->color([
+                                'super_admin' => 'danger',
+                                'admin' => 'warning',
+                                'user' => 'success',
+                            ][$role->name] ?? 'primary');
+                        })->toArray();
+                    }),
                 TextColumn::make('created_at')
                     ->label('Created at')
                     ->sortable('desc'),

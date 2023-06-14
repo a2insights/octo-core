@@ -18,7 +18,7 @@ class SetupDevCommand extends Command
 
     public const DEFAULT_USER_PASSWORD = '123456';
 
-    public const DEFAULT_SUPER_ADMIN_NAME = 'admin';
+    public const DEFAULT_SUPER_ADMIN_NAME = 'super-admin';
 
     public const DEFAULT_SUPER_ADMIN_EMAIL = 'super-admin@octo.dev';
 
