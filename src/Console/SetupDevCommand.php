@@ -69,7 +69,12 @@ class SetupDevCommand extends Command
 
         $user->markEmailAsVerified();
 
-        $this->call('shield:super-admin');
+        $superAdminRole = Utils::getRoleModel()::firstOrCreate(
+            ['name' => Utils::getSuperAdminName()],
+            ['guard_name' => Utils::getFilamentAuthGuard()]
+        );
+
+        $user->assignRole(Utils::getSuperAdminName());
 
         $this->comment(sprintf('Log in user with email %s and password %s', self::DEFAULT_SUPER_ADMIN_EMAIL, self::DEFAULT_SUPER_ADMIN_PASSWORD));
 
@@ -111,13 +116,13 @@ class SetupDevCommand extends Command
         $user->markEmailAsVerified();
 
         $userRole = Utils::getRoleModel()::firstOrCreate(
-            ['name' => 'user'],
+            ['name' => Utils::getFilamentUserRoleName()],
             ['guard_name' => Utils::getFilamentAuthGuard()]
         );
 
         $userRole->syncPermissions([]);
 
-        $user->assignRole('user');
+        $user->assignRole(Utils::getFilamentUserRoleName());
 
         $this->comment(sprintf('Log in user with email %s and password %s', self::DEFAULT_USER_EMAIL, self::DEFAULT_USER_PASSWORD));
 
