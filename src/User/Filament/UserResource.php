@@ -63,13 +63,16 @@ class UserResource extends Resource
                 ->schema([
                     $layout::make()
                         ->schema([
+                            Placeholder::make('id')
+                                ->label('ID')
+                                ->content(fn (?User $record): string => $record ? $record->id : '-'),
                             TextInputCharCounter::make('name')
                                 ->autofocus()
                                 ->required()
                                 ->placeholder(__('Name'))
                                 ->rules(['required', 'max:8', 'min:3', 'string'])
-                                ->maxLength(10),
-                            //  ->characterLimit(8), // value can exceed the limit but the counter will be red
+                                // ->maxLength(8) // value can't exceed the limit and not will be red
+                                ->characterLimit(8), // value can exceed the limit but the counter will be red
                             TextInput::make('email')
                                 ->email()
                                 ->required()
@@ -102,9 +105,6 @@ class UserResource extends Resource
                             Placeholder::make('updated_at')
                                 ->label('Last modified at')
                                 ->content(fn (?User $record): string => $record ? $record->updated_at->diffForHumans() : '-'),
-                            Placeholder::make('roles')
-                                ->label('Roles')
-                                ->content(fn (?User $record): string => $record ? $record->roles->map(fn ($role) => Str::title($role->name))->join(', ') : '-'),
                             Placeholder::make('email_verified_at')
                                 ->label('Email verified at')
                                 ->content(fn (?User $record): string => $record?->email_verified_at ? $record->email_verified_at->diffForHumans() : '-'),
@@ -121,7 +121,8 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
-                    ->sortable('desc'),
+                    ->sortable('desc')
+                    ->toggleable(),
                 TextColumn::make('name')
                     ->searchable(),
                 CopyableTextColumn::make('email')
@@ -136,22 +137,25 @@ class UserResource extends Resource
                     ->alignCenter()
                     ->sortable()
                     ->updateStateUsing(fn ($state, Model $record) => $record->forceFill(['email_verified_at' => $state ? now() : null])->save())
-                    ->disabled(fn ($record) => ! auth()->user()->hasRole('super_admin') || $record->hasRole('super_admin'))
+                    ->disabled(fn ($record) => ! auth()->user()->hasRole('super-admin') || $record->hasRole('super-admin'))
                     ->hoverColor(fn (Model $record) => $record->email_verified_at ? 'danger' : 'success')
-                    ->label('Email verified'),
+                    ->label('Email verified')
+                    ->toggleable(),
                 BadgeableTagsColumn::make('roles')
                     ->badges(function ($record) {
                         return $record->roles->map(function ($role) {
                             return Badge::make($role->name)->color([
-                                'super_admin' => 'danger',
+                                'super-admin' => 'danger',
                                 'admin' => 'warning',
                                 'user' => 'success',
                             ][$role->name] ?? 'primary');
                         })->toArray();
-                    }),
+                    })
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->label('Created at')
-                    ->sortable('desc'),
+                    ->sortable('desc')
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -160,26 +164,26 @@ class UserResource extends Resource
             ])
             ->actions([
                 \XliteDev\FilamentImpersonate\Tables\Actions\ImpersonateAction::make()
-                    ->visible(fn ($record) => auth()->user()->hasRole('super_admin') && ! $record->hasRole('super_admin'))
+                    ->visible(fn ($record) => auth()->user()->hasRole('super-admin') && ! $record->hasRole('super-admin'))
                     ->iconButton(),
                 \Widiu7omo\FilamentBandel\Actions\BanAction::make()
-                    ->visible(fn ($record) => auth()->user()->hasRole('super_admin') && ! $record->isBanned() && ! $record->hasRole('super_admin'))
+                    ->visible(fn ($record) => auth()->user()->hasRole('super-admin') && ! $record->isBanned() && ! $record->hasRole('super-admin'))
                     ->iconButton(),
                 \Widiu7omo\FilamentBandel\Actions\UnbanAction::make()
-                    ->visible(fn ($record) => auth()->user()->hasRole('super_admin') && $record->isBanned() && ! $record->hasRole('super_admin'))
+                    ->visible(fn ($record) => auth()->user()->hasRole('super-admin') && $record->isBanned() && ! $record->hasRole('super-admin'))
                     ->iconButton(),
                 Tables\Actions\EditAction::make()
-                    ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))
+                    ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin'))
                     ->iconButton(),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))
+                    ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin'))
                     ->iconButton(),
-                Tables\Actions\ForceDeleteAction::make()->iconButton()->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin') && $record->trashed()),
+                Tables\Actions\ForceDeleteAction::make()->iconButton()->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin') && $record->trashed()),
                 Tables\Actions\RestoreAction::make()->iconButton(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))->each->delete()),
-                Tables\Actions\ForceDeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super_admin'))->each->forceDelete()),
+                Tables\Actions\DeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin'))->each->delete()),
+                Tables\Actions\ForceDeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin'))->each->forceDelete()),
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
