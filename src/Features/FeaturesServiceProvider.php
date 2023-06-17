@@ -70,11 +70,6 @@ class FeaturesServiceProvider extends PluginServiceProvider
         }
     }
 
-    private function syncWebhooks(): void
-    {
-        // TODO: Implement syncWebhooks() method.
-    }
-
     private function syncDarkMode(): void
     {
         Config::set('filament.dark_mode', $this->features->dark_mode);
@@ -102,5 +97,13 @@ class FeaturesServiceProvider extends PluginServiceProvider
     private function sync2fa(): void
     {
         Config::set('filament-breezy.enable_2fa', $this->features->auth_2fa);
+    }
+
+    private function syncWebhooks(): void
+    {
+        if (! $this->features->webhooks) {
+            Config::set('filament-webhook-server.pages', []);
+            Config::set('filament-webhook-server.models', []);
+        }
     }
 }
