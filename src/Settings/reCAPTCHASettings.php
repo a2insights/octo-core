@@ -14,6 +14,6 @@ class reCAPTCHASettings extends BaseSettings
 
     public static function group(): string
     {
-        return 'settings_recaptcha';
+        return 'recaptcha_settings';
     }
 }

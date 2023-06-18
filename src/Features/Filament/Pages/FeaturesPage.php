@@ -4,6 +4,7 @@ namespace Octo\Features\Filament\Pages;
 
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Artisan;
 use Octo\Features\Features;
 use Octo\Settings\reCAPTCHASettings;
 use Octo\Settings\TermsSettings;
+use Octo\Settings\WebhooksSettings;
 use Spatie\FilamentMarkdownEditor\MarkdownEditor;
 
 class FeaturesPage extends SettingsPage
@@ -47,6 +49,11 @@ class FeaturesPage extends SettingsPage
         return App::make(TermsSettings::class);
     }
 
+    private function webhooks()
+    {
+        return App::make(WebhooksSettings::class);
+    }
+
     protected function afterSave(): void
     {
         $data = $this->form->getState();
@@ -67,6 +74,15 @@ class FeaturesPage extends SettingsPage
             $termsSettings->save();
         }
 
+        if ($data['webhooks']) {
+            $webhooksSettings = $this->webhooks();
+            $webhooksSettings->models = $data['webhooks-models'];
+            $webhooksSettings->history = $data['webhooks-history'];
+            $webhooksSettings->poll_interval = $data['webhooks-poll_interval'];
+
+            $webhooksSettings->save();
+        }
+
         Artisan::call('optimize');
     }
 
@@ -80,6 +96,11 @@ class FeaturesPage extends SettingsPage
         $data['terms-service'] = $termsSettings->service;
         $data['terms-privacy_policy'] = $termsSettings->privacy_policy;
 
+        $webhooksSettings = $this->webhooks();
+        $data['webhooks-models'] = $webhooksSettings->models;
+        $data['webhooks-history'] = $webhooksSettings->history;
+        $data['webhooks-poll_interval'] = $webhooksSettings->poll_interval;
+
         return $data;
     }
 
@@ -92,6 +113,40 @@ class FeaturesPage extends SettingsPage
                         ->hint('You can enable the toggle button for switching between light and dark mode.')
                         ->helperText('Caution: If you enable dark mode, your site will be displayed the toggle button for switching between light and dark mode.')
                         ->default(false),
+                ])->columns(1),
+            Fieldset::make('Developer')
+                ->schema([
+                    Toggle::make('webhooks')
+                        ->label('Webhooks')
+                        ->reactive()
+                        ->hint('You can enable webhooks to your site.')
+                        ->helperText('Caution: If you enable webhooks, users will can enable webhooks to their account.'),
+                    Toggle::make('webhooks-history')
+                        ->label('Webhooks History')
+                        ->hint('You can enable webhooks history')
+                        ->visible(fn ($state, callable $get) => $get('webhooks'))
+                        ->helperText('This is anable the webhooks logs.'),
+                    TextInput::make('webhooks-poll_interval')
+                        ->label('Webhooks poll interval')
+                        ->hint('You can enable webhooks poll interval')
+                        ->placeholder('10s')
+                        ->visible(fn ($state, callable $get) => $get('webhooks'))
+                        ->helperText('The webhook pages will refresh every time the poll interval is reached. If not set, the page will not refresh automatically.'),
+                    Select::make('webhooks-models')
+                        ->label('Webhooks Models available')
+                        ->multiple()
+                        ->options([
+                            \App\Models\User::class => 'user',
+                            \Cog\Laravel\Ban\Models\Ban::class => 'ban',
+                            \HusamTariq\FilamentDatabaseSchedule\Models\Schedule::class => 'schedule',
+                            \Spatie\LaravelSettings\Models\SettingsProperty::class => 'settings',
+                            \Spatie\Permission\Models\Permission::class => 'permission',
+                            \Spatie\Permission\Models\Role::class => 'role',
+                            \Illuminate\Notifications\DatabaseNotification::class => 'notification',
+                            \Laravel\Sanctum\PersonalAccessToken::class => 'personal_access_token',
+                        ])
+                        ->visible(fn ($state, callable $get) => $get('webhooks'))
+                        ->hint('You can configure webhooks models available to your site.'),
                 ])->columns(1),
             Fieldset::make('Authentication')
                 ->schema([
@@ -135,13 +190,6 @@ class FeaturesPage extends SettingsPage
                         ->fileAttachmentsDisk('public') // TODO: Make this configurable
                         ->fileAttachmentsVisibility('public') // TODO: Make this configurable
                         ->visible(fn ($state, callable $get) => $get('terms')),
-                ])->columns(1),
-            Fieldset::make('Developer')
-                ->schema([
-                    Toggle::make('webhooks')
-                        ->label('Webhooks')
-                        ->hint('You can enable webhooks to your site.')
-                        ->helperText('Caution: If you enable webhooks, users will can enable webhooks to their account.'),
                 ])->columns(1),
         ];
     }

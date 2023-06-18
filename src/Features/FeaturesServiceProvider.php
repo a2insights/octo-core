@@ -10,6 +10,7 @@ use Octo\Features\Filament\Pages\FeaturesPage;
 use Octo\Features\Filament\Pages\Policy;
 use Octo\Features\Filament\Pages\Terms;
 use Octo\Settings\reCAPTCHASettings;
+use Octo\Settings\WebhooksSettings;
 use Spatie\LaravelPackageTools\Package;
 
 class FeaturesServiceProvider extends PluginServiceProvider
@@ -104,6 +105,12 @@ class FeaturesServiceProvider extends PluginServiceProvider
         if (! $this->features->webhooks) {
             Config::set('filament-webhook-server.pages', []);
             Config::set('filament-webhook-server.models', []);
+        } else {
+            $webhookSettings = App::make(WebhooksSettings::class);
+
+            Config::set('filament-webhook-server.models', $webhookSettings->models);
+            Config::set('filament-webhook-server.polling', $webhookSettings->poll_interval);
+            Config::set('filament-webhook-server.webhook.keep_history', $webhookSettings->history);
         }
     }
 }
