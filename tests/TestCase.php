@@ -9,8 +9,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        if (file_exists(__DIR__ . '/../.env')) {
-            \Dotenv\Dotenv::createImmutable(__DIR__ . '../..')->load();
+        if (file_exists(__DIR__.'/../.env')) {
+            \Dotenv\Dotenv::createImmutable(__DIR__.'../..')->load();
         }
     }
 
@@ -22,16 +22,16 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $config = require __DIR__ . './../config/octo.php';
+        $config = require __DIR__.'./../config/octo.php';
 
         $app['config']->set('octo', $config);
 
         $app['config']->set('database.default', 'testbench');
 
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 }

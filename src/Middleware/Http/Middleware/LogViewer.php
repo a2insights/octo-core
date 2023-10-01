@@ -9,9 +9,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LogViewer
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! App::runningInConsole() && ! $request->user()->hasRole('super_admin')) {
+        if (! App::runningInConsole() && ! $request->user()?->hasRole('super_admin') && $request->path() === 'admin/log-viewer') {
             abort(403);
         }
 

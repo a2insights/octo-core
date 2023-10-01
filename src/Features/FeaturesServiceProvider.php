@@ -2,23 +2,18 @@
 
 namespace Octo\Features;
 
-use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-use Octo\Features\Filament\Pages\FeaturesPage;
 use Octo\Features\Filament\Pages\Policy;
 use Octo\Features\Filament\Pages\Terms;
 use Octo\Settings\reCAPTCHASettings;
 use Octo\Settings\WebhooksSettings;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FeaturesServiceProvider extends PluginServiceProvider
+class FeaturesServiceProvider extends PackageServiceProvider
 {
-    protected array $pages = [
-        FeaturesPage::class,
-    ];
-
     protected Features $features;
 
     public function configurePackage(Package $package): void
@@ -32,9 +27,6 @@ class FeaturesServiceProvider extends PluginServiceProvider
         Route::get('/privacy-policy', Policy::class)
             ->middleware('web')
             ->name('policy.show');
-
-        // Future we wiil integrate with laravel pennant
-        // Feature::define('dark_mode');
     }
 
     public function packageBooted(): void
@@ -48,9 +40,7 @@ class FeaturesServiceProvider extends PluginServiceProvider
 
         $this->features = App::make(Features::class);
 
-        $this->syncDarkMode();
         $this->syncRegistration();
-        $this->syncLogin();
         $this->sync2fa();
         $this->syncWebhooks();
         $this->syncRecaptcha();
@@ -71,28 +61,9 @@ class FeaturesServiceProvider extends PluginServiceProvider
         }
     }
 
-    private function syncDarkMode(): void
-    {
-        Config::set('filament.dark_mode', $this->features->dark_mode);
-        Config::set('notifications.dark_mode', $this->features->dark_mode);
-    }
-
     private function syncRegistration(): void
     {
         Config::set('filament-breezy.enable_registration', $this->features->auth_registration);
-    }
-
-    private function syncLogin(): void
-    {
-        $pages = Config::get('filament.auth.pages');
-
-        if ($this->features->auth_login) {
-            $pages['login'] = \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login::class;
-        } else {
-            unset($pages['login']);
-        }
-
-        Config::set('filament.auth.pages', $pages);
     }
 
     private function sync2fa(): void

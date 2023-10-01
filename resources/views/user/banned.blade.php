@@ -1,52 +1,44 @@
-<div @class([
-    'flex items-center justify-center min-h-screen bg-gray-100 text-gray-900 filament-breezy-auth-component filament-login-page',
-    'dark:bg-gray-900 dark:text-white' => config('filament.dark_mode'),
-])>
+ <div class="fi-simple-layout flex min-h-screen flex-col items-center">
+     <div class="fi-simple-main-ctn flex w-full flex-grow items-center justify-center">
+         <main
+             class="fi-simple-main my-16 w-full bg-white px-6 py-12 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 sm:max-w-lg sm:rounded-xl sm:px-12">
+             <div class="flex flex-row justify-center">
+                 <img class="w-56 h-56 rounded-full"
+                     src="{{ \Filament\Facades\Filament::getUserAvatarUrl(\Filament\Facades\Filament::auth()->user()) }}"
+                     alt="avatar">
+             </div>
 
-    <div
-        class="px-6 -mt-16 md:mt-0 md:px-2 max-w-md space-y-8 w-screen">
-        <form wire:submit.prevent="logout" @class([
-            'p-8 space-y-8 bg-white/50 backdrop-blur-xl border border-gray-200 shadow-2xl rounded-2xl relative filament-breezy-auth-card',
-            'dark:bg-gray-900/50 dark:border-gray-700' => config('filament.dark_mode'),
-        ])>
-        <div class="w-full flex justify-center">
-            <x-filament::brand />
-        </div>
+             <div class="flex flex-row justify-center">
+                 <div class="mt-2 font-medium dark:text-white">
+                     <div>{{ \Filament\Facades\Filament::auth()->user()?->name ?? '' }}</div>
+                 </div>
+             </div>
 
-        <div class="space-y-8">
-            <h2 class="font-bold tracking-tight text-center text-2xl">
-                Account Suspended
-            </h2>
-            <div>
-                <p class="text-center">
-                    Your account has been suspended  @unless($ban->expired_at) indefinitely @else until {{ $ban->expired_at->format('Y-m-d H:i:s') }} @endunless
-                </p>
-                @if($ban->comment)
-                    <p class="text-center">
-                        Reason: {{ $ban->comment }}
-                    </p>
-                @else
-                    {{-- go to policy --}}
-                @endif
+             <div class="text-center mt-5">
+                 <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                     Account Suspended
+                 </h1>
+                 <p class=" text-base leading-7 text-gray-600">
+                     Your account has been suspended @unless ($ban->expired_at)
+                         indefinitely
+                     @else
+                         until {{ $ban->expired_at->format('Y-m-d H:i:s') }}
+                     @endunless
+                 </p>
 
-                 <a class="text-primary-600 " href="/">
-                   <p class="text-center">
-                        Go to home
-                    </p>
-                </a>
-            </div>
-        </div>
+                 @if ($ban->comment)
+                     <p class="text-center">
+                         Reason: {{ $ban->comment }}
+                     </p>
+                 @endif
+             </div>
 
-        {{-- {{ $this->form }} --}}
+             <x-filament-panels::form wire:submit="logout">
+                 {{ $this->form }}
 
-        <x-filament::button type="submit" class="w-full">
-            Logout
-        </x-filament::button>
-        </form>
+                 <x-filament-panels::form.actions :actions="$this->getFormActions()" :full-width="$this->hasFullWidthFormActions()" />
+             </x-filament-panels::form>
 
-       {{-- {{ $this->modal }} --}}
-        <x-filament::footer />
-    </div>
-
-    @livewire('notifications')
-</div>
+         </main>
+     </div>
+ </div>

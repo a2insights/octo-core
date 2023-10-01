@@ -12,7 +12,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\SettingsPage;
 use Illuminate\Support\Str;
-use Livewire\TemporaryUploadedFile;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Octo\Settings\Settings;
 use Symfony\Component\Intl\Locales;
 use Symfony\Component\Intl\Timezones;
@@ -34,11 +34,6 @@ class MainSettingsPage extends SettingsPage
     protected ?string $heading = 'Main Settings';
 
     protected ?string $subheading = 'Update your main settings.';
-
-    protected function getRedirectUrl(): ?string
-    {
-        return '/dashboard/settings/main';
-    }
 
     protected function getFormSchema(): array
     {

@@ -4,35 +4,23 @@ namespace Octo\User;
 
 use App\Models\User;
 use Filament\Facades\Filament;
-use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Octo\User\Filament\Pages\BannedUser;
 use Octo\User\Filament\Pages\Login;
 use Octo\User\Filament\Pages\Register;
-use Octo\User\Filament\UserResource;
-use Octo\User\Filament\Widgets\UsersChart;
-use Octo\User\Filament\Widgets\UsersOverview;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class UserServiceProvider extends PluginServiceProvider
+class UserServiceProvider extends PackageServiceProvider
 {
-    protected array $resources = [
-        UserResource::class,
-    ];
-
-    protected array $widgets = [
-        UsersOverview::class,
-        UsersChart::class,
-    ];
-
     public function bootingPackage(): void
     {
         User::observe(UserObserver::class);
 
-        Livewire::component(BannedUser::getName(), BannedUser::class);
-        Livewire::component(Login::getName(), Login::class);
-        Livewire::component(Register::getName(), Register::class);
+        Livewire::component('BannedUser', BannedUser::class);
+        Livewire::component('Login', Login::class);
+        Livewire::component('Register', Register::class);
 
         Route::get('banned/user', BannedUser::class)
             ->middleware('web')

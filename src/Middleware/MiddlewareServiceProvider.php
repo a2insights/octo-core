@@ -2,10 +2,10 @@
 
 namespace Octo\Middleware;
 
-use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class MiddlewareServiceProvider extends PluginServiceProvider
+class MiddlewareServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {

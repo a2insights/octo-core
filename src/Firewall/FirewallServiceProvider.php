@@ -2,10 +2,10 @@
 
 namespace Octo\Firewall;
 
-use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FirewallServiceProvider extends PluginServiceProvider
+class FirewallServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {

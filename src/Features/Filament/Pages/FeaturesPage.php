@@ -4,17 +4,17 @@ namespace Octo\Features\Filament\Pages;
 
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
 use Octo\Features\Features;
+use Octo\Octo;
 use Octo\Settings\reCAPTCHASettings;
 use Octo\Settings\TermsSettings;
 use Octo\Settings\WebhooksSettings;
-use Spatie\FilamentMarkdownEditor\MarkdownEditor;
 
 class FeaturesPage extends SettingsPage
 {
@@ -22,7 +22,7 @@ class FeaturesPage extends SettingsPage
 
     protected static string $settings = Features::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-view-grid-add';
+    protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
 
     protected static ?string $navigationGroup = 'System';
 
@@ -33,11 +33,6 @@ class FeaturesPage extends SettingsPage
     protected ?string $heading = 'Featuress';
 
     protected ?string $subheading = 'Manage your features.';
-
-    protected function getRedirectUrl(): ?string
-    {
-        return '/dashboard/features';
-    }
 
     private function recaptcha()
     {
@@ -58,13 +53,13 @@ class FeaturesPage extends SettingsPage
     {
         $data = $this->form->getState();
 
-        if ($data['recaptcha']) {
-            $recaptchaSettings = $this->recaptcha();
-            $recaptchaSettings->site_key = $data['recaptcha-site_key'];
-            $recaptchaSettings->secret_key = $data['recaptcha-secret_key'];
+        // if ($data['recaptcha']) {
+        //     $recaptchaSettings = $this->recaptcha();
+        //     $recaptchaSettings->site_key = $data['recaptcha-site_key'];
+        //     $recaptchaSettings->secret_key = $data['recaptcha-secret_key'];
 
-            $recaptchaSettings->save();
-        }
+        //     $recaptchaSettings->save();
+        // }
 
         if ($data['terms']) {
             $termsSettings = $this->terms();
@@ -82,15 +77,13 @@ class FeaturesPage extends SettingsPage
 
             $webhooksSettings->save();
         }
-
-        Artisan::call('optimize');
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        $recaptchaSettings = $this->recaptcha();
-        $data['recaptcha-site_key'] = $recaptchaSettings->site_key;
-        $data['recaptcha-secret_key'] = $recaptchaSettings->secret_key;
+        // $recaptchaSettings = $this->recaptcha();
+        // $data['recaptcha-site_key'] = $recaptchaSettings->site_key;
+        // $data['recaptcha-secret_key'] = $recaptchaSettings->secret_key;
 
         $termsSettings = $this->terms();
         $data['terms-service'] = $termsSettings->service;
@@ -136,7 +129,7 @@ class FeaturesPage extends SettingsPage
                         ->label('Webhooks Models available')
                         ->multiple()
                         ->options([
-                            \App\Models\User::class => 'user',
+                            Octo::getUserModel() => 'user',
                             \Cog\Laravel\Ban\Models\Ban::class => 'ban',
                             \HusamTariq\FilamentDatabaseSchedule\Models\Schedule::class => 'schedule',
                             \Spatie\LaravelSettings\Models\SettingsProperty::class => 'settings',
@@ -150,19 +143,23 @@ class FeaturesPage extends SettingsPage
                 ])->columns(1),
             Fieldset::make('Authentication')
                 ->schema([
-                    Toggle::make('auth_registration')
+                    //TODO: Make this configurable
+                    /*  Toggle::make('auth_registration')
                         ->label('Registration')
                         ->hint('You can disable registration to your site.')
-                        ->helperText('Caution: If you disable registration, users will not be able to register to your site.'),
-                    Toggle::make('auth_login')
+                        ->helperText('Caution: If you disable registration, users will not be able to register to your site.'), */
+                    //TODO: Make this configurable
+                    /*  Toggle::make('auth_login')
                         ->label('Login')
                         ->hint('You can disable login to your site.')
-                        ->helperText('Caution: If you disable login, users will not be able to login to your site.'),
-                    Toggle::make('auth_2fa')
+                        ->helperText('Caution: If you disable login, users will not be able to login to your site.'), */
+                    //TODO: Make this configurable
+                    /*   Toggle::make('auth_2fa')
                         ->label('2FA')
                         ->hint('You can enable 2FA to your site.')
-                        ->helperText('Caution: If you enable 2FA, users will can enable 2FA to their account.'),
-                    Toggle::make('recaptcha')
+                        ->helperText('Caution: If you enable 2FA, users will can enable 2FA to their account.'), */
+                    // TODO: Implement feature and Make this configurable
+                    /*  Toggle::make('recaptcha')
                         ->label('reCAPTCHA')
                         ->reactive()
                         ->hint('You can enable reCAPTCHA to your site.')
@@ -176,7 +173,7 @@ class FeaturesPage extends SettingsPage
                         ->label('reCAPTCHA Secret Key')
                         ->required(fn ($state, callable $get) => $get('recaptcha'))
                         ->visible(fn ($state, callable $get) => $get('recaptcha'))
-                        ->hint('You can set reCAPTCHA secret key to your site.'),
+                        ->hint('You can set reCAPTCHA secret key to your site.'), */
                     Toggle::make('terms')
                         ->label('Terms of Service and Privacy Policy')
                         ->reactive()

@@ -1,11 +1,11 @@
 <?php
 
-namespace Octo\Middleware;
+namespace Octo\Webhook;
 
-use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class WebhookServiceProvider extends PluginServiceProvider
+class WebhookServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {

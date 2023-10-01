@@ -2,24 +2,15 @@
 
 namespace Octo\Settings;
 
-use Filament\Facades\Filament;
-use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\HtmlString;
 use Livewire\Livewire;
 use Octo\Settings\Filament\Components\SwitchLanguage;
-use Octo\Settings\Filament\Pages\MainSettingsPage;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class SettingsServiceProvider extends PluginServiceProvider
+class SettingsServiceProvider extends PackageServiceProvider
 {
-    protected array $pages = [
-        MainSettingsPage::class,
-    ];
-
     protected Settings $settings;
 
     public function configurePackage(Package $package): void
@@ -37,15 +28,10 @@ class SettingsServiceProvider extends PluginServiceProvider
         }
 
         Livewire::component('switch-language', SwitchLanguage::class);
-        Filament::registerRenderHook(
-            'global-search.end',
-            fn (): string => Blade::render("@livewire('switch-language')")
-        );
 
         $this->settings = App::make(Settings::class);
 
-        $this->syncFavicon();
-        $this->syncMetadata();
+        $this->syncName();
         $this->syncTimezone();
     }
 
@@ -59,36 +45,15 @@ class SettingsServiceProvider extends PluginServiceProvider
         }
     }
 
-    private function syncMetadata(): void
+    private function syncName(): void
     {
         $name = $this->settings->name;
-        $description = $this->settings->description;
-        $keywords = $this->settings->keywords;
+        // $description = $this->settings->description;
+        // $keywords = $this->settings->keywords;
 
         if ($name) {
             Config::set('filament.brand', $name);
             Config::set('app.name', $name);
-        }
-
-        if ($description) {
-            Filament::pushMeta([
-                new HtmlString('<meta name="description" content="'.$description.'">'),
-            ]);
-        }
-
-        if ($keywords) {
-            Filament::pushMeta([
-                new HtmlString('<meta name="keywords" content="'.implode(',', $keywords).'">'),
-            ]);
-        }
-    }
-
-    private function syncFavicon(): void
-    {
-        $favicon = $this->settings->favicon;
-
-        if ($favicon) {
-            Config::set('filament.favicon', Storage::url($favicon));
         }
     }
 }
