@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Octo\Octo;
 
-class SetupDevCommand extends Command
+class OctoInstallCommand extends Command
 {
-    protected $signature = 'app:dev';
+    protected $signature = 'octo:install';
 
-    protected $description = 'Dev aplication';
+    protected $description = 'Install aplication';
 
     public const DEFAULT_USER_NAME = 'user';
 

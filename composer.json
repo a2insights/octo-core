@@ -32,8 +32,15 @@
         "illuminate/support": "^10.0",
         "jeffgreco13/filament-breezy": "^2.1",
         "malzariey/filament-daterangepicker-filter": "^2.2",
+        "cms-multi/filament-clear-cache": "^2.0",
+        "bezhansalleh/filament-exceptions": "^2.0",
+        "brickx/maintenance-switch": "^1.0",
+        "codeat3/blade-iconpark": "^1.5",
+        "filament/filament": "^3.0-stable",
+        "filament/notifications": "^3.0-stable",
         "marjose123/filament-webhook-server": "^2.0",
         "pxlrbt/filament-environment-indicator": "^2.0",
+        "opcodesio/log-viewer": "^2.4",
         "solution-forest/filament-firewall": "^2.0",
         "spatie/laravel-data": "^3.6",
         "spatie/laravel-enum": "^3.0",
@@ -48,6 +55,7 @@
         "laravel/pint": "dev-main",
         "nunomaduro/larastan": "^2.6",
         "orchestra/testbench-core": "^8.0",
+        "pestphp/pest": "1.x-dev",
         "phpunit/phpunit": "^9.3"
     },
     "suggest": {
@@ -71,7 +79,10 @@
         "test": "vendor/bin/phpunit"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {

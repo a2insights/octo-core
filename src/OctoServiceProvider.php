@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Octo\Features\FeaturesServiceProvider;
-use Octo\Firewall\FirewallServiceProvider;
 use Octo\Middleware\MiddlewareServiceProvider;
 use Octo\Settings\Settings;
 use Octo\Settings\SettingsServiceProvider;
@@ -25,7 +24,7 @@ class OctoServiceProvider extends ServiceProvider
         ], 'octo-config');
 
         $this->commands([
-            Console\SetupDevCommand::class,
+            Console\OctoInstallCommand::class,
         ]);
 
         $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
@@ -63,7 +62,6 @@ class OctoServiceProvider extends ServiceProvider
         $this->app->register(UserServiceProvider::class);
         $this->app->register(SettingsServiceProvider::class);
         $this->app->register(FeaturesServiceProvider::class);
-        // $this->app->register(FirewallServiceProvider::class);
-        // $this->app->register(MiddlewareServiceProvider::class);
+        $this->app->register(MiddlewareServiceProvider::class);
     }
 }
