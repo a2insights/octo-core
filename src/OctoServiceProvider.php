@@ -5,10 +5,11 @@ namespace Octo;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Octo\Features\FeaturesServiceProvider;
-use Octo\Firewall\FirewallServiceProvider;
 use Octo\Middleware\MiddlewareServiceProvider;
 use Octo\Settings\Settings;
 use Octo\Settings\SettingsServiceProvider;
@@ -23,7 +24,7 @@ class OctoServiceProvider extends ServiceProvider
         ], 'octo-config');
 
         $this->commands([
-            Console\SetupDevCommand::class,
+            Console\OctoInstallCommand::class,
         ]);
 
         $this->loadRoutesFrom(__DIR__.'/../routes/octo.php');
@@ -32,7 +33,7 @@ class OctoServiceProvider extends ServiceProvider
 
         Filament::registerRenderHook(
             'footer.start',
-            fn (): View => view('octo::admin.footer', app(Settings::class)->toArray())
+            fn (): View => view('octo::admin.footer', App::make(Settings::class)->toArray())
         );
 
         Filament::serving(function () {
@@ -41,28 +42,26 @@ class OctoServiceProvider extends ServiceProvider
                     [
                         NavigationItem::make('Logs')
                             ->url(config('log-viewer.route_path'))
-                            ->icon('heroicon-o-clipboard-list')
+                            ->icon('iconpark-log')
                             ->group('System'),
                     ],
                 ],
             ];
 
-            $isSuperAdmin = auth()?->user()?->hasRole('super_admin');
+            $isSuperAdmin = Auth::user()?->hasRole('super_admin');
 
             collect($navigation['super_admin'])->each(fn ($items) => $isSuperAdmin ? Filament::registerNavigationItems($items) : null);
         });
 
-        Route::get('/', fn () => redirect(config('filament.path')));
+        Route::get('/', fn () => redirect(config('octo.admin_path')));
     }
 
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/octo.php', 'octo');
-
+        $this->app->register(UserServiceProvider::class);
         $this->app->register(SettingsServiceProvider::class);
         $this->app->register(FeaturesServiceProvider::class);
-        $this->app->register(FirewallServiceProvider::class);
-        $this->app->register(UserServiceProvider::class);
         $this->app->register(MiddlewareServiceProvider::class);
     }
 }

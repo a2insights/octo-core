@@ -1,16 +1,16 @@
 <?php
 
-use Octo\Console\SetupDemoCommand;
+use Illuminate\Support\Facades\App;
 use Octo\Octo;
 
-if (!function_exists('octo')) {
+if (! function_exists('octo')) {
     /**
-     * Return the demo fields values
+     * Return Octo instance
      *
-     * @return $value Octo
+     * @return Octo
      */
     function octo()
     {
-        return app(Octo::class);
+        return App::make(Octo::class);
     }
 }

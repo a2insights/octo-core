@@ -2,16 +2,17 @@
 
 namespace Octo\Console;
 
-use App\Models\User;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
+use Octo\Octo;
 
-class SetupDevCommand extends Command
+class OctoInstallCommand extends Command
 {
-    protected $signature = 'app:dev';
+    protected $signature = 'octo:install';
 
-    protected $description = 'Dev aplication';
+    protected $description = 'Install aplication';
 
     public const DEFAULT_USER_NAME = 'user';
 
@@ -25,9 +26,9 @@ class SetupDevCommand extends Command
 
     public const DEFAULT_ADMIN_PASSWORD = '123456';
 
-    public const DEFAULT_SUPER_ADMIN_NAME = 'super-admin';
+    public const DEFAULT_SUPER_ADMIN_NAME = 'super_admin';
 
-    public const DEFAULT_SUPER_ADMIN_EMAIL = 'super-admin@octo.dev';
+    public const DEFAULT_SUPER_ADMIN_EMAIL = 'super_admin@octo.dev';
 
     public const DEFAULT_SUPER_ADMIN_PASSWORD = '123456';
 
@@ -35,6 +36,9 @@ class SetupDevCommand extends Command
     {
         $this->info('Optimizing');
         $this->call('optimize');
+
+        Config::set('app.timezone', 'America/Sao_Paulo');
+        date_default_timezone_set('America/Sao_Paulo');
 
         $this->call('migrate:fresh', ['--force' => true, '--seed' => true]);
 
@@ -61,7 +65,7 @@ class SetupDevCommand extends Command
 
     private function setUpSuperAdminAccount()
     {
-        $user = User::forceCreate([
+        $user = Octo::getUserModel()::forceCreate([
             'name' => self::DEFAULT_SUPER_ADMIN_NAME,
             'email' => self::DEFAULT_SUPER_ADMIN_EMAIL,
             'password' => Hash::make(self::DEFAULT_SUPER_ADMIN_PASSWORD),
@@ -83,7 +87,7 @@ class SetupDevCommand extends Command
 
     private function setUpAdminAccount()
     {
-        $user = User::forceCreate([
+        $user = Octo::getUserModel()::forceCreate([
             'name' => self::DEFAULT_ADMIN_NAME,
             'email' => self::DEFAULT_ADMIN_EMAIL,
             'password' => Hash::make(self::DEFAULT_ADMIN_PASSWORD),
@@ -107,7 +111,7 @@ class SetupDevCommand extends Command
 
     private function setUpUserAccount()
     {
-        $user = User::forceCreate([
+        $user = Octo::getUserModel()::forceCreate([
             'name' => self::DEFAULT_USER_NAME,
             'email' => self::DEFAULT_USER_EMAIL,
             'password' => Hash::make(self::DEFAULT_USER_PASSWORD),
@@ -116,13 +120,13 @@ class SetupDevCommand extends Command
         $user->markEmailAsVerified();
 
         $userRole = Utils::getRoleModel()::firstOrCreate(
-            ['name' => Utils::getFilamentUserRoleName()],
+            ['name' => Utils::getPanelUserRoleName()],
             ['guard_name' => Utils::getFilamentAuthGuard()]
         );
 
         $userRole->syncPermissions([]);
 
-        $user->assignRole(Utils::getFilamentUserRoleName());
+        $user->assignRole(Utils::getPanelUserRoleName());
 
         $this->comment(sprintf('Log in user with email %s and password %s', self::DEFAULT_USER_EMAIL, self::DEFAULT_USER_PASSWORD));
 

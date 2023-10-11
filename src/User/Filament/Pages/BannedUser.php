@@ -2,24 +2,52 @@
 
 namespace Octo\User\Filament\Pages;
 
+use Cog\Laravel\Ban\Models\Ban;
+use Filament\Actions\Action;
 use Filament\Facades\Filament;
-use Filament\Forms;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
+use Filament\Pages\BasePage;
+use Filament\Pages\Concerns\InteractsWithFormActions;
+use Illuminate\Support\Facades\Auth;
 
-class BannedUser extends Component implements Forms\Contracts\HasForms
+class BannedUser extends BasePage
 {
-    use Forms\Concerns\InteractsWithForms;
+    use InteractsWithFormActions;
+
+    protected static ?string $title = null;
+
+    protected ?string $maxContentWidth = 'full';
+
+    protected ?string $heading = '';
+
+    protected static string $view = 'octo::user.banned';
+
+    public Ban $ban;
 
     public function mount()
     {
-        if (! Filament::auth()->check()) {
-            return redirect('/');
+        if (! Auth::user()->isBanned() || ! Filament::auth()->check()) {
+            return redirect(config('octo.admin_path'));
         }
 
-        if (! auth()->user()->isBanned()) {
-            return redirect(config('filament.home_url'));
-        }
+        $this->ban = Auth::user()->bans->first();
+    }
+
+    public function getTitle(): \Illuminate\Contracts\Support\Htmlable|string
+    {
+        return static::$title ?? (string) str(__('filament-lockscreen::default.heading'))
+            ->kebab()
+            ->replace('-', ' ')
+            ->title();
+    }
+
+    public function hasLogo(): bool
+    {
+        return false;
+    }
+
+    protected function hasFullWidthFormActions(): bool
+    {
+        return true;
     }
 
     public function logout()
@@ -28,17 +56,13 @@ class BannedUser extends Component implements Forms\Contracts\HasForms
         session()->invalidate();
         session()->regenerateToken();
 
-        return redirect()->route('filament.auth.login');
+        return redirect(config('octo.admin_path'));
     }
 
-    public function render(): View
+    protected function getFormActions(): array
     {
-        $ban = auth()->user()->bans->first();
-
-        $view = view('octo::user.banned', ['ban' => $ban]);
-
-        $view->layout('filament::components.layouts.base');
-
-        return $view;
+        return [
+            Action::make('logout')->submit('logout'),
+        ];
     }
 }

@@ -3,30 +3,29 @@
 namespace Octo\User\Filament;
 
 use App\Models\User;
-use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
-use Awcodes\FilamentBadgeableColumn\Components\Badge;
-use Awcodes\FilamentBadgeableColumn\Components\BadgeableTagsColumn;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Octo\User\Filament\Pages\CreateUser;
 use Octo\User\Filament\Pages\EditUser;
 use Octo\User\Filament\Pages\ListUsers;
-use Webbingbrasil\FilamentCopyActions\Tables\CopyableTextColumn;
-use Wiebenieuwenhuis\FilamentCharCounter\TextInput as TextInputCharCounter;
+use Octo\User\Filament\Pages\ViewUser;
 
 class UserResource extends Resource
 {
@@ -56,8 +55,6 @@ class UserResource extends Resource
 
     public static function getFormSchema(string $layout = Grid::class): array
     {
-        $role = app(config('permission.models.role'));
-
         return [
             Group::make()
                 ->schema([
@@ -65,14 +62,12 @@ class UserResource extends Resource
                         ->schema([
                             Placeholder::make('id')
                                 ->label('ID')
-                                ->content(fn (?User $record): string => $record ? $record->id : '-'),
-                            TextInputCharCounter::make('name')
+                                ->content(fn (?Model $record): string => $record ? $record->id : '-'),
+                            TextInput::make('name')
                                 ->autofocus()
                                 ->required()
                                 ->placeholder(__('Name'))
-                                ->rules(['required', 'max:8', 'min:3', 'string'])
-                                // ->maxLength(8) // value can't exceed the limit and not will be red
-                                ->characterLimit(8), // value can exceed the limit but the counter will be red
+                                ->rules(['required', 'max:8', 'min:3', 'string']),
                             TextInput::make('email')
                                 ->email()
                                 ->required()
@@ -80,7 +75,7 @@ class UserResource extends Resource
                                 ->placeholder(__('Email')),
                             TextInput::make('password')
                                 ->password()
-                                ->hidden(static function (?User $record): bool|null {
+                                ->hidden(static function (?Model $record): ?bool {
                                     return $record?->exists;
                                 })
                                 ->dehydrateStateUsing(fn ($state) => Hash::make($state))
@@ -101,13 +96,13 @@ class UserResource extends Resource
                         ->schema([
                             Placeholder::make('created_at')
                                 ->label('Created at')
-                                ->content(fn (?User $record): string => $record ? $record->created_at->diffForHumans() : '-'),
+                                ->content(fn (?Model $record): string => $record ? $record->created_at->diffForHumans() : '-'),
                             Placeholder::make('updated_at')
                                 ->label('Last modified at')
-                                ->content(fn (?User $record): string => $record ? $record->updated_at->diffForHumans() : '-'),
+                                ->content(fn (?Model $record): string => $record ? $record->updated_at->diffForHumans() : '-'),
                             Placeholder::make('email_verified_at')
                                 ->label('Email verified at')
-                                ->content(fn (?User $record): string => $record?->email_verified_at ? $record->email_verified_at->diffForHumans() : '-'),
+                                ->content(fn (?Model $record): string => $record?->email_verified_at ? $record->email_verified_at->diffForHumans() : '-'),
                         ]),
                 ])
                 ->columnSpan(1),
@@ -124,12 +119,15 @@ class UserResource extends Resource
                     ->sortable('desc')
                     ->toggleable(),
                 TextColumn::make('name')
-                    ->searchable(),
-                CopyableTextColumn::make('email')
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('email')
+                    ->copyable()
                     ->copyMessage('Email copied to clipboard')
                     ->searchable()
                     ->toggleable(),
-                ToggleIconColumn::make('email_verified_at')
+                ToggleColumn::make('email_verified_at')
+                    ->label('Email verified')
                     ->onIcon('heroicon-o-check-circle')
                     ->offIcon('heroicon-o-x-circle')
                     ->offColor('danger')
@@ -137,19 +135,14 @@ class UserResource extends Resource
                     ->alignCenter()
                     ->sortable()
                     ->updateStateUsing(fn ($state, Model $record) => $record->forceFill(['email_verified_at' => $state ? now() : null])->save())
-                    ->disabled(fn ($record) => ! auth()->user()->hasRole('super-admin') || $record->hasRole('super-admin'))
-                    ->hoverColor(fn (Model $record) => $record->email_verified_at ? 'danger' : 'success')
-                    ->label('Email verified')
+                    ->disabled(fn ($record) => ! Auth::user()->hasRole('super_admin') || $record->hasRole('super_admin'))
                     ->toggleable(),
-                BadgeableTagsColumn::make('roles')
-                    ->badges(function ($record) {
-                        return $record->roles->map(function ($role) {
-                            return Badge::make($role->name)->color([
-                                'super-admin' => 'danger',
-                                'admin' => 'warning',
-                                'user' => 'success',
-                            ][$role->name] ?? 'primary');
-                        })->toArray();
+                TextColumn::make('roles.name')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'super_admin' => 'danger',
+                        'admin' => 'warning',
+                        'user' => 'success',
                     })
                     ->toggleable(),
                 TextColumn::make('created_at')
@@ -164,28 +157,47 @@ class UserResource extends Resource
             ])
             ->actions([
                 \XliteDev\FilamentImpersonate\Tables\Actions\ImpersonateAction::make()
-                    ->visible(fn ($record) => auth()->user()->hasRole('super-admin') && ! $record->hasRole('super-admin'))
+                    ->visible(fn ($record) => Auth::user()->hasRole('super_admin') && ! $record->hasRole('super_admin'))
                     ->iconButton(),
                 \Widiu7omo\FilamentBandel\Actions\BanAction::make()
-                    ->visible(fn ($record) => auth()->user()->hasRole('super-admin') && ! $record->isBanned() && ! $record->hasRole('super-admin'))
-                    ->iconButton(),
+                    ->visible(fn ($record) => Auth::user()->hasRole('super_admin') && ! $record->isBanned() && ! $record->hasRole('super_admin'))
+                    ->iconButton()
+                    ->successNotification(function ($record) {
+                        $ban = $record->bans()->first();
+
+                        Notification::make()
+                            ->title('You have been banned')
+                            ->danger()
+                            ->body($ban?->comment)
+                            ->sendToDatabase($record);
+                    }),
                 \Widiu7omo\FilamentBandel\Actions\UnbanAction::make()
-                    ->visible(fn ($record) => auth()->user()->hasRole('super-admin') && $record->isBanned() && ! $record->hasRole('super-admin'))
-                    ->iconButton(),
+                    ->visible(fn ($record) => Auth::user()->hasRole('super_admin') && $record->isBanned() && ! $record->hasRole('super_admin'))
+                    ->iconButton()
+                    ->successNotification(function ($record) {
+                        Notification::make()
+                            ->title('You have been unbanned')
+                            ->success()
+                            ->sendToDatabase($record);
+                    }),
                 Tables\Actions\EditAction::make()
-                    ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin'))
+                    ->visible(fn ($record) => ! $record->is(Auth::user()) && ! $record->hasRole('super_admin'))
                     ->iconButton(),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin'))
+                    ->visible(fn ($record) => ! $record->is(Auth::user()) && ! $record->hasRole('super_admin'))
                     ->iconButton(),
-                Tables\Actions\ForceDeleteAction::make()->iconButton()->visible(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin') && $record->trashed()),
+                Tables\Actions\ForceDeleteAction::make()->iconButton()->visible(fn ($record) => ! $record->is(Auth::user()) && ! $record->hasRole('super_admin') && $record->trashed()),
                 Tables\Actions\RestoreAction::make()->iconButton(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin'))->each->delete()),
-                Tables\Actions\ForceDeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(auth()->user()) && ! $record->hasRole('super-admin'))->each->forceDelete()),
+                \Widiu7omo\FilamentBandel\Actions\BanBulkAction::make('banned_model'),
+                \Widiu7omo\FilamentBandel\Actions\UnbanBulkAction::make('unbanned_model'),
+                Tables\Actions\DeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(Auth::user()) && ! $record->hasRole('super_admin'))->each->delete()),
+                Tables\Actions\ForceDeleteBulkAction::make()->action(fn (Collection $records) => $records->filter(fn ($record) => ! $record->is(Auth::user()) && ! $record->hasRole('super_admin'))->each->forceDelete()),
                 Tables\Actions\RestoreBulkAction::make(),
-            ]);
+            ])->checkIfRecordIsSelectableUsing(
+                fn (Model $record): bool => ! $record->hasRole('super_admin'),
+            );
     }
 
     public static function getRelations(): array
@@ -201,10 +213,11 @@ class UserResource extends Resource
             'index' => ListUsers::route('/'),
             'create' => CreateUser::route('/create'),
             'edit' => EditUser::route('/{record}/edit'),
+            'view' => ViewUser::route('/{record}'),
         ];
     }
 
-    protected static function getNavigationBadge(): ?string
+    public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }

@@ -22,7 +22,7 @@ class UsersOverview extends BaseWidget
         return [
             Card::make('Users', $statsUsersWeek->last()->value)
                 ->description($this->description($statsUsersWeek->last()))
-                ->descriptionIcon('heroicon-s-trending-up')
+                ->descriptionIcon('iconpark-trendtwo')
                 ->chart($statsUsersWeek->pluck('value')->toArray())
                 ->color($this->color($statsUsersWeek->last())),
         ];
