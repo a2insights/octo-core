@@ -50,6 +50,10 @@ class OctoInstallCommand extends Command
             '--minimal' => true,
         ]);
 
+        $this->call('vendor:publish', [
+            '--tag' => 'themes-assets',
+        ]);
+
         $this->info('Creating super admin account');
         $superAdmin = $this->setUpSuperAdminAccount();
 
