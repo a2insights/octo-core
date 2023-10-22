@@ -100,13 +100,14 @@ class FeaturesPage extends SettingsPage
     protected function getFormSchema(): array
     {
         return [
-            Fieldset::make('Style')
-                ->schema([
-                    Toggle::make('dark_mode')
-                        ->hint('You can enable the toggle button for switching between light and dark mode.')
-                        ->helperText('Caution: If you enable dark mode, your site will be displayed the toggle button for switching between light and dark mode.')
-                        ->default(false),
-                ])->columns(1),
+            // TODO: dark_mode not work with hasnayeen themes
+            // Fieldset::make('Style')
+            //     ->schema([
+            //         Toggle::make('dark_mode')
+            //             ->hint('You can enable the toggle button for switching between light and dark mode.')
+            //             ->helperText('Caution: If you enable dark mode, your site will be displayed the toggle button for switching between light and dark mode.')
+            //             ->default(false),
+            //     ])->columns(1),
             Fieldset::make('Developer')
                 ->schema([
                     Toggle::make('webhooks')
@@ -141,6 +142,18 @@ class FeaturesPage extends SettingsPage
                         ->visible(fn ($state, callable $get) => $get('webhooks'))
                         ->hint('You can configure webhooks models available to your site.'),
                 ])->columns(1),
+            Fieldset::make('User')
+                ->schema([
+                    Toggle::make('user_phone')
+                        ->label('User Phone')
+                        ->hint('You can enable user phone to your site.')
+                        ->helperText('Caution: If you enable user phone, users will required to register with phone number.'),
+                    Toggle::make('username')
+                        ->label('Username')
+                        ->hint('You can enable username to your site.')
+                        ->helperText('Caution: If you enable username, users will required to register with username.'),
+                ])
+                ->columns(1),
             Fieldset::make('Authentication')
                 ->schema([
                     //TODO: Make this configurable

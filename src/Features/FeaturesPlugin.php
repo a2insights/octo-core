@@ -8,6 +8,7 @@ use Filament\FilamentManager;
 use Filament\Panel;
 use Illuminate\Support\Facades\App;
 use Octo\Features\Filament\Pages\FeaturesPage;
+use Octo\User\Filament\Pages\Register;
 
 class FeaturesPlugin implements Plugin
 {
@@ -15,6 +16,7 @@ class FeaturesPlugin implements Plugin
 
     public static function make(): static
     {
+
         return App::make(static::class);
     }
 
@@ -37,9 +39,10 @@ class FeaturesPlugin implements Plugin
             return;
         }
 
-        $this->features = App::make(Features::class);
+        //$this->features = App::make(Features::class);
 
-        $panel->darkMode($this->features->dark_mode);
+        // TODO: dark_mode not work with hasnayeen themes
+        // $panel->darkMode($this->features->dark_mode);
 
     }
 
@@ -49,6 +52,8 @@ class FeaturesPlugin implements Plugin
             $panel->pages([
                 FeaturesPage::class,
             ]);
+
+            $panel->registration(Register::class);
         }
     }
 }

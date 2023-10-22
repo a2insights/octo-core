@@ -14,6 +14,8 @@ class Settings extends BaseSettings
 
     public ?string $logo;
 
+    public ?string $logo_size;
+
     public ?string $favicon;
 
     public array $restrict_ips;

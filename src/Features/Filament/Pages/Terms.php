@@ -2,15 +2,22 @@
 
 namespace Octo\Features\Filament\Pages;
 
-use Illuminate\Contracts\View\View;
+use Filament\Pages\BasePage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Livewire\Component;
 use Octo\Features\Features;
 use Octo\Settings\TermsSettings;
 
-class Terms extends Component
+class Terms extends BasePage
 {
+    protected static ?string $title = '';
+
+    protected ?string $maxContentWidth = 'full';
+
+    protected static string $view = 'octo::features.terms';
+
+    public string $terms;
+
     public function mount()
     {
         $features = App::make(Features::class);
@@ -18,16 +25,14 @@ class Terms extends Component
         if (! $features->terms) {
             return redirect('/');
         }
-    }
 
-    public function render(): View
-    {
         $terms = App::make(TermsSettings::class)->service;
 
-        $view = view('octo::features.terms', ['terms' => Str::markdown($terms)]);
+        $this->terms = Str::markdown($terms);
+    }
 
-        $view->layout('filament::components.layouts.base');
-
-        return $view;
+    public function hasLogo(): bool
+    {
+        return false;
     }
 }

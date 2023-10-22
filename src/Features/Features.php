@@ -25,6 +25,10 @@ class Features extends BaseSettings
 
     public bool $terms;
 
+    public bool $user_phone;
+
+    public bool $username;
+
     public static function group(): string
     {
         return 'features';
