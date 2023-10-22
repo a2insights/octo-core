@@ -142,6 +142,18 @@ class FeaturesPage extends SettingsPage
                         ->visible(fn ($state, callable $get) => $get('webhooks'))
                         ->hint('You can configure webhooks models available to your site.'),
                 ])->columns(1),
+            Fieldset::make('User')
+                ->schema([
+                    Toggle::make('user_phone')
+                        ->label('User Phone')
+                        ->hint('You can enable user phone to your site.')
+                        ->helperText('Caution: If you enable user phone, users will required to register with phone number.'),
+                    Toggle::make('username')
+                        ->label('Username')
+                        ->hint('You can enable username to your site.')
+                        ->helperText('Caution: If you enable username, users will required to register with username.'),
+                ])
+                ->columns(1),
             Fieldset::make('Authentication')
                 ->schema([
                     //TODO: Make this configurable

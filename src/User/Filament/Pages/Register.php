@@ -9,6 +9,7 @@ use Filament\Pages\Auth\Register as AuthRegister;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\HtmlString;
 use Octo\Features\Features;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 /**
  * @property Form $form
@@ -22,6 +23,7 @@ class Register extends AuthRegister
     {
         $features = App::make(Features::class);
 
+        $user_phone = $features->user_phone;
         $terms = $features->terms;
 
         $fields = [
@@ -30,6 +32,10 @@ class Register extends AuthRegister
             $this->getPasswordFormComponent(),
             $this->getPasswordConfirmationFormComponent(),
         ];
+
+        if ($user_phone) {
+            $fields[] = $this->getPhoneFormComponent();
+        }
 
         if ($terms) {
             $fields[] = $this->getTermsFormComponent();
@@ -50,6 +56,13 @@ class Register extends AuthRegister
 
         return Checkbox::make('terms')
             ->label($html)
+            ->required();
+    }
+
+    private function getPhoneFormComponent(): Component
+    {
+        return PhoneInput::make('phone')
+            ->label(__('octo-core::default.user.register.phone'))
             ->required();
     }
 }

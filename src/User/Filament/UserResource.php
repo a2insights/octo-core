@@ -67,7 +67,7 @@ class UserResource extends Resource
                                 ->autofocus()
                                 ->required()
                                 ->placeholder(__('Name'))
-                                ->rules(['required', 'max:8', 'min:3', 'string']),
+                                ->rules(['required', 'max:100', 'min:3', 'string']),
                             TextInput::make('email')
                                 ->email()
                                 ->required()
