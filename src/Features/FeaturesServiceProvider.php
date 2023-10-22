@@ -22,11 +22,11 @@ class FeaturesServiceProvider extends PackageServiceProvider
 
         Route::get('/terms-of-service', Terms::class)
             ->middleware('web')
-            ->name('terms.show');
+            ->name('terms');
 
         Route::get('/privacy-policy', Policy::class)
             ->middleware('web')
-            ->name('policy.show');
+            ->name('policy');
     }
 
     public function packageBooted(): void

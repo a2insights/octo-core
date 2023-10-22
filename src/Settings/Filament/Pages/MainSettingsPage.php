@@ -57,6 +57,7 @@ class MainSettingsPage extends SettingsPage
                     FileUpload::make('logo')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         return 'logo.'.$file->guessExtension();
                     }),
+                    TextInput::make('logo_size')->hint('Example: 2rem'),
                     FileUpload::make('favicon')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         return 'favicon.'.$file->guessExtension();
                     }),

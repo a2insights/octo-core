@@ -31,7 +31,6 @@ class UserServiceProvider extends PackageServiceProvider
             'body.start',
             fn (): string => '<style>.g-recaptcha { margin: 0 auto;display: table }</style>'
         );
-
     }
 
     public function configurePackage(Package $package): void

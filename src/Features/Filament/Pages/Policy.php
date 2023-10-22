@@ -2,15 +2,22 @@
 
 namespace Octo\Features\Filament\Pages;
 
-use Illuminate\Contracts\View\View;
+use Filament\Pages\BasePage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Livewire\Component;
 use Octo\Features\Features;
 use Octo\Settings\TermsSettings;
 
-class Policy extends Component
+class Policy extends BasePage
 {
+    protected static ?string $title = '';
+
+    protected ?string $maxContentWidth = 'full';
+
+    protected static string $view = 'octo::features.policy';
+
+    public string $policy;
+
     public function mount()
     {
         $features = App::make(Features::class);
@@ -18,16 +25,14 @@ class Policy extends Component
         if (! $features->terms) {
             return redirect('/');
         }
-    }
 
-    public function render(): View
-    {
         $policy = App::make(TermsSettings::class)->privacy_policy;
 
-        $view = view('octo::features.policy', ['policy' => Str::markdown($policy)]);
+        $this->policy = Str::markdown($policy);
+    }
 
-        $view->layout('filament::components.layouts.base');
-
-        return $view;
+    public function hasLogo(): bool
+    {
+        return false;
     }
 }

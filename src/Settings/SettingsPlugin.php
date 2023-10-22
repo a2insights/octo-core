@@ -6,8 +6,10 @@ use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Contracts\Plugin;
 use Filament\Facades\Filament;
 use Filament\FilamentManager;
+use Filament\Navigation\NavigationItem;
 use Filament\Panel;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Storage;
 use Octo\Settings\Filament\Pages\MainSettingsPage;
@@ -43,14 +45,43 @@ class SettingsPlugin implements Plugin
 
         $favicon = app(Settings::class)->favicon;
 
+        $logo = app(Settings::class)->logo;
+
+        $logoSize = app(Settings::class)->logo_size;
+
         if ($favicon) {
             $panel->favicon(Storage::url($favicon));
+        }
+
+        if ($logo) {
+            $panel->brandLogo(Storage::url($logo));
+        }
+
+        if ($logoSize) {
+            $panel->brandLogoHeight($logoSize);
         }
 
         Filament::registerRenderHook(
             'panels::global-search.end',
             fn (): string => Blade::render("@livewire('switch-language')")
         );
+
+        Filament::serving(function () {
+            $navigation = [
+                'super_admin' => [
+                    [
+                        NavigationItem::make('Logs')
+                            ->url(config('log-viewer.route_path'))
+                            ->icon('iconpark-log')
+                            ->group('System'),
+                    ],
+                ],
+            ];
+
+            $isSuperAdmin = Auth::user()?->hasRole('super_admin');
+
+            collect($navigation['super_admin'])->each(fn ($items) => $isSuperAdmin ? Filament::registerNavigationItems($items) : null);
+        });
     }
 
     public function register(Panel $panel): void

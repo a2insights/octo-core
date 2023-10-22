@@ -100,13 +100,14 @@ class FeaturesPage extends SettingsPage
     protected function getFormSchema(): array
     {
         return [
-            Fieldset::make('Style')
-                ->schema([
-                    Toggle::make('dark_mode')
-                        ->hint('You can enable the toggle button for switching between light and dark mode.')
-                        ->helperText('Caution: If you enable dark mode, your site will be displayed the toggle button for switching between light and dark mode.')
-                        ->default(false),
-                ])->columns(1),
+            // TODO: dark_mode not work with hasnayeen themes
+            // Fieldset::make('Style')
+            //     ->schema([
+            //         Toggle::make('dark_mode')
+            //             ->hint('You can enable the toggle button for switching between light and dark mode.')
+            //             ->helperText('Caution: If you enable dark mode, your site will be displayed the toggle button for switching between light and dark mode.')
+            //             ->default(false),
+            //     ])->columns(1),
             Fieldset::make('Developer')
                 ->schema([
                     Toggle::make('webhooks')
