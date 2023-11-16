@@ -35,6 +35,9 @@ class Phone extends MyProfileComponent
                     ->defaultCountry('BR')
                     ->label(__('octo-core::default.user.register.phone'))
                     ->unique(Octo::getUserModel(), ignorable: $this->user)
+                    ->validateFor(
+                        lenient: true,
+                    )
                     ->required(),
             ])->statePath('data');
     }
