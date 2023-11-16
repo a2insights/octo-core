@@ -194,11 +194,11 @@ class FeaturesPage extends SettingsPage
                         ->helperText('Caution: If you enable terms of service, users will required to accept terms of service in registration.'),
                     MarkdownEditor::make('terms-service')
                         ->fileAttachmentsDisk(config('filament.default_filesystem_disk'))
-                        ->fileAttachmentsVisibility(config('octo.features.disk_visibility'))
+                        ->fileAttachmentsVisibility(config('octo.features.terms_service_and_privacy_policy.disk_visibility', 'public'))
                         ->visible(fn ($state, callable $get) => $get('terms')),
                     MarkdownEditor::make('terms-privacy_policy')
                         ->fileAttachmentsDisk(config('filament.default_filesystem_disk'))
-                        ->fileAttachmentsVisibility(config('octo.features.disk_visibility'))
+                        ->fileAttachmentsVisibility(config('octo.features.terms_service_and_privacy_policy.disk_visibility', 'public'))
                         ->visible(fn ($state, callable $get) => $get('terms')),
                 ])->columns(1),
         ];
