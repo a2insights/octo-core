@@ -40,7 +40,7 @@ class OctoInstallCommand extends Command
         Config::set('app.timezone', 'America/Sao_Paulo');
         date_default_timezone_set('America/Sao_Paulo');
 
-        $this->call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        $this->call('migrate:fresh', ['--force' => true]);
 
         $this->info('Installing Shield');
         $this->call('shield:install', ['--fresh' => true, '--minimal' => true, '--only' => true]);
@@ -65,6 +65,9 @@ class OctoInstallCommand extends Command
 
         $this->info('Installing LogViewer');
         $this->call('log-viewer:publish');
+
+        $this->info('Seeding');
+        $this->call('db:seed');
     }
 
     private function setUpSuperAdminAccount()
