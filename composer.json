@@ -48,7 +48,7 @@
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-stats": "^2.1",
         "symfony/intl": "^6.2",
-        "taylornetwork/laravel-username-generator": "dev-master",
+        "taylornetwork/laravel-username-generator": "^2.8",
         "widiu7omo/filament-bandel": "^2.0",
         "xlite-dev/filament-impersonate": "^2.0",
         "ysfkaya/filament-phone-input": "^2.1",
