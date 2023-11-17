@@ -11,12 +11,13 @@ use Filament\Panel;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Octo\Settings\Filament\Pages\MainSettingsPage;
 
 class SettingsPlugin implements Plugin
 {
-    protected Settings $settings;
+    protected $settings;
 
     public static function make(): static
     {
@@ -43,11 +44,13 @@ class SettingsPlugin implements Plugin
             return;
         }
 
-        $favicon = app(Settings::class)->favicon;
+        $this->settings = Cache::remember('octo.settings', now()->addHours(4), function () {
+            return app(Settings::class);
+        });
 
-        $logo = app(Settings::class)->logo;
-
-        $logoSize = app(Settings::class)->logo_size;
+        $favicon = $this->settings->favicon;
+        $logo = $this->settings->logo;
+        $logoSize = $this->settings->logo_size;
 
         if ($favicon) {
             $panel->favicon(Storage::url($favicon));

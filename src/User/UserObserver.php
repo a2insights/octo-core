@@ -19,6 +19,6 @@ class UserObserver
 
     public function restored(User $user)
     {
-        UserStats::increase();
+        UserStats::increase(1, $user->created_at);
     }
 }

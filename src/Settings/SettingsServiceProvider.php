@@ -3,15 +3,19 @@
 namespace Octo\Settings;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
 use Livewire\Livewire;
 use Octo\Settings\Filament\Components\SwitchLanguage;
+use Octo\User\Settings;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelSettings\Events\SettingsSaved;
 
 class SettingsServiceProvider extends PackageServiceProvider
 {
-    protected Settings $settings;
+    protected $settings;
 
     public function configurePackage(Package $package): void
     {
@@ -29,7 +33,13 @@ class SettingsServiceProvider extends PackageServiceProvider
 
         Livewire::component('switch-language', SwitchLanguage::class);
 
-        $this->settings = App::make(Settings::class);
+        Event::listen(function (SettingsSaved $event) {
+            Cache::forget('octo.settings');
+        });
+
+        $this->settings = Cache::remember('octo.settings', now()->addHours(10), function () {
+            return app(Settings::class);
+        });
 
         $this->syncName();
         $this->syncTimezone();
@@ -37,7 +47,7 @@ class SettingsServiceProvider extends PackageServiceProvider
 
     private function syncTimezone(): void
     {
-        $timezone = $this->settings->timezone;
+        $timezone = $this->settings?->timezone;
 
         if ($timezone) {
             Config::set('app.timezone', $timezone);
