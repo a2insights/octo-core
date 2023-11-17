@@ -8,14 +8,13 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Livewire\Livewire;
 use Octo\Settings\Filament\Components\SwitchLanguage;
-use Octo\User\Settings;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelSettings\Events\SettingsSaved;
 
 class SettingsServiceProvider extends PackageServiceProvider
 {
-    protected $settings;
+    protected Settings $settings;
 
     public function configurePackage(Package $package): void
     {
@@ -37,9 +36,7 @@ class SettingsServiceProvider extends PackageServiceProvider
             Cache::forget('octo.settings');
         });
 
-        $this->settings = Cache::remember('octo.settings', now()->addHours(10), function () {
-            return app(Settings::class);
-        });
+        $this->settings = Cache::remember('octo.settings', now()->addHours(10), fn () => app(Settings::class));
 
         $this->syncName();
         $this->syncTimezone();
@@ -47,7 +44,7 @@ class SettingsServiceProvider extends PackageServiceProvider
 
     private function syncTimezone(): void
     {
-        $timezone = $this->settings?->timezone;
+        $timezone = $this->settings->timezone;
 
         if ($timezone) {
             Config::set('app.timezone', $timezone);
@@ -62,7 +59,6 @@ class SettingsServiceProvider extends PackageServiceProvider
         // $keywords = $this->settings->keywords;
 
         if ($name) {
-            Config::set('filament.brand', $name);
             Config::set('app.name', $name);
         }
     }

@@ -44,9 +44,7 @@ class SettingsPlugin implements Plugin
             return;
         }
 
-        $this->settings = Cache::remember('octo.settings', now()->addHours(4), function () {
-            return app(Settings::class);
-        });
+        $this->settings = Cache::remember('octo.settings', now()->addHours(10), fn () => app(Settings::class));
 
         $favicon = $this->settings->favicon;
         $logo = $this->settings->logo;
