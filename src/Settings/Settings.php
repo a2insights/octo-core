@@ -18,10 +18,6 @@ class Settings extends BaseSettings
 
     public ?string $favicon;
 
-    public array $restrict_ips;
-
-    public array $restrict_users;
-
     public string $timezone;
 
     public string $locale;

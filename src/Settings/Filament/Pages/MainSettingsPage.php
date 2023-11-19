@@ -2,7 +2,6 @@
 
 namespace Octo\Settings\Filament\Pages;
 
-use App\Models\User;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
@@ -61,23 +60,6 @@ class MainSettingsPage extends SettingsPage
                     FileUpload::make('favicon')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                         return 'favicon.'.$file->guessExtension();
                     }),
-                ])->columns(1),
-            Fieldset::make('Security')
-                ->schema([
-                    TagsInput::make('restrict_ips')
-                        ->hint('You can restrict access to your site by IP address.')
-                        ->helperText('Caution: If you block your own IP address, you will be locked out of your site. And you will have to manually remove your IP address from the database or access from another IP address.')
-                        ->suggestions([
-                            request()->ip(),
-                        ]),
-                    Select::make('restrict_users')
-                        ->multiple()
-                        ->searchable()
-                        ->hint('You can restrict access to your site by user.')
-                        ->helperText('Caution: If you block your own user, you will be locked out of your site. And you will have to manually remove your user from the database or access from another user.')
-                        ->options(fn () => User::all()->pluck('name', 'id'))
-                        ->getSearchResultsUsing(fn (string $search) => User::where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id'))
-                        ->getOptionLabelUsing(fn ($value): ?string => User::find($value)?->name),
                 ])->columns(1),
             Fieldset::make('Localization')
                 ->schema([

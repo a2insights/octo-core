@@ -62,10 +62,10 @@ class SettingsPlugin implements Plugin
             $panel->brandLogoHeight($logoSize);
         }
 
-        Filament::registerRenderHook(
-            'panels::global-search.end',
-            fn (): string => Blade::render("@livewire('switch-language')")
-        );
+        // Filament::registerRenderHook(
+        //     'panels::global-search.end',
+        //     fn (): string => Blade::render("@livewire('switch-language')")
+        // );
 
         Filament::serving(function () {
             $navigation = [
