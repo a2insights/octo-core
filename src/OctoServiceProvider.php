@@ -14,7 +14,7 @@ class OctoServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        $this->app->register(UserServiceProvider::class);
+        // $this->app->register(UserServiceProvider::class);
         // $this->app->register(SettingsServiceProvider::class);
         // $this->app->register(FeaturesServiceProvider::class);
         $this->app->register(MiddlewareServiceProvider::class);

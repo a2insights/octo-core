@@ -38,13 +38,13 @@ class UserPlugin implements Plugin
     public function register(Panel $panel): void
     {
 
-        if (! Utils::isResourcePublished()) {
-            $panel->resources([
-                UserResource::class,
-            ])->widgets([
-                UsersOverview::class,
-                UsersChart::class,
-            ]);
-        }
+        // if (! Utils::isResourcePublished()) {
+        //     $panel->resources([
+        //         UserResource::class,
+        //     ])->widgets([
+        //         UsersOverview::class,
+        //         UsersChart::class,
+        //     ]);
+        // }
     }
 }

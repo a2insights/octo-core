@@ -30,16 +30,16 @@ class SettingsServiceProvider extends PackageServiceProvider
             return;
         }
 
-        Livewire::component('switch-language', SwitchLanguage::class);
+        // Livewire::component('switch-language', SwitchLanguage::class);
 
-        Event::listen(function (SettingsSaved $event) {
-            Cache::forget('octo.settings');
-        });
+        // Event::listen(function (SettingsSaved $event) {
+        //     Cache::forget('octo.settings');
+        // });
 
-        $this->settings = Cache::remember('octo.settings', now()->addHours(10), fn () => app(Settings::class));
+        // $this->settings = Cache::remember('octo.settings', now()->addHours(10), fn () => app(Settings::class));
 
-        $this->syncName();
-        $this->syncTimezone();
+        // $this->syncName();
+        // $this->syncTimezone();
     }
 
     private function syncTimezone(): void

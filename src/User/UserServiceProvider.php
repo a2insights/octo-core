@@ -18,23 +18,23 @@ class UserServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage(): void
     {
-        User::observe(UserObserver::class);
+        // User::observe(UserObserver::class);
 
-        Livewire::component('BannedUser', BannedUser::class);
-        Livewire::component('Login', Login::class);
-        Livewire::component('Register', Register::class);
-        Livewire::component('phone', Phone::class);
-        Livewire::component('username', Username::class);
+        // Livewire::component('BannedUser', BannedUser::class);
+        // Livewire::component('Login', Login::class);
+        // Livewire::component('Register', Register::class);
+        // Livewire::component('phone', Phone::class);
+        // Livewire::component('username', Username::class);
 
-        Route::get('banned/user', BannedUser::class)
-            ->middleware('web')
-            ->name('banned.user');
+        // Route::get('banned/user', BannedUser::class)
+        //     ->middleware('web')
+        //     ->name('banned.user');
 
-        // Fix recaptcha style
-        Filament::registerRenderHook(
-            'body.start',
-            fn (): string => '<style>.g-recaptcha { margin: 0 auto;display: table }</style>'
-        );
+        // // Fix recaptcha style
+        // Filament::registerRenderHook(
+        //     'body.start',
+        //     fn (): string => '<style>.g-recaptcha { margin: 0 auto;display: table }</style>'
+        // );
     }
 
     public function configurePackage(Package $package): void
