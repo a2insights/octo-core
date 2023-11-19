@@ -5,6 +5,7 @@ namespace Octo\Settings\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,7 +15,7 @@ class Locale
     {
         $userSettings = $request->user()?->settings;
 
-        $settings = app(\Octo\Settings\Settings::class);
+        $settings = Cache::remember('octo.settings', now()->addHours(10), fn () => app(\Octo\Settings\Settings::class));
 
         $locale = $userSettings?->locale ?? $settings->locale;
 

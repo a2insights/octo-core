@@ -3,6 +3,7 @@
 namespace Octo\Features;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Octo\Features\Filament\Pages\Policy;
@@ -38,7 +39,7 @@ class FeaturesServiceProvider extends PackageServiceProvider
             return;
         }
 
-        $this->features = App::make(Features::class);
+        $this->features = Cache::remember('octo.features', now()->addHours(10), fn () => App::make(Features::class));
 
         $this->syncRegistration();
         $this->sync2fa();
@@ -49,7 +50,7 @@ class FeaturesServiceProvider extends PackageServiceProvider
     private function syncRecaptcha(): void
     {
         if ($this->features->recaptcha) {
-            $recaptchaSettings = App::make(reCAPTCHASettings::class);
+            $recaptchaSettings = Cache::remember('octo.recaptcha', now()->addHours(10), fn () => App::make(reCAPTCHASettings::class));
 
             // Prevents login page from breaking if recaptcha is enabled but no keys are set
             if (! $recaptchaSettings->site_key || ! $recaptchaSettings->secret_key) {
@@ -77,7 +78,7 @@ class FeaturesServiceProvider extends PackageServiceProvider
             Config::set('filament-webhook-server.pages', []);
             Config::set('filament-webhook-server.models', []);
         } else {
-            $webhookSettings = App::make(WebhooksSettings::class);
+            $webhookSettings = Cache::remember('octo.webhooks', now()->addHours(10), fn () => App::make(WebhooksSettings::class));
 
             Config::set('filament-webhook-server.models', $webhookSettings->models);
             Config::set('filament-webhook-server.polling', $webhookSettings->poll_interval);
