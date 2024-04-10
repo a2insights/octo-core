@@ -7,8 +7,6 @@ use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;
 use Octo\User\Filament\UserResource;
-use Octo\User\Filament\Widgets\UsersChart;
-use Octo\User\Filament\Widgets\UsersOverview;
 
 class UserPlugin implements Plugin
 {
@@ -41,9 +39,6 @@ class UserPlugin implements Plugin
         if (! Utils::isResourcePublished()) {
             $panel->resources([
                 UserResource::class,
-            ])->widgets([
-                UsersOverview::class,
-                UsersChart::class,
             ]);
         }
     }
