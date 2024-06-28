@@ -140,7 +140,5 @@ class OctoInstallCommand extends Command
         return $user;
     }
 
-    public function factoryData()
-    {
-    }
+    public function factoryData() {}
 }

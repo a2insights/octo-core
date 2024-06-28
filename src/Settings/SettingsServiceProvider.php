@@ -25,6 +25,7 @@ class SettingsServiceProvider extends PackageServiceProvider
     {
         parent::packageBooted();
 
+        // TODO: In logger not will be set. Implement it
         // return if running in the console
         if (App::runningInConsole()) {
             return;
@@ -40,6 +41,7 @@ class SettingsServiceProvider extends PackageServiceProvider
 
         $this->syncName();
         $this->syncTimezone();
+        // $this->syncLocale(); // See locale middlewareS
     }
 
     private function syncTimezone(): void
@@ -62,4 +64,15 @@ class SettingsServiceProvider extends PackageServiceProvider
             Config::set('app.name', $name);
         }
     }
+
+    // private function syncLocale(): void
+    // {
+    //     $locale = $this->settings->locale;
+
+    //     if ($locale) {
+    //         Config::set('app.locale', $locale);
+    //         App::setLocale($locale);
+    //         \Locale::setDefault($locale);
+    //     }
+    // }
 }
