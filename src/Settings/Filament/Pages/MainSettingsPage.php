@@ -25,7 +25,7 @@ class MainSettingsPage extends SettingsPage
 
     protected static ?string $navigationIcon = 'heroicon-o-cog';
 
-    protected static ?string $navigationGroup = 'System';
+    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?string $slug = 'settings/main';
 
@@ -34,6 +34,13 @@ class MainSettingsPage extends SettingsPage
     protected ?string $heading = 'Main Settings';
 
     protected ?string $subheading = 'Update your main settings.';
+
+    protected function afterSave(): void
+    {
+        cache()->forget('octo.features');
+        cache()->forget('octo.settings');
+        cache()->forget('octo.webhooks');
+    }
 
     protected function getFormSchema(): array
     {

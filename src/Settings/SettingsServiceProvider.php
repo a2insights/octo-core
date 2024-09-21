@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
-use Livewire\Livewire;
-use Octo\Settings\Filament\Components\SwitchLanguage;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelSettings\Events\SettingsSaved;
@@ -30,8 +28,6 @@ class SettingsServiceProvider extends PackageServiceProvider
         if (App::runningInConsole()) {
             return;
         }
-
-        Livewire::component('switch-language', SwitchLanguage::class);
 
         Event::listen(function (SettingsSaved $event) {
             Cache::forget('octo.settings');

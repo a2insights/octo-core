@@ -24,9 +24,9 @@ class FeaturesPage extends SettingsPage
 
     protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
 
-    protected static ?string $navigationGroup = 'System';
+    protected static ?string $navigationGroup = 'Settings';
 
-    protected static ?string $slug = 'features';
+    protected static ?string $slug = 'settings/features';
 
     protected static ?string $title = 'Features';
 
@@ -77,6 +77,10 @@ class FeaturesPage extends SettingsPage
 
             $webhooksSettings->save();
         }
+
+        cache()->forget('octo.features');
+        cache()->forget('octo.settings');
+        cache()->forget('octo.webhooks');
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
@@ -144,6 +148,10 @@ class FeaturesPage extends SettingsPage
                 ])->columns(1),
             Fieldset::make('User')
                 ->schema([
+                    Toggle::make('switch_language')
+                        ->label('Switch Language')
+                        ->hint('You can enable switch language to your site.')
+                        ->helperText('Caution: If you enable switch language, users will can switch language to their account.'),
                     Toggle::make('user_phone')
                         ->label('User Phone')
                         ->hint('You can enable user phone to your site.')

@@ -29,9 +29,7 @@ class UserPlugin implements Plugin
         return filament(app(static::class)->getId());
     }
 
-    public function boot(Panel $panel): void
-    {
-    }
+    public function boot(Panel $panel): void {}
 
     public function register(Panel $panel): void
     {
@@ -39,6 +37,7 @@ class UserPlugin implements Plugin
         if (! Utils::isResourcePublished()) {
             $panel->resources([
                 UserResource::class,
+                RoleResource::class,
             ]);
         }
     }

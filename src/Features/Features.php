@@ -29,6 +29,8 @@ class Features extends BaseSettings
 
     public bool $username;
 
+    public bool $switch_language;
+
     public static function group(): string
     {
         return 'features';
