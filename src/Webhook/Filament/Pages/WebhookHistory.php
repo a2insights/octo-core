@@ -8,4 +8,9 @@ use Marjose123\FilamentWebhookServer\Pages\WebhookHistory as Marjose12WebhookHis
 class WebhookHistory extends Marjose12WebhookHistory
 {
     use HasPageShield;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'System';
+    }
 }

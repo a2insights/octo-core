@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
+use Octo\Features\Filament\Components\SwitchLanguage;
 use Octo\Features\Filament\Pages\Policy;
 use Octo\Features\Filament\Pages\Terms;
 use Octo\Settings\reCAPTCHASettings;
@@ -40,6 +42,8 @@ class FeaturesServiceProvider extends PackageServiceProvider
         }
 
         $this->features = Cache::remember('octo.features', now()->addHours(10), fn () => App::make(Features::class));
+
+        Livewire::component('switch-language', SwitchLanguage::class);
 
         $this->syncRegistration();
         $this->sync2fa();

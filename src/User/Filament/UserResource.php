@@ -33,6 +33,10 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?string $navigationGroup = 'Users';
+
+    // protected static ?string $navigationParentItem = 'Users';
+
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'email'];

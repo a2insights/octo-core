@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Settings\Filament\Components;
+namespace Octo\Features\Filament\Components;
 
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -37,6 +37,6 @@ class SwitchLanguage extends Component
 
     public function render(): View
     {
-        return view('octo::settings.language-switch');
+        return view('octo::features.switch-language');
     }
 }
