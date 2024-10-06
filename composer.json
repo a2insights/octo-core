@@ -21,6 +21,7 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
+        "bezhansalleh/filament-exceptions": "^2.1",
         "bezhansalleh/filament-shield": "^3.2",
         "blade-ui-kit/blade-heroicons": "^2.1",
         "blade-ui-kit/blade-icons": "^1.6",
@@ -37,7 +38,7 @@
         "hasnayeen/themes": "^3.0",
         "husam-tariq/filament-database-schedule": "^2.0",
         "illuminate/support": "^10.0|^11.0",
-        "jeffgreco13/filament-breezy": "^2.1",
+        "jeffgreco13/filament-breezy": "^2.4",
         "malzariey/filament-daterangepicker-filter": "^2.2",
         "marjose123/filament-webhook-server": "^2.1",
         "opcodesio/log-viewer": "^3.10",
