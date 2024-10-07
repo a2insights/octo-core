@@ -6,6 +6,7 @@ use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;
+use Octo\User\Filament\UserResource;
 
 class UserPlugin implements Plugin
 {

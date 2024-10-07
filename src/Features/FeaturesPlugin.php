@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Octo\Features\Filament\Pages\FeaturesPage;
-use Octo\User\Filament\Pages\Register;
 
 class FeaturesPlugin implements Plugin
 {
@@ -52,9 +51,9 @@ class FeaturesPlugin implements Plugin
             );
         }
 
-        //$this->features = App::make(Features::class);
+        // $this->features = App::make(Features::class);
 
-        // TODO: dark_mode not work with hasnayeen themes
+        // TODO: dark_mode configurable not work with hasnayeen themes
         // $panel->darkMode($this->features->dark_mode);
     }
 
@@ -64,8 +63,6 @@ class FeaturesPlugin implements Plugin
             $panel->pages([
                 FeaturesPage::class,
             ]);
-
-            $panel->registration(Register::class);
         }
     }
 }

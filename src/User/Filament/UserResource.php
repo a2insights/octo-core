@@ -35,6 +35,8 @@ class UserResource extends Resource
 
     protected static ?string $navigationGroup = 'Users';
 
+    protected static ?int $navigationSort = -2;
+
     // protected static ?string $navigationParentItem = 'Users';
 
     public static function getGloballySearchableAttributes(): array
@@ -111,7 +113,6 @@ class UserResource extends Resource
                 ])
                 ->columnSpan(1),
         ];
-
     }
 
     public static function table(Table $table): Table
