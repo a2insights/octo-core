@@ -30,9 +30,9 @@ class FeaturesPage extends SettingsPage
 
     protected static ?string $title = 'Features';
 
-    protected ?string $heading = 'Featuress';
+    protected ?string $heading = 'Features';
 
-    protected ?string $subheading = 'Manage your features.';
+    protected ?string $subheading = 'Manage features.';
 
     private function recaptcha()
     {

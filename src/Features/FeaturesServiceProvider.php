@@ -45,10 +45,11 @@ class FeaturesServiceProvider extends PackageServiceProvider
 
         Livewire::component('switch-language', SwitchLanguage::class);
 
-        $this->syncRegistration();
-        $this->sync2fa();
+        // TODO: Implement sync methods
+        // $this->syncRegistration();
+        // $this->sync2fa();
         $this->syncWebhooks();
-        $this->syncRecaptcha();
+        // $this->syncRecaptcha();
     }
 
     private function syncRecaptcha(): void

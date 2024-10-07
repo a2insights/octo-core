@@ -6,18 +6,23 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Pages\Auth\Register as AuthRegister;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\HtmlString;
 use Octo\Features\Features;
 use Octo\Octo;
+use Wallo\FilamentCompanies\Pages\Auth\Register as BaseTenantRegister;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 /**
  * @property Form $form
  */
-class Register extends AuthRegister
+class TenantRegister extends BaseTenantRegister
 {
+    public function form(Form $form): Form
+    {
+        return $form;
+    }
+
     /**
      * @return array<int | string, string | Form>
      */
@@ -62,7 +67,7 @@ class Register extends AuthRegister
             ->rules(['required', 'max:100', 'min:4', 'string']);
     }
 
-    private function getTermsFormComponent(): Component
+    protected function getTermsFormComponent(): Component
     {
         $html = new HtmlString(trans('octo-core::default.user.register.accept_terms', ['terms_url' => route('terms'), 'policies_url' => route('policy')]));
 
