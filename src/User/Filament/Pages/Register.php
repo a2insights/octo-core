@@ -29,6 +29,8 @@ class Register extends AuthRegister
         $username = $features->username;
         $terms = $features->terms;
 
+        $fields = [];
+
         if ($username) {
             $fields[] = $this->getUsernameFormComponent();
         }
