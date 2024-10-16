@@ -36,7 +36,7 @@ class UserPlugin implements Plugin
 
         if (! Utils::isResourcePublished()) {
             $panel->resources([
-                UserResource::class,
+                config('octo.users.resource', UserResource::class),
             ]);
         }
     }

@@ -9,7 +9,7 @@ use Octo\Octo;
 use Octo\User\Filament\Components\Phone;
 use Octo\User\Filament\Components\Username;
 use Octo\User\Filament\Pages\BannedUser;
-// use Octo\User\Filament\Pages\Register;
+use Octo\User\Filament\Pages\Register;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -20,7 +20,7 @@ class UserServiceProvider extends PackageServiceProvider
         Octo::getUserModel()::observe(UserObserver::class);
 
         Livewire::component('BannedUser', BannedUser::class);
-        // Livewire::component('Register', Register::class);
+        Livewire::component('Register', Register::class);
         Livewire::component('phone', Phone::class);
         Livewire::component('username', Username::class);
 
