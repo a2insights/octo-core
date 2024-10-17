@@ -57,7 +57,7 @@
         "spatie/laravel-data": "^3.6",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-stats": "^2.1",
-        "stancl/tenancy": "3.x-dev",
+        "stancl/tenancy": "^3.8",
         "symfony/intl": "^6.2",
         "taylornetwork/laravel-username-generator": "^2.8",
         "widiu7omo/filament-bandel": "^2.0",
