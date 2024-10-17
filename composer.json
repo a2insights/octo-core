@@ -46,15 +46,18 @@
         "husam-tariq/filament-database-schedule": "^2.0",
         "illuminate/support": "^10.0|^11.0",
         "jeffgreco13/filament-breezy": "^2.4",
+        "league/flysystem-aws-s3-v3": "^3.0",
         "malzariey/filament-daterangepicker-filter": "^2.2",
         "marjose123/filament-webhook-server": "^2.1",
         "opcodesio/log-viewer": "^3.10",
+        "openai-php/laravel": "^0.10.1",
         "pxlrbt/filament-environment-indicator": "^2.0",
         "pxlrbt/filament-spotlight": "^1.2",
         "solution-forest/filament-firewall": "^2.0",
         "spatie/laravel-data": "^3.6",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-stats": "^2.1",
+        "stancl/tenancy": "3.x-dev",
         "symfony/intl": "^6.2",
         "taylornetwork/laravel-username-generator": "^2.8",
         "widiu7omo/filament-bandel": "^2.0",
@@ -65,7 +68,6 @@
     "require-dev": {
         "laravel/pint": "dev-main",
         "nunomaduro/larastan": "^2.6",
-        "orchestra/testbench-core": "^8.0",
         "pestphp/pest": "^3.4"
     },
     "suggest": {
@@ -91,7 +93,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
         }
     },
     "extra": {
