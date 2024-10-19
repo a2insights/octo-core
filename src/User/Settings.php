@@ -8,6 +8,5 @@ class Settings extends Data
 {
     public function __construct(
         public string $locale,
-    ) {
-    }
+    ) {}
 }
