@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Octo\Features\FeaturesServiceProvider;
 use Octo\Middleware\MiddlewareServiceProvider;
 use Octo\Settings\SettingsServiceProvider;
+use Octo\Tenant\TenantServiceProvider;
 use Octo\User\UserServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -18,8 +19,9 @@ class OctoServiceProvider extends PackageServiceProvider
         $this->app->register(FeaturesServiceProvider::class);
         $this->app->register(SettingsServiceProvider::class);
         $this->app->register(MiddlewareServiceProvider::class);
+        $this->app->register(TenantServiceProvider::class);
 
-        Route::get('/', fn () => redirect(config('octo.admin_path')));
+        Route::get('/', fn() => redirect(config('octo.admin_path')));
 
         /*
          * This class is a Package Service Provider
