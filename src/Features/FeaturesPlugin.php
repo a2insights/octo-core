@@ -2,7 +2,6 @@
 
 namespace Octo\Features;
 
-use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Contracts\Plugin;
 use Filament\Facades\Filament;
 use Filament\FilamentManager;
@@ -59,10 +58,8 @@ class FeaturesPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        if (! Utils::isResourcePublished()) {
-            $panel->pages([
-                FeaturesPage::class,
-            ]);
-        }
+        $panel->pages([
+            FeaturesPage::class,
+        ]);
     }
 }

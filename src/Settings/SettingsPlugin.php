@@ -2,7 +2,6 @@
 
 namespace Octo\Settings;
 
-use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;
@@ -40,7 +39,7 @@ class SettingsPlugin implements Plugin
             return;
         }
 
-        $this->settings = Cache::remember('octo.settings', now()->addHours(10), fn () => app(Settings::class));
+        $this->settings = Cache::remember('octo.settings', now()->addHours(10), fn() => app(Settings::class));
 
         $favicon = $this->settings->favicon;
         $logo = $this->settings->logo;
@@ -61,10 +60,8 @@ class SettingsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        if (! Utils::isResourcePublished()) {
-            $panel->pages([
-                MainSettingsPage::class,
-            ]);
-        }
+        $panel->pages([
+            MainSettingsPage::class,
+        ]);
     }
 }
