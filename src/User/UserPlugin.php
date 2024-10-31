@@ -2,7 +2,6 @@
 
 namespace Octo\User;
 
-use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;
@@ -33,11 +32,8 @@ class UserPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-
-        if (! Utils::isResourcePublished()) {
-            $panel->resources([
-                config('octo.users.resource', UserResource::class),
-            ]);
-        }
+        $panel->resources([
+            config('octo.users.resource', UserResource::class),
+        ]);
     }
 }

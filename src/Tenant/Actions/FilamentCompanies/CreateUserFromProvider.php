@@ -2,10 +2,10 @@
 
 namespace Octo\Tenant\Actions\FilamentCompanies;
 
-use App\Models\Company;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Contracts\User as ProviderUserContract;
+use Octo\Tenant\Company;
 use Wallo\FilamentCompanies\Contracts\CreatesConnectedAccounts;
 use Wallo\FilamentCompanies\Contracts\CreatesUserFromProvider;
 use Wallo\FilamentCompanies\Enums\Feature;

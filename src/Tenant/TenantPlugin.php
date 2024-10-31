@@ -32,9 +32,6 @@ class TenantPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-
-        if (! Utils::isResourcePublished()) {
-            $panel->resources([]);
-        }
+        $panel->resources([]);
     }
 }

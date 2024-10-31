@@ -39,22 +39,13 @@ class SystemPlugin implements Plugin
             return;
         }
 
-        Filament::serving(function () {
-            $navigation = [
-                'super_admin' => [
-                    [
-                        NavigationItem::make('Logs')
-                            ->url(config('log-viewer.route_path'))
-                            ->icon('iconpark-log')
-                            ->group('System'),
-                    ],
-                ],
-            ];
-
-            $isSuperAdmin = Auth::user()?->hasRole('super_admin');
-
-            collect($navigation['super_admin'])->each(fn ($items) => $isSuperAdmin ? Filament::registerNavigationItems($items) : null);
-        });
+        $panel->navigationItems([
+            NavigationItem::make('Logs')
+                ->url(config('log-viewer.route_path'))
+                ->hidden(fn() => ! Auth::user()?->hasRole('super_admin'))
+                ->icon('iconpark-log')
+                ->group('System')
+        ]);
     }
 
     public function register(Panel $panel): void {}
