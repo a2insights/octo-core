@@ -1,14 +1,14 @@
 {
-    "name": "a2insights/octo-core",
-    "description": "This is a part of octo system",
+    "name": "a2insights/filament-saas",
+    "description": "Saas package for Filament",
     "keywords": [
         "laravel",
         "php",
-        "octo",
+        "filament",
         "sass"
     ],
     "minimum-stability": "dev",
-    "homepage": "https://github.com/a2ensite/octo-core",
+    "homepage": "https://github.com/a2insights/filament-saas",
     "license": "MIT",
     "type": "library",
     "authors": [
