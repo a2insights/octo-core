@@ -51,7 +51,7 @@ class UserResource extends Resource
 
     public static function getGlobalSearchResultTitle(Model $record): string
     {
-        return $record->name.' ('.$record->email.')';
+        return $record->name.' ('.$record->email.')'; // @phpstan-ignore-line
     }
 
     public static function form(Form $form): Form
