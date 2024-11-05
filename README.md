@@ -1,7 +1,7 @@
 # This is my package filament-saas
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/a2insights/filament-saas.svg?style=flat-square)](https://packagist.org/packages/a2insights/filament-saas)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/a2insights/filament-saas/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/a2insights/filament-saas/actions?query=workflow%3Arun-tests+branch%3Amain)
+<!-- [![Latest Version on Packagist](https://img.shields.io/packagist/v/a2insights/filament-saas.svg?style=flat-square)](https://packagist.org/packages/a2insights/filament-saas)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/a2insights/filament-saas/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/a2insights/filament-saas/actions?query=workflow%3Arun-tests+branch%3Amain) -->
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/a2insights/filament-saas/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/a2insights/filament-saas/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/a2insights/filament-saas.svg?style=flat-square)](https://packagist.org/packages/a2insights/filament-saas)
 
@@ -9,7 +9,7 @@ This is where your description should go. Limit it to a paragraph or two. Consid
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/filament-saas.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/filament-saas)
+[a21ns1g4ts](https://github.com/sponsors/a21ns1g4ts)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
@@ -52,8 +52,7 @@ php artisan vendor:publish --tag="filament-saas-views"
 ## Usage
 
 ```php
-$filamentSaas = new A2insights\FilamentSaas();
-echo $filamentSaas->echoPhrase('Hello, A2insights!');
+TODO
 ```
 
 ## Testing

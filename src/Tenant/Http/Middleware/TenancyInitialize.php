@@ -18,7 +18,7 @@ class TenancyInitialize
     {
         $company = Filament::getTenant();
         if ($company) {
-            $company->initialize(); // @phpstan-ignore-line
+            $company->initialize();
         }
 
         return $next($request);
