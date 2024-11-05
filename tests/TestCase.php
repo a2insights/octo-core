@@ -36,7 +36,6 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
-        config()->set('filament-webhook-server.models', []); // Disable webhooks
 
         /*
         $migration = include __DIR__.'/../database/migrations/create_filament-saas_table.php.stub';
