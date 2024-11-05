@@ -139,6 +139,4 @@ class FilamentSaasCommand extends Command
 
         return $user;
     }
-
-    public function factoryData() {}
 }
