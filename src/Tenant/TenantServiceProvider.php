@@ -1,7 +1,5 @@
 <?php
 
-/// strict
-
 declare(strict_types=1);
 
 namespace A2insights\FilamentSaas\Tenant;
