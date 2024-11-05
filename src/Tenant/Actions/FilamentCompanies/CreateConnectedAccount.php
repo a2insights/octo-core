@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Laravel\Socialite\Contracts\User as ProviderUser;

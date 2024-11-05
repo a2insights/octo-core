@@ -1,7 +1,12 @@
 <?php
 
-namespace Octo\Features\Filament\Pages;
+namespace A2insights\FilamentSaas\Features\Filament\Pages;
 
+use A2insights\FilamentSaas\Features\Features;
+use A2insights\FilamentSaas\FilamentSaas;
+use A2insights\FilamentSaas\Settings\reCAPTCHASettings;
+use A2insights\FilamentSaas\Settings\TermsSettings;
+use A2insights\FilamentSaas\Settings\WebhooksSettings;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\MarkdownEditor;
@@ -10,11 +15,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
 use Illuminate\Support\Facades\App;
-use Octo\Features\Features;
-use Octo\Octo;
-use Octo\Settings\reCAPTCHASettings;
-use Octo\Settings\TermsSettings;
-use Octo\Settings\WebhooksSettings;
 
 class FeaturesPage extends SettingsPage
 {
@@ -78,9 +78,9 @@ class FeaturesPage extends SettingsPage
             $webhooksSettings->save();
         }
 
-        cache()->forget('octo.features');
-        cache()->forget('octo.settings');
-        cache()->forget('octo.webhooks');
+        cache()->forget('filament-saas.features');
+        cache()->forget('filament-saas.settings');
+        cache()->forget('filament-saas.webhooks');
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
@@ -134,7 +134,7 @@ class FeaturesPage extends SettingsPage
                         ->label('Webhooks Models available')
                         ->multiple()
                         ->options([
-                            Octo::getUserModel() => 'user',
+                            FilamentSaas::getUserModel() => 'user',
                             \Cog\Laravel\Ban\Models\Ban::class => 'ban',
                             \HusamTariq\FilamentDatabaseSchedule\Models\Schedule::class => 'schedule',
                             \Spatie\LaravelSettings\Models\SettingsProperty::class => 'settings',

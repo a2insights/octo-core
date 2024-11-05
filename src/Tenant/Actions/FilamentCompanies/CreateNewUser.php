@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
-use App\Models\Company;
-use App\Models\User;
+use A2insights\FilamentSaas\Tenant\Company;
+use A2insights\FilamentSaas\User\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -44,7 +44,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         $user->ownedCompanies()->save(Company::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0] . "'s Company",
+            'name' => explode(' ', $user->name, 2)[0]."'s Company",
             'personal_company' => true,
         ]));
     }

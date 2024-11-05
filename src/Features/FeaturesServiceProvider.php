@@ -1,17 +1,17 @@
 <?php
 
-namespace Octo\Features;
+namespace A2insights\FilamentSaas\Features;
 
+use A2insights\FilamentSaas\Features\Filament\Components\SwitchLanguage;
+use A2insights\FilamentSaas\Features\Filament\Pages\Policy;
+use A2insights\FilamentSaas\Features\Filament\Pages\Terms;
+use A2insights\FilamentSaas\Settings\reCAPTCHASettings;
+use A2insights\FilamentSaas\Settings\WebhooksSettings;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
-use Octo\Features\Filament\Components\SwitchLanguage;
-use Octo\Features\Filament\Pages\Policy;
-use Octo\Features\Filament\Pages\Terms;
-use Octo\Settings\reCAPTCHASettings;
-use Octo\Settings\WebhooksSettings;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -21,7 +21,7 @@ class FeaturesServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        $package->name('octo.features');
+        $package->name('filament-saas.features');
 
         Route::get('/terms-of-service', Terms::class)
             ->middleware('web')
@@ -41,7 +41,7 @@ class FeaturesServiceProvider extends PackageServiceProvider
             return;
         }
 
-        $this->features = Cache::remember('octo.features', now()->addHours(10), fn () => App::make(Features::class));
+        $this->features = Cache::remember('filament-saas.features', now()->addHours(10), fn () => App::make(Features::class));
 
         Livewire::component('switch-language', SwitchLanguage::class);
 
@@ -55,7 +55,7 @@ class FeaturesServiceProvider extends PackageServiceProvider
     private function syncRecaptcha(): void
     {
         if ($this->features->recaptcha) {
-            $recaptchaSettings = Cache::remember('octo.recaptcha', now()->addHours(10), fn () => App::make(reCAPTCHASettings::class));
+            $recaptchaSettings = Cache::remember('filament-saas.recaptcha', now()->addHours(10), fn () => App::make(reCAPTCHASettings::class));
 
             // Prevents login page from breaking if recaptcha is enabled but no keys are set
             if (! $recaptchaSettings->site_key || ! $recaptchaSettings->secret_key) {
@@ -83,7 +83,7 @@ class FeaturesServiceProvider extends PackageServiceProvider
             Config::set('filament-webhook-server.pages', []);
             Config::set('filament-webhook-server.models', []);
         } else {
-            $webhookSettings = Cache::remember('octo.webhooks', now()->addHours(10), fn () => App::make(WebhooksSettings::class));
+            $webhookSettings = Cache::remember('filament-saas.webhooks', now()->addHours(10), fn () => App::make(WebhooksSettings::class));
 
             Config::set('filament-webhook-server.models', $webhookSettings->models);
             Config::set('filament-webhook-server.polling', $webhookSettings->poll_interval);

@@ -1,15 +1,21 @@
 <?php
 
-namespace Octo\Tenant;
+/// strict
 
-use App\Models\Company;
+declare(strict_types=1);
+
+namespace A2insights\FilamentSaas\Tenant;
+
+use A2insights\FilamentSaas\Facades\FilamentSaas;
 use BezhanSalleh\PanelSwitch\PanelSwitch;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class TenantServiceProvider extends PackageServiceProvider
 {
-    public function bootingPackage(): void {
+    public function bootingPackage(): void
+    {
         PanelSwitch::configureUsing(function (PanelSwitch $panelSwitch) {
             $panelSwitch
                 ->simple()
@@ -18,7 +24,7 @@ class TenantServiceProvider extends PackageServiceProvider
                 ]));
         });
 
-        Company::created(function (Company $company) {
+        FilamentSaas::getCompanyModel()::created(function (Model $company) {
             $company->initialize();
 
             $cachePath = storage_path('framework/cache');
@@ -35,6 +41,6 @@ class TenantServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        $package->name('octo.user');
+        $package->name('filament-saas.user');
     }
 }

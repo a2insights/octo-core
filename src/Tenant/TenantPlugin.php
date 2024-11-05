@@ -1,8 +1,7 @@
 <?php
 
-namespace Octo\Tenant;
+namespace A2insights\FilamentSaas\Tenant;
 
-use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;
@@ -16,7 +15,7 @@ class TenantPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'octo.tenant';
+        return 'filament-saas.tenant';
     }
 
     /**

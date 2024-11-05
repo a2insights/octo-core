@@ -1,11 +1,11 @@
 <?php
 
-namespace Octo\Features\Filament\Components;
+namespace A2insights\FilamentSaas\Features\Filament\Components;
 
+use A2insights\FilamentSaas\Settings\Settings;
+use A2insights\FilamentSaas\User\Settings as UserSettings;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Octo\Settings\Settings;
-use Octo\User\Settings as UserSettings;
 
 class SwitchLanguage extends Component
 {
@@ -37,6 +37,6 @@ class SwitchLanguage extends Component
 
     public function render(): View
     {
-        return view('octo::features.switch-language');
+        return view('filament-saas::features.switch-language');
     }
 }

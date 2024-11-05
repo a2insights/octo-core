@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
 use App\Models\Company;
 use App\Models\User;

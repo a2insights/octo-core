@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Settings;
+namespace A2insights\FilamentSaas\Settings;
 
 use Spatie\LaravelSettings\Settings as BaseSettings;
 

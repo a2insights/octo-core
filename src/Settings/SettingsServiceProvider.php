@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Settings;
+namespace A2insights\FilamentSaas\Settings;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
@@ -16,7 +16,7 @@ class SettingsServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        $package->name('octo.settings');
+        $package->name('filament-saas.settings');
     }
 
     public function packageBooted(): void
@@ -30,10 +30,10 @@ class SettingsServiceProvider extends PackageServiceProvider
         }
 
         Event::listen(function (SettingsSaved $event) {
-            Cache::forget('octo.settings');
+            Cache::forget('filament-saas.settings');
         });
 
-        $this->settings = Cache::remember('octo.settings', now()->addHours(10), fn () => app(Settings::class));
+        $this->settings = Cache::remember('filament-saas.settings', now()->addHours(10), fn () => app(Settings::class));
 
         $this->syncName();
         $this->syncTimezone();

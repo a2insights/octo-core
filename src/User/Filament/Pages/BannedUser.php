@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\User\Filament\Pages;
+namespace A2insights\FilamentSaas\User\Filament\Pages;
 
 use Cog\Laravel\Ban\Models\Ban;
 use Filament\Actions\Action;
@@ -19,14 +19,14 @@ class BannedUser extends BasePage
 
     protected ?string $heading = '';
 
-    protected static string $view = 'octo::user.banned';
+    protected static string $view = 'filament-saas::user.banned';
 
     public Ban $ban;
 
     public function mount()
     {
         if (! Auth::user()->isBanned() || ! Filament::auth()->check()) {
-            return redirect(config('octo.admin_path'));
+            return redirect(config('filament-saas.admin_path'));
         }
 
         $this->ban = Auth::user()->bans->first();
@@ -56,7 +56,7 @@ class BannedUser extends BasePage
         session()->invalidate();
         session()->regenerateToken();
 
-        return redirect(config('octo.admin_path'));
+        return redirect(config('filament-saas.admin_path'));
     }
 
     protected function getFormActions(): array

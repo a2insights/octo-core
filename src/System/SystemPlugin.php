@@ -1,9 +1,8 @@
 <?php
 
-namespace Octo\System;
+namespace A2insights\FilamentSaas\System;
 
 use Filament\Contracts\Plugin;
-use Filament\Facades\Filament;
 use Filament\FilamentManager;
 use Filament\Navigation\NavigationItem;
 use Filament\Panel;
@@ -21,7 +20,7 @@ class SystemPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'octo.system';
+        return 'filament-saas.system';
     }
 
     /**
@@ -42,9 +41,9 @@ class SystemPlugin implements Plugin
         $panel->navigationItems([
             NavigationItem::make('Logs')
                 ->url(config('log-viewer.route_path'))
-                ->hidden(fn() => ! Auth::user()?->hasRole('super_admin'))
+                ->hidden(fn () => ! Auth::user()?->hasRole('super_admin'))
                 ->icon('iconpark-log')
-                ->group('System')
+                ->group('System'),
         ]);
     }
 

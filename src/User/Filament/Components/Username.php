@@ -1,19 +1,18 @@
 <?php
 
-namespace Octo\User\Filament\Components;
+namespace A2insights\FilamentSaas\User\Filament\Components;
 
+use A2insights\FilamentSaas\Features\Features;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\App;
 use Jeffgreco13\FilamentBreezy\Livewire\MyProfileComponent;
-use Octo\Features\Features;
-use Octo\Octo;
 
 class Username extends MyProfileComponent
 {
-    protected string $view = 'octo::user.livewire.phone';
+    protected string $view = 'filament-saas::user.livewire.phone';
 
     public static $sort = 10;
 
@@ -32,9 +31,9 @@ class Username extends MyProfileComponent
         return $form
             ->schema([
                 TextInput::make('username')
-                    ->label(__('octo-core::default.user.profile.username.title'))
+                    ->label(__('filament-saas::default.user.profile.username.title'))
                     ->prefixIcon('heroicon-m-at-symbol')
-                    ->unique(Octo::getUserModel(), ignorable: $this->user)
+                    ->unique(A2insights\FilamentSaas::getUserModel(), ignorable: $this->user)
                     ->required()
                     ->rules(['required', 'max:100', 'min:4', 'string']),
             ])->statePath('data');
@@ -55,7 +54,7 @@ class Username extends MyProfileComponent
 
         Notification::make()
             ->success()
-            ->title(__('octo-core::default.user.profile.username.notify'))
+            ->title(__('filament-saas::default.user.profile.username.notify'))
             ->send();
     }
 }

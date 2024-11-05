@@ -1,12 +1,12 @@
 <?php
 
-namespace Octo\Features\Filament\Pages;
+namespace A2insights\FilamentSaas\Features\Filament\Pages;
 
+use A2insights\FilamentSaas\Features\Features;
+use A2insights\FilamentSaas\Settings\TermsSettings;
 use Filament\Pages\BasePage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Octo\Features\Features;
-use Octo\Settings\TermsSettings;
 
 class Terms extends BasePage
 {
@@ -14,7 +14,7 @@ class Terms extends BasePage
 
     protected ?string $maxContentWidth = 'full';
 
-    protected static string $view = 'octo::features.terms';
+    protected static string $view = 'filament-saas::features.terms';
 
     public string $terms;
 

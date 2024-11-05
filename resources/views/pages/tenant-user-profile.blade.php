@@ -14,16 +14,16 @@
             "Wallo\FilamentCompanies\Http\Livewire\LogoutOtherBrowserSessionsForm",
             "Wallo\FilamentCompanies\Http\Livewire\DeleteUserForm",
             "Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo",
-            "Octo\User\Filament\Components\Phone",
-            "Octo\User\Filament\Components\Username",
+            "A2insights\FilamentSaas\User\Filament\Components\Phone",
+            "A2insights\FilamentSaas\User\Filament\Components\Username",
             "Jeffgreco13\FilamentBreezy\Livewire\UpdatePassword",
             "Jeffgreco13\FilamentBreezy\Livewire\TwoFactorAuthentication",
         ];
 
         $showComponents = [
             "Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo",
-            "Octo\User\Filament\Components\Username",
-            "Octo\User\Filament\Components\Phone",
+            "A2insights\FilamentSaas\User\Filament\Components\Username",
+            "A2insights\FilamentSaas\User\Filament\Components\Phone",
             "Jeffgreco13\FilamentBreezy\Livewire\UpdatePassword",
             "Jeffgreco13\FilamentBreezy\Livewire\TwoFactorAuthentication",
             "Wallo\FilamentCompanies\Http\Livewire\ConnectedAccountsForm",

@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\User\Stats;
+namespace A2insights\FilamentSaas\User\Stats;
 
 use Spatie\Stats\BaseStats;
 

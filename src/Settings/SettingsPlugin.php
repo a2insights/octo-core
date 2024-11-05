@@ -1,14 +1,14 @@
 <?php
 
-namespace Octo\Settings;
+namespace A2insights\FilamentSaas\Settings;
 
+use A2insights\FilamentSaas\Settings\Filament\Pages\MainSettingsPage;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
-use Octo\Settings\Filament\Pages\MainSettingsPage;
 
 class SettingsPlugin implements Plugin
 {
@@ -21,7 +21,7 @@ class SettingsPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'octo.settings';
+        return 'filament-saas.settings';
     }
 
     /**
@@ -39,7 +39,7 @@ class SettingsPlugin implements Plugin
             return;
         }
 
-        $this->settings = Cache::remember('octo.settings', now()->addHours(10), fn() => app(Settings::class));
+        $this->settings = Cache::remember('filament-saas.settings', now()->addHours(10), fn () => app(Settings::class));
 
         $favicon = $this->settings->favicon;
         $logo = $this->settings->logo;

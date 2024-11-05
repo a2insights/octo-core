@@ -1,16 +1,16 @@
 <?php
 
+use A2insights\FilamentSaas\FilamentSaas;
 use Illuminate\Support\Facades\App;
-use Octo\Octo;
 
-if (! function_exists('octo')) {
+if (! function_exists('filament_saas')) {
     /**
-     * Return Octo instance
+     * Return FilamentSaas instance
      *
-     * @return Octo
+     * @return FilamentSaas
      */
-    function octo()
+    function filament_saas()
     {
-        return App::make(Octo::class);
+        return App::make(FilamentSaas::class);
     }
 }

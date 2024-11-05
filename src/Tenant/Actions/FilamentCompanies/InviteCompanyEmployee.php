@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
-use App\Models\Company;
-use App\Models\User;
+use A2insights\FilamentSaas\Tenant\Company;
+use A2insights\FilamentSaas\User\User;
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Query\Builder;

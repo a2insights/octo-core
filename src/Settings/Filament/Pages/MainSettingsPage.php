@@ -1,7 +1,8 @@
 <?php
 
-namespace Octo\Settings\Filament\Pages;
+namespace A2insights\FilamentSaas\Settings\Filament\Pages;
 
+use A2insights\FilamentSaas\Settings\Settings;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
@@ -13,7 +14,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Pages\SettingsPage;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
-use Octo\Settings\Settings;
 use Symfony\Component\Intl\Locales;
 use Symfony\Component\Intl\Timezones;
 
@@ -37,9 +37,9 @@ class MainSettingsPage extends SettingsPage
 
     protected function afterSave(): void
     {
-        cache()->forget('octo.features');
-        cache()->forget('octo.settings');
-        cache()->forget('octo.webhooks');
+        cache()->forget('filament-saas.features');
+        cache()->forget('filament-saas.settings');
+        cache()->forget('filament-saas.webhooks');
     }
 
     protected function getFormSchema(): array

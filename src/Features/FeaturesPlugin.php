@@ -1,7 +1,8 @@
 <?php
 
-namespace Octo\Features;
+namespace A2insights\FilamentSaas\Features;
 
+use A2insights\FilamentSaas\Features\Filament\Pages\FeaturesPage;
 use Filament\Contracts\Plugin;
 use Filament\Facades\Filament;
 use Filament\FilamentManager;
@@ -10,7 +11,6 @@ use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
-use Octo\Features\Filament\Pages\FeaturesPage;
 
 class FeaturesPlugin implements Plugin
 {
@@ -24,7 +24,7 @@ class FeaturesPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'octo.features';
+        return 'filament-saas.features';
     }
 
     /**
@@ -41,7 +41,7 @@ class FeaturesPlugin implements Plugin
             return;
         }
 
-        $this->features = Cache::remember('octo.features', now()->addHours(10), fn () => app(Features::class));
+        $this->features = Cache::remember('filament-saas.features', now()->addHours(10), fn () => app(Features::class));
         $switchLanguage = $this->features->switch_language;
         if ($switchLanguage) {
             Filament::registerRenderHook(

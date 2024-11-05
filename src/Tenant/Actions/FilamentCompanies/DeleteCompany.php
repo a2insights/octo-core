@@ -1,8 +1,8 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
-use App\Models\Company;
+use A2insights\FilamentSaas\Tenant\Company;
 use Wallo\FilamentCompanies\Contracts\DeletesCompanies;
 
 class DeleteCompany implements DeletesCompanies

@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Settings\Http\Middleware;
+namespace A2insights\FilamentSaas\Settings\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class Locale
     {
         $userSettings = $request->user()?->settings;
 
-        $settings = Cache::remember('octo.settings', now()->addHours(10), fn () => app(\Octo\Settings\Settings::class));
+        $settings = Cache::remember('filament-saas.settings', now()->addHours(10), fn () => app(\A2insights\FilamentSaas\Settings\Settings::class));
 
         $locale = $userSettings?->locale ?? $settings->locale;
 

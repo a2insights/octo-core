@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
 use Laravel\Socialite\Contracts\User;
 use Laravel\Socialite\Facades\Socialite;
@@ -17,7 +17,7 @@ class ResolveSocialiteUser implements ResolvesSocialiteUsers
         $user = Socialite::driver($provider)->user();
 
         if (Feature::GenerateMissingEmails->isEnabled()) {
-            $user->email = $user->getEmail() ?? ("{$user->id}@{$provider}" . config('app.domain'));
+            $user->email = $user->getEmail() ?? ("{$user->id}@{$provider}".config('app.domain'));
         }
 
         return $user;

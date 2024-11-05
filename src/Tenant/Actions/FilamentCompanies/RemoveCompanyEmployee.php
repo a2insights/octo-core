@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
-use App\Models\Company;
-use App\Models\User;
+use A2insights\FilamentSaas\Tenant\Company;
+use A2insights\FilamentSaas\User\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
