@@ -53,7 +53,7 @@
         "pxlrbt/filament-spotlight": "^1.2",
         "solution-forest/filament-field-group": "^1.0",
         "solution-forest/filament-firewall": "^2.0",
-        "spatie/laravel-data": "^3.6",
+        "spatie/laravel-data": "^4.11",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-package-tools": "^1.16",
         "spatie/laravel-stats": "^2.1",
