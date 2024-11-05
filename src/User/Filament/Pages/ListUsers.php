@@ -1,10 +1,10 @@
 <?php
 
-namespace Octo\User\Filament\Pages;
+namespace A2insights\FilamentSaas\User\Filament\Pages;
 
+use A2insights\FilamentSaas\User\Filament\UserResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Octo\User\Filament\UserResource;
 
 class ListUsers extends ListRecords
 {

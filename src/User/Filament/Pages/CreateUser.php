@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\User\Filament\Pages;
+namespace A2insights\FilamentSaas\User\Filament\Pages;
 
+use A2insights\FilamentSaas\User\Filament\UserResource;
 use Filament\Resources\Pages\CreateRecord;
-use Octo\User\Filament\UserResource;
 
 class CreateUser extends CreateRecord
 {

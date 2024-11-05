@@ -1,10 +1,10 @@
 <?php
 
-namespace Octo\User\Filament\Widgets;
+namespace A2insights\FilamentSaas\User\Filament\Widgets;
 
+use A2insights\FilamentSaas\User\Stats\UserStats;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\LineChartWidget;
-use Octo\User\Stats\UserStats;
 
 class UsersChart extends LineChartWidget
 {

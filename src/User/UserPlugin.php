@@ -1,11 +1,11 @@
 <?php
 
-namespace Octo\User;
+namespace A2insights\FilamentSaas\User;
 
+use A2insights\FilamentSaas\User\Filament\UserResource;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;
-use Octo\User\Filament\UserResource;
 
 class UserPlugin implements Plugin
 {
@@ -16,7 +16,7 @@ class UserPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'octo.user';
+        return 'filament-saas.user';
     }
 
     /**
@@ -33,7 +33,7 @@ class UserPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel->resources([
-            config('octo.users.resource', UserResource::class),
+            config('filament-saas.users.resource', UserResource::class),
         ]);
     }
 }

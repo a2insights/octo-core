@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
 use Illuminate\Http\Response;
 use Laravel\Socialite\Two\InvalidStateException;

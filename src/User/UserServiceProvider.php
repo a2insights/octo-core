@@ -1,15 +1,13 @@
 <?php
 
-namespace Octo\User;
+namespace A2insights\FilamentSaas\User;
 
-use Filament\Facades\Filament;
+use A2insights\FilamentSaas\User\Filament\Components\Phone;
+use A2insights\FilamentSaas\User\Filament\Components\Username;
+use A2insights\FilamentSaas\User\Filament\Pages\BannedUser;
+use A2insights\FilamentSaas\User\Filament\Pages\Register;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
-use Octo\Octo;
-use Octo\User\Filament\Components\Phone;
-use Octo\User\Filament\Components\Username;
-use Octo\User\Filament\Pages\BannedUser;
-use Octo\User\Filament\Pages\Register;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -17,12 +15,7 @@ class UserServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage(): void
     {
-        Octo::getUserModel()::observe(UserObserver::class);
-
-        Livewire::component('BannedUser', BannedUser::class);
-        Livewire::component('Register', Register::class);
-        Livewire::component('phone', Phone::class);
-        Livewire::component('username', Username::class);
+        // $this->registerLivewireComponents();
 
         Route::get('banned/user', BannedUser::class)
             ->middleware('web')
@@ -38,6 +31,14 @@ class UserServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        $package->name('octo.user');
+        $package->name('filament-saas.user');
     }
+
+    // public function registerLivewireComponents(): void
+    // {
+    //     Livewire::component('BannedUser', BannedUser::class);
+    //     Livewire::component('Register', Register::class);
+    //     Livewire::component('phone', Phone::class);
+    //     Livewire::component('username', Username::class);
+    // }
 }

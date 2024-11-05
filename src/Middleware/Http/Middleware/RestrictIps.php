@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\Middleware\Http\Middleware;
+namespace A2insights\FilamentSaas\Middleware\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class RestrictIps
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $settings = App::make(\Octo\Settings\Settings::class);
+        $settings = App::make(\A2insights\FilamentSaas\Settings\Settings::class);
 
         if (in_array($request->ip(), $settings->restrict_ips)) {
             abort(403);

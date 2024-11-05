@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\User\Filament\Pages;
+namespace A2insights\FilamentSaas\User\Filament\Pages;
 
 use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 
@@ -9,5 +9,5 @@ use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
  */
 class TentantUserProfilePage extends MyProfilePage
 {
-    protected static string $view = 'octo::pages.tenant-user-profile';
+    protected static string $view = 'filament-saas::pages.tenant-user-profile';
 }

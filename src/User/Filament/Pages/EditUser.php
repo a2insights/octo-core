@@ -1,11 +1,11 @@
 <?php
 
-namespace Octo\User\Filament\Pages;
+namespace A2insights\FilamentSaas\User\Filament\Pages;
 
+use A2insights\FilamentSaas\User\Filament\UserResource;
 use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
-use Octo\User\Filament\UserResource;
 
 class EditUser extends EditRecord
 {

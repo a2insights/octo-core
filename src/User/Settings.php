@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\User;
+namespace A2insights\FilamentSaas\User;
 
 use Spatie\LaravelData\Data;
 

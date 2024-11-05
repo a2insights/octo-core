@@ -1,7 +1,11 @@
 <?php
 
-namespace Octo\User\Filament;
+namespace A2insights\FilamentSaas\User\Filament;
 
+use A2insights\FilamentSaas\User\Filament\Pages\CreateUser;
+use A2insights\FilamentSaas\User\Filament\Pages\EditUser;
+use A2insights\FilamentSaas\User\Filament\Pages\ListUsers;
+use A2insights\FilamentSaas\User\Filament\Pages\ViewUser;
 use App\Models\User;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
@@ -22,10 +26,6 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Octo\User\Filament\Pages\CreateUser;
-use Octo\User\Filament\Pages\EditUser;
-use Octo\User\Filament\Pages\ListUsers;
-use Octo\User\Filament\Pages\ViewUser;
 
 class UserResource extends Resource
 {
@@ -46,7 +46,7 @@ class UserResource extends Resource
 
     public static function isScopedToTenant(): bool
     {
-        return config('octo.users.tenant_scope', false);
+        return config('filament-saas.users.tenant_scope', false);
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string

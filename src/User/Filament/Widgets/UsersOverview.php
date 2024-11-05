@@ -1,11 +1,11 @@
 <?php
 
-namespace Octo\User\Filament\Widgets;
+namespace A2insights\FilamentSaas\User\Filament\Widgets;
 
+use A2insights\FilamentSaas\User\Stats\UserStats;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Card;
-use Octo\User\Stats\UserStats;
 
 class UsersOverview extends BaseWidget
 {

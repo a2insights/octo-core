@@ -1,34 +1,34 @@
 <?php
 
-namespace Octo\Console;
+namespace A2insights\FilamentSaas\Commands;
 
+use A2insights\FilamentSaas\FilamentSaas;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
-use Octo\Octo;
 
-class OctoInstallCommand extends Command
+class FilamentSaasCommand extends Command
 {
-    protected $signature = 'octo:install';
+    protected $signature = 'filament-saas:install';
 
     protected $description = 'Install aplication';
 
     public const DEFAULT_USER_NAME = 'user';
 
-    public const DEFAULT_USER_EMAIL = 'user@octo.dev';
+    public const DEFAULT_USER_EMAIL = 'user@filament-saas.dev';
 
     public const DEFAULT_USER_PASSWORD = '123456';
 
     public const DEFAULT_ADMIN_NAME = 'admin';
 
-    public const DEFAULT_ADMIN_EMAIL = 'admin@octo.dev';
+    public const DEFAULT_ADMIN_EMAIL = 'admin@filament-saas.dev';
 
     public const DEFAULT_ADMIN_PASSWORD = '123456';
 
     public const DEFAULT_SUPER_ADMIN_NAME = 'super_admin';
 
-    public const DEFAULT_SUPER_ADMIN_EMAIL = 'super_admin@octo.dev';
+    public const DEFAULT_SUPER_ADMIN_EMAIL = 'super_admin@filament-saas.dev';
 
     public const DEFAULT_SUPER_ADMIN_PASSWORD = '123456';
 
@@ -72,7 +72,7 @@ class OctoInstallCommand extends Command
 
     private function setUpSuperAdminAccount()
     {
-        $user = Octo::getUserModel()::forceCreate([
+        $user = FilamentSaas::getUserModel()::forceCreate([
             'name' => self::DEFAULT_SUPER_ADMIN_NAME,
             'email' => self::DEFAULT_SUPER_ADMIN_EMAIL,
             'password' => Hash::make(self::DEFAULT_SUPER_ADMIN_PASSWORD),
@@ -94,7 +94,7 @@ class OctoInstallCommand extends Command
 
     private function setUpAdminAccount()
     {
-        $user = Octo::getUserModel()::forceCreate([
+        $user = FilamentSaas::getUserModel()::forceCreate([
             'name' => self::DEFAULT_ADMIN_NAME,
             'email' => self::DEFAULT_ADMIN_EMAIL,
             'password' => Hash::make(self::DEFAULT_ADMIN_PASSWORD),
@@ -118,7 +118,7 @@ class OctoInstallCommand extends Command
 
     private function setUpUserAccount()
     {
-        $user = Octo::getUserModel()::forceCreate([
+        $user = FilamentSaas::getUserModel()::forceCreate([
             'name' => self::DEFAULT_USER_NAME,
             'email' => self::DEFAULT_USER_EMAIL,
             'password' => Hash::make(self::DEFAULT_USER_PASSWORD),

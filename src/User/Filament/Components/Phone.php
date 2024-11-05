@@ -1,19 +1,19 @@
 <?php
 
-namespace Octo\User\Filament\Components;
+namespace A2insights\FilamentSaas\User\Filament\Components;
 
+use A2insights\FilamentSaas\Features\Features;
+use A2insights\FilamentSaas\FilamentSaas;
 use Filament\Facades\Filament;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\App;
 use Jeffgreco13\FilamentBreezy\Livewire\MyProfileComponent;
-use Octo\Features\Features;
-use Octo\Octo;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class Phone extends MyProfileComponent
 {
-    protected string $view = 'octo::user.livewire.phone';
+    protected string $view = 'filament-saas::user.livewire.phone';
 
     public static $sort = 10;
 
@@ -33,8 +33,8 @@ class Phone extends MyProfileComponent
             ->schema([
                 PhoneInput::make('phone')
                     ->defaultCountry('BR')
-                    ->label(__('octo-core::default.user.register.phone'))
-                    ->unique(Octo::getUserModel(), ignorable: $this->user)
+                    ->label(__('filament-saas::default.user.register.phone'))
+                    ->unique(FilamentSaas::getUserModel(), ignorable: $this->user)
                     ->validateFor(
                         lenient: true,
                     )
@@ -57,7 +57,7 @@ class Phone extends MyProfileComponent
 
         Notification::make()
             ->success()
-            ->title(__('octo-core::default.user.profile.phone.notify'))
+            ->title(__('filament-saas::default.user.profile.phone.notify'))
             ->send();
     }
 }

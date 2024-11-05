@@ -1,9 +1,9 @@
 <?php
 
-namespace Octo\Tenant\Actions\FilamentCompanies;
+namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
-use App\Models\Company;
-use App\Models\User;
+use A2insights\FilamentSaas\Tenant\Company;
+use A2insights\FilamentSaas\User\User;
 use Illuminate\Support\Facades\DB;
 use Wallo\FilamentCompanies\Contracts\DeletesCompanies;
 use Wallo\FilamentCompanies\Contracts\DeletesUsers;
@@ -31,8 +31,8 @@ class DeleteUser implements DeletesUsers
         DB::transaction(function () use ($user) {
             $this->deleteCompanies($user);
             $user->deleteProfilePhoto();
-            $user->connectedAccounts->each(static fn($account) => $account->delete());
-            $user->tokens->each(static fn($token) => $token->delete());
+            $user->connectedAccounts->each(static fn ($account) => $account->delete());
+            $user->tokens->each(static fn ($token) => $token->delete());
             $user->delete();
         });
     }

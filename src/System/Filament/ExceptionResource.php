@@ -1,6 +1,6 @@
 <?php
 
-namespace Octo\System\Filament;
+namespace A2insights\FilamentSaas\System\Filament;
 
 use BezhanSalleh\FilamentExceptions\Resources\ExceptionResource as ResourcesExceptionResource;
 

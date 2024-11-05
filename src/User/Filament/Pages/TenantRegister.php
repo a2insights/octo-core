@@ -1,15 +1,15 @@
 <?php
 
-namespace Octo\User\Filament\Pages;
+namespace A2insights\FilamentSaas\User\Filament\Pages;
 
+use A2insights\FilamentSaas\Features\Features;
+use A2insights\FilamentSaas\FilamentSaas;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\HtmlString;
-use Octo\Features\Features;
-use Octo\Octo;
 use Wallo\FilamentCompanies\Pages\Auth\Register as BaseTenantRegister;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
@@ -62,16 +62,16 @@ class TenantRegister extends BaseTenantRegister
     private function getUsernameFormComponent(): Component
     {
         return TextInput::make('username')
-            ->label(__('octo-core::default.user.profile.username.title'))
+            ->label(__('filament-saas::default.user.profile.username.title'))
             ->prefixIcon('heroicon-m-at-symbol')
-            ->unique(Octo::getUserModel())
+            ->unique(FilamentSaas::getUserModel())
             ->required()
             ->rules(['required', 'max:100', 'min:4', 'string']);
     }
 
     protected function getTermsFormComponent(): Component
     {
-        $html = new HtmlString(trans('octo-core::default.user.register.accept_terms', ['terms_url' => route('terms'), 'policies_url' => route('policy')]));
+        $html = new HtmlString(trans('filament-saas::default.user.register.accept_terms', ['terms_url' => route('terms'), 'policies_url' => route('policy')]));
 
         return Checkbox::make('terms')
             ->label($html)
@@ -81,7 +81,7 @@ class TenantRegister extends BaseTenantRegister
     private function getPhoneFormComponent(): Component
     {
         return PhoneInput::make('phone')
-            ->label(__('octo-core::default.user.register.phone'))
+            ->label(__('filament-saas::default.user.register.phone'))
             ->required();
     }
 }
