@@ -58,7 +58,7 @@
         "spatie/laravel-package-tools": "^1.16",
         "spatie/laravel-stats": "^2.1",
         "stancl/tenancy": "^3.8",
-        "symfony/intl": "^6.2",
+        "symfony/intl": "^7.1",
         "taylornetwork/laravel-username-generator": "^2.8",
         "widiu7omo/filament-bandel": "^2.0",
         "xlite-dev/filament-impersonate": "^2.0",
