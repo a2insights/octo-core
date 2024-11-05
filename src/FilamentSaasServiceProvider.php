@@ -8,6 +8,7 @@ use A2insights\FilamentSaas\Middleware\MiddlewareServiceProvider;
 use A2insights\FilamentSaas\Settings\SettingsServiceProvider;
 use A2insights\FilamentSaas\Tenant\TenantServiceProvider;
 use A2insights\FilamentSaas\User\UserServiceProvider;
+use A2insights\FilamentSaas\Webhook\WebhookServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -38,5 +39,6 @@ class FilamentSaasServiceProvider extends PackageServiceProvider
         $this->app->register(SettingsServiceProvider::class);
         $this->app->register(MiddlewareServiceProvider::class);
         $this->app->register(TenantServiceProvider::class);
+        $this->app->register(WebhookServiceProvider::class);
     }
 }
