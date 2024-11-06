@@ -35,6 +35,7 @@
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
         "filament/tables": "^3.2",
+        "firefly/filament-blog": "^2.0",
         "hasnayeen/themes": "^3.0",
         "husam-tariq/filament-database-schedule": "^2.0",
         "icetalker/filament-picker": "^0.1.1",
