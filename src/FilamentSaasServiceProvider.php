@@ -17,8 +17,6 @@ class FilamentSaasServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        Route::get('/', fn () => redirect(config('filament-saas.admin_path')));
-
         /*
          * This class is a Package Service Provider
          *
