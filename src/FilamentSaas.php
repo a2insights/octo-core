@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas;
+namespace A2Insights\FilamentSaas;
 
 class FilamentSaas
 {

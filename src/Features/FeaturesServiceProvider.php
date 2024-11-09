@@ -1,12 +1,12 @@
 <?php
 
-namespace A2insights\FilamentSaas\Features;
+namespace A2Insights\FilamentSaas\Features;
 
-use A2insights\FilamentSaas\Features\Filament\Components\SwitchLanguage;
-use A2insights\FilamentSaas\Features\Filament\Pages\Policy;
-use A2insights\FilamentSaas\Features\Filament\Pages\Terms;
-use A2insights\FilamentSaas\Settings\reCAPTCHASettings;
-use A2insights\FilamentSaas\Settings\WebhooksSettings;
+use A2Insights\FilamentSaas\Features\Filament\Components\SwitchLanguage;
+use A2Insights\FilamentSaas\Features\Filament\Pages\Policy;
+use A2Insights\FilamentSaas\Features\Filament\Pages\Terms;
+use A2Insights\FilamentSaas\Settings\reCAPTCHASettings;
+use A2Insights\FilamentSaas\Settings\WebhooksSettings;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;

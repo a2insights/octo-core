@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Tenant;
+namespace A2Insights\FilamentSaas\Tenant;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

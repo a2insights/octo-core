@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Middleware\Http\Middleware;
+namespace A2Insights\FilamentSaas\Middleware\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

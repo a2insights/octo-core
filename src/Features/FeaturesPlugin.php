@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\Features;
+namespace A2Insights\FilamentSaas\Features;
 
-use A2insights\FilamentSaas\Features\Filament\Pages\FeaturesPage;
+use A2Insights\FilamentSaas\Features\Filament\Pages\FeaturesPage;
 use Filament\Contracts\Plugin;
 use Filament\Facades\Filament;
 use Filament\FilamentManager;

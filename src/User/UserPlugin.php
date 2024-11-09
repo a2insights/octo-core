@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\User;
+namespace A2Insights\FilamentSaas\User;
 
-use A2insights\FilamentSaas\User\Filament\UserResource;
+use A2Insights\FilamentSaas\User\Filament\UserResource;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;

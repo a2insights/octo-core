@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Filament\Pages;
+namespace A2Insights\FilamentSaas\User\Filament\Pages;
 
 use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 

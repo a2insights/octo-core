@@ -1,11 +1,11 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Filament;
+namespace A2Insights\FilamentSaas\User\Filament;
 
-use A2insights\FilamentSaas\User\Filament\Pages\CreateUser;
-use A2insights\FilamentSaas\User\Filament\Pages\EditUser;
-use A2insights\FilamentSaas\User\Filament\Pages\ListUsers;
-use A2insights\FilamentSaas\User\Filament\Pages\ViewUser;
+use A2Insights\FilamentSaas\User\Filament\Pages\CreateUser;
+use A2Insights\FilamentSaas\User\Filament\Pages\EditUser;
+use A2Insights\FilamentSaas\User\Filament\Pages\ListUsers;
+use A2Insights\FilamentSaas\User\Filament\Pages\ViewUser;
 use App\Models\User;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;

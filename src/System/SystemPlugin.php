@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\System;
+namespace A2Insights\FilamentSaas\System;
 
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;

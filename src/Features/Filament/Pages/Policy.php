@@ -1,9 +1,9 @@
 <?php
 
-namespace A2insights\FilamentSaas\Features\Filament\Pages;
+namespace A2Insights\FilamentSaas\Features\Filament\Pages;
 
-use A2insights\FilamentSaas\Features\Features;
-use A2insights\FilamentSaas\Settings\TermsSettings;
+use A2Insights\FilamentSaas\Features\Features;
+use A2Insights\FilamentSaas\Settings\TermsSettings;
 use Filament\Pages\BasePage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;

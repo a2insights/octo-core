@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Tenant;
+namespace A2Insights\FilamentSaas\Tenant;
 
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 use Wallo\FilamentCompanies\Employeeship as FilamentCompaniesEmployeeship;

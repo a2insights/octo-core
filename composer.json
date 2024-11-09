@@ -1,13 +1,13 @@
 {
-    "name": "a2insights/filament-saas",
-    "description": "Filament Saas for A2insights",
+    "name": "A2Insights/filament-saas",
+    "description": "Filament Saas for A2Insights",
     "keywords": [
         "laravel",
         "filament",
-        "a2insights",
+        "A2Insights",
         "filament-saas"
     ],
-    "homepage": "https://github.com/a2insights/filament-saas",
+    "homepage": "https://github.com/A2Insights/filament-saas",
     "license": "MIT",
     "authors": [
         {
@@ -87,13 +87,13 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "A2insights\\FilamentSaas\\": "src/",
-            "A2insights\\FilamentSaas\\Database\\Factories\\": "database/factories/"
+            "A2Insights\\FilamentSaas\\": "src/",
+            "A2Insights\\FilamentSaas\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "A2insights\\FilamentSaas\\Tests\\": "tests/",
+            "A2Insights\\FilamentSaas\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -126,10 +126,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "A2insights\\FilamentSaas\\FilamentSaasServiceProvider"
+                "A2Insights\\FilamentSaas\\FilamentSaasServiceProvider"
             ],
             "aliases": {
-                "FilamentSaas": "A2insights\\FilamentSaas\\Facades\\FilamentSaas"
+                "FilamentSaas": "A2Insights\\FilamentSaas\\Facades\\FilamentSaas"
             }
         }
     },

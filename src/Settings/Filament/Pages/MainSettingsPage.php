@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\Settings\Filament\Pages;
+namespace A2Insights\FilamentSaas\Settings\Filament\Pages;
 
-use A2insights\FilamentSaas\Settings\Settings;
+use A2Insights\FilamentSaas\Settings\Settings;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;

@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Features;
+namespace A2Insights\FilamentSaas\Features;
 
 use Spatie\LaravelSettings\Settings as BaseSettings;
 

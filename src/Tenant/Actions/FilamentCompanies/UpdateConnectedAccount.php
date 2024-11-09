@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
+namespace A2Insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;

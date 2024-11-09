@@ -1,9 +1,9 @@
 <?php
 
-namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
+namespace A2Insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
-use A2insights\FilamentSaas\Tenant\Company;
-use A2insights\FilamentSaas\User\User;
+use A2Insights\FilamentSaas\Tenant\Company;
+use A2Insights\FilamentSaas\User\User;
 use Illuminate\Support\Facades\DB;
 use Wallo\FilamentCompanies\Contracts\DeletesCompanies;
 use Wallo\FilamentCompanies\Contracts\DeletesUsers;

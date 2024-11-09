@@ -1,12 +1,12 @@
 <?php
 
-namespace A2insights\FilamentSaas\Tests;
+namespace A2Insights\FilamentSaas\Tests;
 
-use A2insights\FilamentSaas\FilamentSaasServiceProvider;
-use A2insights\FilamentSaas\User\Filament\Components\Phone;
-use A2insights\FilamentSaas\User\Filament\Components\Username;
-use A2insights\FilamentSaas\User\Filament\Pages\BannedUser;
-use A2insights\FilamentSaas\User\Filament\Pages\Register;
+use A2Insights\FilamentSaas\FilamentSaasServiceProvider;
+use A2Insights\FilamentSaas\User\Filament\Components\Phone;
+use A2Insights\FilamentSaas\User\Filament\Components\Username;
+use A2Insights\FilamentSaas\User\Filament\Pages\BannedUser;
+use A2Insights\FilamentSaas\User\Filament\Pages\Register;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
@@ -19,7 +19,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'A2insights\\FilamentSaas\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'A2Insights\\FilamentSaas\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
 
         $this->registerLivewireComponents();

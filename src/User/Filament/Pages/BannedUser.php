@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Filament\Pages;
+namespace A2Insights\FilamentSaas\User\Filament\Pages;
 
 use Cog\Laravel\Ban\Models\Ban;
 use Filament\Actions\Action;

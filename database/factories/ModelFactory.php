@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Database\Factories;
+namespace A2Insights\FilamentSaas\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

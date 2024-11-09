@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Middleware;
+namespace A2Insights\FilamentSaas\Middleware;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
