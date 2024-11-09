@@ -16,7 +16,7 @@
     backupStaticProperties="false"
 >
     <testsuites>
-        <testsuite name="A2insights Test Suite">
+        <testsuite name="A2Insights Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

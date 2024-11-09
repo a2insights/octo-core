@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
+namespace A2Insights\FilamentSaas\Tenant\Actions\FilamentCompanies;
 
-use A2insights\FilamentSaas\Tenant\Company;
+use A2Insights\FilamentSaas\Tenant\Company;
 use Wallo\FilamentCompanies\Contracts\DeletesCompanies;
 
 class DeleteCompany implements DeletesCompanies

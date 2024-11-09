@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Tenant;
+namespace A2Insights\FilamentSaas\Tenant;
 
 use Spatie\MediaLibrary\Support\UrlGenerator\DefaultUrlGenerator;
 use Throwable;

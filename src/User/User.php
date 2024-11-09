@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\User;
+namespace A2Insights\FilamentSaas\User;
 
 use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;

@@ -1,9 +1,9 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Filament\Components;
+namespace A2Insights\FilamentSaas\User\Filament\Components;
 
-use A2insights\FilamentSaas\Features\Features;
-use A2insights\FilamentSaas\FilamentSaas;
+use A2Insights\FilamentSaas\Features\Features;
+use A2Insights\FilamentSaas\FilamentSaas;
 use Filament\Facades\Filament;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;

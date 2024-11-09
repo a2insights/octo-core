@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\User;
+namespace A2Insights\FilamentSaas\User;
 
 use Spatie\LaravelData\Data;
 

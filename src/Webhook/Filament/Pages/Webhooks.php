@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Webhook\Filament\Pages;
+namespace A2Insights\FilamentSaas\Webhook\Filament\Pages;
 
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Marjose123\FilamentWebhookServer\Pages\Webhooks as Marjose123Webhooks;

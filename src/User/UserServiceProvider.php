@@ -1,11 +1,11 @@
 <?php
 
-namespace A2insights\FilamentSaas\User;
+namespace A2Insights\FilamentSaas\User;
 
-use A2insights\FilamentSaas\User\Filament\Components\Phone;
-use A2insights\FilamentSaas\User\Filament\Components\Username;
-use A2insights\FilamentSaas\User\Filament\Pages\BannedUser;
-use A2insights\FilamentSaas\User\Filament\Pages\Register;
+use A2Insights\FilamentSaas\User\Filament\Components\Phone;
+use A2Insights\FilamentSaas\User\Filament\Components\Username;
+use A2Insights\FilamentSaas\User\Filament\Pages\BannedUser;
+use A2Insights\FilamentSaas\User\Filament\Pages\Register;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;

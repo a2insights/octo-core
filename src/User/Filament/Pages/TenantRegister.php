@@ -1,9 +1,9 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Filament\Pages;
+namespace A2Insights\FilamentSaas\User\Filament\Pages;
 
-use A2insights\FilamentSaas\Features\Features;
-use A2insights\FilamentSaas\FilamentSaas;
+use A2Insights\FilamentSaas\Features\Features;
+use A2Insights\FilamentSaas\FilamentSaas;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;

@@ -1,12 +1,12 @@
 <?php
 
-namespace A2insights\FilamentSaas\Features\Filament\Pages;
+namespace A2Insights\FilamentSaas\Features\Filament\Pages;
 
-use A2insights\FilamentSaas\Features\Features;
-use A2insights\FilamentSaas\FilamentSaas;
-use A2insights\FilamentSaas\Settings\reCAPTCHASettings;
-use A2insights\FilamentSaas\Settings\TermsSettings;
-use A2insights\FilamentSaas\Settings\WebhooksSettings;
+use A2Insights\FilamentSaas\Features\Features;
+use A2Insights\FilamentSaas\FilamentSaas;
+use A2Insights\FilamentSaas\Settings\reCAPTCHASettings;
+use A2Insights\FilamentSaas\Settings\TermsSettings;
+use A2Insights\FilamentSaas\Settings\WebhooksSettings;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\MarkdownEditor;

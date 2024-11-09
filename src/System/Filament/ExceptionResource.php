@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\System\Filament;
+namespace A2Insights\FilamentSaas\System\Filament;
 
 use BezhanSalleh\FilamentExceptions\Resources\ExceptionResource as ResourcesExceptionResource;
 

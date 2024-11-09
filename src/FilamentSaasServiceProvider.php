@@ -1,14 +1,14 @@
 <?php
 
-namespace A2insights\FilamentSaas;
+namespace A2Insights\FilamentSaas;
 
-use A2insights\FilamentSaas\Commands\FilamentSaasCommand;
-use A2insights\FilamentSaas\Features\FeaturesServiceProvider;
-use A2insights\FilamentSaas\Middleware\MiddlewareServiceProvider;
-use A2insights\FilamentSaas\Settings\SettingsServiceProvider;
-use A2insights\FilamentSaas\Tenant\TenantServiceProvider;
-use A2insights\FilamentSaas\User\UserServiceProvider;
-use A2insights\FilamentSaas\Webhook\WebhookServiceProvider;
+use A2Insights\FilamentSaas\Commands\FilamentSaasCommand;
+use A2Insights\FilamentSaas\Features\FeaturesServiceProvider;
+use A2Insights\FilamentSaas\Middleware\MiddlewareServiceProvider;
+use A2Insights\FilamentSaas\Settings\SettingsServiceProvider;
+use A2Insights\FilamentSaas\Tenant\TenantServiceProvider;
+use A2Insights\FilamentSaas\User\UserServiceProvider;
+use A2Insights\FilamentSaas\Webhook\WebhookServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

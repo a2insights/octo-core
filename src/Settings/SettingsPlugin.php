@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\Settings;
+namespace A2Insights\FilamentSaas\Settings;
 
-use A2insights\FilamentSaas\Settings\Filament\Pages\MainSettingsPage;
+use A2Insights\FilamentSaas\Settings\Filament\Pages\MainSettingsPage;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
 use Filament\Panel;

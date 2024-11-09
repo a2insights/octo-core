@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Stats;
+namespace A2Insights\FilamentSaas\User\Stats;
 
 use Spatie\Stats\BaseStats;
 

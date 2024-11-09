@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\Commands;
+namespace A2Insights\FilamentSaas\Commands;
 
-use A2insights\FilamentSaas\FilamentSaas;
+use A2Insights\FilamentSaas\FilamentSaas;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
@@ -43,7 +43,7 @@ class FilamentSaasCommand extends Command
         $this->call('migrate:fresh', ['--force' => true]);
 
         $this->info('Installing Shield');
-        $this->call('shield:install', ['--fresh' => true, '--minimal' => true, '--only' => true]);
+        $this->call('shield:install');
 
         $this->call('shield:generate', [
             '--all' => true,

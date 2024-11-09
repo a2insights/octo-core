@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Filament\Pages;
+namespace A2Insights\FilamentSaas\User\Filament\Pages;
 
-use A2insights\FilamentSaas\User\Filament\UserResource;
+use A2Insights\FilamentSaas\User\Filament\UserResource;
 use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;

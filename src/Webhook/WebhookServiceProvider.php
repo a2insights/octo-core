@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Webhook;
+namespace A2Insights\FilamentSaas\Webhook;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

@@ -1,9 +1,9 @@
 <?php
 
-namespace A2insights\FilamentSaas\Features\Filament\Components;
+namespace A2Insights\FilamentSaas\Features\Filament\Components;
 
-use A2insights\FilamentSaas\Settings\Settings;
-use A2insights\FilamentSaas\User\Settings as UserSettings;
+use A2Insights\FilamentSaas\Settings\Settings;
+use A2Insights\FilamentSaas\User\Settings as UserSettings;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 

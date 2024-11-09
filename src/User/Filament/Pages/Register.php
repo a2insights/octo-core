@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Filament\Pages;
+namespace A2Insights\FilamentSaas\User\Filament\Pages;
 
-use A2insights\FilamentSaas\Features\Features;
+use A2Insights\FilamentSaas\Features\Features;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
@@ -58,7 +58,7 @@ class Register extends AuthRegister
         return TextInput::make('username')
             ->label(__('filament-saas::default.user.profile.username.title'))
             ->prefixIcon('heroicon-m-at-symbol')
-            ->unique(A2insights\FilamentSaas::getUserModel())
+            ->unique(A2Insights\FilamentSaas::getUserModel())
             ->required()
             ->rules(['required', 'max:100', 'min:4', 'string']);
     }

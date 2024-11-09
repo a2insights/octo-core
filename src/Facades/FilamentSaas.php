@@ -1,16 +1,16 @@
 <?php
 
-namespace A2insights\FilamentSaas\Facades;
+namespace A2Insights\FilamentSaas\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \A2insights\FilamentSaas\FilamentSaas
+ * @see \A2Insights\FilamentSaas\FilamentSaas
  */
 class FilamentSaas extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \A2insights\FilamentSaas\FilamentSaas::class;
+        return \A2Insights\FilamentSaas\FilamentSaas::class;
     }
 }

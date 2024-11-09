@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace A2insights\FilamentSaas\Tenant;
+namespace A2Insights\FilamentSaas\Tenant;
 
-use A2insights\FilamentSaas\Facades\FilamentSaas;
+use A2Insights\FilamentSaas\Facades\FilamentSaas;
 use BezhanSalleh\PanelSwitch\PanelSwitch;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelPackageTools\Package;

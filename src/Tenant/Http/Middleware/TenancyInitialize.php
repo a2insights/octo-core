@@ -1,6 +1,6 @@
 <?php
 
-namespace A2insights\FilamentSaas\Tenant\Http\Middleware;
+namespace A2Insights\FilamentSaas\Tenant\Http\Middleware;
 
 use Closure;
 use Filament\Facades\Filament;

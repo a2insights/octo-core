@@ -1,8 +1,8 @@
 <?php
 
-namespace A2insights\FilamentSaas\User\Filament\Widgets;
+namespace A2Insights\FilamentSaas\User\Filament\Widgets;
 
-use A2insights\FilamentSaas\User\Stats\UserStats;
+use A2Insights\FilamentSaas\User\Stats\UserStats;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Card;
