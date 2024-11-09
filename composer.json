@@ -1,5 +1,5 @@
 {
-    "name": "A2Insights/filament-saas",
+    "name": "a2insights/filament-saas",
     "description": "Filament Saas for A2Insights",
     "keywords": [
         "laravel",
@@ -7,7 +7,7 @@
         "A2Insights",
         "filament-saas"
     ],
-    "homepage": "https://github.com/A2Insights/filament-saas",
+    "homepage": "https://github.com/a2insights/filament-saas",
     "license": "MIT",
     "authors": [
         {
