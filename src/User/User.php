@@ -9,6 +9,7 @@ use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasDefaultTenant;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
+use Firefly\FilamentBlog\Traits\HasBlog;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +32,7 @@ class User extends Authenticatable implements BannableContract, FilamentUser, Ha
 {
     use Bannable, FindSimilarUsernames, GeneratesUsernames, HasApiTokens, HasCompanies,
         HasConnectedAccounts, HasFactory, HasProfilePhoto, HasRoles, Notifiable, SetsProfilePhotoFromUrl,
-        SoftDeletes, TwoFactorAuthenticatable;
+        SoftDeletes, TwoFactorAuthenticatable, HasBlog;
 
     /**
      * The attributes that are mass assignable.
