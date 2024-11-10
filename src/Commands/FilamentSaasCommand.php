@@ -43,7 +43,11 @@ class FilamentSaasCommand extends Command
         $this->call('migrate:fresh', ['--force' => true]);
 
         $this->info('Installing Shield');
-        $this->call('shield:setup');
+        //TODO: Wait for filament-shield
+        // $this->call('shield:setup', ['--force' => true, '--fresh' => true]);
+        // $this->call('shield:install', ['panel' => 'admin',  '--tenant' => true]);
+        // $this->call('shield:install', ['panel' => 'sysadmin']);
+        $this->call('shield:generate', ['--all' => true]);
 
         $this->call('vendor:publish', [
             '--tag' => 'themes-assets',
