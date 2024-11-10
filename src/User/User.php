@@ -103,4 +103,9 @@ class User extends Authenticatable implements BannableContract, FilamentUser, Ha
     {
         return $this->currentCompany;
     }
+
+    public function canComment(): bool
+    {
+        return true;
+    }
 }
