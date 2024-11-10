@@ -43,12 +43,7 @@ class FilamentSaasCommand extends Command
         $this->call('migrate:fresh', ['--force' => true]);
 
         $this->info('Installing Shield');
-        $this->call('shield:install');
-
-        $this->call('shield:generate', [
-            '--all' => true,
-            '--minimal' => true,
-        ]);
+        $this->call('shield:setup');
 
         $this->call('vendor:publish', [
             '--tag' => 'themes-assets',
