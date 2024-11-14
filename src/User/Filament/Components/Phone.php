@@ -33,7 +33,7 @@ class Phone extends MyProfileComponent
             ->schema([
                 PhoneInput::make('phone')
                     ->defaultCountry('BR')
-                    ->label(__('filament-saas::default.user.register.phone'))
+                    ->label(__('filament-saas::default.users.register.phone'))
                     ->unique(FilamentSaas::getUserModel(), ignorable: $this->user)
                     ->validateFor(
                         lenient: true,
@@ -57,7 +57,7 @@ class Phone extends MyProfileComponent
 
         Notification::make()
             ->success()
-            ->title(__('filament-saas::default.user.profile.phone.notify'))
+            ->title(__('filament-saas::default.users.profile.phone.notify'))
             ->send();
     }
 }
