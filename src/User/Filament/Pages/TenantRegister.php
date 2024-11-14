@@ -62,7 +62,7 @@ class TenantRegister extends BaseTenantRegister
     private function getUsernameFormComponent(): Component
     {
         return TextInput::make('username')
-            ->label(__('filament-saas::default.user.profile.username.title'))
+            ->label(__('filament-saas::default.users.profile.username.title'))
             ->prefixIcon('heroicon-m-at-symbol')
             ->unique(FilamentSaas::getUserModel())
             ->required()
@@ -71,7 +71,7 @@ class TenantRegister extends BaseTenantRegister
 
     protected function getTermsFormComponent(): Component
     {
-        $html = new HtmlString(trans('filament-saas::default.user.register.accept_terms', ['terms_url' => route('terms'), 'policies_url' => route('policy')]));
+        $html = new HtmlString(trans('filament-saas::default.users.register.accept_terms', ['terms_url' => route('terms'), 'policies_url' => route('policy')]));
 
         return Checkbox::make('terms')
             ->label($html)
@@ -81,7 +81,7 @@ class TenantRegister extends BaseTenantRegister
     private function getPhoneFormComponent(): Component
     {
         return PhoneInput::make('phone')
-            ->label(__('filament-saas::default.user.register.phone'))
+            ->label(__('filament-saas::default.users.register.phone'))
             ->required();
     }
 }

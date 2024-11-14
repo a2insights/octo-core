@@ -31,7 +31,7 @@ class Username extends MyProfileComponent
         return $form
             ->schema([
                 TextInput::make('username')
-                    ->label(__('filament-saas::default.user.profile.username.title'))
+                    ->label(__('filament-saas::default.users.profile.username.title'))
                     ->prefixIcon('heroicon-m-at-symbol')
                     ->unique(A2Insights\FilamentSaas::getUserModel(), ignorable: $this->user)
                     ->required()
@@ -54,7 +54,7 @@ class Username extends MyProfileComponent
 
         Notification::make()
             ->success()
-            ->title(__('filament-saas::default.user.profile.username.notify'))
+            ->title(__('filament-saas::default.users.profile.username.notify'))
             ->send();
     }
 }

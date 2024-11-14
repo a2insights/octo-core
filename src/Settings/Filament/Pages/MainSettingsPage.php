@@ -29,11 +29,30 @@ class MainSettingsPage extends SettingsPage
 
     protected static ?string $slug = 'settings/main';
 
-    protected static ?string $title = 'Main Settings';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament-saas::default.settings.title');
+    }
 
-    protected ?string $heading = 'Main Settings';
+    public function getTitle(): string
+    {
+        return __('filament-saas::default.settings.title');
+    }
 
-    protected ?string $subheading = 'Update your main settings.';
+    public function getHeading(): string
+    {
+        return __('filament-saas::default.settings.heading');
+    }
+
+    public function getSubheading(): ?string
+    {
+        return __('filament-saas::default.settings.subheading') ?? null;
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament-saas::default.settings.title');
+    }
 
     protected function afterSave(): void
     {
@@ -44,67 +63,89 @@ class MainSettingsPage extends SettingsPage
 
     protected function getFormSchema(): array
     {
-        $locales = collect(Locales::getNames())->mapWithKeys(fn ($name, $code) => [$code => Str::title($name)])->toArray();
-        $timezones = collect(Timezones::getNames())->mapWithKeys(fn ($name, $code) => [$code => Str::title($name)])->toArray();
+        $locales = collect(Locales::getNames())->mapWithKeys(fn($name, $code) => [$code => Str::title($name)])->toArray();
+        $timezones = collect(Timezones::getNames())->mapWithKeys(fn($name, $code) => [$code => Str::title($name)])->toArray();
 
         return [
-            Fieldset::make('Metadata')
+            Fieldset::make('SEO')
+                ->label(__('filament-saas::default.settings.seo.title'))
                 ->schema([
-                    TextInput::make('name'),
-                    TagsInput::make('keywords')->suggestions([
-                        'tailwindcss',
-                        'alpinejs',
-                        'laravel',
-                        'livewire',
-                    ]),
-                    Textarea::make('description')->rows(2),
+                    TextInput::make('name')
+                        ->label(__('filament-saas::default.settings.seo.name.label')),
+                    TagsInput::make('keywords')
+                        ->label(__('filament-saas::default.settings.seo.keywords.label'))
+                        ->helperText(__('filament-saas::default.settings.seo.keywords.help_text'))
+                        ->suggestions([
+                            'tailwindcss',
+                            'alpinejs',
+                            'laravel',
+                            'livewire',
+                        ]),
+                    Textarea::make('description')
+                        ->label(__('filament-saas::default.settings.seo.description.label'))
+                        ->helperText(__('filament-saas::default.settings.seo.description.help_text'))
+                        ->rows(2),
                 ])->columns(1),
             Fieldset::make('Style')
+                ->label(__('filament-saas::default.settings.style.title'))
                 ->schema([
-                    FileUpload::make('logo')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
-                        return 'logo.'.$file->guessExtension();
-                    }),
-                    TextInput::make('logo_size')->hint('Example: 2rem'),
-                    FileUpload::make('favicon')->image()->directory('images')->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
-                        return 'favicon.'.$file->guessExtension();
-                    }),
+                    FileUpload::make('logo')
+                        ->label(__('filament-saas::default.settings.style.logo.label'))
+                        ->helperText(__('filament-saas::default.settings.style.logo.help_text'))
+                        ->image()
+                        ->directory('images')
+                        ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                            return 'logo.' . $file->guessExtension();
+                        }),
+                    TextInput::make('logo_size')
+                        ->label(__('filament-saas::default.settings.style.logo_size.label'))
+                        ->helperText(__('filament-saas::default.settings.style.logo_size.help_text')),
+                    FileUpload::make('favicon')
+                        ->label(__('filament-saas::default.settings.style.favicon.label'))
+                        ->helperText(__('filament-saas::default.settings.style.favicon.help_text'))
+                        ->image()
+                        ->directory('images')
+                        ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                            return 'favicon.' . $file->guessExtension();
+                        }),
                 ])->columns(1),
             Fieldset::make('Security')
+                ->label(__('filament-saas::default.settings.security.title'))
                 ->schema([
                     TagsInput::make('restrict_ips')
-                        ->hint('You can restrict access to your site by IP address.')
-                        ->helperText('Caution: If you block your own IP address, you will be locked out of your site. And you will have to manually remove your IP address from the database or access from another IP address.')
+                        ->label(__('filament-saas::default.settings.security.restrict_ips.label'))
+                        ->helperText(__('filament-saas::default.settings.security.restrict_ips.help_text'))
                         ->suggestions([
                             request()->ip(),
                         ]),
                     Select::make('restrict_users')
+                        ->label(__('filament-saas::default.settings.security.restrict_users.label'))
+                        ->helperText(__('filament-saas::default.settings.security.restrict_users.help_text'))
                         ->multiple()
                         ->searchable()
-                        ->hint('You can restrict access to your site by user.')
-                        ->helperText('Caution: If you block your own user, you will be locked out of your site. And you will have to manually remove your user from the database or access from another user.')
-                        ->options(fn () => User::all()->pluck('name', 'id'))
-                        ->getSearchResultsUsing(fn (string $search) => User::where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id'))
-                        ->getOptionLabelUsing(fn ($value): ?string => User::find($value)?->name),
+                        ->options(fn() => User::all()->pluck('name', 'id'))
+                        ->getSearchResultsUsing(fn(string $search) => User::where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id'))
+                        ->getOptionLabelUsing(fn($value): ?string => User::find($value)?->name),
                 ])->columns(1),
             Fieldset::make('Localization')
                 ->schema([
                     Select::make('timezone')
+                        ->label(__('filament-saas::default.settings.localization.timezone.label'))
+                        ->helperText(__('filament-saas::default.settings.localization.timezone.help_text', ['time' =>  now()->format('Y-m-d H:i:s')]))
                         ->options($timezones)
-                        ->searchable()
-                        ->hint('You can set the timezone for your site.')
-                        ->helperText('Current time is: '.now()->format('Y-m-d H:i:s')),
+                        ->searchable(),
                     Select::make('locales')
+                        ->label(__('filament-saas::default.settings.localization.locales.label'))
+                        ->helperText(__('filament-saas::default.settings.localization.locales.help_text'))
                         ->multiple()
                         ->options($locales)
-                        ->searchable()
-                        ->hint('You can set the languages available for your site. But the user can change the language.')
-                        ->helperText('Caution: If you change the languages availables, the users will lose the language they have set.'),
+                        ->searchable(),
                     Select::make('locale')
-                        ->options(collect(app(Settings::class)->locales)->mapWithKeys(fn ($locale) => [$locale => Str::title(Locales::getName($locale))])->toArray())
+                        ->label(__('filament-saas::default.settings.localization.locale.label'))
+                        ->helperText(__('filament-saas::default.settings.localization.locale.help_text'))
+                        ->options(collect(app(Settings::class)->locales)->mapWithKeys(fn($locale) => [$locale => Str::title(Locales::getName($locale))])->toArray())
                         ->searchable()
-                        ->hint('You can set the default locale for your site. But the user can change the locale.')
-                        ->helperText('Caution: If you change the locale, the locale will be displayed according to the locale you set.')
-                        ->dehydrateStateUsing(fn ($state) => ! in_array($state, app(Settings::class)->locales) ? app(Settings::class)->locales[0] : $state),
+                        ->dehydrateStateUsing(fn($state) => ! in_array($state, app(Settings::class)->locales) ? app(Settings::class)->locales[0] : $state),
                 ])->columns(1),
         ];
     }

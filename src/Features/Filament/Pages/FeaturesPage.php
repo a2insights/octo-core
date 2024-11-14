@@ -24,15 +24,32 @@ class FeaturesPage extends SettingsPage
 
     protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
 
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?string $slug = 'settings/features';
 
-    protected static ?string $title = 'Features';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament-saas::default.settings.title');
+    }
 
-    protected ?string $heading = 'Features';
+    public function getTitle(): string
+    {
+        return __('filament-saas::default.features.title');
+    }
 
-    protected ?string $subheading = 'Manage features.';
+    public function getHeading(): string
+    {
+        return __('filament-saas::default.features.heading');
+    }
+
+    public function getSubheading(): ?string
+    {
+        return __('filament-saas::default.features.subheading') ?? null;
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament-saas::default.features.title');
+    }
 
     private function recaptcha()
     {
@@ -112,27 +129,26 @@ class FeaturesPage extends SettingsPage
             //             ->helperText('Caution: If you enable dark mode, your site will be displayed the toggle button for switching between light and dark mode.')
             //             ->default(false),
             //     ])->columns(1),
-            Fieldset::make('Developer')
+            Fieldset::make(__('filament-saas::default.features.developer.webhooks.title'))
                 ->schema([
                     Toggle::make('webhooks')
-                        ->label('Webhooks')
+                        ->label(__('filament-saas::default.features.developer.webhooks.title'))
                         ->reactive()
-                        ->hint('You can enable webhooks to your site.')
-                        ->helperText('Caution: If you enable webhooks, users will can enable webhooks to their account.'),
+                        ->helperText(__('filament-saas::default.features.developer.webhooks.help_text')),
                     Toggle::make('webhooks-history')
-                        ->label('Webhooks History')
-                        ->hint('You can enable webhooks history')
-                        ->visible(fn ($state, callable $get) => $get('webhooks'))
-                        ->helperText('This is anable the webhooks logs.'),
+                        ->label(__('filament-saas::default.features.developer.webhooks.history.label'))
+                        ->helperText(__('filament-saas::default.features.developer.webhooks.history.help_text'))
+                        ->visible(fn ($state, callable $get) => $get('webhooks')),
                     TextInput::make('webhooks-poll_interval')
-                        ->label('Webhooks poll interval')
-                        ->hint('You can enable webhooks poll interval')
+                        ->label(__('filament-saas::default.features.developer.webhooks.poll_interval.label'))
+                        ->helperText(__('filament-saas::default.features.developer.webhooks.poll_interval.help_text'))
                         ->placeholder('10s')
-                        ->visible(fn ($state, callable $get) => $get('webhooks'))
-                        ->helperText('The webhook pages will refresh every time the poll interval is reached. If not set, the page will not refresh automatically.'),
-                    Select::make('webhooks-models')
-                        ->label('Webhooks Models available')
+                        ->visible(fn ($state, callable $get) => $get('webhooks')),
+                       Select::make('webhooks-models')
+                        ->label(__('filament-saas::default.features.developer.webhooks.models.label'))
+                        ->helperText(__('filament-saas::default.features.developer.webhooks.models.help_text'))
                         ->multiple()
+                        ->default([])
                         ->options([
                             FilamentSaas::getUserModel() => 'user',
                             \Cog\Laravel\Ban\Models\Ban::class => 'ban',
@@ -144,25 +160,23 @@ class FeaturesPage extends SettingsPage
                             \Laravel\Sanctum\PersonalAccessToken::class => 'personal_access_token',
                         ])
                         ->visible(fn ($state, callable $get) => $get('webhooks'))
-                        ->hint('You can configure webhooks models available to your site.'),
                 ])->columns(1),
             Fieldset::make('User')
+                ->label(__('filament-saas::default.features.user.title'))
                 ->schema([
                     Toggle::make('switch_language')
-                        ->label('Switch Language')
-                        ->hint('You can enable switch language to your site.')
-                        ->helperText('Caution: If you enable switch language, users will can switch language to their account.'),
+                        ->label(__('filament-saas::default.features.user.switch_language.label'))
+                        ->helperText(__('filament-saas::default.features.user.switch_language.help_text')),
                     Toggle::make('user_phone')
-                        ->label('User Phone')
-                        ->hint('You can enable user phone to your site.')
-                        ->helperText('Caution: If you enable user phone, users will required to register with phone number.'),
+                        ->label(__('filament-saas::default.features.user.user_phone.label'))
+                        ->helperText(__('filament-saas::default.features.user.user_phone.help_text')),
                     Toggle::make('username')
-                        ->label('Username')
-                        ->hint('You can enable username to your site.')
-                        ->helperText('Caution: If you enable username, users will required to register with username.'),
+                        ->label(__('filament-saas::default.features.user.username.label'))
+                        ->helperText(__('filament-saas::default.features.user.username.help_text')),
                 ])
                 ->columns(1),
             Fieldset::make('Authentication')
+                ->label(__('filament-saas::default.features.terms_and_privacy_policy.title'))
                 ->schema([
                     //TODO: Make this configurable
                     /*  Toggle::make('auth_registration')
@@ -196,15 +210,16 @@ class FeaturesPage extends SettingsPage
                         ->visible(fn ($state, callable $get) => $get('recaptcha'))
                         ->hint('You can set reCAPTCHA secret key to your site.'), */
                     Toggle::make('terms')
-                        ->label('Terms of Service and Privacy Policy')
+                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.title'))
                         ->reactive()
-                        ->hint('You can enable terms of service to your site.')
-                        ->helperText('Caution: If you enable terms of service, users will required to accept terms of service in registration.'),
+                        ->helperText(__('filament-saas::default.features.terms_and_privacy_policy.help_text')),
                     MarkdownEditor::make('terms-service')
+                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.terms.label'))
                         ->fileAttachmentsDisk(config('filament.default_filesystem_disk'))
                         ->fileAttachmentsVisibility('public')
                         ->visible(fn ($state, callable $get) => $get('terms')),
                     MarkdownEditor::make('terms-privacy_policy')
+                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.privacy_policy.label'))
                         ->fileAttachmentsDisk(config('filament.default_filesystem_disk'))
                         ->fileAttachmentsVisibility('public')
                         ->visible(fn ($state, callable $get) => $get('terms')),
