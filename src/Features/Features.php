@@ -9,6 +9,7 @@ class Features extends BaseSettings
     // TODO: dark_mode
     public bool $dark_mode;
 
+    // TODO: auth_login
     public bool $auth_login;
 
     // TODO: auth_2fa

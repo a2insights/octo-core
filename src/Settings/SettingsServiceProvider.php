@@ -20,16 +20,6 @@ class SettingsServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name('filament-saas.settings');
-
-        Route::get('/terms-of-service', fn () => Inertia::render('TermsOfService', [
-            'dashboardUrl' => 'ass',
-        ]))
-            ->middleware('web')
-            ->name('filament-saas::terms-of-service');
-
-        Route::get('/privacy-policy', Policy::class)
-            ->middleware('web')
-            ->name('filament-saas::privacy-policy');
     }
 
     public function packageBooted(): void
