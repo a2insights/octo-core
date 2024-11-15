@@ -53,13 +53,6 @@ class SettingsServiceProvider extends PackageServiceProvider
         }
     }
 
-    /*************  ✨ Codeium Command ⭐  *************/
-    /**
-     * Synchronize the site name with the application.
-     *
-     * The `app.name` config is updated with the value of the `name` setting.
-     */
-    /******  37ede71f-c48d-4f54-ad50-cd3749519905  *******/
     private function syncName(): void
     {
         $name = $this->settings->name;
