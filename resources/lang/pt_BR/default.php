@@ -3,7 +3,7 @@
 return [
     'users' => [
         'register' => [
-            'accept_terms' => 'Eu aceito os <a href=":terms_url" class="underline">Termos de Uso</a> e as <a href=":policies_url" class="underline">Políticas</a>',
+            'accept_terms' => 'Eu aceito os <a href=":terms_url" class="underline">Termos de Uso</a> e as <a href=":privacy_policy_url" class="underline">Políticas</a>',
             'phone' => 'Telefone',
         ],
         'profile' => [
@@ -20,12 +20,24 @@ return [
                 'notify' => 'Senha atualizada com sucesso!',
             ],
         ],
+        'navigation' => [
+            'user' => 'Usuário|Usuários',
+            'role' => 'Função|Funções',
+            'group' => 'Usuários',
+        ],
     ],
 
     'features' => [
         'title' => 'Funcionalidades',
         'heading' => 'Funcionalidades',
-        'subheading' => 'Essas são as principais funcionalidades do sistema.',
+        'subheading' => 'Habilite ou desabilite funcionalidades do sistema.',
+        'auth' => [
+            'title' => 'Autenticação',
+            'registration' => [
+                'label' => 'Registro',
+                'help_text' => 'Habilitar pagina de registro.',
+            ],
+        ],
         'developer' => [
             'title' => 'Desenvolvedor',
             'webhooks' => [
@@ -56,12 +68,8 @@ return [
                 'help_text' => 'Habilitar telefone na página de registro e perfil.',
             ],
             'username' => [
-                'label' => 'Nome de Usuário',
+                'label' => 'Username',
                 'help_text' => 'Habilitar nome de usuário na página de registro e perfil.',
-            ],
-            'user_phone' => [
-                'label' => 'Telefone do Usuário',
-                'help_text' => 'Habilitar telefone na página de registro e perfil.',
             ],
         ],
         'terms_and_privacy_policy' => [
@@ -79,7 +87,7 @@ return [
     'settings' => [
         'title' => 'Configurações',
         'heading' => 'Configurações',
-        'subheading' => 'Essas são as principais configurações do site.',
+        'subheading' => 'Configure o comportamento do sistema.',
         'seo' => [
             'title' => 'SEO',
             'name' => [
@@ -112,11 +120,11 @@ return [
             'title' => 'Segurança',
             'restrict_ips' => [
                 'label' => 'Restringir IPs',
-                'help_text' => 'Cuidado: Se você bloquear seu próprio IP, será bloqueado do site e terá que remover o IP do banco de dados manualmente ou acessar de outro IP.',
+                'help_text' => 'Cuidado: Se você bloquear seu próprio IP, será bloqueado do sistema e terá que remover o IP do banco de dados manualmente ou acessar de outro IP.',
             ],
             'restrict_users' => [
                 'label' => 'Restringir Usuários',
-                'help_text' => 'Cuidado: Se você bloquear seu próprio usuário, será bloqueado do site e terá que remover o usuário do banco de dados manualmente ou acessar com outro usuário.',
+                'help_text' => 'Cuidado: Se você bloquear seu próprio usuário, será bloqueado do sistema e terá que remover o usuário do banco de dados manualmente ou acessar com outro usuário.',
             ],
         ],
         'localization' => [
@@ -134,5 +142,13 @@ return [
                 'help_text' => 'Lista de idiomas disponíveis.',
             ],
         ],
+    ],
+
+    'privacy-policy' => [
+        'title' => 'Política de Privacidade',
+    ],
+
+    'terms-of-service' => [
+        'title' => 'Termos de Serviço',
     ],
 ];

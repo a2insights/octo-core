@@ -6,6 +6,7 @@ use A2Insights\FilamentSaas\User\Filament\Components\Phone;
 use A2Insights\FilamentSaas\User\Filament\Components\Username;
 use A2Insights\FilamentSaas\User\Filament\Pages\BannedUser;
 use A2Insights\FilamentSaas\User\Filament\Pages\Register;
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;

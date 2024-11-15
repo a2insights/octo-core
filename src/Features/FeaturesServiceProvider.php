@@ -3,14 +3,11 @@
 namespace A2Insights\FilamentSaas\Features;
 
 use A2Insights\FilamentSaas\Features\Filament\Components\SwitchLanguage;
-use A2Insights\FilamentSaas\Features\Filament\Pages\Policy;
-use A2Insights\FilamentSaas\Features\Filament\Pages\Terms;
 use A2Insights\FilamentSaas\Settings\reCAPTCHASettings;
 use A2Insights\FilamentSaas\Settings\WebhooksSettings;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -22,14 +19,6 @@ class FeaturesServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name('filament-saas.features');
-
-        Route::get('/terms-of-service', Terms::class)
-            ->middleware('web')
-            ->name('terms');
-
-        Route::get('/privacy-policy', Policy::class)
-            ->middleware('web')
-            ->name('policy');
     }
 
     public function packageBooted(): void

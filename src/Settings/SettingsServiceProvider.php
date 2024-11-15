@@ -2,10 +2,13 @@
 
 namespace A2Insights\FilamentSaas\Settings;
 
+use A2Insights\FilamentSaas\Settings\Filament\Pages\Policy;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelSettings\Events\SettingsSaved;
@@ -17,6 +20,16 @@ class SettingsServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name('filament-saas.settings');
+
+        Route::get('/terms-of-service', fn () => Inertia::render('TermsOfService', [
+            'dashboardUrl' => 'ass',
+        ]))
+            ->middleware('web')
+            ->name('filament-saas::terms-of-service');
+
+        Route::get('/privacy-policy', Policy::class)
+            ->middleware('web')
+            ->name('filament-saas::privacy-policy');
     }
 
     public function packageBooted(): void
@@ -37,7 +50,7 @@ class SettingsServiceProvider extends PackageServiceProvider
 
         $this->syncName();
         $this->syncTimezone();
-        // $this->syncLocale(); // See locale middlewareS
+        // $this->syncLocale(); // See locale middleware
     }
 
     private function syncTimezone(): void
@@ -50,6 +63,13 @@ class SettingsServiceProvider extends PackageServiceProvider
         }
     }
 
+    /*************  ✨ Codeium Command ⭐  *************/
+    /**
+     * Synchronize the site name with the application.
+     *
+     * The `app.name` config is updated with the value of the `name` setting.
+     */
+    /******  37ede71f-c48d-4f54-ad50-cd3749519905  *******/
     private function syncName(): void
     {
         $name = $this->settings->name;

@@ -34,11 +34,22 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
-    protected static ?string $navigationGroup = 'Users';
-
     protected static ?int $navigationSort = -2;
 
-    // protected static ?string $navigationParentItem = 'Users';
+    public static function getNavigationGroup(): ?string
+    {
+        return trans_choice('filament-saas::default.users.navigation.user', 2);
+    }
+
+    public static function getModelLabel(): string
+    {
+        return trans_choice('filament-saas::default.users.navigation.user', 1);
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return trans_choice('filament-saas::default.users.navigation.user', 2);
+    }
 
     public static function getGloballySearchableAttributes(): array
     {
@@ -52,7 +63,7 @@ class UserResource extends Resource
 
     public static function getGlobalSearchResultTitle(Model $record): string
     {
-        return $record->name.' ('.$record->email.')';
+        return $record->name.' - '.$record->email;
     }
 
     public static function form(Form $form): Form
