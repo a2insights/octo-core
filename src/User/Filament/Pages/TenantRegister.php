@@ -4,10 +4,12 @@ namespace A2Insights\FilamentSaas\User\Filament\Pages;
 
 use A2Insights\FilamentSaas\Features\Features;
 use A2Insights\FilamentSaas\FilamentSaas;
+use A2Insights\FilamentSaas\Settings\Settings;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Firefly\FilamentBlog\Models\Setting;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\HtmlString;
 use Wallo\FilamentCompanies\Pages\Auth\Register as BaseTenantRegister;
@@ -29,10 +31,11 @@ class TenantRegister extends BaseTenantRegister
     protected function getForms(): array
     {
         $features = App::make(Features::class);
+        $settings = App::make(Settings::class);
 
         $userPhone = $features->user_phone;
         $username = $features->username;
-        $terms = $features->terms;
+        $terms = $settings->terms;
 
         $fields = [];
 
@@ -71,7 +74,13 @@ class TenantRegister extends BaseTenantRegister
 
     protected function getTermsFormComponent(): Component
     {
-        $html = new HtmlString(trans('filament-saas::default.users.register.accept_terms', ['terms_url' => route('terms'), 'policies_url' => route('policy')]));
+        $html = new HtmlString(
+            trans('filament-saas::default.users.register.accept_terms',
+                [
+                    'terms_url' => route('filament-saas::site.terms-of-service'),
+                    'privacy_policy_url' => route('filament-saas::site.privacy-policy'),
+                ]
+            ));
 
         return Checkbox::make('terms')
             ->label($html)

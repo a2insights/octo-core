@@ -24,7 +24,7 @@ class EditUser extends EditRecord
     protected function getSaveFormAction(): Action
     {
         return Action::make('save')
-            ->label(__('filament::resources/pages/edit-record.form.actions.save.label'))
+            ->label(__('filament-actions::edit.single.modal.actions.save.label'))
             ->disabled(fn () => $this->record->is(auth()->user()) || $this->record->hasRole('super_admin'))
             ->submit('save')
             ->keyBindings(['ctrl+s']);

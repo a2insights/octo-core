@@ -3,7 +3,7 @@
 return [
     'users' => [
         'register' => [
-            'accept_terms' => 'I accept the <a href=":terms_url" class="underline">Terms of Use</a> and <a href=":policies_url" class="underline">Policies</a>',
+            'accept_terms' => 'I accept the <a href=":terms_url" class="underline">Terms of Service</a> and <a href=":privacy_policy_url" class="underline">Privacy Policy</a>',
             'phone' => 'Phone',
         ],
         'profile' => [
@@ -20,12 +20,24 @@ return [
                 'notify' => 'Password updated successfully!',
             ],
         ],
+        'navigation' => [
+            'user' => 'User|Users',
+            'role' => 'Role|Roles',
+            'group' => 'Users',
+        ],
     ],
 
     'features' => [
         'title' => 'Features',
         'heading' => 'Features',
-        'subheading' => 'These are the main features of the application.',
+        'subheading' => 'Enable or disable features of the application.',
+        'auth' => [
+            'title' => 'Auth',
+            'registration' => [
+                'label' => 'Register',
+                'help_text' => 'Enable register page.',
+            ],
+        ],
         'developer' => [
             'title' => 'Developer',
             'webhooks' => [
@@ -59,10 +71,6 @@ return [
                 'label' => 'Username',
                 'help_text' => 'Enable username in the register page and profile.',
             ],
-            'user_phone' => [
-                'label' => 'User Phone',
-                'help_text' => 'Enable phone in the register page and profile.',
-            ],
         ],
         'terms_and_privacy_policy' => [
             'title' => 'Terms and Privacy Policy',
@@ -79,7 +87,7 @@ return [
     'settings' => [
         'title' => 'Settings',
         'heading' => 'Settings',
-        'subheading' => 'These are the main settings of the application.',
+        'subheading' => 'Configure the behavior of the application.',
         'seo' => [
             'title' => 'SEO',
             'name' => [
@@ -112,11 +120,11 @@ return [
             'title' => 'Security',
             'restrict_ips' => [
                 'label' => 'Restrict IPs',
-                'help_text' => 'Caution: If you block your own IP address, you will be locked out of your site. And you will have to manually remove your IP address from the database or access from another IP address.',
+                'help_text' => 'Caution: If you block your own IP address, you will be locked out of your sistema. And you will have to manually remove your IP address from the database or access from another IP address.',
             ],
             'restrict_users' => [
                 'label' => 'Restrict Users',
-                'help_text' => 'Caution: If you block your own user, you will be locked out of your site. And you will have to manually remove your user from the database or access from another user.',
+                'help_text' => 'Caution: If you block your own user, you will be locked out of your sistema. And you will have to manually remove your user from the database or access from another user.',
             ],
         ],
         'localization' => [
@@ -134,5 +142,13 @@ return [
                 'help_text' => 'List of locales available.',
             ],
         ],
+    ],
+
+    'privacy-policy' => [
+        'title' => 'Privacy Policy',
+    ],
+
+    'terms-of-service' => [
+        'title' => 'Terms of Service',
     ],
 ];

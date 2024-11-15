@@ -15,15 +15,12 @@ class Features extends BaseSettings
     // TODO: auth_2fa
     public bool $auth_2fa;
 
-    // TODO: auth_registration
     public bool $auth_registration;
 
     public bool $webhooks;
 
     //TODO: reCAPTCHA
     public bool $recaptcha;
-
-    public bool $terms;
 
     public bool $user_phone;
 

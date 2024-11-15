@@ -2,10 +2,13 @@
 
 namespace A2Insights\FilamentSaas\Settings;
 
+use A2Insights\FilamentSaas\Settings\Filament\Pages\Policy;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelSettings\Events\SettingsSaved;
@@ -37,7 +40,7 @@ class SettingsServiceProvider extends PackageServiceProvider
 
         $this->syncName();
         $this->syncTimezone();
-        // $this->syncLocale(); // See locale middlewareS
+        // $this->syncLocale(); // See locale middleware
     }
 
     private function syncTimezone(): void

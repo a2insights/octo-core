@@ -43,15 +43,16 @@ class FilamentSaasCommand extends Command
         $this->call('migrate:fresh', ['--force' => true]);
 
         $this->info('Installing Shield');
-        $this->call('shield:setup', ['--fresh' => true,]);
+
+        $this->call('shield:setup');
 
         $this->call('shield:install', ['panel' => 'admin']);
         $this->call('shield:install', ['panel' => 'sysadmin']);
 
-        $this->call('shield:generate', [ '--all' => true, '--panel' => 'admin' ]);
-        $this->call('shield:generate', [ '--all' => true, '--panel' => 'sysadmin' ]);
+        $this->call('shield:generate', ['--all' => true, '--panel' => 'admin']);
+        $this->call('shield:generate', ['--all' => true, '--panel' => 'sysadmin']);
 
-        $this->call('vendor:publish', [ '--tag' => 'themes-assets']);
+        $this->call('vendor:publish', ['--tag' => 'themes-assets']);
 
         $this->info('Creating super admin account');
         $superAdmin = $this->setUpSuperAdminAccount();

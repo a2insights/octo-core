@@ -30,9 +30,9 @@ use Wallo\FilamentCompanies\SetsProfilePhotoFromUrl;
 
 class User extends Authenticatable implements BannableContract, FilamentUser, HasAvatar, HasDefaultTenant, HasTenants, MustVerifyEmail
 {
-    use Bannable, FindSimilarUsernames, GeneratesUsernames, HasApiTokens, HasCompanies,
-        HasConnectedAccounts, HasFactory, HasProfilePhoto, HasRoles, Notifiable, SetsProfilePhotoFromUrl,
-        SoftDeletes, TwoFactorAuthenticatable, HasBlog;
+    use Bannable, FindSimilarUsernames, GeneratesUsernames, HasApiTokens, HasBlog,
+        HasCompanies, HasConnectedAccounts, HasFactory, HasProfilePhoto, HasRoles, Notifiable,
+        SetsProfilePhotoFromUrl, SoftDeletes, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -74,6 +74,10 @@ class User extends Authenticatable implements BannableContract, FilamentUser, Ha
 
     public function canAccessPanel(Panel $panel): bool
     {
+        if ($panel->getId() === 'sysadmin') {
+            return $this->hasRole('super_admin');
+        }
+
         return true;
     }
 

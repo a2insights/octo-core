@@ -5,11 +5,9 @@ namespace A2Insights\FilamentSaas\Features\Filament\Pages;
 use A2Insights\FilamentSaas\Features\Features;
 use A2Insights\FilamentSaas\FilamentSaas;
 use A2Insights\FilamentSaas\Settings\reCAPTCHASettings;
-use A2Insights\FilamentSaas\Settings\TermsSettings;
 use A2Insights\FilamentSaas\Settings\WebhooksSettings;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -56,11 +54,6 @@ class FeaturesPage extends SettingsPage
         return App::make(reCAPTCHASettings::class);
     }
 
-    private function terms()
-    {
-        return App::make(TermsSettings::class);
-    }
-
     private function webhooks()
     {
         return App::make(WebhooksSettings::class);
@@ -77,14 +70,6 @@ class FeaturesPage extends SettingsPage
 
         //     $recaptchaSettings->save();
         // }
-
-        if ($data['terms']) {
-            $termsSettings = $this->terms();
-            $termsSettings->service = $data['terms-service'];
-            $termsSettings->privacy_policy = $data['terms-privacy_policy'];
-
-            $termsSettings->save();
-        }
 
         if ($data['webhooks']) {
             $webhooksSettings = $this->webhooks();
@@ -105,10 +90,6 @@ class FeaturesPage extends SettingsPage
         // $recaptchaSettings = $this->recaptcha();
         // $data['recaptcha-site_key'] = $recaptchaSettings->site_key;
         // $data['recaptcha-secret_key'] = $recaptchaSettings->secret_key;
-
-        $termsSettings = $this->terms();
-        $data['terms-service'] = $termsSettings->service;
-        $data['terms-privacy_policy'] = $termsSettings->privacy_policy;
 
         $webhooksSettings = $this->webhooks();
         $data['webhooks-models'] = $webhooksSettings->models;
@@ -144,7 +125,7 @@ class FeaturesPage extends SettingsPage
                         ->helperText(__('filament-saas::default.features.developer.webhooks.poll_interval.help_text'))
                         ->placeholder('10s')
                         ->visible(fn ($state, callable $get) => $get('webhooks')),
-                       Select::make('webhooks-models')
+                    Select::make('webhooks-models')
                         ->label(__('filament-saas::default.features.developer.webhooks.models.label'))
                         ->helperText(__('filament-saas::default.features.developer.webhooks.models.help_text'))
                         ->multiple()
@@ -159,7 +140,7 @@ class FeaturesPage extends SettingsPage
                             \Illuminate\Notifications\DatabaseNotification::class => 'notification',
                             \Laravel\Sanctum\PersonalAccessToken::class => 'personal_access_token',
                         ])
-                        ->visible(fn ($state, callable $get) => $get('webhooks'))
+                        ->visible(fn ($state, callable $get) => $get('webhooks')),
                 ])->columns(1),
             Fieldset::make('User')
                 ->label(__('filament-saas::default.features.user.title'))
@@ -168,21 +149,19 @@ class FeaturesPage extends SettingsPage
                         ->label(__('filament-saas::default.features.user.switch_language.label'))
                         ->helperText(__('filament-saas::default.features.user.switch_language.help_text')),
                     Toggle::make('user_phone')
-                        ->label(__('filament-saas::default.features.user.user_phone.label'))
-                        ->helperText(__('filament-saas::default.features.user.user_phone.help_text')),
+                        ->label(__('filament-saas::default.features.user.phone.label'))
+                        ->helperText(__('filament-saas::default.features.user.phone.help_text')),
                     Toggle::make('username')
                         ->label(__('filament-saas::default.features.user.username.label'))
                         ->helperText(__('filament-saas::default.features.user.username.help_text')),
                 ])
                 ->columns(1),
-            Fieldset::make('Authentication')
-                ->label(__('filament-saas::default.features.terms_and_privacy_policy.title'))
+            Fieldset::make('Auth')
+                ->label(__('filament-saas::default.features.auth.title'))
                 ->schema([
-                    //TODO: Make this configurable
-                    /*  Toggle::make('auth_registration')
-                        ->label('Registration')
-                        ->hint('You can disable registration to your site.')
-                        ->helperText('Caution: If you disable registration, users will not be able to register to your site.'), */
+                    Toggle::make('auth_registration')
+                        ->label(__('filament-saas::default.features.auth.registration.label'))
+                        ->helperText(__('filament-saas::default.features.auth.registration.help_text')),
                     //TODO: Make this configurable
                     /*  Toggle::make('auth_login')
                         ->label('Login')
@@ -209,20 +188,6 @@ class FeaturesPage extends SettingsPage
                         ->required(fn ($state, callable $get) => $get('recaptcha'))
                         ->visible(fn ($state, callable $get) => $get('recaptcha'))
                         ->hint('You can set reCAPTCHA secret key to your site.'), */
-                    Toggle::make('terms')
-                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.title'))
-                        ->reactive()
-                        ->helperText(__('filament-saas::default.features.terms_and_privacy_policy.help_text')),
-                    MarkdownEditor::make('terms-service')
-                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.terms.label'))
-                        ->fileAttachmentsDisk(config('filament.default_filesystem_disk'))
-                        ->fileAttachmentsVisibility('public')
-                        ->visible(fn ($state, callable $get) => $get('terms')),
-                    MarkdownEditor::make('terms-privacy_policy')
-                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.privacy_policy.label'))
-                        ->fileAttachmentsDisk(config('filament.default_filesystem_disk'))
-                        ->fileAttachmentsVisibility('public')
-                        ->visible(fn ($state, callable $get) => $get('terms')),
                 ])->columns(1),
         ];
     }

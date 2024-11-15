@@ -2,7 +2,9 @@
 
 return [
     'admin_path' => 'admin',
+    'blog_path' => 'blog',
     'tenant_path' => 'company',
+    'site_path' => '/',
 
     'users' => [
         'model' => A2Insights\FilamentSaas\User\User::class,
