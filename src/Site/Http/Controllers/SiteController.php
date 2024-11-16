@@ -76,21 +76,21 @@ class SiteController
 
     private function buildTailwindClasses(string $html)
     {
-        $html = str_replace('<h1', '<h1 class="mt-4 text-4xl font-semibold tracking-tight text-gray-900 text-pretty sm:text-5xl"', $html);
-        $html = str_replace('<h2', '<h2 class="mt-4 text-3xl font-semibold tracking-tight text-gray-900 text-pretty sm:text-4xl"', $html);
-        $html = str_replace('<h3', '<h3 class="mt-4 text-2xl font-semibold tracking-tight text-gray-900 text-pretty sm:text-3xl"', $html);
-        $html = str_replace('<h4', '<h4 class="mt-4 text-xl font-semibold tracking-tight text-gray-900 text-pretty sm:text-2xl"', $html);
-        $html = str_replace('<h5', '<h5 class="mt-4 text-lg font-semibold tracking-tight text-gray-900 text-pretty sm:text-xl"', $html);
-        $html = str_replace('<h6', '<h6 class="mt-4 text-base font-semibold tracking-tight text-gray-900 text-pretty sm:text-lg"', $html);
-        $html = str_replace('<p', '<p class="mt-2 text-gray-600"', $html);
-        $html = str_replace('<li', '<li class="mt-2 text-gray-600"', $html);
+        $html = str_replace('<h1', '<h1 class="mt-4 text-4xl font-semibold tracking-tight text-pretty sm:text-5xl"', $html);
+        $html = str_replace('<h2', '<h2 class="mt-4 text-3xl font-semibold tracking-tight text-pretty sm:text-4xl"', $html);
+        $html = str_replace('<h3', '<h3 class="mt-4 text-2xl font-semibold tracking-tight text-pretty sm:text-3xl"', $html);
+        $html = str_replace('<h4', '<h4 class="mt-4 text-xl font-semibold tracking-tight text-pretty sm:text-2xl"', $html);
+        $html = str_replace('<h5', '<h5 class="mt-4 text-lg font-semibold tracking-tight text-pretty sm:text-xl"', $html);
+        $html = str_replace('<h6', '<h6 class="mt-4 text-base font-semibold tracking-tight text-pretty sm:text-lg"', $html);
+        $html = str_replace('<p', '<p class="mt-2"', $html);
+        $html = str_replace('<li', '<li class="mt-2"', $html);
         $html = str_replace('<ul', '<ul class="list-disc ml-4"', $html);
         $html = str_replace('<ol', '<ol class="list-decimal pl-5"', $html);
-        $html = str_replace('<a', '<a class="text-gray-600"', $html);
+        $html = str_replace('<a', '<a class=""', $html);
         $html = str_replace('<strong', '<strong class="font-semibold"', $html);
         $html = str_replace('<em', '<em class="italic"', $html);
         $html = str_replace('<code', '<code class="font-mono text-sm"', $html);
-        $html = str_replace('<span', '<span class="text-gray-600"', $html);
+        $html = str_replace('<span', '<span class=""', $html);
 
         return $html;
     }
