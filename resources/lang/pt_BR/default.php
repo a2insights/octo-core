@@ -38,11 +38,19 @@ return [
                 'help_text' => 'Habilitar pagina de registro.',
             ],
         ],
-        'developer' => [
-            'title' => 'Desenvolvedor',
+        'sitemap' => [
+            'title' => 'Gerar Sitemap',
+            'action' => [
+                'label' => 'Gerar',
+                'notify' => 'Sitemap gerado com sucesso!',
+            ],
+        ],
             'webhooks' => [
                 'title' => 'Webhooks',
-                'help_text' => 'Habilitar página de webhooks.',
+            'description' => 'Habilitar páginas de webhooks.',
+            'active' => [
+                'label' => 'Ativo',
+            ],
                 'history' => [
                     'label' => 'Histórico de Webhooks',
                     'help_text' => 'Os eventos serão armazenados no banco de dados.',
@@ -56,9 +64,45 @@ return [
                     'help_text' => 'Os modelos que serão listados na página de webhooks.',
                 ],
             ],
+        'whatsapp_chat' => [
+            'title' => 'WhatsApp Chat',
+            'description' => 'Habilitar widget de chat do WhatsApp no site.',
+            'active' => [
+                'label' => 'Ativo',
+            ],
+            'attendants' => [
+                'title' => 'Atendentes',
+                'avatar' => [
+                    'label' => 'Avatar',
+                ],
+                'icon' => [
+                    'label' => 'Icone',
+                ],
+                'active' => [
+                    'label' => 'Ativo',
+                ],
+                'name' => [
+                    'label' => 'Nome',
+                    'help_text' => 'Nome do atendente.',
+                ],
+                'label' => [
+                    'label' => 'Label',
+                    'help_text' => 'Descricao do atendente.',
+                ],
+                'phone' => [
+                    'label' => 'Telefone',
+                ],
+            ],
+            'header' => [
+                'label' => 'Cabeçalho',
+            ],
+            'footer' => [
+                'label' => 'Rodapé',
+            ],
         ],
         'user' => [
             'title' => 'Usuário',
+            'description' => 'Habilite ou desabilite funcionalidades do usuário.',
             'switch_language' => [
                 'label' => 'Trocar Idioma',
                 'help_text' => 'Habilitar opção de troca de idioma na barra superior.',
@@ -69,7 +113,11 @@ return [
             ],
             'username' => [
                 'label' => 'Username',
-                'help_text' => 'Habilitar nome de usuário na página de registro e perfil.',
+                'help_text' => 'Habilitar nome de usuário na página de registro e perfil. Deve ser único.',
+            ],
+            'registration' => [
+                'label' => 'Registro',
+                'help_text' => 'Habilitar pagina de registro.',
             ],
         ],
         'terms_and_privacy_policy' => [
@@ -114,6 +162,7 @@ return [
             ],
             'favicon' => [
                 'label' => 'Favicon',
+                'help_text' => 'Envie seu favicon. Tamanho recomendado: 16x16px. Formatos suportados: .ico, .png, .svg.',
             ],
         ],
         'security' => [

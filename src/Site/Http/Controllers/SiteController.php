@@ -2,12 +2,15 @@
 
 namespace A2Insights\FilamentSaas\Site\Http\Controllers;
 
+use A2Insights\FilamentSaas\Features\Features;
 use A2Insights\FilamentSaas\Settings\Settings;
 use A2Insights\FilamentSaas\Settings\TermsSettings;
+use A2Insights\FilamentSaas\Settings\WhatsappChatSettings;
 use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\View;
 use Inertia\Inertia;
 
@@ -18,8 +21,12 @@ class SiteController
         $tenantPath = config('filament-saas.tenant_path');
         $sysadminPath = config('filament-saas.sysadmin_path');
         $dashboardUrl = auth()?->user()?->hasRole('super_admin') ? url($sysadminPath) : url($tenantPath);
+        $features = app(Features::class);
+        $whatsappChatSettings = app(WhatsappChatSettings::class);
 
         Inertia::share('appName', config('app.name'));
+        Inertia::share('laravelVersion',  Application::VERSION);
+        Inertia::share('phpVersion', PHP_VERSION);
         Inertia::share('tenantPath', $tenantPath);
         Inertia::share('sysadminPath', $sysadminPath);
         Inertia::share('brevoNewsletterUrl', config('services.brevo.newsletter_url'));
@@ -28,6 +35,9 @@ class SiteController
         Inertia::share('blogUrl', url(config('filament-saas.blog_path')));
         Inertia::share('termsOfServiceUrl', route('filament-saas::site.terms-of-service'));
         Inertia::share('privacyPolicyUrl', route('filament-saas::site.privacy-policy'));
+        Inertia::share('settings', $settings);
+        Inertia::share('features', $features);
+        Inertia::share('whatsappChatSettings', $whatsappChatSettings);
 
         View::share('head', $settings->head);
 

@@ -19,6 +19,8 @@ class Features extends BaseSettings
 
     public bool $webhooks;
 
+    public bool $whatsapp_chat;
+
     //TODO: reCAPTCHA
     public bool $recaptcha;
 
