@@ -31,18 +31,19 @@ return [
         'title' => 'Features',
         'heading' => 'Features',
         'subheading' => 'Enable or disable features of the application.',
-        'auth' => [
-            'title' => 'Auth',
-            'registration' => [
-                'label' => 'Register',
-                'help_text' => 'Enable register page.',
+        'sitemap' => [
+            'title' => 'Generate Sitemap',
+            'action' => [
+                'label' => 'Generate',
+                'notify' => 'Sitemap generated successfully!',
             ],
         ],
-        'developer' => [
-            'title' => 'Developer',
             'webhooks' => [
                 'title' => 'Webhooks',
-                'help_text' => 'Will anable webhooks page.',
+            'description' => 'Enable webhooks page.',
+            'active' => [
+                'label' => 'Active',
+            ],
                 'history' => [
                     'label' => 'Webhooks History',
                     'help_text' => 'The events will be stored in the database.',
@@ -56,9 +57,45 @@ return [
                     'help_text' => 'The models that be listed in the webhooks page.',
                 ],
             ],
+        'whatsapp_chat' => [
+            'title' => 'WhatsApp Chat',
+            'description' => 'Enable WhatsApp chat widget on the site.',
+            'active' => [
+                'label' => 'Active',
+            ],
+            'attendants' => [
+                'title' => 'Attendants',
+                'avatar' => [
+                    'label' => 'Avatar',
+                ],
+                'icon' => [
+                    'label' => 'Icon',
+                ],
+                'active' => [
+                    'label' => 'Active',
+                ],
+                'name' => [
+                    'label' => 'Name',
+                    'help_text' => 'Name of attendant.',
+                ],
+                'label' => [
+                    'label' => 'Label',
+                    'help_text' => 'Label that will be displayed in the chat.',
+                ],
+                'phone' => [
+                    'label' => 'Phone',
+                ],
+            ],
+            'header' => [
+                'label' => 'Header',
+            ],
+            'footer' => [
+                'label' => 'Footer',
+            ],
         ],
         'user' => [
             'title' => 'User',
+            'description' => 'Features related to users.',
             'switch_language' => [
                 'label' => 'Switch Language',
                 'help_text' => 'Enable switch language option in the top bar.',
@@ -69,7 +106,11 @@ return [
             ],
             'username' => [
                 'label' => 'Username',
-                'help_text' => 'Enable username in the register page and profile.',
+                'help_text' => 'Enable username in the register page and profile. Must be unique.',
+            ],
+            'registration' => [
+                'label' => 'Register',
+                'help_text' => 'Enable register page.',
             ],
         ],
         'terms_and_privacy_policy' => [
@@ -114,6 +155,7 @@ return [
             ],
             'favicon' => [
                 'label' => 'Favicon',
+                'help_text' => 'Preferably 16x16px. supported formats: .ico, .png, .svg.',
             ],
         ],
         'security' => [
