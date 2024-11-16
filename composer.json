@@ -63,6 +63,7 @@
         "spatie/laravel-data": "^3.6",
         "spatie/laravel-enum": "^3.0",
         "spatie/laravel-package-tools": "^1.16",
+        "spatie/laravel-sitemap": "^7.2",
         "spatie/laravel-stats": "^2.1",
         "stancl/tenancy": "^3.8",
         "symfony/intl": "^6.2",
