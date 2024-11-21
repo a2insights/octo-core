@@ -147,6 +147,11 @@ return [
                 ],
             ],
         ],
+        'robots' => [
+            'title' => 'Robots',
+            'subtitle' => 'Configure o robots do site.',
+            'label' => 'Robots',
+        ],
         'style' => [
             'title' => 'Estilo',
             'subtitle' => 'Configure o estilo, marca e cores do sistema.',
