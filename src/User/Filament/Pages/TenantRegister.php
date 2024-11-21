@@ -9,7 +9,6 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Firefly\FilamentBlog\Models\Setting;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\HtmlString;
 use Wallo\FilamentCompanies\Pages\Auth\Register as BaseTenantRegister;

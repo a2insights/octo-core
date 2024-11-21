@@ -156,7 +156,7 @@ return [
             'head' => [
                 'label' => 'Head',
                 'help_text' => 'HTML code to be inserted in the head section.',
-            ]
+            ],
         ],
         'terms_and_privacy_policy' => [
             'title' => 'Terms and Privacy Policy',

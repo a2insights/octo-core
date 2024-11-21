@@ -66,7 +66,7 @@ class FeaturesPage extends SettingsPage
             Actions\Action::make('sitemap')
                 ->label(__('filament-saas::default.features.sitemap.title'))
                 ->icon('heroicon-o-map')
-                ->outlined(fn(): bool => ! file_exists(public_path('sitemap.xml')))
+                ->outlined(fn (): bool => ! file_exists(public_path('sitemap.xml')))
                 ->action(function (array $data): void {
                     SitemapGenerator::create(config('app.url'))
                         ->configureCrawler(function (Crawler $crawler) {
@@ -232,7 +232,7 @@ class FeaturesPage extends SettingsPage
                                 ->maxLength(100)
                                 ->columnSpan(4),
                         ])
-                        ->visible(fn($state, callable $get) => $get('whatsapp_chat'))
+                        ->visible(fn ($state, callable $get) => $get('whatsapp_chat'))
                         ->columns(8),
                     Repeater::make('whatsapp_chat-attendants')
                         ->label(__('filament-saas::default.features.whatsapp_chat.attendants.title'))
@@ -276,13 +276,13 @@ class FeaturesPage extends SettingsPage
                                 ->columnSpan(6),
                             Picker::make('avatar.icon')
                                 ->label(__('filament-saas::default.features.whatsapp_chat.attendants.icon.label'))
-                                ->options(fn(): array => collect(array_fill(1, 30, null))->mapWithKeys(fn($value, $key) => ["/img/avatars/avatar-$key.svg" => ''])->toArray())
+                                ->options(fn (): array => collect(array_fill(1, 30, null))->mapWithKeys(fn ($value, $key) => ["/img/avatars/avatar-$key.svg" => ''])->toArray())
                                 ->imageSize(50)
-                                ->images(fn(): array => collect(array_fill(1, 30, null))->mapWithKeys(fn($value, $key) => ["/img/avatars/avatar-$key.svg" => "/img/avatars/avatar-$key.svg"])
+                                ->images(fn (): array => collect(array_fill(1, 30, null))->mapWithKeys(fn ($value, $key) => ["/img/avatars/avatar-$key.svg" => "/img/avatars/avatar-$key.svg"])
                                     ->toArray())
                                 ->columnSpanFull(),
                         ])
-                        ->visible(fn($state, callable $get) => $get('whatsapp_chat'))
+                        ->visible(fn ($state, callable $get) => $get('whatsapp_chat'))
                         ->collapsed()
                         ->defaultItems(2)
                         ->columns(7),
@@ -298,12 +298,12 @@ class FeaturesPage extends SettingsPage
                     Toggle::make('webhooks-history')
                         ->label(__('filament-saas::default.features.webhooks.history.label'))
                         ->helperText(__('filament-saas::default.features.webhooks.history.help_text'))
-                        ->visible(fn($state, callable $get) => $get('webhooks')),
+                        ->visible(fn ($state, callable $get) => $get('webhooks')),
                     TextInput::make('webhooks-poll_interval')
                         ->label(__('filament-saas::default.features.webhooks.poll_interval.label'))
                         ->helperText(__('filament-saas::default.features.webhooks.poll_interval.help_text'))
                         ->placeholder('10s')
-                        ->visible(fn($state, callable $get) => $get('webhooks')),
+                        ->visible(fn ($state, callable $get) => $get('webhooks')),
                     Select::make('webhooks-models')
                         ->label(__('filament-saas::default.features.webhooks.models.label'))
                         ->helperText(__('filament-saas::default.features.webhooks.models.help_text'))
@@ -319,7 +319,7 @@ class FeaturesPage extends SettingsPage
                             \Illuminate\Notifications\DatabaseNotification::class => 'notification',
                             \Laravel\Sanctum\PersonalAccessToken::class => 'personal_access_token',
                         ])
-                        ->visible(fn($state, callable $get) => $get('webhooks')),
+                        ->visible(fn ($state, callable $get) => $get('webhooks')),
                 ])
                 ->collapsed()
                 ->columns(1),

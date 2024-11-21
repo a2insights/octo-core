@@ -163,7 +163,7 @@ return [
             'head' => [
                 'label' => 'Head',
                 'help_text' => 'HTML para ser inserido na head do site. Ex: Google Analytics.',
-            ]
+            ],
         ],
         'terms_and_privacy_policy' => [
             'title' => 'Termos e Política de Privacidade',

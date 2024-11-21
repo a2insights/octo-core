@@ -25,7 +25,7 @@ class SiteController
         $whatsappChatSettings = app(WhatsappChatSettings::class);
 
         Inertia::share('appName', config('app.name'));
-        Inertia::share('laravelVersion',  Application::VERSION);
+        Inertia::share('laravelVersion', Application::VERSION);
         Inertia::share('phpVersion', PHP_VERSION);
         Inertia::share('tenantPath', $tenantPath);
         Inertia::share('sysadminPath', $sysadminPath);
