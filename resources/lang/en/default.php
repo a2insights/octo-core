@@ -38,28 +38,28 @@ return [
                 'notify' => 'Sitemap generated successfully!',
             ],
         ],
-            'webhooks' => [
-                'title' => 'Webhooks',
-            'description' => 'Enable webhooks page.',
+        'webhooks' => [
+            'title' => 'Webhooks',
+            'subtitle' => 'Enable webhooks page.',
             'active' => [
                 'label' => 'Active',
             ],
-                'history' => [
-                    'label' => 'Webhooks History',
-                    'help_text' => 'The events will be stored in the database.',
-                ],
-                'poll_interval' => [
-                    'label' => 'Webhooks poll interval',
-                    'help_text' => 'Time interval in seconds.',
-                ],
-                'models' => [
-                    'label' => 'Webhooks models',
-                    'help_text' => 'The models that be listed in the webhooks page.',
-                ],
+            'history' => [
+                'label' => 'Webhooks History',
+                'help_text' => 'The events will be stored in the database.',
             ],
+            'poll_interval' => [
+                'label' => 'Webhooks poll interval',
+                'help_text' => 'Time interval in seconds.',
+            ],
+            'models' => [
+                'label' => 'Webhooks models',
+                'help_text' => 'The models that be listed in the webhooks page.',
+            ],
+        ],
         'whatsapp_chat' => [
             'title' => 'WhatsApp Chat',
-            'description' => 'Enable WhatsApp chat widget on the site.',
+            'subtitle' => 'Enable WhatsApp chat widget on the site.',
             'active' => [
                 'label' => 'Active',
             ],
@@ -95,7 +95,7 @@ return [
         ],
         'user' => [
             'title' => 'User',
-            'description' => 'Features related to users.',
+            'subtitle' => 'Features related to users.',
             'switch_language' => [
                 'label' => 'Switch Language',
                 'help_text' => 'Enable switch language option in the top bar.',
@@ -113,16 +113,6 @@ return [
                 'help_text' => 'Enable register page.',
             ],
         ],
-        'terms_and_privacy_policy' => [
-            'title' => 'Terms and Privacy Policy',
-            'help_text' => 'Enable terms and policies page.',
-            'terms' => [
-                'label' => 'Terms',
-            ],
-            'privacy_policy' => [
-                'label' => 'Privacy Policy',
-            ],
-        ],
     ],
 
     'settings' => [
@@ -131,6 +121,7 @@ return [
         'subheading' => 'Configure the behavior of the application.',
         'seo' => [
             'title' => 'SEO',
+            'subtitle' => 'Configure the SEO of the application.',
             'name' => [
                 'label' => 'Name',
             ],
@@ -145,6 +136,7 @@ return [
         ],
         'style' => [
             'title' => 'Style',
+            'subtitle' => 'Configure the style, brand and colors of the application.',
             'logo' => [
                 'label' => 'Logo',
                 'help_text' => 'Upload your logo. Recommended size: 3x1 ratio.',
@@ -158,8 +150,27 @@ return [
                 'help_text' => 'Preferably 16x16px. supported formats: .ico, .png, .svg.',
             ],
         ],
+        'embed' => [
+            'title' => 'Embed',
+            'subtitle' => 'Append embed code to your site.',
+            'head' => [
+                'label' => 'Head',
+                'help_text' => 'HTML code to be inserted in the head section.',
+            ]
+        ],
+        'terms_and_privacy_policy' => [
+            'title' => 'Terms and Privacy Policy',
+            'subtitle' => 'Configure the terms and privacy policy of the application.',
+            'terms' => [
+                'label' => 'Terms',
+            ],
+            'privacy_policy' => [
+                'label' => 'Privacy Policy',
+            ],
+        ],
         'security' => [
             'title' => 'Security',
+            'subtitle' => 'Configure the security of the application.',
             'restrict_ips' => [
                 'label' => 'Restrict IPs',
                 'help_text' => 'Caution: If you block your own IP address, you will be locked out of your sistema. And you will have to manually remove your IP address from the database or access from another IP address.',
@@ -171,6 +182,7 @@ return [
         ],
         'localization' => [
             'title' => 'Localization',
+            'subtitle' => 'Configure the localization of the application.',
             'timezone' => [
                 'label' => 'Timezone',
                 'help_text' => 'Current time is :time.',

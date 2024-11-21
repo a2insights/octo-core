@@ -6,9 +6,9 @@ use A2Insights\FilamentSaas\Settings\Settings;
 use A2Insights\FilamentSaas\Settings\TermsSettings;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
@@ -87,12 +87,12 @@ class MainSettingsPage extends SettingsPage
 
     protected function getFormSchema(): array
     {
-        $locales = collect(Locales::getNames())->mapWithKeys(fn ($name, $code) => [$code => Str::title($name)])->toArray();
-        $timezones = collect(Timezones::getNames())->mapWithKeys(fn ($name, $code) => [$code => Str::title($name)])->toArray();
+        $locales = collect(Locales::getNames())->mapWithKeys(fn($name, $code) => [$code => Str::title($name)])->toArray();
+        $timezones = collect(Timezones::getNames())->mapWithKeys(fn($name, $code) => [$code => Str::title($name)])->toArray();
 
         return [
-            Fieldset::make('SEO')
-                ->label(__('filament-saas::default.settings.seo.title'))
+            Section::make(__('filament-saas::default.settings.seo.title'))
+                ->description(__('filament-saas::default.settings.seo.subtitle'))
                 ->schema([
                     TextInput::make('name')
                         ->label(__('filament-saas::default.settings.seo.name.label')),
@@ -109,14 +109,12 @@ class MainSettingsPage extends SettingsPage
                         ->label(__('filament-saas::default.settings.seo.description.label'))
                         ->helperText(__('filament-saas::default.settings.seo.description.help_text'))
                         ->rows(2),
-                ])->columns(1),
-            Fieldset::make('Head')
-                ->label('Head Code')
-                ->schema([
-                    CodeEditor::make('head'),
-                ])->columns(1),
-            Fieldset::make('Style')
-                ->label(__('filament-saas::default.settings.style.title'))
+                ])
+                ->collapsed()
+                ->columns(1),
+
+            Section::make(__('filament-saas::default.settings.style.title'))
+                ->description(__('filament-saas::default.settings.style.subtitle'))
                 ->schema([
                     FileUpload::make('logo')
                         ->label(__('filament-saas::default.settings.style.logo.label'))
@@ -124,7 +122,7 @@ class MainSettingsPage extends SettingsPage
                         ->image()
                         ->directory('images')
                         ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
-                            return 'logo.'.$file->guessExtension();
+                            return 'logo.' . $file->guessExtension();
                         }),
                     TextInput::make('logo_size')
                         ->label(__('filament-saas::default.settings.style.logo_size.label'))
@@ -135,29 +133,41 @@ class MainSettingsPage extends SettingsPage
                         ->image()
                         ->directory('images')
                         ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
-                            return 'favicon.'.$file->guessExtension();
+                            return 'favicon.' . $file->guessExtension();
                         }),
-                ])->columns(1),
-            Fieldset::make('Terms')
-                ->label(__('filament-saas::default.features.terms_and_privacy_policy.title'))
+                ])
+                ->collapsed()
+                ->columns(1),
+            Section::make(__('filament-saas::default.settings.embed.title'))
+                ->description(__('filament-saas::default.settings.embed.subtitle'))
+                ->schema([
+                    CodeEditor::make('head')
+                        ->label(__('filament-saas::default.settings.embed.head.label'))
+                        ->helperText(__('filament-saas::default.settings.embed.head.help_text')),
+                ])
+                ->collapsed()
+                ->columns(1),
+            Section::make(__('filament-saas::default.settings.terms_and_privacy_policy.title'))
+                ->description(__('filament-saas::default.settings.terms_and_privacy_policy.subtitle'))
                 ->schema([
                     Toggle::make('terms')
-                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.title'))
-                        ->reactive()
-                        ->helperText(__('filament-saas::default.features.terms_and_privacy_policy.help_text')),
+                        ->label(__('filament-saas::default.settings.terms_and_privacy_policy.title'))
+                        ->reactive(),
                     MarkdownEditor::make('terms-service')
-                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.terms.label'))
+                        ->label(__('filament-saas::default.settings.terms_and_privacy_policy.terms.label'))
                         ->fileAttachmentsDisk(config('filament.default_filesystem_disk'))
                         ->fileAttachmentsVisibility('public')
-                        ->visible(fn ($state, callable $get) => $get('terms')),
+                        ->visible(fn($state, callable $get) => $get('terms')),
                     MarkdownEditor::make('terms-privacy_policy')
-                        ->label(__('filament-saas::default.features.terms_and_privacy_policy.privacy_policy.label'))
+                        ->label(__('filament-saas::default.settings.terms_and_privacy_policy.privacy_policy.label'))
                         ->fileAttachmentsDisk(config('filament.default_filesystem_disk'))
                         ->fileAttachmentsVisibility('public')
-                        ->visible(fn ($state, callable $get) => $get('terms')),
-                ])->columns(1),
-            Fieldset::make('Security')
-                ->label(__('filament-saas::default.settings.security.title'))
+                        ->visible(fn($state, callable $get) => $get('terms')),
+                ])
+                ->collapsed()
+                ->columns(1),
+            Section::make(__('filament-saas::default.settings.security.title'))
+                ->description(__('filament-saas::default.settings.security.subtitle'))
                 ->schema([
                     TagsInput::make('restrict_ips')
                         ->label(__('filament-saas::default.settings.security.restrict_ips.label'))
@@ -170,11 +180,14 @@ class MainSettingsPage extends SettingsPage
                         ->helperText(__('filament-saas::default.settings.security.restrict_users.help_text'))
                         ->multiple()
                         ->searchable()
-                        ->options(fn () => User::all()->pluck('name', 'id'))
-                        ->getSearchResultsUsing(fn (string $search) => User::where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id'))
-                        ->getOptionLabelUsing(fn ($value): ?string => User::find($value)?->name),
-                ])->columns(1),
-            Fieldset::make('Localization')
+                        ->options(fn() => User::all()->pluck('name', 'id'))
+                        ->getSearchResultsUsing(fn(string $search) => User::where('name', 'like', "%{$search}%")->limit(10)->pluck('name', 'id'))
+                        ->getOptionLabelUsing(fn($value): ?string => User::find($value)?->name),
+                ])
+                ->collapsed()
+                ->columns(1),
+            Section::make(__('filament-saas::default.settings.localization.title'))
+                ->description(__('filament-saas::default.settings.localization.subtitle'))
                 ->schema([
                     Select::make('timezone')
                         ->label(__('filament-saas::default.settings.localization.timezone.label'))
@@ -190,10 +203,12 @@ class MainSettingsPage extends SettingsPage
                     Select::make('locale')
                         ->label(__('filament-saas::default.settings.localization.locale.label'))
                         ->helperText(__('filament-saas::default.settings.localization.locale.help_text'))
-                        ->options(collect(app(Settings::class)->locales)->mapWithKeys(fn ($locale) => [$locale => Str::title(Locales::getName($locale))])->toArray())
+                        ->options(collect(app(Settings::class)->locales)->mapWithKeys(fn($locale) => [$locale => Str::title(Locales::getName($locale))])->toArray())
                         ->searchable()
-                        ->dehydrateStateUsing(fn ($state) => ! in_array($state, app(Settings::class)->locales) ? app(Settings::class)->locales[0] : $state),
-                ])->columns(1),
+                        ->dehydrateStateUsing(fn($state) => ! in_array($state, app(Settings::class)->locales) ? app(Settings::class)->locales[0] : $state),
+                ])
+                ->collapsed()
+                ->columns(1),
         ];
     }
 
