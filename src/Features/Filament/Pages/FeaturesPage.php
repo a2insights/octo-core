@@ -8,8 +8,6 @@ use A2Insights\FilamentSaas\Settings\reCAPTCHASettings;
 use A2Insights\FilamentSaas\Settings\WebhooksSettings;
 use A2Insights\FilamentSaas\Settings\WhatsappChatSettings;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
-use Filament\Actions;
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
@@ -17,12 +15,9 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Notifications\Notification;
 use Filament\Pages\SettingsPage;
 use Icetalker\FilamentPicker\Forms\Components\Picker;
 use Illuminate\Support\Facades\App;
-use Spatie\Crawler\Crawler;
-use Spatie\Sitemap\SitemapGenerator;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class FeaturesPage extends SettingsPage
@@ -58,36 +53,6 @@ class FeaturesPage extends SettingsPage
     public static function getNavigationLabel(): string
     {
         return __('filament-saas::default.features.title');
-    }
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\Action::make('sitemap')
-                ->label(__('filament-saas::default.features.sitemap.title'))
-                ->icon('heroicon-o-map')
-                ->outlined(fn (): bool => ! file_exists(public_path('sitemap.xml')))
-                ->action(function (array $data): void {
-                    SitemapGenerator::create(config('app.url'))
-                        ->configureCrawler(function (Crawler $crawler) {
-                            $crawler->setMaximumDepth(5);
-                        })
-                        ->getSitemap()
-                        ->writeToDisk('public', 'sitemap.xml');
-
-                    $file = storage_path('app/public/sitemap.xml');
-                    $public = public_path('sitemap.xml');
-
-                    file_put_contents($public, file_get_contents($file));
-
-                    Notification::make()
-                        ->success()
-                        ->title(__('filament-saas::default.features.sitemap.action.notify'))
-                        ->send();
-                })
-                ->after(function ($action, $record) {})
-                ->modalSubmitActionLabel(__('filament-saas::default.features.sitemap.action.label')),
-        ];
     }
 
     private function recaptcha()
@@ -232,7 +197,7 @@ class FeaturesPage extends SettingsPage
                                 ->maxLength(100)
                                 ->columnSpan(4),
                         ])
-                        ->visible(fn ($state, callable $get) => $get('whatsapp_chat'))
+                        ->visible(fn($state, callable $get) => $get('whatsapp_chat'))
                         ->columns(8),
                     Repeater::make('whatsapp_chat-attendants')
                         ->label(__('filament-saas::default.features.whatsapp_chat.attendants.title'))
@@ -276,13 +241,13 @@ class FeaturesPage extends SettingsPage
                                 ->columnSpan(6),
                             Picker::make('avatar.icon')
                                 ->label(__('filament-saas::default.features.whatsapp_chat.attendants.icon.label'))
-                                ->options(fn (): array => collect(array_fill(1, 30, null))->mapWithKeys(fn ($value, $key) => ["/img/avatars/avatar-$key.svg" => ''])->toArray())
+                                ->options(fn(): array => collect(array_fill(1, 30, null))->mapWithKeys(fn($value, $key) => ["/img/avatars/avatar-$key.svg" => ''])->toArray())
                                 ->imageSize(50)
-                                ->images(fn (): array => collect(array_fill(1, 30, null))->mapWithKeys(fn ($value, $key) => ["/img/avatars/avatar-$key.svg" => "/img/avatars/avatar-$key.svg"])
+                                ->images(fn(): array => collect(array_fill(1, 30, null))->mapWithKeys(fn($value, $key) => ["/img/avatars/avatar-$key.svg" => "/img/avatars/avatar-$key.svg"])
                                     ->toArray())
                                 ->columnSpanFull(),
                         ])
-                        ->visible(fn ($state, callable $get) => $get('whatsapp_chat'))
+                        ->visible(fn($state, callable $get) => $get('whatsapp_chat'))
                         ->collapsed()
                         ->defaultItems(2)
                         ->columns(7),
@@ -298,12 +263,12 @@ class FeaturesPage extends SettingsPage
                     Toggle::make('webhooks-history')
                         ->label(__('filament-saas::default.features.webhooks.history.label'))
                         ->helperText(__('filament-saas::default.features.webhooks.history.help_text'))
-                        ->visible(fn ($state, callable $get) => $get('webhooks')),
+                        ->visible(fn($state, callable $get) => $get('webhooks')),
                     TextInput::make('webhooks-poll_interval')
                         ->label(__('filament-saas::default.features.webhooks.poll_interval.label'))
                         ->helperText(__('filament-saas::default.features.webhooks.poll_interval.help_text'))
                         ->placeholder('10s')
-                        ->visible(fn ($state, callable $get) => $get('webhooks')),
+                        ->visible(fn($state, callable $get) => $get('webhooks')),
                     Select::make('webhooks-models')
                         ->label(__('filament-saas::default.features.webhooks.models.label'))
                         ->helperText(__('filament-saas::default.features.webhooks.models.help_text'))
@@ -319,7 +284,7 @@ class FeaturesPage extends SettingsPage
                             \Illuminate\Notifications\DatabaseNotification::class => 'notification',
                             \Laravel\Sanctum\PersonalAccessToken::class => 'personal_access_token',
                         ])
-                        ->visible(fn ($state, callable $get) => $get('webhooks')),
+                        ->visible(fn($state, callable $get) => $get('webhooks')),
                 ])
                 ->collapsed()
                 ->columns(1),

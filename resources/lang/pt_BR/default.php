@@ -38,13 +38,6 @@ return [
                 'help_text' => 'Habilitar pagina de registro.',
             ],
         ],
-        'sitemap' => [
-            'title' => 'Gerar Sitemap',
-            'action' => [
-                'label' => 'Gerar',
-                'notify' => 'Sitemap gerado com sucesso!',
-            ],
-        ],
         'webhooks' => [
             'title' => 'Webhooks',
             'subtitle' => 'Habilitar páginas de webhooks.',
@@ -177,7 +170,7 @@ return [
         ],
         'security' => [
             'title' => 'Segurança',
-            'subtitle' => 'Configure o comportamento de segurança do sistema.',
+            'subtitle' => 'Configure o comportamento de segurança do site.',
             'restrict_ips' => [
                 'label' => 'Restringir IPs',
                 'help_text' => 'Cuidado: Se você bloquear seu próprio IP, será bloqueado do sistema e terá que remover o IP do banco de dados manualmente ou acessar de outro IP.',

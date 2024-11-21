@@ -22,6 +22,8 @@ class Settings extends BaseSettings
 
     public bool $terms;
 
+    public bool $sitemap;
+
     public array $restrict_ips;
 
     public array $restrict_users;

@@ -31,13 +31,6 @@ return [
         'title' => 'Features',
         'heading' => 'Features',
         'subheading' => 'Enable or disable features of the application.',
-        'sitemap' => [
-            'title' => 'Generate Sitemap',
-            'action' => [
-                'label' => 'Generate',
-                'notify' => 'Sitemap generated successfully!',
-            ],
-        ],
         'webhooks' => [
             'title' => 'Webhooks',
             'subtitle' => 'Enable webhooks page.',
@@ -121,7 +114,7 @@ return [
         'subheading' => 'Configure the behavior of the application.',
         'seo' => [
             'title' => 'SEO',
-            'subtitle' => 'Configure the SEO of the application.',
+            'subtitle' => 'Configure the SEO of the site.',
             'name' => [
                 'label' => 'Name',
             ],
@@ -132,6 +125,22 @@ return [
             'description' => [
                 'label' => 'Description',
                 'help_text' => 'HTML not allowed.',
+            ],
+        ],
+        'sitemap' => [
+            'title' => 'Sitemap',
+            'subtitle' => 'Configure the sitemap of the site.',
+            'active' => [
+                'label' => 'Active',
+            ],
+           'pages' => [
+                'title' => 'Pages',
+                'page' => [
+                    'label' => 'Page',
+                ],
+                'priority' => [
+                    'label' => 'Priority',
+                ],
             ],
         ],
         'style' => [
