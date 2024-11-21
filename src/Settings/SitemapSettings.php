@@ -4,14 +4,12 @@ namespace A2Insights\FilamentSaas\Settings;
 
 use Spatie\LaravelSettings\Settings as BaseSettings;
 
-class TermsSettings extends BaseSettings
+class SitemapSettings extends BaseSettings
 {
-    public ?string $service;
-
-    public ?string $privacy_policy;
+    public array $pages = [];
 
     public static function group(): string
     {
-        return 'terms_settings';
+        return 'sitemap_settings';
     }
 }

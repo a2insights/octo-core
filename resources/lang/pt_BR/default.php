@@ -38,35 +38,28 @@ return [
                 'help_text' => 'Habilitar pagina de registro.',
             ],
         ],
-        'sitemap' => [
-            'title' => 'Gerar Sitemap',
-            'action' => [
-                'label' => 'Gerar',
-                'notify' => 'Sitemap gerado com sucesso!',
-            ],
-        ],
-            'webhooks' => [
-                'title' => 'Webhooks',
-            'description' => 'Habilitar páginas de webhooks.',
+        'webhooks' => [
+            'title' => 'Webhooks',
+            'subtitle' => 'Habilitar páginas de webhooks.',
             'active' => [
                 'label' => 'Ativo',
             ],
-                'history' => [
-                    'label' => 'Histórico de Webhooks',
-                    'help_text' => 'Os eventos serão armazenados no banco de dados.',
-                ],
-                'poll_interval' => [
-                    'label' => 'Intervalo de Polling de Webhooks',
-                    'help_text' => 'Intervalo de tempo em segundos.',
-                ],
-                'models' => [
-                    'label' => 'Modelos de Webhooks',
-                    'help_text' => 'Os modelos que serão listados na página de webhooks.',
-                ],
+            'history' => [
+                'label' => 'Histórico de Webhooks',
+                'help_text' => 'Os eventos serão armazenados no banco de dados.',
             ],
+            'poll_interval' => [
+                'label' => 'Intervalo de Polling de Webhooks',
+                'help_text' => 'Intervalo de tempo em segundos.',
+            ],
+            'models' => [
+                'label' => 'Modelos de Webhooks',
+                'help_text' => 'Os modelos que serão listados na página de webhooks.',
+            ],
+        ],
         'whatsapp_chat' => [
             'title' => 'WhatsApp Chat',
-            'description' => 'Habilitar widget de chat do WhatsApp no site.',
+            'subtitle' => 'Habilitar widget de chat do WhatsApp no site.',
             'active' => [
                 'label' => 'Ativo',
             ],
@@ -102,7 +95,7 @@ return [
         ],
         'user' => [
             'title' => 'Usuário',
-            'description' => 'Habilite ou desabilite funcionalidades do usuário.',
+            'subtitle' => 'Habilite ou desabilite funcionalidades do usuário.',
             'switch_language' => [
                 'label' => 'Trocar Idioma',
                 'help_text' => 'Habilitar opção de troca de idioma na barra superior.',
@@ -120,16 +113,6 @@ return [
                 'help_text' => 'Habilitar pagina de registro.',
             ],
         ],
-        'terms_and_privacy_policy' => [
-            'title' => 'Termos e Política de Privacidade',
-            'help_text' => 'Habilitar página de termos e políticas.',
-            'terms' => [
-                'label' => 'Termos',
-            ],
-            'privacy_policy' => [
-                'label' => 'Política de Privacidade',
-            ],
-        ],
     ],
 
     'settings' => [
@@ -138,6 +121,7 @@ return [
         'subheading' => 'Configure o comportamento do sistema.',
         'seo' => [
             'title' => 'SEO',
+            'subtitle' => 'Configure o SEO do sistema.',
             'name' => [
                 'label' => 'Nome',
             ],
@@ -150,11 +134,29 @@ return [
                 'help_text' => 'HTML não é permitido.',
             ],
         ],
+        'sitemap' => [
+            'title' => 'Sitemap',
+            'subtitle' => 'Configure o sitemap do site.',
+            'active' => [
+                'label' => 'Ativo',
+            ],
+            'pages' => [
+                'title' => 'Páginas',
+                'page' => [
+                    'label' => 'Páginas',
+                ],
+            ],
+        ],
         'style' => [
             'title' => 'Estilo',
+            'subtitle' => 'Configure o estilo, marca e cores do sistema.',
             'logo' => [
                 'label' => 'Logo',
                 'help_text' => 'Envie seu logo. Tamanho recomendado: proporção de 3x1.',
+            ],
+            'og' => [
+                'label' => 'OG',
+                'help_text' => 'Configure a imagem Open Graph para compartilhamento nas redes sociais.',
             ],
             'logo_size' => [
                 'label' => 'Tamanho do Logo',
@@ -165,8 +167,27 @@ return [
                 'help_text' => 'Envie seu favicon. Tamanho recomendado: 16x16px. Formatos suportados: .ico, .png, .svg.',
             ],
         ],
+        'embed' => [
+            'title' => 'Embed',
+            'subtitle' => 'Configure códigos de incorporação.',
+            'head' => [
+                'label' => 'Head',
+                'help_text' => 'HTML para ser inserido na head do site. Ex: Google Analytics.',
+            ],
+        ],
+        'terms_and_privacy_policy' => [
+            'title' => 'Termos e Política de Privacidade',
+            'subtitle' => 'Configure os termos e a política de privacidade do sistema.',
+            'terms' => [
+                'label' => 'Termos',
+            ],
+            'privacy_policy' => [
+                'label' => 'Política de Privacidade',
+            ],
+        ],
         'security' => [
             'title' => 'Segurança',
+            'subtitle' => 'Configure o comportamento de segurança do site.',
             'restrict_ips' => [
                 'label' => 'Restringir IPs',
                 'help_text' => 'Cuidado: Se você bloquear seu próprio IP, será bloqueado do sistema e terá que remover o IP do banco de dados manualmente ou acessar de outro IP.',
@@ -178,6 +199,7 @@ return [
         ],
         'localization' => [
             'title' => 'Localização',
+            'subtitle' => 'Configure a localização do sistema.',
             'timezone' => [
                 'label' => 'Fuso Horário',
                 'help_text' => 'A hora atual é :time.',
