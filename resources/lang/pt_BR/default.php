@@ -134,12 +134,29 @@ return [
                 'help_text' => 'HTML não é permitido.',
             ],
         ],
+        'sitemap' => [
+            'title' => 'Sitemap',
+            'subtitle' => 'Configure o sitemap do site.',
+            'active' => [
+                'label' => 'Ativo',
+            ],
+            'pages' => [
+                'title' => 'Páginas',
+                'page' => [
+                    'label' => 'Páginas',
+                ],
+            ],
+        ],
         'style' => [
             'title' => 'Estilo',
             'subtitle' => 'Configure o estilo, marca e cores do sistema.',
             'logo' => [
                 'label' => 'Logo',
                 'help_text' => 'Envie seu logo. Tamanho recomendado: proporção de 3x1.',
+            ],
+            'og' => [
+                'label' => 'OG',
+                'help_text' => 'Configure a imagem Open Graph para compartilhamento nas redes sociais.',
             ],
             'logo_size' => [
                 'label' => 'Tamanho do Logo',

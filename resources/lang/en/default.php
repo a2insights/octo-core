@@ -133,15 +133,17 @@ return [
             'active' => [
                 'label' => 'Active',
             ],
-           'pages' => [
+            'pages' => [
                 'title' => 'Pages',
                 'page' => [
                     'label' => 'Page',
                 ],
-                'priority' => [
-                    'label' => 'Priority',
-                ],
             ],
+        ],
+        'robots' => [
+            'title' => 'Robots',
+            'subtitle' => 'Configure the robots of the site.',
+            'label' => 'Robots',
         ],
         'style' => [
             'title' => 'Style',
@@ -149,6 +151,10 @@ return [
             'logo' => [
                 'label' => 'Logo',
                 'help_text' => 'Upload your logo. Recommended size: 3x1 ratio.',
+            ],
+            'og' => [
+                'label' => 'OG',
+                'help_text' => 'Configure Open Graph meta image for social media sharing.',
             ],
             'logo_size' => [
                 'label' => 'Logo Size',

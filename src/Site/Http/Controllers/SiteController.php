@@ -11,6 +11,7 @@ use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Inertia\Inertia;
 
@@ -46,11 +47,11 @@ class SiteController
         SEOMeta::setTitle($settings->name, false);
         SEOMeta::setDescription($settings->description);
         SEOMeta::addKeyword($settings->keywords);
-        JsonLd::addImage((url('/img/og.png')));
+        JsonLd::addImage($settings->og ? Storage::url($settings->og) : url('/img/og.png'));
         OpenGraph::setUrl(url('/'));
         OpenGraph::addProperty('type', 'SaaS');
         OpenGraph::addProperty('keywords', collect($settings->keywords)->implode(', '));
-        OpenGraph::addImage(url('/img/og.png'));
+        OpenGraph::addImage($settings->og ? Storage::url($settings->og) : url('/img/og.png'));
     }
 
     public function home()

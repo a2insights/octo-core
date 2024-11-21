@@ -14,8 +14,6 @@ class GenerateSitemap
 
     /**
      * Generates the sitemap based on the application settings.
-     *
-     * @return void
      */
     public function handle(): void
     {
@@ -25,7 +23,7 @@ class GenerateSitemap
         $storageFilePath = storage_path('app/public/sitemap.xml');
         $publicFilePath = public_path('sitemap.xml');
 
-        if (!$settings->sitemap) {
+        if (! $settings->sitemap) {
             unlink($storageFilePath);
             unlink($publicFilePath);
 

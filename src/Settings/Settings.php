@@ -16,6 +16,8 @@ class Settings extends BaseSettings
 
     public ?string $logo;
 
+    public ?string $og;
+
     public ?string $logo_size;
 
     public ?string $favicon;
