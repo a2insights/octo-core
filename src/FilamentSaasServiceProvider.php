@@ -7,6 +7,7 @@ use A2Insights\FilamentSaas\Features\FeaturesServiceProvider;
 use A2Insights\FilamentSaas\Middleware\MiddlewareServiceProvider;
 use A2Insights\FilamentSaas\Settings\SettingsServiceProvider;
 use A2Insights\FilamentSaas\Site\SiteServiceProvider;
+use A2Insights\FilamentSaas\System\SystemServiceProvider;
 use A2Insights\FilamentSaas\Tenant\TenantServiceProvider;
 use A2Insights\FilamentSaas\User\UserServiceProvider;
 use A2Insights\FilamentSaas\Webhook\WebhookServiceProvider;
@@ -35,6 +36,7 @@ class FilamentSaasServiceProvider extends PackageServiceProvider
         $this->app->register(UserServiceProvider::class);
         $this->app->register(FeaturesServiceProvider::class);
         $this->app->register(SettingsServiceProvider::class);
+        $this->app->register(SystemServiceProvider::class);
         $this->app->register(MiddlewareServiceProvider::class);
         $this->app->register(TenantServiceProvider::class);
         $this->app->register(WebhookServiceProvider::class);
