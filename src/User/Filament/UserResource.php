@@ -165,6 +165,7 @@ class UserResource extends Resource
                         'super_admin' => 'danger',
                         'admin' => 'warning',
                         'user' => 'success',
+                        default => 'primary',
                     })
                     ->toggleable(),
                 TextColumn::make('created_at')
