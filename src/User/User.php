@@ -9,7 +9,6 @@ use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasDefaultTenant;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
-use Firefly\FilamentBlog\Traits\HasBlog;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +29,7 @@ use Wallo\FilamentCompanies\SetsProfilePhotoFromUrl;
 
 class User extends Authenticatable implements BannableContract, FilamentUser, HasAvatar, HasDefaultTenant, HasTenants, MustVerifyEmail
 {
-    use Bannable, FindSimilarUsernames, GeneratesUsernames, HasApiTokens, HasBlog,
+    use Bannable, FindSimilarUsernames, GeneratesUsernames, HasApiTokens,
         HasCompanies, HasConnectedAccounts, HasFactory, HasProfilePhoto, HasRoles, Notifiable,
         SetsProfilePhotoFromUrl, SoftDeletes, TwoFactorAuthenticatable;
 
