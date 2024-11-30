@@ -17,7 +17,7 @@ use Inertia\Inertia;
 
 class SiteController
 {
-    public function __construct(Settings $settings)
+    public function __construct(protected Settings $settings)
     {
         $tenantPath = config('filament-saas.tenant_path');
         $sysadminPath = config('filament-saas.sysadmin_path');
@@ -42,25 +42,28 @@ class SiteController
 
         View::share('head', $settings->head);
 
-        SEOTools::setTitle($settings->name, false);
         SEOTools::setDescription($settings->description);
-        SEOMeta::setTitle($settings->name, false);
         SEOMeta::setDescription($settings->description);
         SEOMeta::addKeyword($settings->keywords);
         JsonLd::addImage($settings->og ? Storage::url($settings->og) : url('/img/og.png'));
         OpenGraph::setUrl(url('/'));
-        OpenGraph::addProperty('type', 'SaaS');
         OpenGraph::addProperty('keywords', collect($settings->keywords)->implode(', '));
         OpenGraph::addImage($settings->og ? Storage::url($settings->og) : url('/img/og.png'));
     }
 
     public function home()
     {
+        SEOTools::setTitle($this->settings->name);
+        SEOMeta::setTitle($this->settings->name);
+
         return Inertia::render('Home');
     }
 
     public function termsOfService(TermsSettings $settings)
     {
+        SEOTools::setTitle(__('filament-saas::default.terms-of-service.title'), false);
+        SEOMeta::setTitle(__('filament-saas::default.terms-of-service.title'), false);
+
         return Inertia::render('TermsOfService', [
             'title' => __('filament-saas::default.terms-of-service.title'),
             'terms' => $this->buildTailwindClasses(str()->markdown($settings->service)),
@@ -69,6 +72,9 @@ class SiteController
 
     public function privacyPolicy(TermsSettings $settings)
     {
+        SEOTools::setTitle(__('filament-saas::default.privacy-policy.title'), false);
+        SEOMeta::setTitle(__('filament-saas::default.privacy-policy.title'), false);
+
         return Inertia::render('PrivacyPolicy', [
             'title' => __('filament-saas::default.privacy-policy.title'),
             'terms' => $this->buildTailwindClasses(str()->markdown($settings->privacy_policy)),
@@ -85,8 +91,8 @@ class SiteController
         $html = str_replace('<h6', '<h6 class="mt-4 text-base font-semibold tracking-tight text-pretty sm:text-lg"', $html);
         $html = str_replace('<p', '<p class="mt-2"', $html);
         $html = str_replace('<li', '<li class="mt-2"', $html);
-        $html = str_replace('<ul', '<ul class="list-disc ml-4"', $html);
-        $html = str_replace('<ol', '<ol class="list-decimal pl-5"', $html);
+        $html = str_replace('<ul', '<ul class="ml-4 list-disc"', $html);
+        $html = str_replace('<ol', '<ol class="pl-5 list-decimal"', $html);
         $html = str_replace('<a', '<a class=""', $html);
         $html = str_replace('<strong', '<strong class="font-semibold"', $html);
         $html = str_replace('<em', '<em class="italic"', $html);
