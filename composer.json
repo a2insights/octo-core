@@ -22,7 +22,7 @@
         "andrewdwallo/filament-companies": "^4.0",
         "artesaos/seotools": "^1.3",
         "awcodes/filament-quick-create": "^3.6",
-        "bezhansalleh/filament-exceptions": "2.1",
+        "bezhansalleh/filament-exceptions": "2.1.2",
         "bezhansalleh/filament-google-analytics": "^2.1",
         "bezhansalleh/filament-panel-switch": "^1.0",
         "bezhansalleh/filament-shield": "^3.3",
