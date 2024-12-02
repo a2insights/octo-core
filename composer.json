@@ -65,7 +65,7 @@
         "spatie/laravel-sitemap": "^7.2",
         "spatie/laravel-stats": "^2.1",
         "stancl/tenancy": "^3.8",
-        "symfony/intl": "^6.2",
+        "symfony/intl": "^7.2",
         "taylornetwork/laravel-username-generator": "^2.8",
         "widiu7omo/filament-bandel": "^2.0",
         "wiebenieuwenhuis/filament-code-editor": "^1.1",
