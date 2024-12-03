@@ -4,7 +4,6 @@ namespace A2Insights\FilamentSaas\Features;
 
 use A2Insights\FilamentSaas\Features\Filament\Components\SwitchLanguage;
 use A2Insights\FilamentSaas\Settings\reCAPTCHASettings;
-use A2Insights\FilamentSaas\Settings\WebhooksSettings;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
@@ -37,7 +36,6 @@ class FeaturesServiceProvider extends PackageServiceProvider
         // TODO: Implement sync methods
         // $this->syncRegistration();
         // $this->sync2fa();
-        $this->syncWebhooks();
         // $this->syncRecaptcha();
     }
 
@@ -64,19 +62,5 @@ class FeaturesServiceProvider extends PackageServiceProvider
     private function sync2fa(): void
     {
         Config::set('filament-breezy.enable_2fa', $this->features->auth_2fa);
-    }
-
-    private function syncWebhooks(): void
-    {
-        if (! $this->features->webhooks) {
-            Config::set('filament-webhook-server.pages', []);
-            Config::set('filament-webhook-server.models', []);
-        } else {
-            $webhookSettings = Cache::remember('filament-saas.webhooks', now()->addHours(10), fn () => App::make(WebhooksSettings::class));
-
-            Config::set('filament-webhook-server.models', $webhookSettings->models);
-            Config::set('filament-webhook-server.polling', $webhookSettings->poll_interval);
-            Config::set('filament-webhook-server.webhook.keep_history', $webhookSettings->history);
-        }
     }
 }

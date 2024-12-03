@@ -37,18 +37,6 @@ return [
             'active' => [
                 'label' => 'Active',
             ],
-            'history' => [
-                'label' => 'Webhooks History',
-                'help_text' => 'The events will be stored in the database.',
-            ],
-            'poll_interval' => [
-                'label' => 'Webhooks poll interval',
-                'help_text' => 'Time interval in seconds.',
-            ],
-            'models' => [
-                'label' => 'Webhooks models',
-                'help_text' => 'The models that be listed in the webhooks page.',
-            ],
         ],
         'whatsapp_chat' => [
             'title' => 'WhatsApp Chat',

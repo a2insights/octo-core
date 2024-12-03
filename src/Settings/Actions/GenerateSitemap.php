@@ -24,8 +24,8 @@ class GenerateSitemap
         $publicFilePath = public_path('sitemap.xml');
 
         if (! $settings->sitemap) {
-            unlink($storageFilePath);
-            unlink($publicFilePath);
+            @unlink($storageFilePath);
+            @unlink($publicFilePath);
 
             return;
         }

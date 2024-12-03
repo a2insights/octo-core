@@ -3,16 +3,13 @@
 namespace A2Insights\FilamentSaas\Features\Filament\Pages;
 
 use A2Insights\FilamentSaas\Features\Features;
-use A2Insights\FilamentSaas\FilamentSaas;
 use A2Insights\FilamentSaas\Settings\reCAPTCHASettings;
-use A2Insights\FilamentSaas\Settings\WebhooksSettings;
 use A2Insights\FilamentSaas\Settings\WhatsappChatSettings;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
@@ -60,11 +57,6 @@ class FeaturesPage extends SettingsPage
         return App::make(reCAPTCHASettings::class);
     }
 
-    private function webhooks()
-    {
-        return App::make(WebhooksSettings::class);
-    }
-
     private function whatsappChat()
     {
         return App::make(WhatsappChatSettings::class);
@@ -82,15 +74,6 @@ class FeaturesPage extends SettingsPage
         //     $recaptchaSettings->save();
         // }
 
-        if ($data['webhooks']) {
-            $webhooksSettings = $this->webhooks();
-            $webhooksSettings->models = $data['webhooks-models'];
-            $webhooksSettings->history = $data['webhooks-history'];
-            $webhooksSettings->poll_interval = $data['webhooks-poll_interval'];
-
-            $webhooksSettings->save();
-        }
-
         if ($data['whatsapp_chat']) {
             $whatsappChatSettings = $this->whatsappChat();
             $whatsappChatSettings->attendants = $data['whatsapp_chat-attendants'];
@@ -102,7 +85,8 @@ class FeaturesPage extends SettingsPage
 
         cache()->forget('filament-saas.features');
         cache()->forget('filament-saas.settings');
-        cache()->forget('filament-saas.webhooks');
+
+        redirect(FeaturesPage::getUrl());
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
@@ -110,11 +94,6 @@ class FeaturesPage extends SettingsPage
         // $recaptchaSettings = $this->recaptcha();
         // $data['recaptcha-site_key'] = $recaptchaSettings->site_key;
         // $data['recaptcha-secret_key'] = $recaptchaSettings->secret_key;
-
-        $webhooksSettings = $this->webhooks();
-        $data['webhooks-models'] = $webhooksSettings->models;
-        $data['webhooks-history'] = $webhooksSettings->history;
-        $data['webhooks-poll_interval'] = $webhooksSettings->poll_interval;
 
         $whatsappChatSettings = $this->whatsappChat();
         $data['whatsapp_chat-attendants'] = $whatsappChatSettings->attendants;
@@ -258,33 +237,7 @@ class FeaturesPage extends SettingsPage
                 ->description(__('filament-saas::default.features.webhooks.subtitle'))
                 ->schema([
                     Toggle::make('webhooks')
-                        ->label(__('filament-saas::default.features.webhooks.active.label'))
-                        ->reactive(),
-                    Toggle::make('webhooks-history')
-                        ->label(__('filament-saas::default.features.webhooks.history.label'))
-                        ->helperText(__('filament-saas::default.features.webhooks.history.help_text'))
-                        ->visible(fn ($state, callable $get) => $get('webhooks')),
-                    TextInput::make('webhooks-poll_interval')
-                        ->label(__('filament-saas::default.features.webhooks.poll_interval.label'))
-                        ->helperText(__('filament-saas::default.features.webhooks.poll_interval.help_text'))
-                        ->placeholder('10s')
-                        ->visible(fn ($state, callable $get) => $get('webhooks')),
-                    Select::make('webhooks-models')
-                        ->label(__('filament-saas::default.features.webhooks.models.label'))
-                        ->helperText(__('filament-saas::default.features.webhooks.models.help_text'))
-                        ->multiple()
-                        ->default([])
-                        ->options([
-                            FilamentSaas::getUserModel() => 'user',
-                            \Cog\Laravel\Ban\Models\Ban::class => 'ban',
-                            \HusamTariq\FilamentDatabaseSchedule\Models\Schedule::class => 'schedule',
-                            \Spatie\LaravelSettings\Models\SettingsProperty::class => 'settings',
-                            \Spatie\Permission\Models\Permission::class => 'permission',
-                            \Spatie\Permission\Models\Role::class => 'role',
-                            \Illuminate\Notifications\DatabaseNotification::class => 'notification',
-                            \Laravel\Sanctum\PersonalAccessToken::class => 'personal_access_token',
-                        ])
-                        ->visible(fn ($state, callable $get) => $get('webhooks')),
+                        ->label(__('filament-saas::default.features.webhooks.active.label')),
                 ])
                 ->collapsed()
                 ->columns(1),

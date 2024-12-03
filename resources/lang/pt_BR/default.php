@@ -44,18 +44,6 @@ return [
             'active' => [
                 'label' => 'Ativo',
             ],
-            'history' => [
-                'label' => 'Histórico de Webhooks',
-                'help_text' => 'Os eventos serão armazenados no banco de dados.',
-            ],
-            'poll_interval' => [
-                'label' => 'Intervalo de Polling de Webhooks',
-                'help_text' => 'Intervalo de tempo em segundos.',
-            ],
-            'models' => [
-                'label' => 'Modelos de Webhooks',
-                'help_text' => 'Os modelos que serão listados na página de webhooks.',
-            ],
         ],
         'whatsapp_chat' => [
             'title' => 'WhatsApp Chat',
