@@ -232,15 +232,7 @@ class FeaturesPage extends SettingsPage
                         ->columns(7),
                 ])
                 ->collapsed()
-                ->columns(1),
-            Section::make(__('filament-saas::default.features.webhooks.title'))
-                ->description(__('filament-saas::default.features.webhooks.subtitle'))
-                ->schema([
-                    Toggle::make('webhooks')
-                        ->label(__('filament-saas::default.features.webhooks.active.label')),
-                ])
-                ->collapsed()
-                ->columns(1),
+                ->columns(1)
         ];
     }
 }
