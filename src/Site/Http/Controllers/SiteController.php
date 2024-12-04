@@ -55,6 +55,7 @@ class SiteController
     {
         SEOTools::setTitle($this->settings->name);
         SEOMeta::setTitle($this->settings->name);
+        View::share('title', $this->settings->name);
 
         return Inertia::render('Home');
     }
@@ -63,6 +64,7 @@ class SiteController
     {
         SEOTools::setTitle(__('filament-saas::default.terms-of-service.title'), false);
         SEOMeta::setTitle(__('filament-saas::default.terms-of-service.title'), false);
+        View::share('title', __('filament-saas::default.terms-of-service.title'));
 
         return Inertia::render('TermsOfService', [
             'title' => __('filament-saas::default.terms-of-service.title'),
@@ -74,6 +76,7 @@ class SiteController
     {
         SEOTools::setTitle(__('filament-saas::default.privacy-policy.title'), false);
         SEOMeta::setTitle(__('filament-saas::default.privacy-policy.title'), false);
+        View::share('title', __('filament-saas::default.privacy-policy.title'));
 
         return Inertia::render('PrivacyPolicy', [
             'title' => __('filament-saas::default.privacy-policy.title'),
