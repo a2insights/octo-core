@@ -21,7 +21,8 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use TaylorNetwork\UsernameGenerator\FindSimilarUsernames;
-use TaylorNetwork\UsernameGenerator\GeneratesUsernames;
+// TODO: Not update username automatically
+// use TaylorNetwork\UsernameGenerator\GeneratesUsernames;
 use Wallo\FilamentCompanies\HasCompanies;
 use Wallo\FilamentCompanies\HasConnectedAccounts;
 use Wallo\FilamentCompanies\HasProfilePhoto;
@@ -29,7 +30,7 @@ use Wallo\FilamentCompanies\SetsProfilePhotoFromUrl;
 
 class User extends Authenticatable implements BannableContract, FilamentUser, HasAvatar, HasDefaultTenant, HasTenants, MustVerifyEmail
 {
-    use Bannable, FindSimilarUsernames, GeneratesUsernames, HasApiTokens,
+    use Bannable, FindSimilarUsernames, HasApiTokens,
         HasCompanies, HasConnectedAccounts, HasFactory, HasProfilePhoto, HasRoles, Notifiable,
         SetsProfilePhotoFromUrl, SoftDeletes, TwoFactorAuthenticatable;
 
