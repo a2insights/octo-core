@@ -3,6 +3,7 @@
 namespace A2Insights\FilamentSaas\User\Filament\Components;
 
 use A2Insights\FilamentSaas\Features\Features;
+use A2Insights\FilamentSaas\FilamentSaas;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -33,7 +34,7 @@ class Username extends MyProfileComponent
                 TextInput::make('username')
                     ->label(__('filament-saas::default.users.profile.username.title'))
                     ->prefixIcon('heroicon-m-at-symbol')
-                    ->unique(A2Insights\FilamentSaas::getUserModel(), ignorable: $this->user)
+                    ->unique(FilamentSaas::getUserModel(), ignorable: $this->user)
                     ->required()
                     ->rules(['required', 'max:100', 'min:4', 'string']),
             ])->statePath('data');
@@ -48,7 +49,6 @@ class Username extends MyProfileComponent
 
     public function submit()
     {
-
         $data = collect($this->form->getState())->only(['username'])->all();
         $this->user->update($data);
 

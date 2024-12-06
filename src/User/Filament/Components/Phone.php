@@ -51,7 +51,6 @@ class Phone extends MyProfileComponent
 
     public function submit()
     {
-
         $data = collect($this->form->getState())->only(['phone'])->all();
         $this->user->update($data);
 
