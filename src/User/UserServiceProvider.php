@@ -16,7 +16,7 @@ class UserServiceProvider extends PackageServiceProvider
 {
     public function bootingPackage(): void
     {
-        // $this->registerLivewireComponents();
+        $this->registerLivewireComponents();
 
         Route::get('banned/user', BannedUser::class)
             ->middleware('web')
@@ -35,11 +35,11 @@ class UserServiceProvider extends PackageServiceProvider
         $package->name('filament-saas.user');
     }
 
-    // public function registerLivewireComponents(): void
-    // {
-    //     Livewire::component('BannedUser', BannedUser::class);
-    //     Livewire::component('Register', Register::class);
-    //     Livewire::component('phone', Phone::class);
-    //     Livewire::component('username', Username::class);
-    // }
+    public function registerLivewireComponents(): void
+    {
+        Livewire::component('BannedUser', BannedUser::class);
+        Livewire::component('Register', Register::class);
+        Livewire::component('phone', Phone::class);
+        Livewire::component('username', Username::class);
+    }
 }
