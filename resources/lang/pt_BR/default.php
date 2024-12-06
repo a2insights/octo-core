@@ -17,7 +17,7 @@ return [
                 'title' => 'Nome de Usuário',
                 'description' => 'Adicione e atualize seu nome de usuário',
                 'submit' => 'Atualizar',
-                'notify' => 'Senha atualizada com sucesso!',
+                'notify' => 'Username atualizado com sucesso!',
             ],
         ],
         'navigation' => [

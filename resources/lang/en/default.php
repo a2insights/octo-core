@@ -17,7 +17,7 @@ return [
                 'title' => 'Username',
                 'description' => 'Add and update your username',
                 'submit' => 'Update',
-                'notify' => 'Password updated successfully!',
+                'notify' => 'Username updated successfully!',
             ],
         ],
         'navigation' => [
