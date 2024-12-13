@@ -1,11 +1,4 @@
 <x-filament::dropdown placement="bottom-end">
-    <style>
-        .filament-dropdown-list-item-label {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-        }
-    </style>
     <x-slot name="trigger" @class([
         'ml-4' => __('filament::layout.direction') === 'ltr',
         'mr-4' => __('filament::layout.direction') === 'rtl',
