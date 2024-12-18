@@ -7,6 +7,7 @@ use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Process;
 
 class FilamentSaasCommand extends Command
 {
@@ -52,6 +53,7 @@ class FilamentSaasCommand extends Command
         $this->call('shield:generate', ['--all' => true, '--panel' => 'admin']);
         $this->call('shield:generate', ['--all' => true, '--panel' => 'sysadmin']);
 
+        $this->call('filament:assets');
         $this->call('vendor:publish', ['--tag' => 'themes-assets']);
 
         $this->info('Creating super admin account');
@@ -68,6 +70,8 @@ class FilamentSaasCommand extends Command
 
         $this->info('Seeding');
         $this->call('db:seed');
+
+        Process::run('./vendor/bin/pint');
     }
 
     private function setUpSuperAdminAccount()

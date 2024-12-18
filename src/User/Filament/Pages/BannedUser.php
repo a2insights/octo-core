@@ -26,7 +26,7 @@ class BannedUser extends BasePage
     public function mount()
     {
         if (! Auth::user()->isBanned() || ! Filament::auth()->check()) {
-            return redirect(config('filament-saas.admin_path'));
+            return redirect(Filament::getCurrentPanel()->getLoginUrl());
         }
 
         $this->ban = Auth::user()->bans->first();
@@ -56,7 +56,7 @@ class BannedUser extends BasePage
         session()->invalidate();
         session()->regenerateToken();
 
-        return redirect(config('filament-saas.admin_path'));
+        return redirect(Filament::getCurrentPanel()->getLoginUrl());
     }
 
     protected function getFormActions(): array
