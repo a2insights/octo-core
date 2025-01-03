@@ -48,7 +48,7 @@ class FilamentSaasServiceProvider extends PackageServiceProvider
         parent::boot();
 
         FilamentAsset::register([
-            Css::make('filament-banner', __DIR__ . '../../vendor/kenepa/banner/resources/dist/banner.css'),
+            Css::make('filament-banner', base_path('vendor/kenepa/banner/resources/dist/banner.css')),
         ]);
     }
 }
