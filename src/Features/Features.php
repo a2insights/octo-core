@@ -19,7 +19,7 @@ class Features extends BaseSettings
 
     public bool $whatsapp_chat;
 
-    //TODO: reCAPTCHA
+    // TODO: reCAPTCHA
     public bool $recaptcha;
 
     public bool $user_phone;

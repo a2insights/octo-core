@@ -129,7 +129,7 @@ class FeaturesPage extends SettingsPage
                     Toggle::make('switch_language')
                         ->label(__('filament-saas::default.features.user.switch_language.label'))
                         ->helperText(__('filament-saas::default.features.user.switch_language.help_text')),
-                    //TODO: Make this configurable
+                    // TODO: Make this configurable
                     // Toggle::make('auth_login')
                     //     ->label('Login')
                     //     ->hint('You can disable login to your site.')
@@ -232,7 +232,7 @@ class FeaturesPage extends SettingsPage
                         ->columns(7),
                 ])
                 ->collapsed()
-                ->columns(1)
+                ->columns(1),
         ];
     }
 }
