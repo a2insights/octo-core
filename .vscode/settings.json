@@ -1,0 +1,30 @@
+{
+    /* Formatters */
+    "[php]": {
+        "editor.defaultFormatter": "open-southeners.laravel-pint"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "Vue.volar"
+    },
+
+    /* Editor */
+    "editor.formatOnSave": true,
+
+    /* Laravel Pint */
+    "laravel-pint.enable": true,
+    "laravel-pint.executablePath": "./vendor/bin/pint",
+    "laravel-pint.configPath": "pint.json",
+    "laravel-pint.enableDebugLogs": true
+}

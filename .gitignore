@@ -22,7 +22,6 @@ _ide_helper_models.php
 # Editors
 /.idea
 /.fleet
-/.vscode
 
 # Misc
 phpunit.xml
