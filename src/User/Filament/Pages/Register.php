@@ -71,8 +71,8 @@ class Register extends AuthRegister
         $html = new HtmlString(
             trans('filament-saas::default.users.register.accept_terms',
                 [
-                    'terms_url' => route('filament-saas::site.terms-of-service'),
-                    'privacy_policy_url' => route('filament-saas::site.privacy-policy'),
+                    'terms_url' => FilamentSaas::getTermsOfServiceRoute(),
+                    'privacy_policy_url' => FilamentSaas::getPrivacyPolicyRoute(),
                 ]
             ));
 

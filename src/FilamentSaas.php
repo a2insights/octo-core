@@ -13,4 +13,14 @@ class FilamentSaas
     {
         return config('filament-saas.companies.model', 'App\\Models\\Company');
     }
+
+    public static function getPrivacyPolicyRoute(): string
+    {
+        return config('filament-saas.privacy_url', 'privacy-policy');
+    }
+
+    public static function getTermsOfServiceRoute(): string
+    {
+        return config('filament-saas.terms_of_service_url', 'terms-of-service');
+    }
 }

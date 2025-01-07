@@ -10,4 +10,7 @@ return [
     'companies' => [
         'model' => A2Insights\FilamentSaas\Tenant\Company::class,
     ],
+
+    'terms_of_service_url' => 'terms-of-service',
+    'privacy_url' => 'privacy-policy',
 ];
