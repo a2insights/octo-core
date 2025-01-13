@@ -90,6 +90,7 @@ class TenantRegister extends BaseTenantRegister
     {
         return PhoneInput::make('phone')
             ->label(__('filament-saas::default.users.register.phone'))
+            ->unique(FilamentSaas::getUserModel())
             ->required();
     }
 }
