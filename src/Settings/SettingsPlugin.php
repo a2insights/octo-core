@@ -46,11 +46,11 @@ class SettingsPlugin implements Plugin
         $logoSize = $this->settings->logo_size;
 
         if ($favicon) {
-            $panel->favicon(Storage::url($favicon));
+            $panel->favicon(Storage::disk('public')->url($favicon));
         }
 
         if ($logo) {
-            $panel->brandLogo(Storage::url($logo));
+            $panel->brandLogo(Storage::disk('public')->url($logo));
         }
 
         if ($logoSize) {

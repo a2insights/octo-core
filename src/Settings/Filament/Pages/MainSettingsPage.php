@@ -176,6 +176,7 @@ class MainSettingsPage extends SettingsPage
                     FileUpload::make('logo')
                         ->label(__('filament-saas::default.settings.style.logo.label'))
                         ->helperText(__('filament-saas::default.settings.style.logo.help_text'))
+                        ->disk('public')
                         ->image()
                         ->directory('images')
                         ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
@@ -184,6 +185,7 @@ class MainSettingsPage extends SettingsPage
                     FileUpload::make('og')
                         ->label(__('filament-saas::default.settings.style.og.label'))
                         ->helperText(__('filament-saas::default.settings.style.og.help_text'))
+                        ->disk('public')
                         ->image()
                         ->directory('images')
                         ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
@@ -195,6 +197,7 @@ class MainSettingsPage extends SettingsPage
                     FileUpload::make('favicon')
                         ->label(__('filament-saas::default.settings.style.favicon.label'))
                         ->helperText(__('filament-saas::default.settings.style.favicon.help_text'))
+                        ->disk('public')
                         ->image()
                         ->directory('images')
                         ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
