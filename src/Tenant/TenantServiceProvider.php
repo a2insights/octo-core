@@ -22,6 +22,10 @@ class TenantServiceProvider extends PackageServiceProvider
                 ]));
         });
 
+        if (! class_exists(FilamentSaas::getCompanyModel())) {
+            return;
+        }
+
         FilamentSaas::getCompanyModel()::created(function (Model $company) {
             $company->initialize();
 
