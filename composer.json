@@ -42,7 +42,7 @@
         "filament/tables": "^3.2",
         "hasnayeen/themes": "^3.0",
         "husam-tariq/filament-database-schedule": "^2.0",
-        "icetalker/filament-picker": "^0.1.1",
+        "icetalker/filament-picker": "^0.3.0",
         "illuminate/contracts": "^11.0",
         "illuminate/support": "^11.0",
         "jeffgreco13/filament-breezy": "^2.4",
